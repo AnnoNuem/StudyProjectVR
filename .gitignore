@@ -11,3 +11,7 @@
 /*.userprefs
 /*.pidb
 /*.booproj
+
+# No trial data
+*.csv
+*.csv.meta
