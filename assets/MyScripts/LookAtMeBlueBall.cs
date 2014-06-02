@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections; 
 
-
 public class LookAtMeBlueBall : MonoBehaviour {
 
 	Vector3 pos_blue;
+
+	// script for arrow pointing
+	public ArrowPointingScript pointingScript; 
+
 
 	// for looking at check
 	double percentageOfScreenHeight = .30;
@@ -22,6 +25,8 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	double moveDistance = 15.0;   // How close can the character get
 	private Transform character; // this will be the variable we can acess players position
 	private bool hiding = false; // for inner logic
+
+
 
 	int HowHighObjectRespawns = 4;  // so the object will respawn on the same hight
 
@@ -54,6 +59,8 @@ public class LookAtMeBlueBall : MonoBehaviour {
 		pos_blue.y = (float)HowHighObjectRespawns;
 		pos_blue.z = (float)(character.position.z + spawnDistance);
 		transform.position = pos_blue ;
+
+		ArrowPointingScript pointingScript = (ArrowPointingScript) GameObject.Find("Arrow").GetComponent("ArrowPointingScript");
 	}
 	
 	// Update is called once per frame
@@ -121,11 +128,13 @@ public class LookAtMeBlueBall : MonoBehaviour {
 			{
 				pos_blue.x = (float)(character.position.x - spawnx);
 				pos_blue.z = (float)(character.position.z + spawnz);
+				((ArrowPointingScript) (GameObject.Find("Arrow").GetComponent("ArrowPointingScript"))).Point(Direction.left);
 			}
 			else
 			{
 				pos_blue.x = (float)(character.position.x + spawnx);
 				pos_blue.z = (float)(character.position.z + spawnz);
+				((ArrowPointingScript) (GameObject.Find("Arrow").GetComponent("ArrowPointingScript"))).Point(Direction.right);
 			}
 
 			transform.position = pos_blue ;
@@ -137,6 +146,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 								
 			renderer.enabled = true;
 			hiding = false;
+;
 		}
 		
 		// this is importend later, when we have a start menu and stuff. it worked, right now not used. 
