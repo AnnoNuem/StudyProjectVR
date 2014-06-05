@@ -21,7 +21,7 @@ public class recordCoordinates : MonoBehaviour {
 
 
 		filePath = Application.dataPath + "/Trial"+(System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy")+".csv";
-		Debug.Log ("File Path -->" + filePath);
+		//Debug.Log ("File Path -->" + filePath);
 		
 		//Check if the file exists ( Not really needed here)
 		if (!File.Exists(filePath)) {
@@ -34,9 +34,11 @@ public class recordCoordinates : MonoBehaviour {
 		
 		string delimiter = ",";
 
+		/*
 		// code that deals with displaying the angle in the inspector
 		Vector3 targetDir2 = target.position - transform.position;
 		AngleBetweenDisplay = Vector3.Angle (transform.forward, targetDir2);
+
 
 		// this code is needed when the subject needs to point. instead saving all the time the error we will safe only transform.forward
 		// when the subject needs to point he will push k and the data will be saved. 
@@ -46,7 +48,22 @@ public class recordCoordinates : MonoBehaviour {
 				angleBetween = Vector3.Angle (transform.forward, targetDir);
 				
 
-				}
+		}
+		*/
+
+
+		//code will only execute when K is pressed
+		if (Input.GetKeyDown (KeyCode.K)) {
+
+			//2d vector definations for angle calculation (we only take x and z coordinates)
+			Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
+			Vector2 transformVector = new Vector2 (transform.position.x, transform.position.z);
+			Vector2 forwardVector = new Vector2 (transform.forward.x, transform.forward.z);
+
+			//Actual calculation
+			Vector2 targetDir = targetVector - transformVector;
+			float angle = Vector2.Angle (targetDir, forwardVector);
+		}
 
 		//putting values for column in csv
 		string[][] output = new string[][]{
@@ -63,6 +80,11 @@ public class recordCoordinates : MonoBehaviour {
 
 		// since we presed space we need to reset the anglebetween to 999 , indicating that it is empty
 		angleBetween = 999.0F;
+
+
+		//MQ-test code
+		Debug.Log("Current Parameters --->"+ManagerScript.trialList[ManagerScript.trialNumber].lightColor);
+
 	}
 	
 }
