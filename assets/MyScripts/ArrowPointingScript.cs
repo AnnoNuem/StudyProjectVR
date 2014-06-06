@@ -21,7 +21,7 @@ public class ArrowPointingScript : MonoBehaviour
 		void Start ()
 		{
 				curDir = Direction.right;
-				arrowPosition = new Rect (Screen.width / 2 - 20, 20, 40, 40);
+				arrowPosition = new Rect (Screen.width / 2 - 20, Screen.height / 2 - 20, 40, 40);
 				showArrow = true;
 				Invoke ("HideArrow", displayTime);
 		}
