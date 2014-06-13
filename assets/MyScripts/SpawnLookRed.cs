@@ -100,18 +100,17 @@ public class SpawnLookRed : MonoBehaviour {
 		{
 		case(1):
 			pos.x = 0.9f;
-			pos.y = 0.9f;
 			pos.z = (float)spawnDistance;
 			break;
 		case(2):
 			pos.x = 0.1f;
-			pos.y = 0.9f;
 			pos.z = (float)spawnDistance;
 			break;	
 		}
 		
 		// this does the magic to put it in the left or right upper corner 
 		pos = Camera.main.ViewportToWorldPoint(pos);
+		pos.y = 12f;
 		transform.position = pos; 
 		renderer.enabled = true;
 		timer_red = 0.0f ;
