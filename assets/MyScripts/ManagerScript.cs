@@ -39,4 +39,10 @@ public class ManagerScript : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public static void abortTrial (){
+		trialNumber++;
+		trialINprocess = false;
+		CameraFade.StartAlphaFade (Color.black, false, 2f, 2f, () => {Application.LoadLevel (0); });
+		}
 }

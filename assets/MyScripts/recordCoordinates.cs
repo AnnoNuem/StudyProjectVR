@@ -64,10 +64,11 @@ public class recordCoordinates : MonoBehaviour {
 			//Actual calculation
 			Vector2 targetDir = targetVector - transformVector;
 			float angle = Vector2.Angle (targetDir, forwardVector);
-			ManagerScript.trialNumber++;
+
 			keyPressedK = true;
-			ManagerScript.trialINprocess = false;
-			CameraFade.StartAlphaFade( Color.black, false, 2f, 2f, () => { Application.LoadLevel(0); } );
+
+			//HERE
+			ManagerScript.abortTrial();
 
 		}
 
@@ -95,7 +96,7 @@ public class recordCoordinates : MonoBehaviour {
 
 		//MQ-test code
 		//Debug.Log("Current Parameters --->"+ManagerScript.trialList[ManagerScript.trialNumber].lightColor);
-		Debug.Log("Current Trial --->"+ManagerScript.trialNumber);
+		//Debug.Log("Current Trial --->"+ManagerScript.trialNumber);
 	}
 	
 }
