@@ -33,7 +33,7 @@ public class recordCoordinates : MonoBehaviour {
 	//FixedUpdate is used for rigid bodies and is executed independently of the configuration of system i.e. runs on regular set of intervals
 	void FixedUpdate () {
 		
-		string delimiter = ",";
+
 
 		/*
 		// code that deals with displaying the angle in the inspector
@@ -71,8 +71,9 @@ public class recordCoordinates : MonoBehaviour {
 
 		}
 
+		//flag to enable new CSV for each trial
 		if(ManagerScript.trialINprocess){
-
+			string delimiter = ",";
 			//putting values for column in csv
 			string[][] output = new string[][]{
 				new string[]{(transform.position.x).ToString(),(transform.position.y).ToString(),(transform.position.z).ToString(),(transform.forward).ToString(),(Time.realtimeSinceStartup).ToString(),(Time.deltaTime).ToString(),(angleBetween).ToString()} 
