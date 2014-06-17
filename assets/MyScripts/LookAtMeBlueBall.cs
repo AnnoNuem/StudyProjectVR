@@ -7,9 +7,10 @@ public class LookAtMeBlueBall : MonoBehaviour {
 
 	// script for arrow pointing
 	public ArrowPointingScript pointingScript; 
-	
+	public GuiScript guiScript;
+
 	// time a user has to reach the next blue sphere
-	int timeToGetToBlueSphere = 10;
+	int timeToGetToBlueSphere = 5;
 
 	// for looking at check
 	double percentageOfScreenHeight = .30;
@@ -23,7 +24,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 
 	// omportend for respawning
 	double hideTime = 0.5;       // How long to hide
-	double spawnDistance = 50.0; // How far away to spawn
+	double spawnDistance = 40.0; // How far away to spawn
 	double moveDistance = 15.0;   // How close can the character get
 	private Transform character; // this will be the variable we can acess players position
 	private bool hiding = false; // for inner logic
@@ -176,6 +177,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	void toLong(){
 		ManagerScript.abortTrial ();
 		Debug.Log("Blue Sphere not reached in time");
+		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
 	}
 
 }
