@@ -52,8 +52,8 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Paint_Color
       value:
-        scalar[0]: .926470578
-        scalar[1]: .182234287
+        scalar[0]: .875354946
+        scalar[1]: .926470578
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
@@ -80,9 +80,9 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Rust_Color
       value:
-        scalar[0]: .286300004
-        scalar[1]: .168599993
-        scalar[2]: .101999998
+        scalar[0]: .102000006
+        scalar[1]: .286300004
+        scalar[2]: .118523449
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Depth

@@ -7,7 +7,10 @@ public class LookAtMeBlueBall : MonoBehaviour {
 
 	// script for arrow pointing
 	public ArrowPointingScript pointingScript; 
+	public GuiScript guiScript;
 
+	// time a user has to reach the next blue sphere
+	int timeToGetToBlueSphere = 5;
 
 	// for looking at check
 	double percentageOfScreenHeight = .30;
@@ -21,7 +24,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 
 	// omportend for respawning
 	double hideTime = 0.5;       // How long to hide
-	double spawnDistance = 50.0; // How far away to spawn
+	double spawnDistance = 40.0; // How far away to spawn
 	double moveDistance = 15.0;   // How close can the character get
 	private Transform character; // this will be the variable we can acess players position
 	private bool hiding = false; // for inner logic
@@ -60,6 +63,9 @@ public class LookAtMeBlueBall : MonoBehaviour {
 		pos_blue.z = (float)(character.position.z + spawnDistance);
 		transform.position = pos_blue ;
 
+		// user reached blue sphere in time
+		Invoke("toLong", timeToGetToBlueSphere);
+
 		ArrowPointingScript pointingScript = (ArrowPointingScript) GameObject.Find("Arrow").GetComponent("ArrowPointingScript");
 	}
 	
@@ -91,6 +97,9 @@ public class LookAtMeBlueBall : MonoBehaviour {
 		HowOftenIsLookedAt++ ;
 		if (HowOftenIsLookedAt != 2 ) 
 		{
+			// user reached blue sphere in time
+			CancelInvoke("toLong");
+
 			hiding = true;
 			renderer.enabled = false;
 			// spanning random at 30 60 90 degrees left or right
@@ -145,9 +154,16 @@ public class LookAtMeBlueBall : MonoBehaviour {
 			// Debug.Log(myPosition);
 								
 			renderer.enabled = true;
+
+
+			// call function if user takes to long to get to blue sphere
+			Invoke("toLong", timeToGetToBlueSphere);
+
+
 			hiding = false;
 ;
 		}
+
 		
 		// this is importend later, when we have a start menu and stuff. it worked, right now not used. 
 		//    else {
@@ -157,4 +173,11 @@ public class LookAtMeBlueBall : MonoBehaviour {
 		//			Application.LoadLevel("loadingMenu");
 		//		}
 	}
+
+	void toLong(){
+		ManagerScript.abortTrial ();
+		Debug.Log("Blue Sphere not reached in time");
+		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
+	}
+
 }
