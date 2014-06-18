@@ -1,7 +1,7 @@
 Distractor:
 The distractor should be yellow, and come from somewhere in the field of field of subject. Its respawning time should be defined by the threshold of the condition(easy and hard) and be distributed with a passion distribution. It should appear randomly in the field of view.
 
-The distractor should be focuses for around 200 to 300 ms, in order to be fixated and then the subject can push a button to “defeat” it.
+The distractor should be focuses for around 200 to 300 ms, in order to be fixated and then the subject can push a button to ï¿½defeatï¿½ it.
 
 Blue ball, the destination
 In the beginning of each trial, the blue sphere is spawning in front of the subject. The subject has around 5 seconds (better 8, but lets try first with 5) to reach the first sphere. 
@@ -15,7 +15,7 @@ For each trial we will generate few files containing all relevant information
 
 
 
-Crosshair:
+Crosshair :
 
 
 
