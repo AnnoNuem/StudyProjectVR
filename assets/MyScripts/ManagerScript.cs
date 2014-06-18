@@ -13,6 +13,8 @@ public class ManagerScript : MonoBehaviour {
 
 	public static bool trialINprocess = false;
 
+	public static bool pointTaskINprocess = false;
+
 	//Trials and random variables will be generated here
 	void Awake(){
 
