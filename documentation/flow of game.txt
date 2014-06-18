@@ -1,0 +1,52 @@
+Distractor:
+The distractor should be yellow, and come from somewhere in the field of field of subject. Its respawning time should be defined by the threshold of the condition(easy and hard) and be distributed with a passion distribution. It should appear randomly in the field of view.
+
+The distractor should be focuses for around 200 to 300 ms, in order to be fixated and then the subject can push a button to “defeat” it.
+
+Blue ball, the destination
+In the beginning of each trial, the blue sphere is spawning in front of the subject. The subject has around 5 seconds (better 8, but lets try first with 5) to reach the first sphere. 
+After he reaches it, the sphere respawns randomly with 30,60 and 90 degree either left or right. The value of the degree should be jittered with a standard Gaussian, so like 31 or 27 or 61 or 63 and so on. 
+A que is presented to which direction to rotate.
+After the subject moves towards the respond blue sphere, the counter of 5 seconds start over, and the stressors are respawining. 
+
+Saving the data:
+
+For each trial we will generate few files containing all relevant information
+
+
+
+Crosshair:
+
+
+
+
+The stages:
+
+1 Stage: Starting screen
+
+The subject sees a start screen where he can fill out:
+Subject ID
+Questioner about stress
+After he fills out the questioner, an introduction is coming up.
+
+2 Stage: just blue sphere
+To the subject the plain condition without a distractor or a condition light is presented. His task is just to catch reach the blue sphere and point back. This is done 2-3 times, till he succeeds,
+
+3 Stage: threshold
+Few trials with the stressors are presented. It starts from very easy distresses, so the performance should be 90-100 percent. It does increase till it drops and increases till the moment where we have around 60-50 percent performance stable. The first threshold will be the easy one, the second the hard one.
+
+It might be the case, that this threshold can be repeated after hold of the experiment. 
+
+4 Stage: 2x40 conditioning trials 
+
+Randomly the easy and hard conditions are coming. 
+After the first 40 trials, the stress questioner should be displayed.
+
+5 Stage: 4x40 conditioning trials with mismatch
+Again, 40 trials are with ambient light, some hard some farlse. 10 from 40 trials should have a mismatch, 5 false hard and 5 false easy.
+After 40 trials stress questioner. Than repeating till all 160 trials are over.
+
+
+
+
+
