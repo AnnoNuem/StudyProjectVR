@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 public class testofexponential : MonoBehaviour
-{
+{	
+	/*
 	private UnityRandom urand;
 	
 	private int lauf =0;
@@ -37,5 +38,5 @@ void OnApplicationQuit() {
 	
 		exponential.Close ();
 }
-
+*/
 }

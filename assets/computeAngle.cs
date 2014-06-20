@@ -4,7 +4,7 @@ using System.Collections;
 
 
 public class computeAngle : MonoBehaviour {
-
+/*
 	double angleBetween = 0.0;
 	Transform target;
 
@@ -21,4 +21,5 @@ public class computeAngle : MonoBehaviour {
 		angleBetween = Vector3.Angle (transform.forward, targetDirection);
 		Debug.Log(angleBetween);
 	}
+	*/
 }

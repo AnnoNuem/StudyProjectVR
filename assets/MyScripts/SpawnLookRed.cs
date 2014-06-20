@@ -10,6 +10,8 @@ public class SpawnLookRed : MonoBehaviour {
 	float TimerForLooking = 0.0f; // timer, than needs to reach CoolDownValue
 	int moveDistance = 5;   // How close can the character get
 	float speed = 5.0f ; // the speed of the sphere
+	private UnityRandom urand;
+	float val;
 
 
 	Vector3 pos;
@@ -34,6 +36,11 @@ public class SpawnLookRed : MonoBehaviour {
 		
 		// first lets hide the ball
 		renderer.enabled = false;
+
+		//Random Generator intialization
+		urand = new UnityRandom(213123);
+
+
 	}
 	
 	// Update is called once per frame
@@ -44,8 +51,10 @@ public class SpawnLookRed : MonoBehaviour {
 		//		spawning_red = false ;
 		//		renderer.enabled = false;
 		//		}
-		
-		
+
+
+		//Debug.Log ("float value --->" + urand.Range(1,100,UnityRandom.Normalization.STDNORMAL, 5.0f));
+
 		// this part is responsable for wating some time and respawn the object
 		if (spawning_red) 
 		{ 
@@ -94,7 +103,11 @@ public class SpawnLookRed : MonoBehaviour {
 
 	// this is the function that respawns the red sphere
 	void MoveAndShow() 
-	{
+	{	
+		pos.x = urand.Range(0,1,UnityRandom.Normalization.STDNORMAL, 0.1f);
+		pos.z = (float)spawnDistance;
+
+		/*
 		// this is needed to put something in the left or right upper corner of the field of view
 		switch(Random.Range(1,3))
 		{
@@ -107,7 +120,9 @@ public class SpawnLookRed : MonoBehaviour {
 			pos.z = (float)spawnDistance;
 			break;	
 		}
-		
+		*/
+		//Debug.Log(pos.x);
+
 		// this does the magic to put it in the left or right upper corner 
 		pos = Camera.main.ViewportToWorldPoint(pos);
 		pos.y = 12f;

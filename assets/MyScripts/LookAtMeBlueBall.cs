@@ -10,7 +10,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	public GuiScript guiScript;
 
 	// time a user has to reach the next blue sphere
-	int timeToGetToBlueSphere = 5;
+	int timeToGetToBlueSphere = 8;
 
 	// for looking at check
 	double percentageOfScreenHeight = .30;
@@ -28,7 +28,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	double moveDistance = 15.0;   // How close can the character get
 	private Transform character; // this will be the variable we can acess players position
 	private bool hiding = false; // for inner logic
-
+	private UnityRandom urand;
 
 
 	int HowHighObjectRespawns = 4;  // so the object will respawn on the same hight
@@ -36,7 +36,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	// this is for the spawn degree
 	// cation, in genral works, is wrong. see explanation later
 	bool left = false;
-	int DegreeOfSpawn;
+	float DegreeOfSpawn;
 
 	// this is for understanding the pricipal i use for checking if looked at or not
 //	void OnGUI () 
@@ -49,6 +49,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+
 		// who shall not pass the blue light ?
 		character = GameObject.Find("Character").transform;
 
@@ -67,6 +68,8 @@ public class LookAtMeBlueBall : MonoBehaviour {
 		Invoke("toLong", timeToGetToBlueSphere);
 
 		ArrowPointingScript pointingScript = (ArrowPointingScript) GameObject.Find("Arrow").GetComponent("ArrowPointingScript");
+
+		urand = new UnityRandom(213123);
 	}
 	
 	// Update is called once per frame
@@ -107,29 +110,34 @@ public class LookAtMeBlueBall : MonoBehaviour {
 			{
 			case 1:
 				left = false;
-				DegreeOfSpawn = 90;
+				//DegreeOfSpawn = 90;
+				DegreeOfSpawn = urand.Range(75,105,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 2:
 				left = false;
-				DegreeOfSpawn = 60 ;
+				//DegreeOfSpawn = 60 ;
+				DegreeOfSpawn = urand.Range(45,75,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 3:
 				left = false;
-				DegreeOfSpawn = 30 ;
+				//DegreeOfSpawn = 30 ;
+				DegreeOfSpawn = urand.Range(15,45,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 4:
 				left = true;
-				DegreeOfSpawn = 30 ;
+				DegreeOfSpawn = urand.Range(75,105,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 5:
 				left = true;
-				DegreeOfSpawn = 60 ;
+				DegreeOfSpawn = urand.Range(45,75,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 6:
 				left = true;
-				DegreeOfSpawn = 90 ;
+				DegreeOfSpawn = urand.Range(15,45,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			}
+
+			Debug.Log(DegreeOfSpawn);
 			
 			float spawnx = (float)(Mathf.Sin(DegreeOfSpawn) * spawnDistance); 
 			float spawnz = (float)(Mathf.Cos(DegreeOfSpawn) * spawnDistance); 

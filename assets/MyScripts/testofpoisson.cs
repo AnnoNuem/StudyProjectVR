@@ -8,6 +8,7 @@ using System.Text;
 using System.IO;
 public class testofpoisson : MonoBehaviour
 {
+	/*
 	private UnityRandom urand;
 	
 	private int lauf =0;
@@ -37,5 +38,5 @@ void OnApplicationQuit() {
 	
 		possion.Close ();
 }
-
+*/
 }
