@@ -4,6 +4,14 @@ using System.IO;
 
 public class ManagerScript : MonoBehaviour {
 
+	// states for state machine to describe in which experiment state we are
+	public enum states { startScreen, walking, pointing, questionaire};
+
+	// chiffre for identification, can be changed in start screen
+	public static string chiffre = "";
+
+	public static states state;
+
 	//public list of trials
 	public static List<trialContainer> trialList = new List<trialContainer>();
 	//static variable tracks what trial is in process
@@ -17,7 +25,6 @@ public class ManagerScript : MonoBehaviour {
 
 	//Trials and random variables will be generated here
 	void Awake(){
-
 		trialINprocess = true;
 
 		if (!Directory.Exists(ManagerScript.trialFolder)){
@@ -34,7 +41,7 @@ public class ManagerScript : MonoBehaviour {
 	}
 	//
 	void Start () {
-	
+		ManagerScript.switchState (states.startScreen);
 	}
 	
 	// Update is called once per frame
@@ -46,5 +53,18 @@ public class ManagerScript : MonoBehaviour {
 		trialNumber++;
 		trialINprocess = false;
 		CameraFade.StartAlphaFade (Color.black, false, 2f, 2f, () => {Application.LoadLevel (0); });
+		}
+
+	public static void switchState (states newState){
+				switch (newState) {
+				case states.startScreen:
+						Time.timeScale = 0;
+						ManagerScript.state = states.startScreen;
+						break;
+				case states.walking:
+						Time.timeScale = 1;
+						ManagerScript.state = states.walking;
+						break;
+				}
 		}
 }

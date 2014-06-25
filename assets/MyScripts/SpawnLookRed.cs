@@ -110,7 +110,10 @@ public class SpawnLookRed : MonoBehaviour {
 		
 		// this does the magic to put it in the left or right upper corner 
 		pos = Camera.main.ViewportToWorldPoint(pos);
-		pos.y = 12f;
+		//randomize the height of the spwan position of the orange sphere between 4 and 12
+		pos.y = Random.Range(4,13);
+
+		//apply new position
 		transform.position = pos; 
 		renderer.enabled = true;
 		timer_red = 0.0f ;
