@@ -1899,6 +1899,8 @@ GameObject:
   - 114: {fileID: 2010385945}
   - 114: {fileID: 2010385944}
   - 114: {fileID: 2010385949}
+  - 114: {fileID: 2010385948}
+  - 114: {fileID: 2010385950}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -2021,6 +2023,18 @@ CharacterController:
   m_SkinWidth: .0500000007
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2010385948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2010385942}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f001a7daba20cde41bda557c81812e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_crosshairTexture: {fileID: 2800000, guid: 441310dee32c2364f960b01980712e9a, type: 3}
 --- !u!114 &2010385949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2035,6 +2049,22 @@ MonoBehaviour:
   angleBetween: 999
   AngleBetweenDisplay: 0
   target: {fileID: 725266473}
+--- !u!114 &2010385950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2010385942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62c88315990e90349ae1b821b4c040ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawCrosshair: 1
+  crosshairColor: {r: 1, g: 1, b: 1, a: 1}
+  lineLength: 10
+  lineWidth: 1
+  spread: 20
 --- !u!1001 &2106148165
 Prefab:
   m_ObjectHideFlags: 0
