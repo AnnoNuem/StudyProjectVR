@@ -5,6 +5,9 @@ using System.IO;
 
 public class ManagerScript : MonoBehaviour
 {
+		// when should the questionaire be in the middle be
+		int middleQuestionaire = 5;
+
 
 		// states for state machine to describe in which experiment state we are
 		public enum states
@@ -27,6 +30,7 @@ public class ManagerScript : MonoBehaviour
 		public static string trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
 		public static bool trialINprocess = false;
 		public static bool pointTaskINprocess = false;
+	
 
 		//Trials and random variables will be generated here
 		void Awake ()
@@ -54,15 +58,16 @@ public class ManagerScript : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-	
+			if (trialNumber == middleQuestionaire) {
+						switchState (states.questionaire);
+				}
 		}
 
 		public static void abortTrial ()
 		{
 				trialNumber++;
 				trialINprocess = false;
-				CameraFade.StartAlphaFade (Color.black, false, 2f, 2f, () => {
-						Application.LoadLevel (0); });
+				CameraFade.StartAlphaFade (Color.black, false, 2f, 2f);
 		}
 
 
@@ -74,6 +79,13 @@ public class ManagerScript : MonoBehaviour
 				case states.startScreen:
 						Time.timeScale = 0;
 						GameObject.Find ("Character").SendMessage ("changeMovement", false);
+						ManagerScript.state = states.startScreen;
+						break;
+				//questionaire
+				case states.questionaire:
+						Time.timeScale = 0;
+						GameObject.Find ("Character").SendMessage ("changeMovement", false);
+						ManagerScript.state = states.questionaire;
 						break;
 				//walking
 				case states.walking:
@@ -83,7 +95,7 @@ public class ManagerScript : MonoBehaviour
 						break;
 				//pause
 				case states.pause:
-						Time.timeScale = 1;
+						Time.timeScale = 0;
 						ManagerScript.state = states.pause;
 						GameObject.Find ("Character").SendMessage ("changeMovement", false);
 						break;

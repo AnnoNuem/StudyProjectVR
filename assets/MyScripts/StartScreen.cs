@@ -19,7 +19,7 @@ public class StartScreen : MonoBehaviour
 		void WindowFunction (int windowID)
 		{
 			if (GUI.Button (buttonRect, "Start")) {
-				ManagerScript.switchState(ManagerScript.states.walking);
+				ManagerScript.switchState(ManagerScript.states.questionaire);
 			}
 			ManagerScript.chiffre = GUI.TextField (textFieldRect, ManagerScript.chiffre);
 			GUI.Label (labelRect, "Enter a Chiffre:");
