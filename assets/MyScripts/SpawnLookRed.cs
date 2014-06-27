@@ -45,8 +45,9 @@ public class SpawnLookRed : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		renderer.enabled = false;
 		if (ManagerScript.state == ManagerScript.states.walking){
-	
+			renderer.enabled = true;
 		// this code is fo stoping the ball from respawning when the subject needs to point. does somehow not work
 		//	if (transform.Find("BlueBallGLow").GetComponent(LookAtMeBlueNew).HowOftenIsLookedAt == 2 ) {
 		//		spawning_red = false ;

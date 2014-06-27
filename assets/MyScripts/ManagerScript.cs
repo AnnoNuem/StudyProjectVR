@@ -90,9 +90,11 @@ public class ManagerScript : MonoBehaviour
 						break;
 				//walking
 				case states.walking:
+						
 						Time.timeScale = 1;
 						ManagerScript.state = states.walking;
 						GameObject.Find ("Character").SendMessage ("changeMovement", true);
+						((LookAtMeBlueBall)(GameObject.Find("BlueBallGLow").GetComponent("LookAtMeBlueBall"))).newTrial();
 						break;
 				//pause
 				case states.pause:
@@ -100,6 +102,15 @@ public class ManagerScript : MonoBehaviour
 						ManagerScript.state = states.pause;
 						GameObject.Find ("Character").SendMessage ("changeMovement", false);
 						break;
+
+				//pointing
+		case states.pointing:
+			Time.timeScale = 1;
+			ManagerScript.state = states.pointing;
+			GameObject.Find ("Character").SendMessage ("changeMovement", true);
+			Debug.Log("pointing");
+			break;
+
 				
 				}
 		}

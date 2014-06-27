@@ -29,14 +29,16 @@ public class ArrowPointingScript : MonoBehaviour
 		// OnGUI is called once per frame
 		void OnGUI ()
 		{
-				if (showArrow) {
+				if (ManagerScript.state == ManagerScript.states.walking) {
+			if (showArrow) {
 
-						if (curDir == Direction.left) {
-								GUI.DrawTexture (arrowPosition, leftArrow);
-						} else {
-								GUI.DrawTexture (arrowPosition, rightArrow);
-						}
+				if (curDir == Direction.left) {
+					GUI.DrawTexture (arrowPosition, leftArrow);
+				} else {
+					GUI.DrawTexture (arrowPosition, rightArrow);
 				}
+			}
+		}
 		}
 
 		public void Point (Direction d)

@@ -21,7 +21,9 @@ public class crosshairtest : MonoBehaviour
 	
 	void OnGUI () 
 	{
-		if(m_bIsCrosshairVisible)
-			GUI.DrawTexture(m_crosshairRect, m_crosshairTexture);
+		if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
+			if (m_bIsCrosshairVisible)
+				GUI.DrawTexture (m_crosshairRect, m_crosshairTexture);
+		}
 	}
 }
