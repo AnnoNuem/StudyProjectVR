@@ -86,6 +86,7 @@ public class ManagerScript : MonoBehaviour
 						Time.timeScale = 0;
 						GameObject.Find ("Character").SendMessage ("changeMovement", false);
 						ManagerScript.state = states.questionaire;
+			Debug.Log("questionaire");
 						break;
 				//walking
 				case states.walking:
