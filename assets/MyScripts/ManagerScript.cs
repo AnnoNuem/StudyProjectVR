@@ -58,7 +58,7 @@ public class ManagerScript : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-			if (trialNumber == middleQuestionaire) {
+				if (trialNumber == middleQuestionaire) {
 						switchState (states.questionaire);
 				}
 		}
@@ -86,7 +86,7 @@ public class ManagerScript : MonoBehaviour
 						Time.timeScale = 0;
 						GameObject.Find ("Character").SendMessage ("changeMovement", false);
 						ManagerScript.state = states.questionaire;
-			Debug.Log("questionaire");
+						Debug.Log ("questionaire");
 						break;
 				//walking
 				case states.walking:
@@ -94,7 +94,7 @@ public class ManagerScript : MonoBehaviour
 						Time.timeScale = 1;
 						ManagerScript.state = states.walking;
 						GameObject.Find ("Character").SendMessage ("changeMovement", true);
-						((LookAtMeBlueBall)(GameObject.Find("BlueBallGLow").GetComponent("LookAtMeBlueBall"))).newTrial();
+						((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
 						break;
 				//pause
 				case states.pause:
@@ -104,12 +104,12 @@ public class ManagerScript : MonoBehaviour
 						break;
 
 				//pointing
-		case states.pointing:
-			Time.timeScale = 1;
-			ManagerScript.state = states.pointing;
-			GameObject.Find ("Character").SendMessage ("changeMovement", true);
-			Debug.Log("pointing");
-			break;
+				case states.pointing:
+						Time.timeScale = 1;
+						ManagerScript.state = states.pointing;
+						GameObject.Find ("Character").SendMessage ("changeMovement", true);
+						Debug.Log ("pointing");
+						break;
 
 				
 				}
