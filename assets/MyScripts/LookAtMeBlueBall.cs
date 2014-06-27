@@ -64,6 +64,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 		pos_blue.z = (float)(character.position.z + spawnDistance);
 		transform.position = pos_blue ;
 
+
 		// user reached blue sphere in time
 		Invoke("toLong", timeToGetToBlueSphere);
 
@@ -103,6 +104,9 @@ public class LookAtMeBlueBall : MonoBehaviour {
 			// user reached blue sphere in time
 			CancelInvoke("toLong");
 
+
+
+
 			hiding = true;
 			renderer.enabled = false;
 			// spanning random at 30 60 90 degrees left or right
@@ -140,23 +144,40 @@ public class LookAtMeBlueBall : MonoBehaviour {
 			}
 
 			Debug.Log(DegreeOfSpawn);
-			
-			float spawnx = (float)(Mathf.Sin(DegreeOfSpawn) * spawnDistance); 
-			float spawnz = (float)(Mathf.Cos(DegreeOfSpawn) * spawnDistance); 
+
+			// previosly we we assuming, that we should spawn the blue sphere in relation to the player
+			// !! this is wrong!
+			// the blue spher should respawn in relation the the previos blue sphere
+
+			//float spawnx = (float)(Mathf.Sin(DegreeOfSpawn) * spawnDistance); 
+			//float spawnz = (float)(Mathf.Cos(DegreeOfSpawn) * spawnDistance);
+
+			//Vector3 temp1 = transform.rotation ;
+			Vector2 tempVector = new Vector2(transform);
+
+
+
+
+
 			if (left) 
 			{
-				pos_blue.x = (float)(character.position.x - spawnx);
-				pos_blue.z = (float)(character.position.z + spawnz);
+
+				//pos_blue.y = (float)(transform.rotation.y - DegreeOfSpawn);
+				transform.rotation.y = (float)(transform.rotation.y - DegreeOfSpawn) ;
+				transform.position.z = (float)(transform.position.z + spawnDistance) ;
+				//pos_blue.z = (float)(transform.position.z + spawnDistance);
 				((ArrowPointingScript) (GameObject.Find("Arrow").GetComponent("ArrowPointingScript"))).Point(Direction.left);
 			}
 			else
 			{
-				pos_blue.x = (float)(character.position.x + spawnx);
-				pos_blue.z = (float)(character.position.z + spawnz);
+				//pos_blue.x = (float)(transform.rotation.y + DegreeOfSpawn);
+				//pos_blue.z = (float)(transform.position.z + spawnDistance);
+				transform.rotation.y = (float)(transform.rotation.y + DegreeOfSpawn) ;
+				transform.position.z = (float)(transform.position.z + spawnDistance) ;
 				((ArrowPointingScript) (GameObject.Find("Arrow").GetComponent("ArrowPointingScript"))).Point(Direction.right);
 			}
 
-			transform.position = pos_blue ;
+			// transform.position = pos_blue ;
 			
 			//Creates a variable to check the objects position.
 			// var myPosition = transform.position;
