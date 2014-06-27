@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 
 public class ManagerScript : MonoBehaviour
@@ -53,7 +54,6 @@ public class ManagerScript : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				Debug.Log (state.ToString ());
 	
 		}
 
@@ -65,20 +65,31 @@ public class ManagerScript : MonoBehaviour
 						Application.LoadLevel (0); });
 		}
 
+
+		// the state machine
 		public static void switchState (states newState)
 		{
 				switch (newState) {
+				//start screen
 				case states.startScreen:
 						Time.timeScale = 0;
-						ManagerScript.state = states.startScreen;
+						GameObject.Find ("Character").SendMessage ("changeMovement", false);
 						break;
+				//walking
 				case states.walking:
 						Time.timeScale = 1;
 						ManagerScript.state = states.walking;
+						GameObject.Find ("Character").SendMessage ("changeMovement", true);
 						break;
+				//pause
 				case states.pause:
+						Time.timeScale = 1;
 						ManagerScript.state = states.pause;
+						GameObject.Find ("Character").SendMessage ("changeMovement", false);
 						break;
+				
 				}
 		}
+
+
 }
