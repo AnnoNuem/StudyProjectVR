@@ -108,32 +108,34 @@ public class LookAtMeBlueBall : MonoBehaviour {
 			// spanning random at 30 60 90 degrees left or right
 			switch(Random.Range(1,6))
 			{
+			// the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
+			// lets try it with 10 degree in total
 			case 1:
 				left = false;
 				//DegreeOfSpawn = 90;
-				DegreeOfSpawn = urand.Range(75,105,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range(85,95,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 2:
 				left = false;
 				//DegreeOfSpawn = 60 ;
-				DegreeOfSpawn = urand.Range(45,75,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range(55,65,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 3:
 				left = false;
 				//DegreeOfSpawn = 30 ;
-				DegreeOfSpawn = urand.Range(15,45,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range(25,35,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 4:
 				left = true;
-				DegreeOfSpawn = urand.Range(75,105,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range(85,95,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 5:
 				left = true;
-				DegreeOfSpawn = urand.Range(45,75,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range(55,8,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 6:
 				left = true;
-				DegreeOfSpawn = urand.Range(15,45,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range(25,35,UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			}
 
