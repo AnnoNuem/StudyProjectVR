@@ -73,26 +73,23 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{
-		// check if is being looked at
-		if (centerRect.Contains(Camera.main.WorldToScreenPoint(transform.position) )) 
-		{
-			timer += Time.deltaTime;   
-		}
-		else 
-		{
-			timer = 0.0f;
-			//Debug.Log ("Looked at");
-		}
+	void Update () {
+		if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
+	
+						// check if is being looked at
+						if (centerRect.Contains (Camera.main.WorldToScreenPoint (transform.position))) {
+								timer += Time.deltaTime;   
+						} else {
+								timer = 0.0f;
+								//Debug.Log ("Looked at");
+						}
 		
-		if (!hiding && Vector3.Distance(character.position, transform.position) < moveDistance) 
-		{
-			if ( timer > 1.0 ) 
-			{
-				HideAndMove();				
-			}	
-		}
+						if (!hiding && Vector3.Distance (character.position, transform.position) < moveDistance) {
+								if (timer > 1.0) {
+										HideAndMove ();				
+								}	
+						}
+				}
 	}
 
 	void HideAndMove() 
@@ -171,7 +168,6 @@ public class LookAtMeBlueBall : MonoBehaviour {
 
 
 			hiding = false;
-;
 		}
 
 		
@@ -182,6 +178,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 		//    		yield WaitForSeconds(25);
 		//			Application.LoadLevel("loadingMenu");
 		//		}
+			
 	}
 
 	void toLong(){

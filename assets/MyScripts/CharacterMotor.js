@@ -173,6 +173,9 @@ private var lastGroundNormal : Vector3 = Vector3.zero;
 
 private var tr : Transform;
 
+//true if movement is enabled
+private var walk;
+
 private var controller : CharacterController;
 
 function Awake () {
@@ -180,7 +183,13 @@ function Awake () {
 	tr = transform;
 }
 
+function changeMovement (walk){
+	this.walk = walk;
+}
+
 private function UpdateFunction () {
+	if(walk)
+	{
 	// We copy the actual velocity into a temporary variable that we can manipulate.
 	var velocity : Vector3 = movement.velocity;
 	
@@ -305,6 +314,7 @@ private function UpdateFunction () {
 		// Support moving platform rotation as well:
         movingPlatform.activeGlobalRotation = tr.rotation;
         movingPlatform.activeLocalRotation = Quaternion.Inverse(movingPlatform.activePlatform.rotation) * movingPlatform.activeGlobalRotation; 
+	}
 	}
 }
 
