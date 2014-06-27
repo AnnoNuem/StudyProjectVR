@@ -1,5 +1,7 @@
 Distractor:
-The distractor should be yellow, and come from somewhere in the field of field of subject. Its respawning time should be defined by the threshold of the condition(easy and hard) and be distributed with a passion distribution. It should appear randomly in the field of view.
+The distractor should be yellow, and come from somewhere in the field of field of subject. 
+Its respawning time should be defined by the threshold of the condition(easy and hard) and 
+be distributed with a passion distribution. It should appear randomly in the field of view (somewhere around the periphere).
 
 The distractor should be focuses for around 200 to 300 ms, in order to be fixated and then the subject can push a button to �defeat� it.
 
