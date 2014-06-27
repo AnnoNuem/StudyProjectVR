@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections; 
+using System.Collections;
 
-public class LookAtMeBlueBall : MonoBehaviour {
+public class LookAtMeBlueBall : MonoBehaviour
+{
 
 	Vector3 pos_blue;
+	int numberOfSpheres = 2;
+	int numberOfReachedSpheres;
 
 	// script for arrow pointing
-	public ArrowPointingScript pointingScript; 
+	public ArrowPointingScript pointingScript;
 	public GuiScript guiScript;
 
 	// time a user has to reach the next blue sphere
@@ -20,7 +23,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	private float timer = 0.0f;
 	
 	// variable to count how often the ball is looked at
-	int HowOftenIsLookedAt  = 0 ;
+	int HowOftenIsLookedAt = 0 ;
 
 	// omportend for respawning
 	double hideTime = 0.5;       // How long to hide
@@ -29,8 +32,6 @@ public class LookAtMeBlueBall : MonoBehaviour {
 	private Transform character; // this will be the variable we can acess players position
 	private bool hiding = false; // for inner logic
 	private UnityRandom urand;
-
-
 	int HowHighObjectRespawns = 4;  // so the object will respawn on the same hight
 
 	// this is for the spawn degree
@@ -47,113 +48,125 @@ public class LookAtMeBlueBall : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () 
+	void Start ()
 	{
 
 		// who shall not pass the blue light ?
-		character = GameObject.Find("Character").transform;
+		character = GameObject.Find ("Character").transform;
 
 		// this is our rectangle, in middle of creeen. It is the area that counts as our vision middle.
 		// we check with this if the object is loocked at
-		double ySize = Screen.height*percentageOfScreenHeight;
-		centerRect = new Rect((float)(Screen.width/2 - ySize/2), (float)(Screen.height/2 - ySize/2), (float)ySize, (float)ySize);
+		double ySize = Screen.height * percentageOfScreenHeight;
+		centerRect = new Rect ((float)(Screen.width / 2 - ySize / 2), (float)(Screen.height / 2 - ySize / 2), (float)ySize, (float)ySize);
 				
+
+
+		urand = new UnityRandom (213123);
+	}
+
+	public void newTrial ()
+	{
+		numberOfReachedSpheres = 0;
 		// This puts the blue sphere in the beginning of the game in the front of the playr 
 		pos_blue.x = (float)character.position.x;
 		pos_blue.y = (float)HowHighObjectRespawns;
 		pos_blue.z = (float)(character.position.z + spawnDistance);
-		transform.position = pos_blue ;
-
+		transform.position = pos_blue;
+		
 		// user reached blue sphere in time
-		Invoke("toLong", timeToGetToBlueSphere);
-
-		ArrowPointingScript pointingScript = (ArrowPointingScript) GameObject.Find("Arrow").GetComponent("ArrowPointingScript");
-
-		urand = new UnityRandom(213123);
+		Invoke ("toLong", timeToGetToBlueSphere);
+		
+		ArrowPointingScript pointingScript = (ArrowPointingScript)GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript");
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
 	
-						// check if is being looked at
-						if (centerRect.Contains (Camera.main.WorldToScreenPoint (transform.position))) {
-								timer += Time.deltaTime;   
-						} else {
-								timer = 0.0f;
-								//Debug.Log ("Looked at");
-						}
+			// check if is being looked at
+			if (centerRect.Contains (Camera.main.WorldToScreenPoint (transform.position))) {
+				timer += Time.deltaTime;   
+			} else {
+				timer = 0.0f;
+				//Debug.Log ("Looked at");
+			}
 		
-						if (!hiding && Vector3.Distance (character.position, transform.position) < moveDistance) {
-								if (timer > 1.0) {
-										HideAndMove ();				
-								}	
-						}
-				}
+			if (!hiding && Vector3.Distance (character.position, transform.position) < moveDistance) {
+				if (timer > 1.0) {
+					HideAndMove ();				
+				}	
+			}
+		}
 	}
 
-	void HideAndMove() 
+	void HideAndMove ()
 	{
-		HowOftenIsLookedAt++ ;
-		if (HowOftenIsLookedAt != 2 ) 
-		{
+		HowOftenIsLookedAt++;
+
+		if (HowOftenIsLookedAt != 2) {
+			numberOfReachedSpheres++;
+
 			// user reached blue sphere in time
-			CancelInvoke("toLong");
+			CancelInvoke ("toLong");
 
 			hiding = true;
 			renderer.enabled = false;
+
+			// if we reached the number of spheres point back
+			if (numberOfReachedSpheres == numberOfSpheres) {
+				ManagerScript.switchState (ManagerScript.states.pointing);
+				return;
+			}
+
 			// spanning random at 30 60 90 degrees left or right
-			switch(Random.Range(1,6))
-			{
+			switch (Random.Range (1, 6)) {
 			// the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
 			// lets try it with 10 degree in total
 			case 1:
 				left = false;
 				//DegreeOfSpawn = 90;
-				DegreeOfSpawn = urand.Range(85,95,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range (85, 95, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 2:
 				left = false;
 				//DegreeOfSpawn = 60 ;
-				DegreeOfSpawn = urand.Range(55,65,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range (55, 65, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 3:
 				left = false;
 				//DegreeOfSpawn = 30 ;
-				DegreeOfSpawn = urand.Range(25,35,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range (25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 4:
 				left = true;
-				DegreeOfSpawn = urand.Range(85,95,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range (85, 95, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 5:
 				left = true;
-				DegreeOfSpawn = urand.Range(55,8,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range (55, 8, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			case 6:
 				left = true;
-				DegreeOfSpawn = urand.Range(25,35,UnityRandom.Normalization.STDNORMAL, 1.0f);
+				DegreeOfSpawn = urand.Range (25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				break;
 			}
 
-			Debug.Log(DegreeOfSpawn);
+			Debug.Log (DegreeOfSpawn);
 			
-			float spawnx = (float)(Mathf.Sin(DegreeOfSpawn) * spawnDistance); 
-			float spawnz = (float)(Mathf.Cos(DegreeOfSpawn) * spawnDistance); 
-			if (left) 
-			{
+			float spawnx = (float)(Mathf.Sin (DegreeOfSpawn) * spawnDistance); 
+			float spawnz = (float)(Mathf.Cos (DegreeOfSpawn) * spawnDistance); 
+			if (left) {
 				pos_blue.x = (float)(character.position.x - spawnx);
 				pos_blue.z = (float)(character.position.z + spawnz);
-				((ArrowPointingScript) (GameObject.Find("Arrow").GetComponent("ArrowPointingScript"))).Point(Direction.left);
-			}
-			else
-			{
+				((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.left);
+			} else {
 				pos_blue.x = (float)(character.position.x + spawnx);
 				pos_blue.z = (float)(character.position.z + spawnz);
-				((ArrowPointingScript) (GameObject.Find("Arrow").GetComponent("ArrowPointingScript"))).Point(Direction.right);
+				((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.right);
 			}
 
-			transform.position = pos_blue ;
+			transform.position = pos_blue;
 			
 			//Creates a variable to check the objects position.
 			// var myPosition = transform.position;
@@ -164,7 +177,7 @@ public class LookAtMeBlueBall : MonoBehaviour {
 
 
 			// call function if user takes to long to get to blue sphere
-			Invoke("toLong", timeToGetToBlueSphere);
+			Invoke ("toLong", timeToGetToBlueSphere);
 
 
 			hiding = false;
@@ -181,10 +194,18 @@ public class LookAtMeBlueBall : MonoBehaviour {
 			
 	}
 
-	void toLong(){
+	void toLong ()
+	{
 		ManagerScript.abortTrial ();
-		Debug.Log("Blue Sphere not reached in time");
+		Debug.Log ("Blue Sphere not reached in time");
 		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
+	}
+
+	void point ()
+	{
+		Debug.Log ("Point");
+		ManagerScript.switchState (ManagerScript.states.pointing);
+		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).point ();
 	}
 
 }

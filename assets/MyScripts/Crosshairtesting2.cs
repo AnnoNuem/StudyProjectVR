@@ -24,25 +24,27 @@ public class Crosshairtesting2 : MonoBehaviour {
 	
 	void OnGUI ()
 	{
-		Vector2 centerPoint = new Vector2(Screen.width/2,Screen.height/2);
+		if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
+			Vector2 centerPoint = new Vector2 (Screen.width / 2, Screen.height / 2);
 		
-		if(drawCrosshair){
-			GUI.Box(new Rect(centerPoint.x,
+			if (drawCrosshair) {
+				GUI.Box (new Rect (centerPoint.x,
 			                 centerPoint.y - lineLength - spread,
 			                 lineWidth,
 			                 lineLength), GUIContent.none, lineStyle);
-			GUI.Box(new Rect(centerPoint.x,
+				GUI.Box (new Rect (centerPoint.x,
 			                 centerPoint.y + spread,
 			                 lineWidth,
-			                 lineLength),GUIContent.none,lineStyle);
-			GUI.Box(new Rect(centerPoint.x + spread,
-			                 centerPoint.y,
-			                 lineLength,
-			                 lineWidth),GUIContent.none,lineStyle);
-			GUI.Box(new Rect(centerPoint.x - spread - lineLength,
+			                 lineLength), GUIContent.none, lineStyle);
+				GUI.Box (new Rect (centerPoint.x + spread,
 			                 centerPoint.y,
 			                 lineLength,
 			                 lineWidth), GUIContent.none, lineStyle);
+				GUI.Box (new Rect (centerPoint.x - spread - lineLength,
+			                 centerPoint.y,
+			                 lineLength,
+			                 lineWidth), GUIContent.none, lineStyle);
+			}
 		}
 	}
 	
