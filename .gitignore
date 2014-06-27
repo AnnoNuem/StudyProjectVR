@@ -12,7 +12,11 @@
 /*.pidb
 /*.booproj
 
+
 # No trial data
 *.csv
 *.csv.meta
 Trial*
+
+asset/lib/desktop.ini.meta
+
