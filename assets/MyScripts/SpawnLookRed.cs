@@ -48,7 +48,7 @@ public class SpawnLookRed : MonoBehaviour
 		// if the state is walking, lets render the shit out of it. 
 		if (ManagerScript.state == ManagerScript.states.walking) {
 			//Debug.Log ("float value --->" + urand.Range(1,100,UnityRandom.Normalization.STDNORMAL, 5.0f));
-
+			spawning_red = true;
 			// this part is responsable for wating some time and respawn the object
 			if (spawning_red) { 
 				timer_red += Time.deltaTime;
@@ -87,7 +87,9 @@ public class SpawnLookRed : MonoBehaviour
 		} else {
 				// if not in proper state just dissable the rendering and everything is fine
 				renderer.enabled = false;
-		}
+			    spawning_red = false;
+
+		}		
 	}
 
 	// this is the function that respawns the red sphere
