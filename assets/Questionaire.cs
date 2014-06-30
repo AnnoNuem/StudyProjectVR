@@ -18,7 +18,7 @@ public class Questionaire : MonoBehaviour {
 	void WindowFunction (int windowID)
 	{
 		if (GUI.Button (buttonRect, "Continue")) {
-			ManagerScript.switchState(ManagerScript.states.walking);
+			ManagerScript.newTrial();
 		}
 		GUI.Label (labelRect, "Please answer the following questions:");
 	}

@@ -22,8 +22,6 @@ public class ArrowPointingScript : MonoBehaviour
 		{
 				curDir = Direction.right;
 				arrowPosition = new Rect (Screen.width / 2 - 20, Screen.height / 2 - 20, 40, 40);
-				showArrow = true;
-				Invoke ("HideArrow", displayTime);
 		}
 	
 		// OnGUI is called once per frame

@@ -70,7 +70,11 @@ public class ManagerScript : MonoBehaviour
 		{
 				trialNumber++;
 				trialINprocess = false;
-				CameraFade.StartAlphaFade (Color.black, false, 2f, 2f);
+				Time.timeScale = 0;
+				CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
+				new		WaitForSeconds (2);
+				Time.timeScale = 1;
+
 				switchState (states.walking);
 		}
 
@@ -78,10 +82,13 @@ public class ManagerScript : MonoBehaviour
 		{
 				trialNumber++;
 				trialINprocess = false;
-				CameraFade.StartAlphaFade (Color.black, false, 2f, 2f);
+				Time.timeScale = 0;
+				CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
+				new		WaitForSeconds (2);
+				Time.timeScale = 1;
 				switchState (states.walking);
 				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
-				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke("toLongPoint");
+				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
 		}
 
 
@@ -107,8 +114,8 @@ public class ManagerScript : MonoBehaviour
 						Time.timeScale = 1;
 
 						// here goes the code for the subject position reset and rotation reset to the starting point 
-						GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position ;
-						GameObject.Find ("Character").transform.rotation = GameObject.Find ("StartPoint").transform.rotation ;
+						GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position;
+						GameObject.Find ("Character").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
 
 						ManagerScript.state = states.walking;
 						GameObject.Find ("Character").SendMessage ("changeMovement", true);
@@ -124,7 +131,7 @@ public class ManagerScript : MonoBehaviour
 				//pointing
 				case states.pointing:
 						Time.timeScale = 1;
-			((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
+						((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
 						ManagerScript.state = states.pointing;
 						GameObject.Find ("Character").SendMessage ("changeMovement", true);
 						Debug.Log ("pointing");
