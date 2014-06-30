@@ -71,6 +71,15 @@ public class ManagerScript : MonoBehaviour
 		switchState (states.walking);
 		}
 
+	public static void newTrial ()
+	{
+		trialNumber++;
+		trialINprocess = false;
+		CameraFade.StartAlphaFade (Color.black, false, 2f, 2f);
+		switchState (states.walking);
+		((GuiScript)(GameObject.Find("GuiHelper").GetComponent("GuiScript"))).newTrial();
+	}
+
 
 		// the state machine
 		public static void switchState (states newState)

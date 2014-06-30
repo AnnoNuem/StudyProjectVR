@@ -54,7 +54,7 @@ public class recordCoordinates : MonoBehaviour {
 
 
 		//code will only execute when K is pressed
-		if (Input.GetKeyDown (KeyCode.K) && !keyPressedK ) {
+		if (Input.GetKeyDown (KeyCode.K) && !keyPressedK && ManagerScript.state==ManagerScript.states.pointing) {
 
 			//2d vector definations for angle calculation (we only take x and z coordinates)
 			Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
@@ -63,12 +63,13 @@ public class recordCoordinates : MonoBehaviour {
 
 			//Actual calculation
 			Vector2 targetDir = targetVector - transformVector;
-			float angle = Vector2.Angle (targetDir, forwardVector);
+			angleBetween = Vector2.Angle (targetDir, forwardVector);
 
 			keyPressedK = true;
 
 			//HERE
-			ManagerScript.abortTrial();
+			ManagerScript.newTrial();
+			Debug.Log(angleBetween);
 
 		}
 
