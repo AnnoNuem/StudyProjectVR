@@ -101,6 +101,11 @@ public class ManagerScript : MonoBehaviour
 				//walking
 				case states.walking:
 						Time.timeScale = 1;
+
+						// here goes the code for the subject position reset and rotation reset to the starting point 
+						GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position ;
+						GameObject.Find ("Character").transform.rotation = GameObject.Find ("StartPoint").transform.rotation ;
+
 						ManagerScript.state = states.walking;
 						GameObject.Find ("Character").SendMessage ("changeMovement", true);
 						((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
