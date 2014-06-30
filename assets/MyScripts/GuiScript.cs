@@ -52,7 +52,7 @@ public class GuiScript : MonoBehaviour {
 	public void toSlow ()
 	{
 		showToSlowText = true;
-		Invoke ("HidetoSlow", displayTime);
+		Invoke ("HideToSlow", displayTime);
 	}
 	void HideToSlow ()
 	{
