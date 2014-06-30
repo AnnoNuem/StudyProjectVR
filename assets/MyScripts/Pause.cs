@@ -7,7 +7,7 @@ public class Pause : MonoBehaviour
 		private KeyCode pausekey = KeyCode.P;
 		private ManagerScript.states prevState;
 		private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
-		private Rect labelRect = new Rect (170, 185, 300, 40);
+		private Rect labelRect = new Rect (170, 185, 300, 60);
 
 	
 		// Use this for initialization
@@ -43,7 +43,7 @@ public class Pause : MonoBehaviour
 		void WindowFunction (int windowID)
 		{
 		GUI.skin.label.alignment = TextAnchor.MiddleCenter;
-				GUI.Label (labelRect, "PAUSE\n Press " + pausekey.ToString () + " to resume.");
+				GUI.Label (labelRect, "PAUSE\n Press " + pausekey.ToString () + " to resume. \n here will go the statistics ");
 		}
 
 }
