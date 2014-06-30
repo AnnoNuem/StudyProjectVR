@@ -15,7 +15,7 @@ public class SpawnLookRed : MonoBehaviour
 	Vector3 pos;
 
 	// for looking at check
-	float percentageOfScreenHeight = 0.30f;
+	float percentageOfScreenHeight = 0.20f;
 	private Rect centerRect;
 	
 	// to acces the coordinates of the player so we can move the ball towards him
