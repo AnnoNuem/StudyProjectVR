@@ -8,6 +8,9 @@ public class ManagerScript : MonoBehaviour
 		// when should the questionaire be in the middle be
 		int middleQuestionaire = 5;
 
+		// how much time for pointing
+		int timeForPointing = 8;
+
 
 		// states for state machine to describe in which experiment state we are
 		public enum states
@@ -65,20 +68,21 @@ public class ManagerScript : MonoBehaviour
 
 		public static void abortTrial ()
 		{
-		trialNumber++;
+				trialNumber++;
 				trialINprocess = false;
 				CameraFade.StartAlphaFade (Color.black, false, 2f, 2f);
-		switchState (states.walking);
+				switchState (states.walking);
 		}
 
-	public static void newTrial ()
-	{
-		trialNumber++;
-		trialINprocess = false;
-		CameraFade.StartAlphaFade (Color.black, false, 2f, 2f);
-		switchState (states.walking);
-		((GuiScript)(GameObject.Find("GuiHelper").GetComponent("GuiScript"))).newTrial();
-	}
+		public static void newTrial ()
+		{
+				trialNumber++;
+				trialINprocess = false;
+				CameraFade.StartAlphaFade (Color.black, false, 2f, 2f);
+				switchState (states.walking);
+				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
+				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke("toLongPoint");
+		}
 
 
 		// the state machine
@@ -115,14 +119,24 @@ public class ManagerScript : MonoBehaviour
 				//pointing
 				case states.pointing:
 						Time.timeScale = 1;
+			((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
 						ManagerScript.state = states.pointing;
 						GameObject.Find ("Character").SendMessage ("changeMovement", true);
-			((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).NewPointing();
 						Debug.Log ("pointing");
 						break;
 
+
 				
 				}
+
+
+		}
+
+		void toLongPoint ()
+		{
+				ManagerScript.abortTrial ();
+				Debug.Log ("To long for pointing");
+				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
 		}
 
 

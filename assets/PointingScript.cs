@@ -31,4 +31,4 @@ public class PointingScript : MonoBehaviour {
 		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
 	}
 
-}
+}	
