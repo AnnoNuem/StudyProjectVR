@@ -65,8 +65,6 @@ public class ManagerScript : MonoBehaviour
 
 		public static void abortTrial ()
 		{
-		Debug.Log ("Blue Sphere not reached in time");
-		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
 		trialNumber++;
 				trialINprocess = false;
 				CameraFade.StartAlphaFade (Color.black, false, 2f, 2f);
@@ -110,6 +108,7 @@ public class ManagerScript : MonoBehaviour
 						Time.timeScale = 1;
 						ManagerScript.state = states.pointing;
 						GameObject.Find ("Character").SendMessage ("changeMovement", true);
+			((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).NewPointing();
 						Debug.Log ("pointing");
 						break;
 

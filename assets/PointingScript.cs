@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PointingScript : MonoBehaviour {
 
+
+	int timeForPointing = 8;
 	// Use this for initialization
 	void Start () {
 	
@@ -18,4 +20,15 @@ public class PointingScript : MonoBehaviour {
 			//ManagerScript.switchState(ManagerScript.states.walking);
 		}
 	}
+
+	public void NewPointing () {
+				Invoke ("toLongPoint", timeForPointing);
+		}
+
+	void toLongPoint(){
+		ManagerScript.abortTrial ();
+		Debug.Log ("To long for pointing");
+		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
+	}
+
 }

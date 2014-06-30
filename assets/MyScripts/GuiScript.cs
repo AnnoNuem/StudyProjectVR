@@ -7,27 +7,32 @@ public class GuiScript : MonoBehaviour {
 	string walkToBlueBallText;
 	string pointToBlueBallText;
 	string newTrialText;
+	string toSlowPointText;
 
 	bool showToSlowText;
 	bool showPointText;
 	bool showWalkText;
 	bool showNewTrial;
+	bool showToSlowPointText;
 
-	int displayTime = 1;
+	int displayTime = 2;
 	Rect position;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		toSlowText = "You took to long to reach the blue sphere. \n New Trial";
+		toSlowPointText = "You took to long to point to the origin. \n New Trial";
 		walkToBlueBallText = "Walk to the next blue ball!";
 		pointToBlueBallText = "Point to origin.";
 		newTrialText = "New Trial";
 
 		bool showToSlowText = false;
+		bool showToSlowPointText = false;
 		bool showPointText = false;
 		bool showWalkText =false;
 		bool showNewTrial = false;
+		bool bla = false;
 
 		position = new Rect (Screen.width / 2 - 150, Screen.height / 2 - 200, 300, 40);
 	}
@@ -37,6 +42,9 @@ public class GuiScript : MonoBehaviour {
 	{
 		if (showToSlowText) {			
 			GUI.Label(position, toSlowText);
+		}
+		if (showToSlowPointText) {			
+			GUI.Label(position, toSlowPointText);
 		}
 		if (showPointText) {			
 			GUI.Label(position, pointToBlueBallText);
@@ -58,6 +66,17 @@ public class GuiScript : MonoBehaviour {
 	{
 		showToSlowText = false;
 	}
+
+	public void toSlowPoint ()
+	{
+		showToSlowPointText = true;
+		Invoke ("HideToSlowPoint", displayTime);
+	}
+	void HideToSlowPoint ()
+	{
+		showToSlowPointText = false;
+	}
+
 
 	public void point ()
 	{
