@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class StartScreen : MonoBehaviour
 {	
@@ -19,6 +20,12 @@ public class StartScreen : MonoBehaviour
 		void WindowFunction (int windowID)
 		{
 			if (GUI.Button (buttonRect, "Start")) {
+				
+				// intialize datapath value
+				ManagerScript.trialINprocess = true;
+				ManagerScript.trialFolder = Application.dataPath + @""+ManagerScript.chiffre+(System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+				Directory.CreateDirectory (ManagerScript.trialFolder);
+
 				ManagerScript.switchState(ManagerScript.states.questionaire);
 			}
 			ManagerScript.chiffre = GUI.TextField (textFieldRect, ManagerScript.chiffre);
