@@ -79,7 +79,9 @@ public class ManagerScript : MonoBehaviour
 		}
 
 		public static void newTrial ()
-		{
+			{		
+				ChangeCondition CC = new ChangeCondition ();
+				CC.NextCondition();
 				trialNumber++;
 				trialINprocess = false;
 				Time.timeScale = 0;
