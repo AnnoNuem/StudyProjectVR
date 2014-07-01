@@ -20,14 +20,15 @@ public class recordCoordinates : MonoBehaviour {
 	private bool keyPressedK = false; 
 
 	void Awake() {
-
+		/*
 		filePath = ManagerScript.trialFolder+ "/Trial"+ManagerScript.trialNumber+(System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy")+".csv";
-		//Debug.Log ("File Path -->" + filePath);
+		Debug.Log ("File Path -->" + filePath);
 		
 		//Check if the file exists ( Not really needed here)
 		if (!File.Exists(filePath)) {
 			File.Create(filePath).Close();
-		}
+		}	
+		*/
 	}
 
 	//FixedUpdate is used for rigid bodies and is executed independently of the configuration of system i.e. runs on regular set of intervals
@@ -55,6 +56,7 @@ public class recordCoordinates : MonoBehaviour {
 
 		//code will only execute when K is pressed
 		if (Input.GetKeyDown (KeyCode.K) && ManagerScript.state==ManagerScript.states.pointing) {
+			Debug.Log("K pressed");
 
 			//2d vector definations for angle calculation (we only take x and z coordinates)
 			Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
@@ -64,8 +66,33 @@ public class recordCoordinates : MonoBehaviour {
 			//Actual calculation
 			Vector2 targetDir = targetVector - transformVector;
 			angleBetween = Vector2.Angle (targetDir, forwardVector);
-
 			keyPressedK = true;
+			Debug.Log("ManagerScript.trialINprocess value -->"+ManagerScript.trialINprocess);
+
+			//flag to enable new CSV for each trial
+			//if(ManagerScript.trialINprocess){
+				filePath = ManagerScript.trialFolder+ "/Trial"+ManagerScript.trialNumber+".csv";
+				Debug.Log ("File Path -->" + filePath);
+				
+				//Check if the file exists ( Not really needed here)
+				if (!File.Exists(filePath)) {
+					File.Create(filePath).Close();
+				}	
+				
+				string delimiter = ",";
+				//putting values for column in csv
+				string[][] output = new string[][]{
+					new string[]{(transform.position.x).ToString(),(transform.position.y).ToString(),(transform.position.z).ToString(),(transform.forward).ToString(),(Time.realtimeSinceStartup).ToString(),(Time.deltaTime).ToString(),(angleBetween).ToString()} 
+				};
+				
+				int length = output.GetLength(0);
+				
+				StringBuilder sb = new StringBuilder();
+				
+				for (int index = 0; index < length; index++)
+					sb.AppendLine(string.Join(delimiter, output[index]));
+				File.AppendAllText(filePath, sb.ToString());
+			//}
 
 			//HERE
 			ManagerScript.newTrial();
@@ -73,8 +100,11 @@ public class recordCoordinates : MonoBehaviour {
 
 		}
 
+		/*
 		//flag to enable new CSV for each trial
 		if(ManagerScript.trialINprocess){
+			Debug.Log("CSV enabler");
+		
 			string delimiter = ",";
 			//putting values for column in csv
 			string[][] output = new string[][]{
@@ -90,9 +120,9 @@ public class recordCoordinates : MonoBehaviour {
 			File.AppendAllText(filePath, sb.ToString());
 		}
 
-
+		*/
 		// since we presed space we need to reset the anglebetween to 999 , indicating that it is empty
-		angleBetween = 999.0F;
+		//angleBetween = 999.0F;
 
 
 		//MQ-test code
