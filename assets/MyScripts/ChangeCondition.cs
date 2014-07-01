@@ -9,7 +9,7 @@ public class ChangeCondition : MonoBehaviour {
 	// right now changeable in the scene, from the gui. later we can hard code them i guess ?
 	public Color RedColor ;
 	public Color BlueColor ;
-	public Color GreenColor ;
+	public Color GreenColor = Color.green ;
 
 
 	public bool EasyConditioning = false;
@@ -20,8 +20,7 @@ public class ChangeCondition : MonoBehaviour {
 	public bool NoConditioning = false;
 
 	// here our array with conditions will be created, very dirty btw
-	public List<int> arrayOfConditions; 
-
+	static int[] values = new int[100] ;
 	// Easy
 	int EasyspawnDistance = 25 ;
 	double EasyCoolDown = 2.0;       // How long to hide
@@ -47,9 +46,13 @@ public class ChangeCondition : MonoBehaviour {
 	int TrainingmoveDistance = 5;   // How close can the character get
 	float Trainingspeed = 4.0f ; // the speed of the sphere
 
-	int LaufVariable = 0;
+	public int LaufVariable = 0;
 
 	void Start() {
+
+		// this is needed for the camera to be able to change the color
+
+		camera.clearFlags = CameraClearFlags.SolidColor;
 
 		// proof of concept
 		// here we will create a array of 40 values and decide which condition it is based on those
@@ -62,23 +65,26 @@ public class ChangeCondition : MonoBehaviour {
 		// 4 = FalseEasy
 		// 5 = False Hard
 		
-		// lets fill the first 10 values with training conditions
-		for (int i = 1; i < 10; i++) {
-			arrayOfConditions[i]=1; // training
+
+	// lets fill the first 10 values with training conditions
+		for (int i = 1; i < 2; i++) {
+			values[i] = 1; // training
+			Debug.Log("motherfucker");
+			Debug.Log(values[i]);
 		}
 		
-		for (int i = 11; i < 41; i++) {
-			arrayOfConditions[i]=2; // condtioning easy
+		for (int i = 3; i < 41; i++) {
+			values[i] = 2; // condtioning easy
 		}
 
-		for (int i = 42; i < 43; i++) {
-			arrayOfConditions[i] = 3; // conditioning hard
+		for (int i = 42; i < 83; i++) {
+			values[i] = 3; // conditioning hard
 		}
-		for (int i = 44; i < 48; i++) {
-			arrayOfConditions[i] = 4;
+		for (int i = 84; i < 89; i++) {
+			values[i] = 4;
 		}
-		for (int i = 49; i < 54; i++) {
-			arrayOfConditions[i] = 5;
+		for (int i = 90; i < 96; i++) {
+			values[i] = 5;
 		}
 
 	
@@ -86,24 +92,22 @@ public class ChangeCondition : MonoBehaviour {
 
 	public void  NextCondition() {
 
-		Debug.Log (arrayOfConditions[LaufVariable]);
+		Debug.Log (values[LaufVariable]);
+		Debug.Log ("this happens in nextcondition" + "this is" + LaufVariable);
 
-		LaufVariable = LaufVariable + 1;
-
-
-		if (arrayOfConditions[LaufVariable] == 1) {
+		if (values[LaufVariable] == 1) {
 				TrainingCondition = true;
 		} 
-		else if (arrayOfConditions [LaufVariable] == 2) {
+		else if (values [LaufVariable] == 2) {
 				EasyConditioning = true;
 		} 
-		else if (arrayOfConditions [LaufVariable] == 3) {
+		else if (values [LaufVariable] == 3) {
 				HardConditioning = false;
 		} 	
-		else if (arrayOfConditions [LaufVariable] == 4) { 
+		else if (values [LaufVariable] == 4) { 
 				FallsEasyConditioning = true;
 		} 
-		else if (arrayOfConditions [LaufVariable] == 5) { 
+		else if (values [LaufVariable] == 5) { 
 				FallsHardCondtioning = true;
 		}
 
@@ -111,7 +115,7 @@ public class ChangeCondition : MonoBehaviour {
 
 		if (EasyConditioning ) 
 		{
-			camera.backgroundColor = GreenColor;
+			ChangeSkyColorToGreen();
 			SpawnLookRed.spawnDistance = EasyspawnDistance;
 			SpawnLookRed.CoolDown = EasyCoolDown ;
 			SpawnLookRed.timer_red = Easytimer_red ;
@@ -121,7 +125,7 @@ public class ChangeCondition : MonoBehaviour {
 		} 
 		else if (FallsEasyConditioning) 
 		{
-			camera.backgroundColor = GreenColor;
+			ChangeSkyColorToGreen();
 			SpawnLookRed.spawnDistance = HardspawnDistance;
 			SpawnLookRed.CoolDown = HardCoolDown ;
 			SpawnLookRed.timer_red = Hardtimer_red ;
@@ -160,12 +164,16 @@ public class ChangeCondition : MonoBehaviour {
 				
 		}
 
-		Debug.Log (arrayOfConditions[LaufVariable]);
+		Debug.Log (values[LaufVariable]);
 
 	}
 	
-	// this is needed for the camera to be able to change the color
-	void Example() {
-		camera.clearFlags = CameraClearFlags.SolidColor;
+	void ChangeSkyColorToGreen() {
+		camera.backgroundColor = GreenColor;
+	}
+
+	public void ChangeLaufVariable(int b) {
+	
+		LaufVariable = b;
 	}
 }

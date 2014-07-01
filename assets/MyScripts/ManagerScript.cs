@@ -80,9 +80,11 @@ public class ManagerScript : MonoBehaviour
 
 		public static void newTrial ()
 			{		
-				ChangeCondition CC = new ChangeCondition ();
-				CC.NextCondition();
 				trialNumber++;
+				Debug.Log (trialNumber + "blub");
+				ChangeCondition CC = new ChangeCondition ();
+				CC.ChangeLaufVariable (trialNumber);
+				CC.NextCondition();
 				trialINprocess = false;
 				Time.timeScale = 0;
 				CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
