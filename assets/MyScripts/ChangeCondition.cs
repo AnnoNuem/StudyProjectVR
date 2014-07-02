@@ -52,7 +52,7 @@ public class ChangeCondition : MonoBehaviour {
 
 		// this is needed for the camera to be able to change the color
 
-		camera.clearFlags = CameraClearFlags.SolidColor;
+		Camera.main.clearFlags = CameraClearFlags.SolidColor;
 
 		// proof of concept
 		// here we will create a array of 40 values and decide which condition it is based on those
