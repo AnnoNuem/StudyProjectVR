@@ -5,12 +5,12 @@ public class SpawnLookRed : MonoBehaviour
 {
 
 	bool spawning_red = true ; // a variable for controlling processes
-	int spawnDistance = 25 ;
-	double CoolDown = 2.0;       // How long to hide
-	float timer_red = 0.0f; // timer, than needs to reach CoolDown
-	float TimerForLooking = 0.0f; // timer, than needs to reach CoolDownValue
-	int moveDistance = 5;   // How close can the character get
-	float speed = 5.0f ; // the speed of the sphere
+	public static int spawnDistance = 25 ;
+	public static double CoolDown = 2.0;       // How long to hide
+	public static float timer_red = 0.0f; // timer, than needs to reach CoolDown
+	public static float TimerForLooking = 0.0f; // timer, than needs to reach CoolDownValue
+	public static int moveDistance = 5;   // How close can the character get
+	public static float speed = 5.0f ; // the speed of the sphere
 	private UnityRandom urand;
 	Vector3 pos;
 

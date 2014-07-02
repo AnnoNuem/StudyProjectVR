@@ -663,6 +663,7 @@ GameObject:
   - 124: {fileID: 1599398266}
   - 114: {fileID: 1599398265}
   - 81: {fileID: 1599398264}
+  - 114: {fileID: 1599398269}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -754,6 +755,27 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
   m_OcclusionCulling: 1
+--- !u!114 &1599398269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1599398262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38d4d106598d514992e9a90792b600b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RedColor: {r: 1, g: 0, b: 0, a: 1}
+  BlueColor: {r: 0, g: 0, b: 1, a: 1}
+  GreenColor: {r: 0, g: 1, b: 0, a: 1}
+  EasyConditioning: 0
+  HardConditioning: 0
+  FallsEasyConditioning: 0
+  FallsHardCondtioning: 0
+  TrainingCondition: 0
+  NoConditioning: 0
+  LaufVariable: 0
 --- !u!1 &1629980219
 GameObject:
   m_ObjectHideFlags: 0
