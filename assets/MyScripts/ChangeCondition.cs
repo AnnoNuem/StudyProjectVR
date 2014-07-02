@@ -67,12 +67,12 @@ public class ChangeCondition : MonoBehaviour {
 		
 
 	// lets fill the first 10 values with training conditions
-		for (int i = 1; i < 10; i++) {
+		for (int i = 1; i < 2; i++) {
 			values[i] = 1; // training
 
 		}
 		
-		for (int i = 11; i < 41; i++) {
+		for (int i = 2; i < 41; i++) {
 			values[i] = 2; // condtioning easy
 		}
 

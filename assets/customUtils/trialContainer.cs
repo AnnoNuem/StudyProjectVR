@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+ * This class holds the parameters and also randomizes parameters 
+ * for different types of trials
+*/
+
+using System.Collections;
 
 public class trialContainer {
 
@@ -14,5 +19,15 @@ public class trialContainer {
 
 	//Ambient light parameters
 	public string lightColor;
+
+
+	public trialContainer(){}
+
+	public trialContainer(string trialType){
+		switch (trialType) {
+
+		}
+	}
+
 
 }
