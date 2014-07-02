@@ -48,14 +48,16 @@ public class SpawnLookRed : MonoBehaviour
 		// if the state is walking, lets render the shit out of it. 
 		if (ManagerScript.state == ManagerScript.states.walking) {
 			//Debug.Log ("float value --->" + urand.Range(1,100,UnityRandom.Normalization.STDNORMAL, 5.0f));
-			spawning_red = true;
 
 			// this part is responsable for wating some time and respawn the object
-			if (spawning_red) { 
+			 if (!renderer.enabled) {
+
 				timer_red += Time.deltaTime;
 				if (timer_red > CoolDown) { 
-					spawning_red = false;
-					MoveAndShow ();
+					MoveAndShow();
+					renderer.enabled = true;
+					recordData.recordDataStressors("S");
+					Debug.Log ("Stressor spawned");
 				}
 			}
 		
@@ -79,19 +81,19 @@ public class SpawnLookRed : MonoBehaviour
 				recordData.recordDataStressors("D");
 				Debug.Log ("Stressor destroyed");
 				spawning_red = true;
+
 			}
 		
 			// if the object is to near the player , lets respawn the ball
 			if (Vector3.Distance (character.position, transform.position) < moveDistance) {
 				recordData.recordDataStressors("M");
 				renderer.enabled = false;
-				spawning_red = true;
+				MoveAndShow ();
 			}
 		
 		} else {
 				// if not in proper state just dissable the rendering and everything is fine
 				renderer.enabled = false;
-			    spawning_red = false;
 
 		}		
 	}
@@ -99,20 +101,19 @@ public class SpawnLookRed : MonoBehaviour
 	// this is the function that respawns the yellow sphere
 	void MoveAndShow ()
 	{	
-		pos.x = urand.Range (0, 1, UnityRandom.Normalization.STDNORMAL, 0.1f);
+		float temp123 = (float)urand.Range (1, 9, UnityRandom.Normalization.STDNORMAL, 0.1f);
+		pos.x = (temp123 / 10);
+		Debug.Log (pos.x);
 		pos.z = (float)spawnDistance;
 
 		// this does the magic to put it in the left or right upper corner 
 		pos = Camera.main.ViewportToWorldPoint (pos);
 		//randomize the height of the spwan position of the orange sphere between 4 and 12
-		pos.y = Random.Range (4, 13);
-		spawning_red = true;
 
+		//pos.y = Random.Range (4, 13);
+		pos.y = 5;
 		//apply new position
 		transform.position = pos; 
-		renderer.enabled = true;
-		recordData.recordDataStressors("S");
-		Debug.Log ("Stressor spawned");
 		timer_red = 0.0f;
 	}
 
