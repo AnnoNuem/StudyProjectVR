@@ -67,13 +67,12 @@ public class ChangeCondition : MonoBehaviour {
 		
 
 	// lets fill the first 10 values with training conditions
-		for (int i = 1; i < 2; i++) {
+		for (int i = 1; i < 10; i++) {
 			values[i] = 1; // training
-			Debug.Log("motherfucker");
-			Debug.Log(values[i]);
+
 		}
 		
-		for (int i = 3; i < 41; i++) {
+		for (int i = 11; i < 41; i++) {
 			values[i] = 2; // condtioning easy
 		}
 
@@ -92,8 +91,6 @@ public class ChangeCondition : MonoBehaviour {
 
 	public void  NextCondition() {
 
-		Debug.Log (values[LaufVariable]);
-		Debug.Log ("this happens in nextcondition" + "this is" + LaufVariable);
 
 		if (values[LaufVariable] == 1) {
 				TrainingCondition = true;
@@ -164,8 +161,6 @@ public class ChangeCondition : MonoBehaviour {
 			SpawnLookRed.speed = Trainingspeed;
 				
 		}
-
-		Debug.Log (values[LaufVariable]);
 
 	}
 	
