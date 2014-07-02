@@ -28,7 +28,6 @@ public class StartScreen : MonoBehaviour
 			ManagerScript.trialINprocess = true;
 			ManagerScript.trialFolder = Application.dataPath + @"/Trial"+ManagerScript.chiffre + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
 
-			
 			if (!Directory.Exists (ManagerScript.trialFolder)) {
 				Directory.CreateDirectory (ManagerScript.trialFolder);
 			}
