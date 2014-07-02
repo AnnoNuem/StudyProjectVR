@@ -20,11 +20,13 @@ public class trialContainer {
 	//Ambient light parameters
 	public string lightColor;
 
-	public trialContainer(){
-	}
 
-	public trialContainer(string trialType){ 
+	public trialContainer(){}
 
+	public trialContainer(string trialType){
+		switch (trialType) {
+
+		}
 	}
 
 
