@@ -775,7 +775,7 @@ MonoBehaviour:
   FallsHardCondtioning: 0
   TrainingCondition: 0
   NoConditioning: 0
-  arrayOfConditions: 
+  LaufVariable: 0
 --- !u!1 &1629980219
 GameObject:
   m_ObjectHideFlags: 0

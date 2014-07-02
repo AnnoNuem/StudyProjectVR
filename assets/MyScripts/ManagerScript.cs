@@ -81,9 +81,8 @@ public class ManagerScript : MonoBehaviour
 		public static void newTrial ()
 			{		
 				trialNumber++;
-				Debug.Log (trialNumber + "blub");
 				ChangeCondition CC = new ChangeCondition ();
-				CC.ChangeLaufVariable (trialNumber);
+				CC.ChangeLaufVariable(trialNumber);
 				CC.NextCondition();
 				trialINprocess = false;
 				Time.timeScale = 0;

@@ -115,7 +115,7 @@ public class ChangeCondition : MonoBehaviour {
 
 		if (EasyConditioning ) 
 		{
-			ChangeSkyColorToGreen();
+			Camera.main.backgroundColor = GreenColor;
 			SpawnLookRed.spawnDistance = EasyspawnDistance;
 			SpawnLookRed.CoolDown = EasyCoolDown ;
 			SpawnLookRed.timer_red = Easytimer_red ;
@@ -125,7 +125,7 @@ public class ChangeCondition : MonoBehaviour {
 		} 
 		else if (FallsEasyConditioning) 
 		{
-			ChangeSkyColorToGreen();
+			Camera.main.backgroundColor = GreenColor;
 			SpawnLookRed.spawnDistance = HardspawnDistance;
 			SpawnLookRed.CoolDown = HardCoolDown ;
 			SpawnLookRed.timer_red = Hardtimer_red ;
@@ -135,6 +135,7 @@ public class ChangeCondition : MonoBehaviour {
 		}
 		else if (HardConditioning) 
 		{ 
+			Camera.main.backgroundColor = RedColor;
 			camera.backgroundColor = RedColor;
 			SpawnLookRed.spawnDistance = HardspawnDistance;
 			SpawnLookRed.CoolDown = HardCoolDown ;
@@ -145,7 +146,7 @@ public class ChangeCondition : MonoBehaviour {
 		} 
 		else if (FallsHardCondtioning) 
 		{	
-			camera.backgroundColor = RedColor;
+			Camera.main.backgroundColor = RedColor;
 			SpawnLookRed.spawnDistance = EasyspawnDistance;
 			SpawnLookRed.CoolDown = EasyCoolDown ;
 			SpawnLookRed.timer_red = Easytimer_red ;
@@ -154,7 +155,7 @@ public class ChangeCondition : MonoBehaviour {
 			SpawnLookRed.speed = Easyspeed;
 		}
 		else if (NoConditioning) {
-			camera.backgroundColor = BlueColor;
+			Camera.main.backgroundColor = BlueColor;
 			SpawnLookRed.spawnDistance = TrainingspawnDistance;
 			SpawnLookRed.CoolDown = TrainingCoolDown ;
 			SpawnLookRed.timer_red = Trainingtimer_red ;
@@ -168,9 +169,7 @@ public class ChangeCondition : MonoBehaviour {
 
 	}
 	
-	void ChangeSkyColorToGreen() {
-		camera.backgroundColor = GreenColor;
-	}
+
 
 	public void ChangeLaufVariable(int b) {
 	
