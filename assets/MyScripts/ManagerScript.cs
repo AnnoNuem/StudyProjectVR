@@ -39,16 +39,6 @@ public class ManagerScript : MonoBehaviour
 	//Trials and random variables will be generated here
 	void Awake ()
 	{
-			/*
-			trialINprocess = true;
-			trialFolder = Application.dataPath + @"\Trial"+(System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
-
-			if (!Directory.Exists (ManagerScript.trialFolder)) {
-					Directory.CreateDirectory (ManagerScript.trialFolder);
-			}
-
-			*/
-
 			//adding trials to the list
 			//Generate random values for conditions
 			for (int i=0; i<5; i++) {
@@ -86,7 +76,7 @@ public class ManagerScript : MonoBehaviour
 	public static void newTrial ()
 	{
 			trialNumber++;
-			trialINprocess = false;
+			trialINprocess = true;
 			Time.timeScale = 0;
 			CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 			new		WaitForSeconds (2);
@@ -141,9 +131,6 @@ public class ManagerScript : MonoBehaviour
 					GameObject.Find ("Character").SendMessage ("changeMovement", true);
 					Debug.Log ("pointing");
 					break;
-
-
-			
 			}
 
 
