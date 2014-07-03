@@ -5,12 +5,12 @@ public class SpawnLookRed : MonoBehaviour
 {
 
 	bool spawning_red = true ; // a variable for controlling processes
-	public static int spawnDistance = 25 ;
-	public static double CoolDown = 2.0;       // How long to hide
-	public static float timer_red = 0.0f; // timer, than needs to reach CoolDown
-	public static float TimerForLooking = 0.0f; // timer, than needs to reach CoolDownValue
-	public static int moveDistance = 5;   // How close can the character get
-	public static float speed = 5.0f ; // the speed of the sphere
+	public int spawnDistance = 25 ;
+	public double CoolDown = 2.0;       // How long to hide
+	public float timer_red = 0.0f; // timer, than needs to reach CoolDown
+	public float TimerForLooking = 0.0f; // timer, than needs to reach CoolDownValue
+	public int moveDistance = 5;   // How close can the character get
+	public float speed = 5.0f ; // the speed of the sphere
 	private UnityRandom urand;
 	Vector3 pos;
 
@@ -26,6 +26,13 @@ public class SpawnLookRed : MonoBehaviour
 	{	// a variable we use to put the position in
 		pos = new Vector3 ();
 
+		spawnDistance = 25 ;
+		CoolDown = 2.0;    
+		timer_red = 0.0f; 
+		TimerForLooking = 0.0f; 
+		moveDistance = 5;  
+		speed = 5.0f ; 
+
 		// importend for checking of looked at - code for normal camera
 		double ySize = Screen.height * percentageOfScreenHeight;
 		centerRect = new Rect ((float)(Screen.width / 2 - ySize / 2), (float)(Screen.height / 2 - ySize / 2), (float)(ySize), (float)(ySize));
@@ -38,10 +45,8 @@ public class SpawnLookRed : MonoBehaviour
 
 		//Random Generator intialization
 		urand = new UnityRandom (213123);
-
-
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -57,7 +62,7 @@ public class SpawnLookRed : MonoBehaviour
 					MoveAndShow();
 					renderer.enabled = true;
 					recordData.recordDataStressors("S");
-					Debug.Log ("Stressor spawned");
+					//Debug.Log ("Stressor spawned");
 				}
 			}
 		
@@ -79,14 +84,14 @@ public class SpawnLookRed : MonoBehaviour
 			if (TimerForLooking > 0.5) {
 				renderer.enabled = false;
 				recordData.recordDataStressors("D");
-				Debug.Log ("Stressor destroyed");
+				//Debug.Log ("Stressor destroyed");
 				spawning_red = true;
-
 			}
 		
 			// if the object is to near the player , lets respawn the ball
 			if (Vector3.Distance (character.position, transform.position) < moveDistance) {
 				recordData.recordDataStressors("M");
+				//Debug.Log ("Stressor missed");
 				renderer.enabled = false;
 				MoveAndShow ();
 			}
@@ -115,6 +120,14 @@ public class SpawnLookRed : MonoBehaviour
 		//apply new position
 		transform.position = pos; 
 		timer_red = 0.0f;
+
+//Mapping values to stressors
+		spawnDistance = ManagerScript.spawnDistance ;
+		//CoolDown = ManagerScript.CoolDown;    
+		timer_red = ManagerScript.timer_red; 
+		TimerForLooking = ManagerScript.TimerForLooking; 
+		moveDistance = ManagerScript.moveDistance;  
+		speed = ManagerScript.speed ; 
 	}
 
 }

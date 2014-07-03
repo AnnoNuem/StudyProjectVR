@@ -90,7 +90,7 @@ public class ChangeCondition : MonoBehaviour {
 	}
 
 	public void  NextCondition() {
-
+		/*
 
 		if (values[LaufVariable] == 1) {
 				TrainingCondition = true;
@@ -161,7 +161,7 @@ public class ChangeCondition : MonoBehaviour {
 			SpawnLookRed.speed = Trainingspeed;
 				
 		}
-
+*/
 	}
 	
 

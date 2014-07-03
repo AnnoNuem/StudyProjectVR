@@ -1,39 +1,67 @@
 ﻿/*
  * This file will serve as a utility class to help write down the values into CSVs
 */
-  
 using UnityEngine;
 using System.Collections;
 using System.IO;
 using System.Text;
 
-public static class recordData {
-
-	/*
-	public static void recordDataParameters(){
-	}
-	*/
-	public static void recordDataStressors(string status){
-		string filePath = ManagerScript.trialFolder+ "/Trial"+ManagerScript.trialNumber+"-Stressors.csv";
-
-		//Check if the file exists
-		if (!File.Exists(filePath)) {
-			File.Create(filePath).Close();
+public static class recordData
+{
+		static string delimiter = ",";
+		
+		//creates file for saving parameters
+		public static void recordDataParametersInit ()
+		{
+				string filePath = ManagerScript.trialFolder + "/Parameters.csv";
+				//Check if the file exists
+				if (!File.Exists (filePath)) {
+						File.Create (filePath).Close ();
+						ManagerScript.parameterFile = filePath;
+				}
 		}
-
-		string delimiter = ",";
+		
+		//records the paramters
+		public static void recordDataParameters ()
+		{
 		//putting values for column in csv
 		string[][] output = new string[][]{
-			new string[]{(Time.realtimeSinceStartup).ToString(),status} 
+			new string[]{ManagerScript.trialNumber.ToString(),ManagerScript.spawnDistance.ToString(),ManagerScript.CoolDown.ToString(),ManagerScript.timer_red.ToString(),ManagerScript.bColor.ToString(),ManagerScript.generatedAngle.ToString()} 
 		};
+
+		int length = output.GetLength (0);
 		
-		int length = output.GetLength(0);
-		
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder ();
 		
 		for (int index = 0; index < length; index++)
-			sb.AppendLine(string.Join(delimiter, output[index]));
-		File.AppendAllText(filePath, sb.ToString());
-	}
+			sb.AppendLine (string.Join (delimiter, output [index]));
+		File.AppendAllText (ManagerScript.parameterFile , sb.ToString ());
+	
+		}
+		
+		// Updates the csv for stressors with marker of spawned , destroyed or missed
+		public static void recordDataStressors (string status)
+		{
+				string filePath = ManagerScript.trialFolder + "/Trial" + ManagerScript.trialNumber + "-Stressors.csv";
+
+				//Check if the file exists
+				if (!File.Exists (filePath)) {
+						File.Create (filePath).Close ();
+				}
+
+
+				//putting values for column in csv
+				string[][] output = new string[][]{
+			new string[]{(Time.realtimeSinceStartup).ToString (),status} 
+		};
+		
+				int length = output.GetLength (0);
+		
+				StringBuilder sb = new StringBuilder ();
+		
+				for (int index = 0; index < length; index++)
+						sb.AppendLine (string.Join (delimiter, output [index]));
+				File.AppendAllText (filePath, sb.ToString ());
+		}
 
 }

@@ -32,6 +32,7 @@ public class StartScreen : MonoBehaviour
 				Directory.CreateDirectory (ManagerScript.trialFolder);
 			}
 
+			recordData.recordDataParametersInit();
 			ManagerScript.switchState(ManagerScript.states.questionaire);
 		}
 	}

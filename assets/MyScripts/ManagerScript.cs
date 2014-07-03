@@ -5,6 +5,26 @@ using System.IO;
 
 public class ManagerScript : MonoBehaviour
 {
+	//Public variables for stressors
+ 	public static int spawnDistance ;
+	public static double CoolDown ;       // How long to hide
+	public static float timer_red ; // timer, than needs to reach CoolDown
+	public static float TimerForLooking ; // timer, than needs to reach CoolDownValue
+	public static int moveDistance;   // How close can the character get
+	public static float speed ;
+
+	public static Color bColor; //Background color
+
+	//Public variables for blue target balls
+	public static int numberOfSpheres;
+	public static int timeToGetToBlueSphere; // time a user has to reach the next blue sphere
+	public static double hideTime;       // How long to hide
+	public static double blue_spawnDistance; // How far away to spawn
+	public static double blue_moveDistance;   // How close can the character get
+
+
+	//public static List<float> generatedAngles = new List<float> ();
+	public static float generatedAngle;
 	// when should the questionaire be in the middle be
 	int middleQuestionaire = 5;
 	
@@ -27,22 +47,40 @@ public class ManagerScript : MonoBehaviour
 	
 	//public list of trials
 	public static List<trialContainer> trialList = new List<trialContainer> ();
+	
 	//static variable tracks what trial is in process
 	public static int trialNumber = 0 ;
 	public static string trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+	public static string parameterFile =  "";
 	public static bool trialINprocess = false;
 	public static bool pointTaskINprocess = false;
+
 
 	//Trials and random variables will be generated here
 	void Awake ()
 	{
 		//adding trials to the list
-		//Generate random values for conditions
-		for (int i=0; i<5; i++) {
-				trialContainer tempTrial = new trialContainer ();
-				tempTrial.lightColor = "red";
+
+		//First trial - not really used
+
+		for (int i=0; i<1; i++) {
+
+			trialContainer tempTrial = new trialContainer ("Dummy");
+			Debug.Log("Array -->"+trialList); 
+			trialList.Add (tempTrial);
+
+		}
+		for (int i=0; i<1; i++) {
+				trialContainer tempTrial = new trialContainer ("Easy");
 				trialList.Add (tempTrial);
 		}
+
+		for (int i=0; i<5; i++) {
+			trialContainer tempTrial = new trialContainer ("Hard");
+			trialList.Add (tempTrial);
+		}
+
+
 	}
 	//
 	void Start ()
@@ -52,30 +90,38 @@ public class ManagerScript : MonoBehaviour
 
 	// Update is called once per frame
 	void Update ()
-	{
+	{	
+
+		//accessng parameters values according to the current trial
+		spawnDistance = trialList[trialNumber].spawnDistance;
+		CoolDown =  trialList[trialNumber].spawnDistance; ;       // How long to hide
+		timer_red = trialList[trialNumber].timer_red; // timer, than needs to reach CoolDown
+		TimerForLooking = trialList[trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
+		moveDistance = trialList[trialNumber].moveDistance;;   // How close can the character get
+		speed = trialList[trialNumber].speed;
+		Camera.main.backgroundColor = trialList[trialNumber].bColor;
+
+		//Debug.Log ("Trial number-->"+trialNumber+" condition"+spawnDistance+" Color"+ Camera.main.backgroundColor);
+
 		if (trialNumber == middleQuestionaire) {
 			switchState (states.questionaire);
 		}
 	}
 	
 	public static void abortTrial ()
-	{
+	{	
 		trialNumber++;
 		trialINprocess = false;
 		Time.timeScale = 0;
 		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 		new     WaitForSeconds (2);
 		Time.timeScale = 1;
-		
 		switchState (states.walking);
 	}
 	
 	public static void newTrial ()
-	{       
+	{  
 		trialNumber++;
-		ChangeCondition CC = new ChangeCondition ();
-		CC.ChangeLaufVariable(trialNumber);
-		CC.NextCondition();
 		trialINprocess = false;
 		Time.timeScale = 0;
 		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
