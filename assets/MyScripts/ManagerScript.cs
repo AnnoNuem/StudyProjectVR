@@ -91,18 +91,6 @@ public class ManagerScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{	
-
-		//accessng parameters values according to the current trial
-		spawnDistance = trialList[trialNumber].spawnDistance;
-		CoolDown =  trialList[trialNumber].spawnDistance; ;       // How long to hide
-		timer_red = trialList[trialNumber].timer_red; // timer, than needs to reach CoolDown
-		TimerForLooking = trialList[trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
-		moveDistance = trialList[trialNumber].moveDistance;;   // How close can the character get
-		speed = trialList[trialNumber].speed;
-		Camera.main.backgroundColor = trialList[trialNumber].bColor;
-
-		//Debug.Log ("Trial number-->"+trialNumber+" condition"+spawnDistance+" Color"+ Camera.main.backgroundColor);
-
 		if (trialNumber == middleQuestionaire) {
 			switchState (states.questionaire);
 		}
@@ -122,7 +110,17 @@ public class ManagerScript : MonoBehaviour
 	public static void newTrial ()
 	{  
 		trialNumber++;
-		trialINprocess = false;
+
+		//accessng parameters values according to the current trial
+		spawnDistance = trialList[trialNumber].spawnDistance;
+		CoolDown =  trialList[trialNumber].spawnDistance; ;       // How long to hide
+		timer_red = trialList[trialNumber].timer_red; // timer, than needs to reach CoolDown
+		TimerForLooking = trialList[trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
+		moveDistance = trialList[trialNumber].moveDistance;;   // How close can the character get
+		speed = trialList[trialNumber].speed;
+		Camera.main.backgroundColor = trialList[trialNumber].bColor;
+
+		trialINprocess = true;
 		Time.timeScale = 0;
 		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 		new     WaitForSeconds (2);

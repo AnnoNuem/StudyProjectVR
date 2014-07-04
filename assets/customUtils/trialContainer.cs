@@ -26,17 +26,9 @@ public class trialContainer
 				Camera.main.clearFlags = CameraClearFlags.SolidColor;
 
 				if (trialType == "Easy") {
-
-						//Applying parameters
-						bColor = Color.green;
-						ManagerScript.spawnDistance = 25;
-						ManagerScript.CoolDown = 2.0;    
-						ManagerScript.timer_red = 0.0f; 
-						ManagerScript.TimerForLooking = 0.0f; 
-						ManagerScript.moveDistance = 5;  
-						ManagerScript.speed = 5.0f; 
-
+						
 						//Placing the value in container
+						bColor = Color.green;
 						spawnDistance = ManagerScript.spawnDistance;
 						CoolDown = ManagerScript.CoolDown;       // How long to hide
 						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
@@ -46,14 +38,8 @@ public class trialContainer
 						
 		
 				} else if (trialType == "Hard") {
+						
 						bColor = Color.red;
-						ManagerScript.spawnDistance = 20;
-						ManagerScript.CoolDown = 2.5;    
-						ManagerScript.timer_red = 0.0f; 
-						ManagerScript.TimerForLooking = 0.0f; 
-						ManagerScript.moveDistance = 5;  
-						ManagerScript.speed = 7.0f; 
-
 						spawnDistance = ManagerScript.spawnDistance;
 						CoolDown = ManagerScript.CoolDown;       // How long to hide
 						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
@@ -62,13 +48,7 @@ public class trialContainer
 						speed = ManagerScript.speed;
 						
 				} else if (trialType == "Easy-False") {
-						ManagerScript.spawnDistance = 25;
-						ManagerScript.CoolDown = 2.0;    
-						ManagerScript.timer_red = 0.0f; 
-						ManagerScript.TimerForLooking = 0.0f; 
-						ManagerScript.moveDistance = 5;  
-						ManagerScript.speed = 5.0f; 
-
+						
 						spawnDistance = ManagerScript.spawnDistance;
 						CoolDown = ManagerScript.CoolDown;       // How long to hide
 						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
@@ -77,12 +57,6 @@ public class trialContainer
 						speed = ManagerScript.speed;
 
 				} else if (trialType == "Hard-False") {
-						ManagerScript.spawnDistance = 25;
-						ManagerScript.CoolDown = 2.0;    
-						ManagerScript.timer_red = 0.0f; 
-						ManagerScript.TimerForLooking = 0.0f; 
-						ManagerScript.moveDistance = 5;  
-						ManagerScript.speed = 5.0f; 
 
 						spawnDistance = ManagerScript.spawnDistance;
 						CoolDown = ManagerScript.CoolDown;       // How long to hide
@@ -92,14 +66,6 @@ public class trialContainer
 						speed = ManagerScript.speed;
 				} else {
 						
-						// intro trials , no stressors
-						ManagerScript.spawnDistance = 30;
-						ManagerScript.CoolDown = 2.0;    
-						ManagerScript.timer_red = 0.0f; 
-						ManagerScript.TimerForLooking = 0.0f; 
-						ManagerScript.moveDistance = 5;  
-						ManagerScript.speed = 5.0f; 
-
 						spawnDistance = ManagerScript.spawnDistance;
 						CoolDown = ManagerScript.CoolDown;       // How long to hide
 						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
