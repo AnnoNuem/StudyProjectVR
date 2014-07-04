@@ -121,7 +121,7 @@ public class SpawnLookRed : MonoBehaviour
 		transform.position = pos; 
 		timer_red = 0.0f;
 
-//Mapping values to stressors
+		//Mapping values to stressors
 		spawnDistance = ManagerScript.spawnDistance ;
 		//CoolDown = ManagerScript.CoolDown;    
 		timer_red = ManagerScript.timer_red; 
