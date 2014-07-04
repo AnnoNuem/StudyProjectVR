@@ -25,7 +25,7 @@ public class trialContainer
 
 		public trialContainer (string trialType)
 		{
-				// Camera.main.clearFlags = CameraClearFlags.SolidColor;
+				 Camera.main.clearFlags = CameraClearFlags.SolidColor;
 
 				if (trialType == "Easy") {
 						
