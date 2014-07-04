@@ -15,6 +15,7 @@ public class trialContainer
 		public int moveDistance;   // How close can the character get
 		public float speed ;
 		public Color bColor;
+		public string CondtionTypeVariableInContainer ;
 
 		Transform temp1 ;
 
@@ -36,7 +37,7 @@ public class trialContainer
 						TimerForLooking = 0.0f; 
 						moveDistance = 5;  
 						speed = 5.0f;
-						
+						CondtionTypeVariableInContainer = "Easy" ;
 		
 				} else if (trialType == "Hard") {
 						
@@ -47,6 +48,7 @@ public class trialContainer
 						TimerForLooking = 0.0f; 
 						moveDistance = 5;  
 						speed = 7.0f;
+						CondtionTypeVariableInContainer = "Hard" ;
 						
 						
 				} else if (trialType == "Easy-False") {
@@ -58,6 +60,8 @@ public class trialContainer
 						TimerForLooking = 0.0f; 
 						moveDistance = 5;  
 						speed = 7.0f;
+						CondtionTypeVariableInContainer = "Easy-False" ;
+
 						
 
 				} else if (trialType == "Hard-False") {
@@ -69,9 +73,11 @@ public class trialContainer
 						TimerForLooking = 0.0f; 
 						moveDistance = 5;  
 						speed = 7.0f;
+						CondtionTypeVariableInContainer = "Hard-False" ;
+
 						
 				}
-				if (trialType == "Training") {
+				else if (trialType == "Training") {
 					
 					//Placing the value in container
 					bColor = Color.black;
@@ -80,31 +86,34 @@ public class trialContainer
 					timer_red = 0.0f; 
 					TimerForLooking = 0.0f; 
 					moveDistance = 5;  
-					speed = 4.0f;		
+					speed = 4.0f;	
+					CondtionTypeVariableInContainer = "Training" ;
 		
 				} 
 
-		if (trialType == "ENDTRIAL") {
-			
-			//Placing the value in container
-			bColor = Color.yellow;
-			spawnDistance = 30;
-			CoolDown = 2.0;    
-			timer_red = 0.0f; 
-			TimerForLooking = 0.0f; 
-			moveDistance = 5;  
-			speed = 4.0f;		
-			
-		}
-		else {
+				else if (trialType == "ENDTRIAL") {
+					
+					//Placing the value in container
+					bColor = Color.yellow;
+					spawnDistance = 30;
+					CoolDown = 2.0;    
+					timer_red = 0.0f; 
+					TimerForLooking = 0.0f; 
+					moveDistance = 5;  
+					speed = 4.0f;	
+					CondtionTypeVariableInContainer = "ENDTRIAL" ;
+					
+				}
+				else {
 						
-						bColor = Color.black;
-						spawnDistance = 2220;
-						CoolDown = 200000.5;    
-						timer_red = 0.0f; 
-						TimerForLooking = 0.0f; 
-						moveDistance = 5000000;  
-						speed = 0.0f;
+					bColor = Color.black;
+					spawnDistance = 2220;
+					CoolDown = 200000.5;    
+					timer_red = 0.0f; 
+					TimerForLooking = 0.0f; 
+					moveDistance = 5000000;  
+					speed = 0.0f;
+					CondtionTypeVariableInContainer = "Explain" ;
 				}
 		}
 }

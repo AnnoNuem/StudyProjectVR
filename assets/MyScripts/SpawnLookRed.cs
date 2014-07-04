@@ -21,6 +21,9 @@ public class SpawnLookRed : MonoBehaviour
 	// to acces the coordinates of the player so we can move the ball towards him
 	private Transform character;
 
+	// the condition is saved here, comes from manager script
+	public string CondtionTypeVariableInContainer;
+
 	// Use this for initialization
 	void Start ()
 	{	// a variable we use to put the position in
@@ -52,10 +55,12 @@ public class SpawnLookRed : MonoBehaviour
 
 	// Update is called once per frame
 	void Update ()
-	{
+	{	
+
+		CondtionTypeVariableInContainer = ManagerScript.CondtionTypeVariableInContainer;
+
 		// if the state is walking, lets render the shit out of it. 
-		if (ManagerScript.state == ManagerScript.states.walking) {
-			//Debug.Log ("float value --->" + urand.Range(1,100,UnityRandom.Normalization.STDNORMAL, 5.0f));
+		if (ManagerScript.state == ManagerScript.states.walking && CondtionTypeVariableInContainer != "Explain") {
 
 			// this part is responsable for wating some time and respawn the object
 			 if (!renderer.enabled) {
@@ -66,7 +71,6 @@ public class SpawnLookRed : MonoBehaviour
 						renderer.enabled = true;
 						recordData.recordDataStressors("S");
 						Pause.ChangeNumberOfYellowSpaw();
-						//Debug.Log ("Stressor spawned");
 					}
 				}
 			}

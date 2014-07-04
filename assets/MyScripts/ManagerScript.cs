@@ -12,6 +12,7 @@ public class ManagerScript : MonoBehaviour
 	public static float TimerForLooking ; // timer, than needs to reach CoolDownValue
 	public static int moveDistance;   // How close can the character get
 	public static float speed ;
+	public static string CondtionTypeVariableInContainer;
 
 	public static Color bColor; //Background color
 
@@ -150,6 +151,8 @@ public class ManagerScript : MonoBehaviour
 		moveDistance = trialList[trialNumber].moveDistance;;   // How close can the character get
 		speed = trialList[trialNumber].speed;
 		Camera.main.backgroundColor = trialList[trialNumber].bColor;
+		CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
+
 
 		Debug.Log ("spawnDistance--->" + spawnDistance);
 
