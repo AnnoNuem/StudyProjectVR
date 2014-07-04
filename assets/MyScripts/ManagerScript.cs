@@ -154,8 +154,6 @@ public class ManagerScript : MonoBehaviour
 		CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
 
 
-		Debug.Log ("spawnDistance--->" + spawnDistance);
-
 		trialINprocess = true;
 		Time.timeScale = 0;
 		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);

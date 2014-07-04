@@ -13,7 +13,6 @@ public class recordCoordinates : MonoBehaviour {
 
 	//for degree measurment
 	public float angleBetween = 999.0F;
-	public float AngleBetweenDisplay ; // for testing reasons, so we see live the angle in the inspector
 	public Transform target; // this will be the field in the inspector we will drag and drop our start point. 
 
 	//boolean for button press
@@ -54,7 +53,7 @@ public class recordCoordinates : MonoBehaviour {
 
 					//putting values for column in csv
 					string[][] output1 = new string[][]{
-					new string[]{"x-pos","y-pos","transform-z","transform-forward","time-startup","time-delta","Error angle"} 
+					new string[]{"x-pos","y-pos","transform-z","transform-forward","time-startup","time-delta","Error angle","State"} 
 					};
 					
 					int length1 = output1.GetLength(0);
@@ -70,7 +69,7 @@ public class recordCoordinates : MonoBehaviour {
 				
 				//putting values for column in csv
 				string[][] output = new string[][]{
-					new string[]{(transform.position.x).ToString(),(transform.position.y).ToString(),(transform.position.z).ToString(),(transform.forward).ToString(),(Time.realtimeSinceStartup).ToString(),(Time.deltaTime).ToString(),(angleBetween).ToString()} 
+					new string[]{(transform.position.x).ToString(),(transform.position.y).ToString(),(transform.position.z).ToString(),(transform.forward).ToString(),(Time.realtimeSinceStartup).ToString(),(Time.deltaTime).ToString(),(angleBetween).ToString(),ManagerScript.CondtionTypeVariableInContainer} 
 				};
 				
 				int length = output.GetLength(0);

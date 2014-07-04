@@ -28,7 +28,7 @@ public static class recordData
 							"Cool Down",
 							"Timer Red",
 							"Color",
-							"Generated Angle"
+							"Generated Angle","State",
 					} 
 				};
 			
@@ -53,7 +53,8 @@ public static class recordData
 						ManagerScript.CoolDown.ToString (),
 						ManagerScript.timer_red.ToString (),
 						ManagerScript.bColor.ToString (),
-						ManagerScript.generatedAngle.ToString ()
+						ManagerScript.generatedAngle.ToString (),
+					    ManagerScript.CondtionTypeVariableInContainer
 				} 
 		};
 
