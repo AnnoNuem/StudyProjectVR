@@ -142,7 +142,8 @@ public class ManagerScript : MonoBehaviour
 	public static void newTrial ()
 	{  
 		trialNumber++;
-
+		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
+		new    WaitForSeconds (2);
 		//accessng parameters values according to the current trial
 		spawnDistance = trialList[trialNumber].spawnDistance;
 		CoolDown =  trialList[trialNumber].spawnDistance; ;       // How long to hide
@@ -156,12 +157,12 @@ public class ManagerScript : MonoBehaviour
 
 		trialINprocess = true;
 		Time.timeScale = 0;
-		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
-		new     WaitForSeconds (2);
-		Time.timeScale = 1;
+
 		switchState (states.walking);
 		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
 		((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
+		Time.timeScale = 1;
+
 	}
 	
 	
