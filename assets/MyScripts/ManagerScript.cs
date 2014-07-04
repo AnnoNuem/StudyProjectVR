@@ -105,6 +105,11 @@ public class ManagerScript : MonoBehaviour
 			trialList.Add (tempTrial);
 		}
 
+		for (int i=0; i<10; i++) {
+			trialContainer tempTrial = new trialContainer ("ENDTRIAL");
+			trialList.Add (tempTrial);
+		}
+
 
 
 	}

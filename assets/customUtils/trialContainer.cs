@@ -82,7 +82,21 @@ public class trialContainer
 					moveDistance = 5;  
 					speed = 4.0f;		
 		
-				} else {
+				} 
+
+		if (trialType == "ENDTRIAL") {
+			
+			//Placing the value in container
+			bColor = Color.yellow;
+			spawnDistance = 30;
+			CoolDown = 2.0;    
+			timer_red = 0.0f; 
+			TimerForLooking = 0.0f; 
+			moveDistance = 5;  
+			speed = 4.0f;		
+			
+		}
+		else {
 						
 						bColor = Color.black;
 						spawnDistance = 2220;
