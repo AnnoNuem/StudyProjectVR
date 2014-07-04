@@ -68,15 +68,27 @@ public class trialContainer
 						moveDistance = 5;  
 						speed = 7.0f;
 						
+				}
+				if (trialType == "Training") {
+					
+					//Placing the value in container
+					bColor = Color.black;
+					spawnDistance = 30;
+					CoolDown = 2.0;    
+					timer_red = 0.0f; 
+					TimerForLooking = 0.0f; 
+					moveDistance = 5;  
+					speed = 4.0f;		
+		
 				} else {
 						
-						
-						spawnDistance = 30;
+			bColor = Color.black;
+						spawnDistance = 2220;
 						CoolDown = 2.5;    
 						timer_red = 0.0f; 
 						TimerForLooking = 0.0f; 
 						moveDistance = 5;  
-						speed = 7.0f;
+						speed = 0.0f;
 				}
 		}
 }

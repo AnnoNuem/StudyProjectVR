@@ -70,15 +70,41 @@ public class ManagerScript : MonoBehaviour
 			trialList.Add (tempTrial);
 
 		}
-		for (int i=0; i<1; i++) {
+
+		for (int i=0; i<5; i++) {
+			
+				trialContainer tempTrial = new trialContainer ("Explain");
+				Debug.Log ("Array -->" + trialList); 
+				trialList.Add (tempTrial);
+				}
+
+		for (int i=0; i<10; i++) {
+			
+			trialContainer tempTrial = new trialContainer ("Training");
+			Debug.Log ("Array -->" + trialList); 
+			trialList.Add (tempTrial);
+		}
+
+		for (int i=0; i<20; i++) {
 				trialContainer tempTrial = new trialContainer ("Easy");
 				trialList.Add (tempTrial);
 		}
 
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<20; i++) {
 			trialContainer tempTrial = new trialContainer ("Hard");
 			trialList.Add (tempTrial);
 		}
+
+		for (int i=0; i<10; i++) {
+			trialContainer tempTrial = new trialContainer ("Easy-False");
+			trialList.Add (tempTrial);
+		}
+
+		for (int i=0; i<10; i++) {
+			trialContainer tempTrial = new trialContainer ("Hard-False");
+			trialList.Add (tempTrial);
+		}
+
 
 
 	}
