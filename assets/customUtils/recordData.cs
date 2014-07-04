@@ -19,23 +19,51 @@ public static class recordData
 						File.Create (filePath).Close ();
 						ManagerScript.parameterFile = filePath;
 				}
+				//"Trial Number","Spawn Distance","Cool Down","Timer Red","Color","Generated Angle"
+
+				string[][] output = new string[][]{
+				new string[] {
+							"Trial Number",
+							"Spawn Distance",
+							"Cool Down",
+							"Timer Red",
+							"Color",
+							"Generated Angle"
+					} 
+				};
+			
+				int length = output.GetLength (0);
+			
+				StringBuilder sb = new StringBuilder ();
+			
+				for (int index = 0; index < length; index++)
+						sb.AppendLine (string.Join (delimiter, output [index]));
+				File.AppendAllText (filePath, sb.ToString ());
+			
 		}
 		
 		//records the paramters
 		public static void recordDataParameters ()
 		{
-		//putting values for column in csv
-		string[][] output = new string[][]{
-			new string[]{ManagerScript.trialNumber.ToString(),ManagerScript.spawnDistance.ToString(),ManagerScript.CoolDown.ToString(),ManagerScript.timer_red.ToString(),ManagerScript.bColor.ToString(),ManagerScript.generatedAngle.ToString()} 
+				//putting values for column in csv
+				string[][] output = new string[][]{
+			new string[] {
+						ManagerScript.trialNumber.ToString (),
+						ManagerScript.spawnDistance.ToString (),
+						ManagerScript.CoolDown.ToString (),
+						ManagerScript.timer_red.ToString (),
+						ManagerScript.bColor.ToString (),
+						ManagerScript.generatedAngle.ToString ()
+				} 
 		};
 
-		int length = output.GetLength (0);
+				int length = output.GetLength (0);
 		
-		StringBuilder sb = new StringBuilder ();
+				StringBuilder sb = new StringBuilder ();
 		
-		for (int index = 0; index < length; index++)
-			sb.AppendLine (string.Join (delimiter, output [index]));
-		File.AppendAllText (ManagerScript.parameterFile , sb.ToString ());
+				for (int index = 0; index < length; index++)
+						sb.AppendLine (string.Join (delimiter, output [index]));
+				File.AppendAllText (ManagerScript.parameterFile, sb.ToString ());
 	
 		}
 		
@@ -47,6 +75,20 @@ public static class recordData
 				//Check if the file exists
 				if (!File.Exists (filePath)) {
 						File.Create (filePath).Close ();
+						
+						//putting values for column in csv
+						string[][] output1 = new string[][]{
+							new string[]{"Time-startup","status"} 
+						};
+						
+						int length1 = output1.GetLength (0);
+						
+						StringBuilder sb1 = new StringBuilder ();
+						
+						for (int index = 0; index < length1; index++)
+							sb1.AppendLine (string.Join (delimiter, output1 [index]));
+						File.AppendAllText (filePath, sb1.ToString ());
+						
 				}
 
 

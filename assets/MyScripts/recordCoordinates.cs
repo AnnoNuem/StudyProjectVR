@@ -45,13 +45,29 @@ public class recordCoordinates : MonoBehaviour {
 			//if(ManagerScript.trialINprocess){
 				filePath = ManagerScript.trialFolder+ "/Trial"+ManagerScript.trialNumber+".csv";
 				Debug.Log ("File Path -->" + filePath);
+
+				string delimiter = ",";
 				
 				//Check if the file exists ( Not really needed here)
 				if (!File.Exists(filePath)) {
 					File.Create(filePath).Close();
+
+					//putting values for column in csv
+					string[][] output1 = new string[][]{
+					new string[]{"x-pos","y-pos","transform-z","transform-forward","time-startup","time-delta","Error angle"} 
+					};
+					
+					int length1 = output1.GetLength(0);
+					
+					StringBuilder sb1 = new StringBuilder();
+					
+					for (int index = 0; index < length1; index++)
+						sb1.AppendLine(string.Join(delimiter, output1[index]));
+					File.AppendAllText(filePath, sb1.ToString());
+					
 				}	
 				
-				string delimiter = ",";
+				
 				//putting values for column in csv
 				string[][] output = new string[][]{
 					new string[]{(transform.position.x).ToString(),(transform.position.y).ToString(),(transform.position.z).ToString(),(transform.forward).ToString(),(Time.realtimeSinceStartup).ToString(),(Time.deltaTime).ToString(),(angleBetween).ToString()} 
