@@ -120,6 +120,8 @@ public class ManagerScript : MonoBehaviour
 		speed = trialList[trialNumber].speed;
 		Camera.main.backgroundColor = trialList[trialNumber].bColor;
 
+		Debug.Log ("spawnDistance--->" + spawnDistance);
+
 		trialINprocess = true;
 		Time.timeScale = 0;
 		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);

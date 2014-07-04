@@ -2,7 +2,6 @@
  * This class holds the parameters and also randomizes parameters 
  * for different types of trials
 */
-
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,49 +28,55 @@ public class trialContainer
 						
 						//Placing the value in container
 						bColor = Color.green;
-						spawnDistance = ManagerScript.spawnDistance;
-						CoolDown = ManagerScript.CoolDown;       // How long to hide
-						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
-						TimerForLooking = ManagerScript.TimerForLooking; // timer, than needs to reach CoolDownValue
-						moveDistance = ManagerScript.moveDistance;   // How close can the character get
-						speed = ManagerScript.speed;
+						spawnDistance = 25;
+						CoolDown = 2.0;    
+						timer_red = 0.0f; 
+						TimerForLooking = 0.0f; 
+						moveDistance = 5;  
+						speed = 5.0f;
 						
 		
 				} else if (trialType == "Hard") {
 						
 						bColor = Color.red;
-						spawnDistance = ManagerScript.spawnDistance;
-						CoolDown = ManagerScript.CoolDown;       // How long to hide
-						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
-						TimerForLooking = ManagerScript.TimerForLooking; // timer, than needs to reach CoolDownValue
-						moveDistance = ManagerScript.moveDistance;   // How close can the character get
-						speed = ManagerScript.speed;
+						spawnDistance = 20;
+						CoolDown = 2.5;    
+						timer_red = 0.0f; 
+						TimerForLooking = 0.0f; 
+						moveDistance = 5;  
+						speed = 7.0f;
+						
 						
 				} else if (trialType == "Easy-False") {
 						
-						spawnDistance = ManagerScript.spawnDistance;
-						CoolDown = ManagerScript.CoolDown;       // How long to hide
-						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
-						TimerForLooking = ManagerScript.TimerForLooking; // timer, than needs to reach CoolDownValue
-						moveDistance = ManagerScript.moveDistance;   // How close can the character get
-						speed = ManagerScript.speed;
+						bColor = Color.red;
+						spawnDistance = 20;
+						CoolDown = 2.5;    
+						timer_red = 0.0f; 
+						TimerForLooking = 0.0f; 
+						moveDistance = 5;  
+						speed = 7.0f;
+						
 
 				} else if (trialType == "Hard-False") {
 
-						spawnDistance = ManagerScript.spawnDistance;
-						CoolDown = ManagerScript.CoolDown;       // How long to hide
-						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
-						TimerForLooking = ManagerScript.TimerForLooking; // timer, than needs to reach CoolDownValue
-						moveDistance = ManagerScript.moveDistance;   // How close can the character get
-						speed = ManagerScript.speed;
+						bColor = Color.red;
+						spawnDistance = 20;
+						CoolDown = 2.5;    
+						timer_red = 0.0f; 
+						TimerForLooking = 0.0f; 
+						moveDistance = 5;  
+						speed = 7.0f;
+						
 				} else {
 						
-						spawnDistance = ManagerScript.spawnDistance;
-						CoolDown = ManagerScript.CoolDown;       // How long to hide
-						timer_red = ManagerScript.timer_red; // timer, than needs to reach CoolDown
-						TimerForLooking = ManagerScript.TimerForLooking; // timer, than needs to reach CoolDownValue
-						moveDistance = ManagerScript.moveDistance;   // How close can the character get
-						speed = ManagerScript.speed;
+						
+						spawnDistance = 30;
+						CoolDown = 2.5;    
+						timer_red = 0.0f; 
+						TimerForLooking = 0.0f; 
+						moveDistance = 5;  
+						speed = 7.0f;
 				}
 		}
 }
