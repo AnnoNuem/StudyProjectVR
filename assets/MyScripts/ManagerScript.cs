@@ -26,7 +26,7 @@ public class ManagerScript : MonoBehaviour
 	//public static List<float> generatedAngles = new List<float> ();
 	public static float generatedAngle;
 	// when should the questionaire be in the middle be
-	int middleQuestionaire = 5;
+	int middleQuestionaire = 1000;
 	
 	// how much time for pointing
 	int timeForPointing = 8;
