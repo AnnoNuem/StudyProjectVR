@@ -59,14 +59,15 @@ public class SpawnLookRed : MonoBehaviour
 
 			// this part is responsable for wating some time and respawn the object
 			 if (!renderer.enabled) {
-
-				timer_red += Time.deltaTime;
-				if (timer_red > CoolDown) { 
-					MoveAndShow();
-					renderer.enabled = true;
-					recordData.recordDataStressors("S");
-					Pause.ChangeNumberOfYellowSpaw();
-					//Debug.Log ("Stressor spawned");
+				if ( spawnDistance != 2220 ) {
+					timer_red += Time.deltaTime;
+					if (timer_red > CoolDown) { 
+						MoveAndShow();
+						renderer.enabled = true;
+						recordData.recordDataStressors("S");
+						Pause.ChangeNumberOfYellowSpaw();
+						//Debug.Log ("Stressor spawned");
+					}
 				}
 			}
 		

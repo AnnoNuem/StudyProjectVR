@@ -46,7 +46,7 @@ public class Pause : MonoBehaviour
 		void WindowFunction (int windowID)
 		{
 		GUI.skin.label.alignment = TextAnchor.MiddleCenter;
-				GUI.Label (labelRect, "PAUSE\n Press " + pausekey.ToString () + " to resume. \n here will go the statistics ");
+		GUI.Label (labelRect, "PAUSE\n Press " + pausekey.ToString () + " to resume. \n here will go the statistics \n " + NumberOfYellowSpaw + "Number of Yellow Spawn"  );
 		}
 
 
