@@ -8,7 +8,10 @@ public class Pause : MonoBehaviour
 		private ManagerScript.states prevState;
 		private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
 		private Rect labelRect = new Rect (170, 185, 300, 60);
-
+		
+		int NumberOfYellowSpaw = 0 ;
+		int NumberOfYellowDefeted = 0;
+		int NumberOfYellowMissed = 0;
 	
 		// Use this for initialization
 		void Start ()
@@ -47,3 +50,5 @@ public class Pause : MonoBehaviour
 		}
 
 }
+
+
