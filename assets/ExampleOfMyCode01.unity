@@ -2547,9 +2547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38d4d106598d514992e9a90792b600b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RedColor: {r: 1, g: 0, b: 0, a: 1}
+  RedColor: {r: .889705896, g: .242052361, b: .242052361, a: 1}
   BlueColor: {r: 0, g: 0, b: 1, a: 1}
-  GreenColor: {r: 0, g: 1, b: 0, a: 1}
+  GreenColor: {r: .0551470593, g: .441176474, b: .0551470593, a: 1}
   EasyConditioning: 0
   HardConditioning: 0
   FallsEasyConditioning: 0
