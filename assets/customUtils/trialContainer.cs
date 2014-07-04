@@ -16,6 +16,8 @@ public class trialContainer
 		public float speed ;
 		public Color bColor;
 
+		Transform temp1 ;
+
 		public trialContainer ()
 		{
 		}
@@ -82,12 +84,12 @@ public class trialContainer
 		
 				} else {
 						
-			bColor = Color.black;
+						bColor = Color.black;
 						spawnDistance = 2220;
-						CoolDown = 2.5;    
+						CoolDown = 200000.5;    
 						timer_red = 0.0f; 
 						TimerForLooking = 0.0f; 
-						moveDistance = 5;  
+						moveDistance = 5000000;  
 						speed = 0.0f;
 				}
 		}

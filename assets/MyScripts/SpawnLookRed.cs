@@ -45,6 +45,9 @@ public class SpawnLookRed : MonoBehaviour
 
 		//Random Generator intialization
 		urand = new UnityRandom (213123);
+
+		renderer.enabled = false;
+
 	}
 
 	// Update is called once per frame
@@ -62,6 +65,7 @@ public class SpawnLookRed : MonoBehaviour
 					MoveAndShow();
 					renderer.enabled = true;
 					recordData.recordDataStressors("S");
+					Pause.ChangeNumberOfYellowSpaw();
 					//Debug.Log ("Stressor spawned");
 				}
 			}
@@ -84,6 +88,8 @@ public class SpawnLookRed : MonoBehaviour
 			if (TimerForLooking > 0.5) {
 				renderer.enabled = false;
 				recordData.recordDataStressors("D");
+				Pause.ChangeNumberOfYellowDefeted();
+
 				//Debug.Log ("Stressor destroyed");
 				spawning_red = true;
 			}
@@ -93,6 +99,7 @@ public class SpawnLookRed : MonoBehaviour
 				recordData.recordDataStressors("M");
 				//Debug.Log ("Stressor missed");
 				renderer.enabled = false;
+				Pause.ChangeNumberOfYellowMissed();
 				MoveAndShow ();
 			}
 		
@@ -108,7 +115,6 @@ public class SpawnLookRed : MonoBehaviour
 	{	
 		float temp123 = (float)urand.Range (1, 9, UnityRandom.Normalization.STDNORMAL, 0.1f);
 		pos.x = (temp123 / 10);
-		Debug.Log (pos.x);
 		pos.z = (float)spawnDistance;
 
 		// this does the magic to put it in the left or right upper corner 
@@ -121,7 +127,7 @@ public class SpawnLookRed : MonoBehaviour
 		transform.position = pos; 
 		timer_red = 0.0f;
 
-		//Mapping values to stressors
+//Mapping values to stressors
 		spawnDistance = ManagerScript.spawnDistance ;
 		//CoolDown = ManagerScript.CoolDown;    
 		timer_red = ManagerScript.timer_red; 

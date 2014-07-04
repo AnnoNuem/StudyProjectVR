@@ -9,10 +9,10 @@ public class Pause : MonoBehaviour
 		private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
 		private Rect labelRect = new Rect (170, 185, 300, 60);
 		
-		int NumberOfYellowSpaw = 0 ;
-		int NumberOfYellowDefeted = 0;
-		int NumberOfYellowMissed = 0;
-	
+		static int NumberOfYellowSpaw = 0 ;
+		static int NumberOfYellowDefeted = 0;
+		static int NumberOfYellowMissed = 0;
+
 		// Use this for initialization
 		void Start ()
 		{
@@ -49,6 +49,21 @@ public class Pause : MonoBehaviour
 				GUI.Label (labelRect, "PAUSE\n Press " + pausekey.ToString () + " to resume. \n here will go the statistics ");
 		}
 
+
+	// the code to increase the numbers of yellow spheres defeated, spawn and missed
+
+	public static void ChangeNumberOfYellowSpaw(){
+
+		NumberOfYellowSpaw++ ;
+	}
+
+	public static void ChangeNumberOfYellowDefeted(){
+		
+		NumberOfYellowDefeted++ ;
+	}
+
+	public static void ChangeNumberOfYellowMissed(){
+		
+		NumberOfYellowMissed++ ;
+	}
 }
-
-
