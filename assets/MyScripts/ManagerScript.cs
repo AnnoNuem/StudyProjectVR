@@ -142,7 +142,7 @@ public class ManagerScript : MonoBehaviour
 	public static void newTrial ()
 	{  
 		trialNumber++;
-		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
+		//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 		new    WaitForSeconds (2);
 		//accessng parameters values according to the current trial
 		spawnDistance = trialList[trialNumber].spawnDistance;
@@ -151,7 +151,7 @@ public class ManagerScript : MonoBehaviour
 		TimerForLooking = trialList[trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
 		moveDistance = trialList[trialNumber].moveDistance;;   // How close can the character get
 		speed = trialList[trialNumber].speed;
-		Camera.main.backgroundColor = trialList[trialNumber].bColor;
+//		Camera.main.backgroundColor = trialList[trialNumber].bColor;
 		CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
 
 

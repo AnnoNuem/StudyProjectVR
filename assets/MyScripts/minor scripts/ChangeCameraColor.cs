@@ -5,15 +5,17 @@ public class ChangeCameraColor : MonoBehaviour {
 
 
 	public static string CondtionTypeVariableInContainer;
-	GameObject temp1;
-	GameObject temp2;
-	GameObject temp3;
+	GameObject camEasy;
+	GameObject camHard;
+	GameObject camNoCond;
 	// Use this for initialization
 	void Start () {
-	
-		temp1 = GameObject.Find ("MainCameraEasy");
-		temp2 = GameObject.Find ("MainCameraHard");
-		temp3 = GameObject.Find ("MainCameraNoCond");
+		camEasy = GameObject.Find ("MainCameraEasy");
+		camHard = GameObject.Find ("MainCameraHard");
+		camNoCond = GameObject.Find ("MainCameraNoCond");
+		camEasy.SetActive(false);
+		camHard.SetActiveRecursively(false);			                                            
+		camNoCond.SetActiveRecursively(false);
 	
 	}
 	
@@ -22,37 +24,33 @@ public class ChangeCameraColor : MonoBehaviour {
 	CondtionTypeVariableInContainer = ManagerScript.CondtionTypeVariableInContainer;
 
 		if (CondtionTypeVariableInContainer == "Easy" || CondtionTypeVariableInContainer == "Easy-False") {
-		
-			GameObject.Find("MainCameraEasy").SetActive(true);
-			GameObject.Find("MainCameraHard").SetActive(false);	
-			GameObject.Find("MainCameraNoCond").SetActive(false);	
-
-
+			Debug.Log("easy camera");
+			camEasy.SetActive(true);
+			camHard.SetActiveRecursively(false);			                                            
+			camNoCond.SetActiveRecursively(false);
 		}
 
 
 		else if (CondtionTypeVariableInContainer == "Hard" || CondtionTypeVariableInContainer == "Hard-False") {
-		
-			GameObject.Find("MainCameraEasy").SetActive(false);
-			GameObject.Find("MainCameraHard").SetActive(true);			                                            
-			GameObject.Find("MainCameraNoCond").SetActive(false);	
-
+			Debug.Log("hard camera");
+			camEasy.SetActive(false);
+			camHard.SetActiveRecursively(true);			                                            
+			camNoCond.SetActiveRecursively(false);
 		}
 
 		else if (CondtionTypeVariableInContainer == "Training" || CondtionTypeVariableInContainer == "Explain") {
-			
-			temp1.SetActiveRecursively(false);
-			temp2.SetActiveRecursively(false);			                                            
-			temp3.SetActiveRecursively(true);	
-
+			Debug.Log("no cond camera");	
+			camEasy.SetActive(false);
+			camHard.SetActiveRecursively(false);			                                            
+			camNoCond.SetActiveRecursively(true);	
 		}
 
 		else if (CondtionTypeVariableInContainer == "ENDTRIAL") {
-			
-			GameObject.Find("MainCameraEasy").SetActive(false);
-			GameObject.Find("MainCameraHard").SetActive(false);
-			GameObject.Find("MainCameraNoCond").SetActive(false);
 
+			Debug.Log("no camera");
+			camEasy.SetActive(false);
+			camHard.SetActiveRecursively(false);			                                            
+			camNoCond.SetActiveRecursively(false);
 		}
 	}
 }
