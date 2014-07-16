@@ -121,7 +121,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 
 		switchState (states.walking);
 		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
-		((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
+		((PointingScriptFeelSpace)(GameObject.Find ("helperObject").GetComponent ("PointingScriptFeelSpace"))).CancelInvoke ("toLongPoint");
 		Time.timeScale = 1;
 
 	}
@@ -165,7 +165,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 			//pointing
 		case states.pointing:
 			Time.timeScale = 1;
-			((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
+			((PointingScriptFeelSpace)(GameObject.Find ("helperObject").GetComponent ("PointingScriptFeelSpace"))).NewPointing ();
 			ManagerScriptFeelSpace.state = states.pointing;
 			GameObject.Find ("Character").SendMessage ("changeMovement", true);
 			Debug.Log ("pointing");
