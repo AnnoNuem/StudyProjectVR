@@ -10,14 +10,14 @@ public class CommunicationToFeelSpace : MonoBehaviour {
 
 
 	private SerialPort sp;
-	private Transform character ;
+	public Transform character ;
 	byte lsb;
 	byte msb;
 
 	// Use this for initialization
 	void Start () {
 	
-				character = GameObject.Find ("Character").transform;
+		character = GameObject.Find ("ForwardDirection").transform;
 
 
 				sp = new SerialPort ("COM4"

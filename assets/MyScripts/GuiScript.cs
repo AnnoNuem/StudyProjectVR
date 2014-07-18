@@ -16,7 +16,10 @@ public class GuiScript : MonoBehaviour {
 	bool showToSlowPointText;
 
 	int displayTime = 2;
-	Rect position;
+	Rect position1;
+	Rect position2;
+
+	GameObject displaytext;
 	
 	// Use this for initialization
 	void Start ()
@@ -34,26 +37,40 @@ public class GuiScript : MonoBehaviour {
 		bool showNewTrial = false;
 		bool bla = false;
 
-		position = new Rect (Screen.width / 2 - 150, Screen.height / 2 - 200, 300, 40);
+		position1 = new Rect ((Screen.width / 2 - 150)/2, Screen.height / 2 - 200, 300, 40);
+		position2 = new Rect ((Screen.width-(Screen.width / 2 - 150)/2), Screen.height / 2 - 200, 300, 40);
+
+		displaytext = GameObject.Find("Displaytext");
+
+
 	}
 	
 	// OnGUI is called once per frame
 	void OnGUI ()
 	{
 		if (showToSlowText) {			
-			GUI.Label(position, toSlowText);
+
+			displaytext.GetComponent<TextMesh>().text = toSlowText;
 		}
 		if (showToSlowPointText) {			
-			GUI.Label(position, toSlowPointText);
+			;
+			displaytext.GetComponent<TextMesh>().text = toSlowPointText;
+
 		}
 		if (showPointText) {			
-			GUI.Label(position, pointToBlueBallText);
+
+			displaytext.GetComponent<TextMesh>().text = pointToBlueBallText;
+
 		}
 		if (showWalkText) {			
-			GUI.Label(position, walkToBlueBallText);
+
+			displaytext.GetComponent<TextMesh>().text = walkToBlueBallText;
+
 		}
 		if (showNewTrial) {			
-			GUI.Label(position, newTrialText);
+
+			displaytext.GetComponent<TextMesh>().text = newTrialText;
+
 		}
 	}
 	
@@ -65,6 +82,7 @@ public class GuiScript : MonoBehaviour {
 	void HideToSlow ()
 	{
 		showToSlowText = false;
+		displaytext.GetComponent<TextMesh>().text = "";
 	}
 
 	public void toSlowPoint ()
@@ -75,6 +93,7 @@ public class GuiScript : MonoBehaviour {
 	void HideToSlowPoint ()
 	{
 		showToSlowPointText = false;
+		displaytext.GetComponent<TextMesh>().text = "";
 	}
 
 
@@ -86,6 +105,7 @@ public class GuiScript : MonoBehaviour {
 	void HidePoint ()
 	{
 		showPointText = false;
+		displaytext.GetComponent<TextMesh>().text = "";
 	}
 
 	public void walk ()
@@ -96,6 +116,7 @@ public class GuiScript : MonoBehaviour {
 	void HideWalk ()
 	{
 		showWalkText = false;
+		displaytext.GetComponent<TextMesh>().text = "";
 	}
 
 	public void newTrial ()
@@ -106,6 +127,8 @@ public class GuiScript : MonoBehaviour {
 	void HideNewTrial ()
 	{
 		showNewTrial = false;
+		displaytext.GetComponent<TextMesh>().text = "";
+
 	}
 }
 	

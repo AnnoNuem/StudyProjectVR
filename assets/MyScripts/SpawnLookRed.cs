@@ -70,7 +70,7 @@ public class SpawnLookRed : MonoBehaviour
 						MoveAndShow();
 						renderer.enabled = true;
 						recordData.recordDataStressors("S");
-						Pause.ChangeNumberOfYellowSpaw();
+						PauseFeelSpace.ChangeNumberOfYellowSpaw();
 					}
 				}
 			}
@@ -93,7 +93,7 @@ public class SpawnLookRed : MonoBehaviour
 			if (TimerForLooking > 0.5) {
 				renderer.enabled = false;
 				recordData.recordDataStressors("D");
-				Pause.ChangeNumberOfYellowDefeted();
+				PauseFeelSpace.ChangeNumberOfYellowDefeted();
 
 				//Debug.Log ("Stressor destroyed");
 				spawning_red = true;
@@ -104,7 +104,7 @@ public class SpawnLookRed : MonoBehaviour
 				recordData.recordDataStressors("M");
 				//Debug.Log ("Stressor missed");
 				renderer.enabled = false;
-				Pause.ChangeNumberOfYellowMissed();
+				PauseFeelSpace.ChangeNumberOfYellowMissed();
 				MoveAndShow ();
 			}
 		
