@@ -87,6 +87,10 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 		if (trialNumber == middleQuestionaire) {
 			switchState (states.questionaire);
 		}
+
+		if (trialNumber == 40) {
+			Application.Quit();
+				}
 	}
 	
 	public static void abortTrial ()
@@ -150,6 +154,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 			
 			// here goes the code for the subject position reset and rotation reset to the starting point 
 			GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position;
+			GameObject.Find ("StartPoint").transform.rotation = GameObject.Find ("ForwardDirection").transform.rotation;
 
 			ManagerScriptFeelSpace.state = states.walking;
 			GameObject.Find ("Character").SendMessage ("changeMovement", true);

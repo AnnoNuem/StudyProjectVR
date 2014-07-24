@@ -15,7 +15,7 @@ public class ArrowPointingScriptFeelSpace : MonoBehaviour
 		public Texture rightArrow;
 		Rect arrowPosition1;
 		Rect arrowPosition2;
-
+	GameObject displaytext ;
 		bool showArrow;
 		float displayTime = 1;
 
@@ -23,9 +23,9 @@ public class ArrowPointingScriptFeelSpace : MonoBehaviour
 		void Start ()
 		{
 				curDir = Direction2.right;
-		arrowPosition1 = new Rect (((Screen.width/4)-20), Screen.height / 2 - 20, 40, 40);
-		arrowPosition2 = new Rect (((Screen.width - Screen.width/4) -20), Screen.height / 2 - 20, 40, 40);
-
+		arrowPosition1 = new Rect (((Screen.width/4)), Screen.height / 2, 40, 40);
+		arrowPosition2 = new Rect (((Screen.width - Screen.width/4)), Screen.height / 2, 40, 40);
+		displaytext = GameObject.Find ("Displaytext");
 		}
 	
 		// OnGUI is called once per frame
@@ -35,12 +35,13 @@ public class ArrowPointingScriptFeelSpace : MonoBehaviour
 			if (showArrow) {
 
 				if (curDir == Direction2.left) {
-					GUI.DrawTexture (arrowPosition1, leftArrow);
-					GUI.DrawTexture (arrowPosition2, leftArrow);
-
+//					GUI.DrawTexture (arrowPosition1, leftArrow);
+//					GUI.DrawTexture (arrowPosition2, leftArrow);
+					displaytext.GetComponent<TextMesh>().text = "<--" ;
 				} else {
-					GUI.DrawTexture (arrowPosition1, rightArrow);
-					GUI.DrawTexture (arrowPosition2, rightArrow);
+//					GUI.DrawTexture (arrowPosition1, rightArrow);
+//					GUI.DrawTexture (arrowPosition2, rightArrow);
+					displaytext.GetComponent<TextMesh>().text = "-->" ;
 				}
 			}
 		}
@@ -56,6 +57,7 @@ public class ArrowPointingScriptFeelSpace : MonoBehaviour
 		void HideArrow ()
 		{
 				showArrow = false;
+		displaytext.GetComponent<TextMesh> ().text = "";
 		}
 
 
