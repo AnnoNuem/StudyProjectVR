@@ -110,8 +110,9 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
+  m_SortingLayerID: 0
 --- !u!33 &157215719
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -131,7 +132,6 @@ Transform:
   m_LocalScale: {x: .400000006, y: .5, z: .400000006}
   m_Children: []
   m_Father: {fileID: 2010385943}
-  m_RootOrder: 0
 --- !u!1 &177990873
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +166,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2010385943}
-  m_RootOrder: 3
 --- !u!114 &177990875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,11 +415,8 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
   m_HDR: 0
   m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
 --- !u!1 &505860563
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,8 +486,9 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
+  m_SortingLayerID: 0
 --- !u!135 &505860567
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -524,7 +521,6 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
 --- !u!1 &564865210
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,8 +559,9 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
+  m_SortingLayerID: 0
 --- !u!135 &564865212
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -597,7 +594,6 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
 --- !u!114 &564865215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,7 +652,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
 --- !u!114 &579297822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,7 +702,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
 --- !u!114 &725266474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,7 +764,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
 --- !u!114 &845199640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,7 +851,6 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
 --- !u!114 &1045046506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,7 +902,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
 --- !u!1 &1724248659
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,8 +938,9 @@ ParticleSystemRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
+  m_SortingLayerID: 0
   m_RenderMode: 0
   m_MaxParticleSize: .5
   m_CameraVelocityScale: 0
@@ -2010,7 +2002,6 @@ Transform:
   m_LocalScale: {x: 1.2874099, y: 1.2874099, z: 1.28740966}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
 --- !u!1 &1815706840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,7 +2036,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2010385943}
-  m_RootOrder: 2
 --- !u!114 &1815706842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2295,11 +2285,8 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
   m_HDR: 0
   m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
 --- !u!1 &1834650524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2334,7 +2321,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2010385943}
-  m_RootOrder: 1
 --- !u!114 &1834650526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2584,11 +2570,8 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
   m_HDR: 0
   m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
 --- !u!1001 &1923956568
 Prefab:
   m_ObjectHideFlags: 0
@@ -2678,7 +2661,6 @@ Transform:
   - {fileID: 1815706841}
   - {fileID: 177990874}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
 --- !u!114 &2010385944
 MonoBehaviour:
   m_ObjectHideFlags: 0
