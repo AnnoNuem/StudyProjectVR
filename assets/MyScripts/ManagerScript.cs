@@ -64,7 +64,7 @@ public class ManagerScript : MonoBehaviour
 
 		//First trial - not really used
 
-		/*
+
 		for (int i=0; i<1; i++) {
 
 			trialContainer tempTrial = new trialContainer ("Dummy");
@@ -86,7 +86,7 @@ public class ManagerScript : MonoBehaviour
 			Debug.Log ("Array -->" + trialList); 
 			trialList.Add (tempTrial);
 		}
-		*/
+
 		for (int i=0; i<20; i++) { //20
 				trialContainer tempTrial = new trialContainer ("Easy");
 				trialList.Add (tempTrial);
