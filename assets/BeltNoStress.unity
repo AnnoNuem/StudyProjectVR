@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointingScript: {fileID: 0}
-  guiScript: {fileID: 0}
+  guiScriptFeelspace: {fileID: 0}
   thePosition: {x: 0, y: 0, z: 0}
 --- !u!1 &564865210
 GameObject:
@@ -611,6 +611,7 @@ GameObject:
   - 114: {fileID: 579297823}
   - 114: {fileID: 579297825}
   - 114: {fileID: 579297824}
+  - 114: {fileID: 579297826}
   m_Layer: 0
   m_Name: GuiHelper
   m_TagString: Untagged
@@ -624,7 +625,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 579297819}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1942ed9e397e647af54c95c97e628d, type: 3}
   m_Name: 
@@ -683,6 +684,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 899bd288e959c9241bf94dd17eeb79ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &579297826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 579297819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543d811e280f9e64ba0041efad39f1fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &592338462
@@ -1392,6 +1404,7 @@ GameObject:
   - 114: {fileID: 1045046504}
   - 154: {fileID: 1045046503}
   - 114: {fileID: 1045046506}
+  - 114: {fileID: 1045046507}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -1456,6 +1469,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07c03a3c64e17242b7866911fdffda3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1045046507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1045046502}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c11a17872cd9424b80c76377102ee09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1220702463
@@ -2768,7 +2792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0950df82e7936c84983497630bde5b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acceleration: .165000007
+  Acceleration: .200000003
   Damping: .200000003
   BackAndSideDampen: .5
   JumpForce: .300000012
@@ -2864,7 +2888,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: Acceleration
-      value: .165000007
+      value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: GravityModifier

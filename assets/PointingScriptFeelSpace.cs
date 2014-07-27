@@ -28,7 +28,7 @@ public class PointingScriptFeelSpace : MonoBehaviour {
 	void toLongPoint(){
 		ManagerScriptFeelSpace.abortTrial ();
 		Debug.Log ("To long for pointing");
-		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
+		((GuiScriptFeelspace)(GameObject.Find ("GuiHelper").GetComponent ("GuiScriptFeelspace"))).toSlowPoint ();
 	}
 
 }	

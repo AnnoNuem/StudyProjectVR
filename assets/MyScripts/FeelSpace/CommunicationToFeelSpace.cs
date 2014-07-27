@@ -20,7 +20,7 @@ public class CommunicationToFeelSpace : MonoBehaviour {
 		character = GameObject.Find ("ForwardDirection").transform;
 
 
-				sp = new SerialPort ("COM5"
+				sp = new SerialPort ("COM9"
 		                    , 9600	
 		                    , Parity.None
 		                    , 8

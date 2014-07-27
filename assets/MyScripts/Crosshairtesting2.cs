@@ -3,23 +3,31 @@ using System.Collections;
 
 public class Crosshairtesting2 : MonoBehaviour {
 	
-	public bool drawCrosshair = true;
+	public bool drawCrosshairSmall = true;
+	public bool drawCrosshairBig = true;
+
 	
-	public Color crosshairColor = Color.white;   //The crosshair color
+	public Color BigcrosshairColor = Color.magenta;   //The crosshair color
+	public Color SmallcrosshairColor = Color.white;   //The crosshair color
+
 	
-	public int lineLength = 10; // Length of the crosshair line (in pixels)
-	public int lineWidth = 1; // Width of the crosshair line (in pixels)
-	public int spread = 20; // Spread of the crosshair lines (in pixels)
+	public int SmalllineLength = 10; // Length of the crosshair line (in pixels)
+	public int SmalllineWidth = 1; // Width of the crosshair line (in pixels)
+	public int Smallspread = 20; // Spread of the crosshair lines (in pixels)
+
+	public int BiglineLength = 10; // Length of the crosshair line (in pixels)
+	public int BiglineWidth = 1; // Width of the crosshair line (in pixels)
+	public int Bigspread = 20; // Spread of the crosshair lines (in pixels)
+
 	
-	private Texture2D tex;
+	private Texture2D texSmall;
+	private Texture2D texBig;
+
 	private GUIStyle lineStyle;
 	
 	void Awake ()
 	{
-		tex = new Texture2D(1,1);
-		SetTextureColor(tex, crosshairColor); //Set color
-		lineStyle = new GUIStyle();
-		lineStyle.normal.background = tex;
+		
 	}
 	
 	void OnGUI ()
@@ -27,23 +35,58 @@ public class Crosshairtesting2 : MonoBehaviour {
 		if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
 			Vector2 centerPoint = new Vector2 (Screen.width / 2, Screen.height / 2);
 		
-			if (drawCrosshair) {
+			if (drawCrosshairSmall) {
+
+				texSmall = new Texture2D(1,1);
+				SetTextureColor(texSmall, SmallcrosshairColor); //Set color
+				lineStyle = new GUIStyle();
+				lineStyle.normal.background = texSmall;
+
+
 				GUI.Box (new Rect (centerPoint.x,
-			                 centerPoint.y - lineLength - spread,
-			                 lineWidth,
-			                 lineLength), GUIContent.none, lineStyle);
+			                 centerPoint.y - SmalllineLength - Smallspread,
+			                 SmalllineWidth,
+			                 SmalllineLength), GUIContent.none, lineStyle);
 				GUI.Box (new Rect (centerPoint.x,
-			                 centerPoint.y + spread,
-			                 lineWidth,
-			                 lineLength), GUIContent.none, lineStyle);
-				GUI.Box (new Rect (centerPoint.x + spread,
+			                 centerPoint.y + Smallspread,
+			                 SmalllineWidth,
+			                 SmalllineLength), GUIContent.none, lineStyle);
+				GUI.Box (new Rect (centerPoint.x + Smallspread,
 			                 centerPoint.y,
-			                 lineLength,
-			                 lineWidth), GUIContent.none, lineStyle);
-				GUI.Box (new Rect (centerPoint.x - spread - lineLength,
+			                 SmalllineLength,
+			                 SmalllineWidth), GUIContent.none, lineStyle);
+				GUI.Box (new Rect (centerPoint.x - Smallspread - SmalllineLength,
 			                 centerPoint.y,
-			                 lineLength,
-			                 lineWidth), GUIContent.none, lineStyle);
+			                 SmalllineLength,
+			                 SmalllineWidth), GUIContent.none, lineStyle);
+			}
+
+			if (drawCrosshairBig) {
+
+				texBig = new Texture2D(1,1);
+				SetTextureColor(texBig, BigcrosshairColor); //Set color
+				
+				lineStyle = new GUIStyle();
+				
+				lineStyle.normal.background = texBig;
+			
+
+					GUI.Box (new Rect (centerPoint.x,
+				                   centerPoint.y - BiglineLength - Bigspread,
+				                   BiglineWidth,
+				                   BiglineLength), GUIContent.none, lineStyle);
+					GUI.Box (new Rect (centerPoint.x,
+				                   centerPoint.y + Bigspread,
+				                   BiglineWidth,
+				                   BiglineLength), GUIContent.none, lineStyle);
+				GUI.Box (new Rect (centerPoint.x + Bigspread,
+					                   centerPoint.y,
+				                   BiglineLength,
+				                   BiglineWidth), GUIContent.none, lineStyle);
+				GUI.Box (new Rect (centerPoint.x - Bigspread - BiglineLength,
+					                   centerPoint.y,
+				                   BiglineLength,
+				                   BiglineWidth), GUIContent.none, lineStyle);
 			}
 		}
 	}
