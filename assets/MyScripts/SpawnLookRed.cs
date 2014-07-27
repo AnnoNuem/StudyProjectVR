@@ -94,34 +94,49 @@ public class SpawnLookRed : MonoBehaviour
 								transform.position = Vector3.MoveTowards (transform.position, character.position, (float)(speed * Time.deltaTime));
 						}
 
+
+
+						// here based on the condition the value how long the subnject can respond is established			
+
+
 						if (CondtionTypeVariableInContainer == "Easy" || CondtionTypeVariableInContainer == "Hard-False") {
 								TimeToRespand = 1.0f;
 						} else if (CondtionTypeVariableInContainer == "Hard" || CondtionTypeVariableInContainer == "Easy-False") {
 								TimeToRespand = 0.5f;
 						}
 			
-						// here comes code wich will look if the object is looked at or crosses distance to player to near and in both cases 
-						// make the object not being rendered, as well as settign spawning_red to true
+						// so if the object sparns , we start to count how long it lives
+
+
 						if (renderer.enabled) {
 								TimerFromSpawn += Time.deltaTime;
 						}
 
+			// after the time established by TimeOnsetOfDefeatTime it can be defeated
+
 						if (TimerFromSpawn > TimeOnsetOfDefeatTime) {
 								CanBeDefeated = true;
 						}
-			
+						
+						// after the time established by TimeOnsetOfDefeatTime it can be defeated
+							// but only for some time, so we count time from this point and make crosshair big
+
 						if (CanBeDefeated) {
 								TimerAfterSetOn += Time.deltaTime;
 								((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).BigCrosshair ();
 
 						}
+
+						// if you miss the time to respande, you can not respand and the crosshair is small agaian
 			
 						if (TimerAfterSetOn > TimeToRespand) {
 								CanBeDefeated = false;
 						((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
 
 						}
-			
+
+
+			// if you can respind and press the key, the ball is defeaded
 			if (Input.GetKeyDown(KeyCode.G) && CanBeDefeated ) {
 								Debug.Log("Defeated");
 								renderer.enabled = false;
@@ -159,8 +174,11 @@ public class SpawnLookRed : MonoBehaviour
 	{	
 
 
-
+		// here we get a rondom value for the jidder of the onset
 		GenerateTimeOnsetOfDefeatTime ();
+
+
+
 		float temp123 = (float)urand.Range (1, 9, UnityRandom.Normalization.STDNORMAL, 0.1f);
 		pos.x = (temp123 / 10);
 		pos.z = (float)spawnDistance;
@@ -184,6 +202,8 @@ public class SpawnLookRed : MonoBehaviour
 		speed = ManagerScript.speed ; 
 	}
 
+
+	// this jidders the onset between 0.8 and 2.5 seconds
 	void GenerateTimeOnsetOfDefeatTime() {
 		TimeOnsetOfDefeatTime = (float)urand.Range(8,25,UnityRandom.Normalization.STDNORMAL, 1.0f);
 		TimeOnsetOfDefeatTime = TimeOnsetOfDefeatTime / 10;
