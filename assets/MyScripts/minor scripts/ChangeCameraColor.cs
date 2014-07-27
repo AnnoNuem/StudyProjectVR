@@ -24,7 +24,7 @@ public class ChangeCameraColor : MonoBehaviour {
 	CondtionTypeVariableInContainer = ManagerScript.CondtionTypeVariableInContainer;
 
 		if (CondtionTypeVariableInContainer == "Easy" || CondtionTypeVariableInContainer == "Easy-False") {
-			Debug.Log("easy camera");
+		//	Debug.Log("easy camera");
 			camEasy.SetActive(true);
 			camHard.SetActiveRecursively(false);			                                            
 			camNoCond.SetActiveRecursively(false);
@@ -32,14 +32,14 @@ public class ChangeCameraColor : MonoBehaviour {
 
 
 		else if (CondtionTypeVariableInContainer == "Hard" || CondtionTypeVariableInContainer == "Hard-False") {
-			Debug.Log("hard camera");
+			//Debug.Log("hard camera");
 			camEasy.SetActive(false);
 			camHard.SetActiveRecursively(true);			                                            
 			camNoCond.SetActiveRecursively(false);
 		}
 
 		else if (CondtionTypeVariableInContainer == "Training" || CondtionTypeVariableInContainer == "Explain") {
-			Debug.Log("no cond camera");	
+		//	Debug.Log("no cond camera");	
 			camEasy.SetActive(false);
 			camHard.SetActiveRecursively(false);			                                            
 			camNoCond.SetActiveRecursively(true);	
@@ -47,7 +47,7 @@ public class ChangeCameraColor : MonoBehaviour {
 
 		else if (CondtionTypeVariableInContainer == "ENDTRIAL") {
 
-			Debug.Log("no camera");
+		//	Debug.Log("no camera");
 			camEasy.SetActive(false);
 			camHard.SetActiveRecursively(false);			                                            
 			camNoCond.SetActiveRecursively(false);
