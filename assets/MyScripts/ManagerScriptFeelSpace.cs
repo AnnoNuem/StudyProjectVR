@@ -124,7 +124,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 		Time.timeScale = 0;
 
 		switchState (states.walking);
-		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
+		((GuiScriptFeelspace)(GameObject.Find ("GuiHelper").GetComponent ("GuiScriptFeelspace"))).newTrial ();
 		((PointingScriptFeelSpace)(GameObject.Find ("helperObject").GetComponent ("PointingScriptFeelSpace"))).CancelInvoke ("toLongPoint");
 		Time.timeScale = 1;
 
@@ -184,6 +184,6 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 	{
 		ManagerScriptFeelSpace.abortTrial ();
 		Debug.Log ("To long for pointing");
-		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
+		((GuiScriptFeelspace)(GameObject.Find ("GuiHelper").GetComponent ("GuiScriptFeelspace"))).toSlowPoint ();
 	}
 }
