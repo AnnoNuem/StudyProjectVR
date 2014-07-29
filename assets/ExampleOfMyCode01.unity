@@ -616,6 +616,7 @@ MonoBehaviour:
   moveDistance: 5
   speed: 5
   CondtionTypeVariableInContainer: 
+  TimeOnsetOfDefeatTime: 0
 --- !u!1 &579297819
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,8 +2817,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c88315990e90349ae1b821b4c040ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawCrosshairSmall: 1
-  drawCrosshairBig: 1
+  drawCrosshairSmall: 0
+  drawCrosshairBig: 0
   BigcrosshairColor: {r: 1, g: 0, b: 1, a: 1}
   SmallcrosshairColor: {r: 1, g: 1, b: 1, a: 1}
   SmalllineLength: 10
