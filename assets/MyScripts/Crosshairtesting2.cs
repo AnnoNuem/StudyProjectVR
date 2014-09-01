@@ -100,5 +100,18 @@ public class Crosshairtesting2 : MonoBehaviour {
 		}
 		texture.Apply();
 	}
-	
+
+	public void SmallCrosshair() {
+			drawCrosshairSmall = true;
+			drawCrosshairBig = false;
+
+		}
+
+	public void BigCrosshair() {
+		drawCrosshairSmall = false;
+		drawCrosshairBig = true;
+
+	}
+
 }
+

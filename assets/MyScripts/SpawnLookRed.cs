@@ -24,6 +24,14 @@ public class SpawnLookRed : MonoBehaviour
 	// the condition is saved here, comes from manager script
 	public string CondtionTypeVariableInContainer;
 
+	public float TimeOnsetOfDefeatTime;
+
+	float TimeToRespand ;
+	float TimerFromSpawn;
+	float TimerAfterSetOn;
+	bool CanBeDefeated;
+
+
 	// Use this for initialization
 	void Start ()
 	{	// a variable we use to put the position in
@@ -62,53 +70,99 @@ public class SpawnLookRed : MonoBehaviour
 		// if the state is walking, lets render the shit out of it. 
 		if (ManagerScript.state == ManagerScript.states.walking && CondtionTypeVariableInContainer != "Explain") {
 
-			// this part is responsable for wating some time and respawn the object
-			 if (!renderer.enabled) {
-				if ( spawnDistance != 2220 ) {
-					timer_red += Time.deltaTime;
-					if (timer_red > CoolDown) { 
-						MoveAndShow();
-						renderer.enabled = true;
-						recordData.recordDataStressors("S");
-						PauseFeelSpace.ChangeNumberOfYellowSpaw();
-					}
-				}
-			}
+						// this part is responsable for wating some time and respawn the object
+						if (!renderer.enabled) {
+								if (spawnDistance != 2220) {
+										timer_red += Time.deltaTime;
+										if (timer_red > CoolDown) { 
+												MoveAndShow ();
+												renderer.enabled = true;
+												recordData.recordDataStressors ("S");
+												PauseFeelSpace.ChangeNumberOfYellowSpaw ();
+												TimeToRespand = 0;
+												TimerFromSpawn = 0;
+												TimerAfterSetOn = 0;
+												CanBeDefeated = false;
+												((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
+												Debug.Log ("bla");
+										}
+								}
+						}
 		
-			// if object visible move it towards the player =)
-			if (renderer.enabled) {
-				transform.position = Vector3.MoveTowards (transform.position, character.position, (float)(speed * Time.deltaTime));
-			}
-		
-			// here comes code wich will look if the object is looked at or crosses distance to player to near and in both cases 
-			// make the object not being rendered, as well as settign spawning_red to true
-		
-			// check if is being looked at
-			if (centerRect.Contains (Camera.main.WorldToScreenPoint (transform.position)) && renderer.enabled) {
-				TimerForLooking += Time.deltaTime;   
-			} else {
-				TimerForLooking = 0.0f;
-			}
-		
-			if (TimerForLooking > 0.5) {
-				renderer.enabled = false;
-				recordData.recordDataStressors("D");
-				PauseFeelSpace.ChangeNumberOfYellowDefeted();
+						// if object visible move it towards the player =)
+						if (renderer.enabled) {
+								transform.position = Vector3.MoveTowards (transform.position, character.position, (float)(speed * Time.deltaTime));
+						}
 
-				//Debug.Log ("Stressor destroyed");
-				spawning_red = true;
-			}
+
+
+						// here based on the condition the value how long the subnject can respond is established			
+
+
+						if (CondtionTypeVariableInContainer == "Easy" || CondtionTypeVariableInContainer == "Hard-False") {
+								TimeToRespand = 1.0f;
+						} else if (CondtionTypeVariableInContainer == "Hard" || CondtionTypeVariableInContainer == "Easy-False") {
+								TimeToRespand = 0.5f;
+						}
+			
+						// so if the object sparns , we start to count how long it lives
+
+
+						if (renderer.enabled) {
+								TimerFromSpawn += Time.deltaTime;
+						}
+
+			// after the time established by TimeOnsetOfDefeatTime it can be defeated
+
+						if (TimerFromSpawn > TimeOnsetOfDefeatTime) {
+								CanBeDefeated = true;
+						}
+						
+						// after the time established by TimeOnsetOfDefeatTime it can be defeated
+							// but only for some time, so we count time from this point and make crosshair big
+
+						if (CanBeDefeated) {
+								TimerAfterSetOn += Time.deltaTime;
+								((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).BigCrosshair ();
+
+						}
+
+						// if you miss the time to respande, you can not respand and the crosshair is small agaian
+			
+						if (TimerAfterSetOn > TimeToRespand) {
+								CanBeDefeated = false;
+						((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
+
+						}
+
+
+			// if you can respind and press the key, the ball is defeaded
+			if (Input.GetKeyDown(KeyCode.G) && CanBeDefeated ) {
+								Debug.Log("Defeated");
+								renderer.enabled = false;
+								recordData.recordDataStressors ("D");
+								PauseFeelSpace.ChangeNumberOfYellowDefeted ();
 		
-			// if the object is to near the player , lets respawn the ball
-			if (Vector3.Distance (character.position, transform.position) < moveDistance) {
-				recordData.recordDataStressors("M");
-				//Debug.Log ("Stressor missed");
-				renderer.enabled = false;
-				PauseFeelSpace.ChangeNumberOfYellowMissed();
-				MoveAndShow ();
-			}
+								//Debug.Log ("Stressor destroyed");
+								spawning_red = true;
+						}
+
+						// if the object is to near the player , lets respawn the ball
+						if (Vector3.Distance (character.position, transform.position) < moveDistance) {
+								recordData.recordDataStressors ("M");
+								//Debug.Log ("Stressor missed");
+								renderer.enabled = false;
+								PauseFeelSpace.ChangeNumberOfYellowMissed ();
+								MoveAndShow ();
+								Debug.Log ("to near");
+
 		
-		} else {
+						}
+
+				}
+
+
+		else {
 				// if not in proper state just dissable the rendering and everything is fine
 				renderer.enabled = false;
 
@@ -118,6 +172,13 @@ public class SpawnLookRed : MonoBehaviour
 	// this is the function that respawns the yellow sphere
 	void MoveAndShow ()
 	{	
+
+
+		// here we get a rondom value for the jidder of the onset
+		GenerateTimeOnsetOfDefeatTime ();
+
+
+
 		float temp123 = (float)urand.Range (1, 9, UnityRandom.Normalization.STDNORMAL, 0.1f);
 		pos.x = (temp123 / 10);
 		pos.z = (float)spawnDistance;
@@ -141,4 +202,12 @@ public class SpawnLookRed : MonoBehaviour
 		speed = ManagerScript.speed ; 
 	}
 
+
+	// this jidders the onset between 0.8 and 2.5 seconds
+	void GenerateTimeOnsetOfDefeatTime() {
+		TimeOnsetOfDefeatTime = (float)urand.Range(8,25,UnityRandom.Normalization.STDNORMAL, 1.0f);
+		TimeOnsetOfDefeatTime = TimeOnsetOfDefeatTime / 10;
+	}
+
 }
+
