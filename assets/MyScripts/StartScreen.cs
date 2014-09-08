@@ -41,7 +41,7 @@ public class StartScreen : MonoBehaviour
 				windowRect = GUI.Window (0, windowRect, WindowFunction, "Inlusio VR");
 			// result of manger box selection is send to managerscript.session ( added 1 to get values between 1 and max)
 			ManagerScript.session =  comboBoxControl.Show() + 1;
-			Debug.Log (ManagerScript.session);
+			//Debug.Log (ManagerScript.session);
 			}
 
 

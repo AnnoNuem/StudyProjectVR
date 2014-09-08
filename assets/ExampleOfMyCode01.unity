@@ -421,6 +421,36 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+--- !u!21 &210587373
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: FireballA-Default
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 60e1d0a96221932478bd7120d0e366c9, type: 3}
+          m_Scale: {x: .5, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _InvFade
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _TintColor
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &505860563
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +567,8 @@ GameObject:
   - 135: {fileID: 564865212}
   - 23: {fileID: 564865211}
   - 114: {fileID: 564865215}
+  - 114: {fileID: 564865216}
+  - 114: {fileID: 564865217}
   m_Layer: 0
   m_Name: RedBallGlow
   m_TagString: Untagged
@@ -617,6 +649,74 @@ MonoBehaviour:
   speed: 5
   CondtionTypeVariableInContainer: 
   TimeOnsetOfDefeatTime: 0
+--- !u!114 &564865216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564865210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4007f1233a9b74fa9be42583fafba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 10
+  color: {r: 1, g: .423000008, b: 0, a: .5}
+  explodeOnStart: 0
+  duration: 3
+  detail: 1
+  upwardsBias: 0
+  destroyTime: 7
+  useWorldSpace: 1
+  direction: {x: 0, y: 0, z: 0}
+  fireballAMaterial: {fileID: 210587373}
+  fireballBMaterial: {fileID: 1143180857}
+  smokeAMaterial: {fileID: 1759457298}
+  smokeBMaterial: {fileID: 1770948213}
+  shockwaveMaterial: {fileID: 1653952110}
+  sparksMaterial: {fileID: 2139777859}
+  glowMaterial: {fileID: 1842189229}
+  heatwaveMaterial: {fileID: 779398285}
+  autoCreateFireball: 1
+  autoCreateSparks: 1
+  autoCreateShockwave: 0
+  autoCreateSmoke: 1
+  autoCreateGlow: 1
+  autoCreateLight: 1
+  autoCreateForce: 0
+  autoCreateHeatwave: 1
+--- !u!114 &564865217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564865210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1154a16e40ae84e42b591529ea211201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  on: 1
+  detonatorControlled: 1
+  startSize: 1
+  size: 2
+  explodeDelayMin: 0
+  explodeDelayMax: 0
+  startDuration: 2
+  duration: 4
+  timeScale: 1
+  startDetail: 1
+  detail: 1
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  startLocalPosition: {x: 0, y: 0, z: 0}
+  localPosition: {x: 0, y: 0, z: 0}
+  startForce: {x: 0, y: 0, z: 0}
+  force: {x: 0, y: -9.81000042, z: 0}
+  startVelocity: {x: 0, y: 0, z: 0}
+  velocity: {x: 400, y: 400, z: 400}
+  detailThreshold: 0
+  sparksMaterial: {fileID: 2139777859}
 --- !u!1 &579297819
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +831,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a36b7c38cbe5d842baa3ab25eab9e33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &779398285
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Heatwave-Default
+  m_Shader: {fileID: 4800000, guid: f6bd449dcf2a4496da3d2ad0c3881450, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 6afb434a05206a8498be9dcdde17038e, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _BumpAmt
+        second: 10
+    m_Colors: {}
 --- !u!1 &845199637
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +1004,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07c03a3c64e17242b7866911fdffda3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1143180857
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: FireballB-Default
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 60e1d0a96221932478bd7120d0e366c9, type: 3}
+          m_Scale: {x: .5, y: 1}
+          m_Offset: {x: .5, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _InvFade
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _TintColor
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1629980219
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,6 +1075,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!21 &1653952110
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Shockwave-Default
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: b7460a00d2f78cc48a5f7acbafe163e8, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _InvFade
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _TintColor
+        second: {r: .100000001, g: .100000001, b: .100000001, a: 1}
 --- !u!1 &1724248659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2012,6 +2205,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!21 &1759457298
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SmokeA-Default
+  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 2a6221eb1b1c50a4cb69a62e2f264e58, type: 3}
+          m_Scale: {x: .5, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _InvFade
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _TintColor
+        second: {r: 1, g: 1, b: 1, a: 1}
+--- !u!21 &1770948213
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SmokeB-Default
+  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 2a6221eb1b1c50a4cb69a62e2f264e58, type: 3}
+          m_Scale: {x: .5, y: 1}
+          m_Offset: {x: .5, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _InvFade
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _TintColor
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1815706840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,14 +2619,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
-      inSlope: 1.67142844
-      outSlope: 1.67142844
+      value: .0124999993
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
-    - time: 1.00416672
-      value: 1
-      inSlope: .281250417
-      outSlope: .281250417
+    - time: 1
+      value: 1.01250005
+      inSlope: 1.05233502
+      outSlope: 1.05233502
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2516,11 +2769,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogMode: 0
-  startDistance: 80
-  globalDensity: 10
+  startDistance: 150
+  globalDensity: .899999976
   heightScale: 100
   height: 50
-  globalFogColor: {r: .417408466, g: .573529422, b: .387975782, a: 1}
+  globalFogColor: {r: .44557035, g: .617647052, b: .431444645, a: 1}
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
 --- !u!114 &1834650530
 MonoBehaviour:
@@ -2590,6 +2843,36 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+--- !u!21 &1842189229
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Glow-Default
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 1e151393df889e545a0c0e295799dd39, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _InvFade
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _TintColor
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1923956568
 Prefab:
   m_ObjectHideFlags: 0
@@ -2636,6 +2919,10 @@ Prefab:
     - target: {fileID: 19800000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: ShapeModule.radius
       value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
@@ -2883,8 +3170,42 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 34204668b1400c34abe2e7335c479d86, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34204668b1400c34abe2e7335c479d86, type: 2}
   m_RootGameObject: {fileID: 564865210}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!21 &2139777859
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sparks-Default
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: c2557bac1251fb84aa9cfb8484770b19, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _InvFade
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _TintColor
+        second: {r: 1, g: 1, b: 1, a: 1}
