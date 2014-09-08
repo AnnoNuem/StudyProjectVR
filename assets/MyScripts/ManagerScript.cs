@@ -45,6 +45,9 @@ public class ManagerScript : MonoBehaviour
 	// chiffre for identification, can be changed in start screen
 	public static string chiffre = "";
 	public static states state;
+
+	// session identifier, tree different sessions
+	public static int session = 1;
 	
 	//public list of trials
 	public static List<trialContainer> trialList = new List<trialContainer> ();
