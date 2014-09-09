@@ -186,8 +186,8 @@ SubstanceImporter:
     textureParameters:
     - name: metal_plate_008_Diffuse
       alphaSource: 5
-      filterMode: 1
-      aniso: 1
+      filterMode: 2
+      aniso: 4
       wrapMode: 0
     - name: metal_plate_008_Specular
       alphaSource: 0
