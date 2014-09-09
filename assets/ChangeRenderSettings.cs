@@ -9,7 +9,7 @@ public class ChangeRenderSettings : MonoBehaviour
 	Color fogColorHard = new Color (15F / 255, 0.0F / 255, 0.0F / 255);
 	Color ambientLightColorNormal = new Color (82F / 255, 82F / 255, 82F / 255);
 	Color ambientLightColorEasy = new Color (61F / 255, 145F / 255, 81F / 255);
-	Color ambientLightColorHard = new Color (135F / 255, 51F / 255, 51F / 255);
+	Color ambientLightColorHard = new Color (145F / 255, 61F / 255, 61F / 255);
 	Camera cam;
 		// Use this for initialization
 		void Start ()
