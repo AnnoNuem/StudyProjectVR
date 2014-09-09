@@ -1,40 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChangeRenderSettings : MonoBehaviour {
+public class ChangeRenderSettings : MonoBehaviour
+{
 
-	Color fogColorNormal = black;
-	Color fogColorEasy = new Color(0,26,11);
-	Color fogColorHard = new Color(26,0,0);
+		Color fogColorNormal = Color.black;
+		Color fogColorEasy = new Color (0.0F / 255, 13F / 255 , 2F / 255);
+	Color fogColorHard = new Color (15F / 255, 0.0F / 255, 0.0F / 255);
+	Color ambientLightColorNormal = new Color (82F / 255, 82F / 255, 82F / 255);
+	Color ambientLightColorEasy = new Color (61F / 255, 145F / 255, 81F / 255);
+	Color ambientLightColorHard = new Color (135F / 255, 51F / 255, 51F / 255);
+	Camera cam;
+		// Use this for initialization
+		void Start ()
+		{
+		cam = GameObject.Find ("MainCamera").camera;    
 
-	Color ambientLightColorNormal = new Color(82,82,82);
-	Color ambientLightColorEasy = new Color(51,135,71);
-	Color ambientLightColorHard = new Color(135,51,51);
-
-	// Use this for initialization
-	void Start () {
+		}
 	
+		// Update is called once per frame
+		void Update ()
+		{
+	
+		}
+
+		public void switchEasy ()
+		{
+				RenderSettings.ambientLight = ambientLightColorEasy;
+				RenderSettings.fogColor = fogColorEasy;
+				RenderSettings.fogDensity = 0.02f;
+		RenderSettings.fog = true;
+		RenderSettings.fogMode = FogMode.ExponentialSquared;
+		cam.backgroundColor = fogColorEasy;
+
+		
+		}
+
+		public void switchHard ()
+		{
+				RenderSettings.ambientLight = ambientLightColorHard;
+				RenderSettings.fogColor = fogColorHard;
+		RenderSettings.fogDensity = 0.02f;
+		RenderSettings.fog = true;
+		RenderSettings.fogMode = FogMode.ExponentialSquared;
+		cam.backgroundColor = fogColorHard;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+		public void switchNormal ()
+		{
+				RenderSettings.ambientLight = ambientLightColorNormal;
+				RenderSettings.fogColor = fogColorNormal;
+		RenderSettings.fogDensity = 0.02f;
+		RenderSettings.fog = true;
+		RenderSettings.fogMode = FogMode.ExponentialSquared;
+		cam.backgroundColor = fogColorNormal;
 	}
-
-
-	void switchEasy() {
-	RenderSettings.ambientLight = ambientLightColorEasy;
-	RenderSettings.fogColor = fogColorEasy;
-}
-
-void switchHard() {
-	RenderSettings.ambientLight = ambientLightColorHard;
-	RenderSettings.fogColor = fogColorHard;
-}
-
-void switchNormal() {
-	RenderSettings.ambientLight = ambientLightColorNormal;
-	RenderSettings.fogColor = fogColorNormal;
-}
-
+	
 }

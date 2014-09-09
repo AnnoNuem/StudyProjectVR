@@ -12,14 +12,14 @@ SceneSettings:
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
-  m_Fog: 1
-  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
+  m_Fog: 0
+  m_FogColor: {r: .102941155, g: 0, b: 0, a: 1}
   m_FogMode: 2
-  m_FogDensity: .0199999996
-  m_LinearFogStart: 0
+  m_FogDensity: .100000001
+  m_LinearFogStart: 10
   m_LinearFogEnd: 300
   m_AmbientLight: {r: .323529422, g: .323529422, b: .323529422, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 758a5e79d34089b478102eedfe64c44d, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -132,295 +132,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2010385943}
   m_RootOrder: 0
---- !u!1 &177990873
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100004, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 177990874}
-  - 20: {fileID: 177990882}
-  - 92: {fileID: 177990881}
-  - 124: {fileID: 177990880}
-  - 114: {fileID: 177990879}
-  - 114: {fileID: 177990877}
-  - 114: {fileID: 177990876}
-  - 114: {fileID: 177990875}
-  - 114: {fileID: 177990878}
-  m_Layer: 0
-  m_Name: MainCameraHard
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &177990874
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400004, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .907083988, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2010385943}
-  m_RootOrder: 3
---- !u!114 &177990875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b39678ff6aa4fec8d135d231ba9cde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  redChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 1.73607841e-05
-      value: .00624999963
-      inSlope: 1.50002551
-      outSlope: 1.50002551
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: .59056288
-      outSlope: .59056288
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  greenChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  blueChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  useDepthCorrection: 0
-  zCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  depthRedChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  depthGreenChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  depthBlueChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  saturation: 1
-  selectiveCc: 0
-  selectiveFromColor: {r: 1, g: 1, b: 1, a: 1}
-  selectiveToColor: {r: 1, g: 1, b: 1, a: 1}
-  mode: 0
-  updateTextures: 1
-  colorCorrectionCurvesShader: {fileID: 4800000, guid: 62bcade1028c24ca1a39760ed84b9487,
-    type: 3}
-  simpleColorCorrectionCurvesShader: {fileID: 4800000, guid: 438ddd58d82c84d9eb1fdc56111702e1,
-    type: 3}
-  colorCorrectionSelectiveShader: {fileID: 4800000, guid: e515e0f94cefc4c0db54b45cba621544,
-    type: 3}
---- !u!114 &177990876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c3946ab5378473cb34bedd1c8194ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fogMode: 0
-  startDistance: 100
-  globalDensity: .0700000003
-  heightScale: 300
-  height: 100
-  globalFogColor: {r: .45588237, g: .45588237, b: .45588237, a: 1}
-  fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
---- !u!114 &177990877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38d4d106598d514992e9a90792b600b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RedColor: {r: 1, g: 0, b: 0, a: 1}
-  BlueColor: {r: 0, g: 0, b: 1, a: 1}
-  GreenColor: {r: 0, g: 1, b: 0, a: 1}
-  EasyConditioning: 0
-  HardConditioning: 0
-  FallsEasyConditioning: 0
-  FallsHardCondtioning: 0
-  TrainingCondition: 0
-  NoConditioning: 0
-  LaufVariable: 0
---- !u!114 &177990878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c3946ab5378473cb34bedd1c8194ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fogMode: 0
-  startDistance: 80
-  globalDensity: 1
-  heightScale: 100
-  height: 50
-  globalFogColor: {r: .544117689, g: .400086522, b: .400086522, a: 1}
-  fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
---- !u!114 &177990879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400006, guid: 9d4133d5d30b644bd87802a347eaccbe,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ec2fe99d1108b9d0006a298d76c639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 2
-  sensitivityX: 10
-  sensitivityY: 10
-  minimumX: 0
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
---- !u!124 &177990880
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 12400000, guid: 9d4133d5d30b644bd87802a347eaccbe,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_Enabled: 1
---- !u!92 &177990881
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9200000, guid: 9d4133d5d30b644bd87802a347eaccbe,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_Enabled: 1
---- !u!20 &177990882
-Camera:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 2000000, guid: 9d4133d5d30b644bd87802a347eaccbe,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177990873}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: .19166474, g: .301966369, b: .474509805, a: 1}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: .300000012
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 100
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_HDR: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
 --- !u!21 &210587373
 Material:
   serializedVersion: 3
@@ -684,7 +395,7 @@ MonoBehaviour:
   autoCreateGlow: 1
   autoCreateLight: 1
   autoCreateForce: 0
-  autoCreateHeatwave: 1
+  autoCreateHeatwave: 0
 --- !u!114 &564865217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1085,7 +796,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: InitialModule.maxNumParticles
-      value: 1000
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: ShapeModule.type
@@ -1121,7 +832,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_LocalScale.x
-      value: .0499999933
+      value: .100000001
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_LocalScale.y
@@ -1129,7 +840,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_LocalScale.z
-      value: .0500000007
+      value: .100000001
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_IsActive
@@ -1518,7 +1229,7 @@ ParticleSystem:
       minMaxState: 3
     gravityModifier: 0
     inheritVelocity: 0
-    maxNumParticles: 1000
+    maxNumParticles: 3000
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -2319,7 +2030,7 @@ Transform:
   m_GameObject: {fileID: 1334744262}
   m_LocalRotation: {x: .613754869, y: .351148129, z: .351148129, w: -.613754869}
   m_LocalPosition: {x: 1017, y: 0, z: 810}
-  m_LocalScale: {x: .0499999933, y: .0500000007, z: .0500000007}
+  m_LocalScale: {x: .100000001, y: .0500000007, z: .100000001}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3500,7 +3211,7 @@ Transform:
   m_PrefabInternal: {fileID: 1923956568}
   m_GameObject: {fileID: 1724248659}
   m_LocalRotation: {x: .613754869, y: .351148129, z: .351148129, w: -.613754869}
-  m_LocalPosition: {x: 989.08136, y: 50, z: 1000.11682}
+  m_LocalPosition: {x: 989.08136, y: 30, z: 1000.11682}
   m_LocalScale: {x: 1.20000005, y: 1.20000017, z: 1.20000005}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3565,295 +3276,6 @@ Material:
         first:
           name: _TintColor
         second: {r: 1, g: 1, b: 1, a: 1}
---- !u!1 &1815706840
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100004, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1815706841}
-  - 20: {fileID: 1815706849}
-  - 92: {fileID: 1815706848}
-  - 124: {fileID: 1815706847}
-  - 114: {fileID: 1815706846}
-  - 114: {fileID: 1815706844}
-  - 114: {fileID: 1815706843}
-  - 114: {fileID: 1815706845}
-  - 114: {fileID: 1815706842}
-  m_Layer: 0
-  m_Name: MainCameraNoCond
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1815706841
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400004, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .907083988, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2010385943}
-  m_RootOrder: 2
---- !u!114 &1815706842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b39678ff6aa4fec8d135d231ba9cde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  redChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  greenChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  blueChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  useDepthCorrection: 0
-  zCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  depthRedChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  depthGreenChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  depthBlueChannel:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  saturation: 1
-  selectiveCc: 0
-  selectiveFromColor: {r: 1, g: 1, b: 1, a: 1}
-  selectiveToColor: {r: 1, g: 1, b: 1, a: 1}
-  mode: 0
-  updateTextures: 1
-  colorCorrectionCurvesShader: {fileID: 4800000, guid: 62bcade1028c24ca1a39760ed84b9487,
-    type: 3}
-  simpleColorCorrectionCurvesShader: {fileID: 4800000, guid: 438ddd58d82c84d9eb1fdc56111702e1,
-    type: 3}
-  colorCorrectionSelectiveShader: {fileID: 4800000, guid: e515e0f94cefc4c0db54b45cba621544,
-    type: 3}
---- !u!114 &1815706843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c3946ab5378473cb34bedd1c8194ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fogMode: 0
-  startDistance: 100
-  globalDensity: .0700000003
-  heightScale: 300
-  height: 100
-  globalFogColor: {r: .5, g: .5, b: .5, a: 1}
-  fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
---- !u!114 &1815706844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38d4d106598d514992e9a90792b600b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RedColor: {r: .889705896, g: .242052361, b: .242052361, a: 1}
-  BlueColor: {r: 0, g: 0, b: 1, a: 1}
-  GreenColor: {r: .0551470593, g: .441176474, b: .0551470593, a: 1}
-  EasyConditioning: 0
-  HardConditioning: 0
-  FallsEasyConditioning: 0
-  FallsHardCondtioning: 0
-  TrainingCondition: 0
-  NoConditioning: 0
-  LaufVariable: 0
---- !u!114 &1815706845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c3946ab5378473cb34bedd1c8194ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fogMode: 0
-  startDistance: 200
-  globalDensity: 10
-  heightScale: 100
-  height: 50
-  globalFogColor: {r: .477941155, g: .477941155, b: .477941155, a: 1}
-  fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
---- !u!114 &1815706846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400006, guid: 9d4133d5d30b644bd87802a347eaccbe,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ec2fe99d1108b9d0006a298d76c639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 2
-  sensitivityX: 10
-  sensitivityY: 10
-  minimumX: 0
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
---- !u!124 &1815706847
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 12400000, guid: 9d4133d5d30b644bd87802a347eaccbe,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_Enabled: 1
---- !u!92 &1815706848
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9200000, guid: 9d4133d5d30b644bd87802a347eaccbe,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_Enabled: 1
---- !u!20 &1815706849
-Camera:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 2000000, guid: 9d4133d5d30b644bd87802a347eaccbe,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815706840}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: .19166474, g: .301966369, b: .474509805, a: 1}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: .300000012
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 100
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_HDR: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
 --- !u!1 &1834650524
 GameObject:
   m_ObjectHideFlags: 0
@@ -3870,8 +3292,9 @@ GameObject:
   - 114: {fileID: 1834650527}
   - 114: {fileID: 1834650526}
   - 114: {fileID: 1834650529}
+  - 45: {fileID: 1834650534}
   m_Layer: 0
-  m_Name: MainCameraEasy
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4119,8 +3542,8 @@ Camera:
   m_GameObject: {fileID: 1834650524}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: .19166474, g: .301966369, b: .474509805, a: 1}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -4143,6 +3566,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+--- !u!45 &1834650534
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1834650524}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 05c5d77205cf8a047bece4759122c883, type: 2}
 --- !u!21 &1842189229
 Material:
   serializedVersion: 3
@@ -4186,7 +3617,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4299,8 +3730,6 @@ Transform:
   m_Children:
   - {fileID: 157215720}
   - {fileID: 1834650525}
-  - {fileID: 1815706841}
-  - {fileID: 177990874}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!114 &2010385944
