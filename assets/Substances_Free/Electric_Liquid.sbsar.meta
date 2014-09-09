@@ -3,10 +3,10 @@ guid: e43f440ca7a19f24aaa0ce4833f696ff
 SubstanceImporter:
   serializedVersion: 5
   materialInstances:
-  - serializedVersion: 10
+  - serializedVersion: 12
     name: Electric_Liquid
     prototypeName: Electric_Liquid
-    shaderName: Self-Illumin/Specular
+    shader: {fileID: 12, guid: 0000000000000000f000000000000000, type: 0}
     inputs:
     - name: $outputsize
       value:
@@ -31,14 +31,14 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Glow_Intensity
       value:
-        scalar[0]: .5
+        scalar[0]: .847000003
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Glow_Size
       value:
-        scalar[0]: 1
+        scalar[0]: 5
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -73,7 +73,7 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Contrast
       value:
-        scalar[0]: 0
+        scalar[0]: .214000002
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -82,6 +82,7 @@ SubstanceImporter:
       serializedVersion: 5
       offset: {x: 0, y: 0}
       scale: {x: 1, y: 1}
+      generateMipmaps: 1
       generateAllOutputs: 1
       animationUpdateRate: 42
     materialProperties:
@@ -91,25 +92,25 @@ SubstanceImporter:
           first:
             name: _MainTex
           second:
-            texture: {instanceID: 0}
+            texture: {fileID: 2800000, guid: 20f2394a57c7ed443b14a21492e96bc1, type: 3}
             scale: {x: 1, y: 1}
             offset: {x: 0, y: 0}
         data:
           first:
             name: _Illum
           second:
-            texture: {instanceID: 0}
+            texture: {fileID: 2800000, guid: 20f2394a57c7ed443b14a21492e96bc1, type: 3}
             scale: {x: 1, y: 1}
             offset: {x: 0, y: 0}
       floats:
         data:
           first:
             name: _Shininess
-          second: .078125
+          second: 1
         data:
           first:
             name: _EmissionLM
-          second: 0
+          second: 143.690002
       colors:
         data:
           first:
@@ -121,16 +122,17 @@ SubstanceImporter:
           second: {r: .5, g: .5, b: .5, a: 1}
     textureParameters:
     - name: Electric_Liquid_Emissive
-      alphaSource: 0
+      alphaSource: 6
       filterMode: 1
       aniso: 1
       wrapMode: 0
+    textureAssignments: []
     buildTargetSettings:
     - serializedVersion: 2
       buildTarget: 
-      textureWidth: 512
-      textureHeight: 512
-      textureFormat: 0
+      textureWidth: 1024
+      textureHeight: 1024
+      textureFormat: 1
       loadingBehavior: 1
   deletedPrototypes: []
   userData: 
