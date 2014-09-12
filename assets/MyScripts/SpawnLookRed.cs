@@ -77,7 +77,7 @@ public class SpawnLookRed : MonoBehaviour
 												MoveAndShow ();
 												renderer.enabled = true;
 												recordData.recordDataStressors ("S");
-												PauseFeelSpace.ChangeNumberOfYellowSpaw ();
+												Pause.ChangeNumberOfYellowSpaw ();
 												TimeToRespand = 0;
 												TimerFromSpawn = 0;
 												TimerAfterSetOn = 0;
@@ -143,7 +143,7 @@ public class SpawnLookRed : MonoBehaviour
 								Debug.Log ("Defeated");
 								renderer.enabled = false;
 								recordData.recordDataStressors ("D");
-								PauseFeelSpace.ChangeNumberOfYellowDefeted ();
+								Pause.ChangeNumberOfYellowDefeted ();
 		
 								//Debug.Log ("Stressor destroyed");
 								spawning_red = true;
@@ -154,7 +154,7 @@ public class SpawnLookRed : MonoBehaviour
 								recordData.recordDataStressors ("M");
 								//Debug.Log ("Stressor missed");
 								renderer.enabled = false;
-								PauseFeelSpace.ChangeNumberOfYellowMissed ();
+								Pause.ChangeNumberOfYellowMissed ();
 								MoveAndShow ();
 								Debug.Log ("to near");
 
@@ -207,6 +207,8 @@ public class SpawnLookRed : MonoBehaviour
 		{
 				TimeOnsetOfDefeatTime = (float)urand.Range (8, 25, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				TimeOnsetOfDefeatTime = TimeOnsetOfDefeatTime / 10;
+				// this change the spawn distance, so the stressor tends to explode near the player
+				spawnDistance = (int)(14 * TimeOnsetOfDefeatTime);
 		}
 
 		void startExp ()
