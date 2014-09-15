@@ -16,7 +16,7 @@ public class calculateAngle : MonoBehaviour {
 
 		float angle = Vector2.Angle (targetDir, forwardVector);
 
-		Debug.Log ("Angle --->" + angle);
+		//Debug.Log ("Angle --->" + angle);
 		
 	}
 	

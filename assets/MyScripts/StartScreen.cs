@@ -55,15 +55,17 @@ public class StartScreen : MonoBehaviour
 
 		if (GUI.Button (buttonRect, "Start")) {
 
+			//ManagerScript.generateTrials = true ;
 			//intializing data path for storing data
 			ManagerScript.trialINprocess = true;
-			ManagerScript.trialFolder = Application.dataPath + @"/Trial"+ManagerScript.chiffre + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+			ManagerScript.trialFolder = Application.dataPath + @"/Trial-Session-"+ManagerScript.session+"-"+ManagerScript.chiffre + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
 
 			if (!Directory.Exists (ManagerScript.trialFolder)) {
 				Directory.CreateDirectory (ManagerScript.trialFolder);
 			}
 
 			recordData.recordDataParametersInit();
+			ManagerScript.generateTrials();
 			ManagerScript.switchState(ManagerScript.states.questionaire);
 		}
 	}

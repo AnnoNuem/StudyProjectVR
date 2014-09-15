@@ -5,73 +5,76 @@ using System.IO;
 
 public class ManagerScript : MonoBehaviour
 {
-	//Public variables for stressors
- 	public static int spawnDistance ;
-	public static double CoolDown ;       // How long to hide
-	public static float timer_red ; // timer, than needs to reach CoolDown
-	public static float TimerForLooking ; // timer, than needs to reach CoolDownValue
-	public static int moveDistance;   // How close can the character get
-	public static float speed ;
-	public static string CondtionTypeVariableInContainer;
+		//Public variables for stressors
+		public static int spawnDistance ;
+		public static double CoolDown ;       // How long to hide
+		public static float timer_red ; // timer, than needs to reach CoolDown
+		public static float TimerForLooking ; // timer, than needs to reach CoolDownValue
+		public static int moveDistance;   // How close can the character get
+		public static float speed ;
+		public static string CondtionTypeVariableInContainer;
+		public static Color bColor; //Background color
 
-	public static Color bColor; //Background color
-
-	//Public variables for blue target balls
-	public static int numberOfSpheres;
-	public static int timeToGetToBlueSphere; // time a user has to reach the next blue sphere
-	public static double hideTime;       // How long to hide
-	public static double blue_spawnDistance; // How far away to spawn
-	public static double blue_moveDistance;   // How close can the character get
+		//Public variables for blue target balls
+		public static int numberOfSpheres;
+		public static int timeToGetToBlueSphere; // time a user has to reach the next blue sphere
+		public static double hideTime;       // How long to hide
+		public static double blue_spawnDistance; // How far away to spawn
+		public static double blue_moveDistance;   // How close can the character get
 
 
-	//public static List<float> generatedAngles = new List<float> ();
-	public static float generatedAngle;
-	// when should the questionaire be in the middle be
-	int middleQuestionaire = 1000;
+		//public static List<float> generatedAngles = new List<float> ();
+		public static float generatedAngle;
+		// when should the questionaire be in the middle be
+		int middleQuestionaire = 1000;
 	
-	// how much time for pointing
-	int timeForPointing = 8;
+		// how much time for pointing
+		int timeForPointing = 8;
 	
-	// states for state machine to describe in which experiment state we are
-	public enum states
-	{
-		startScreen,
-		walking,
-		pointing,
-		questionaire,
-		pause}
-	;
+		// states for state machine to describe in which experiment state we are
+		public enum states
+		{
+				startScreen,
+				walking,
+				pointing,
+				questionaire,
+				pause}
+		;
 	
-	// chiffre for identification, can be changed in start screen
-	public static string chiffre = "";
-	public static states state;
+		// chiffre for identification, can be changed in start screen
+		public static string chiffre = "";
+		public static states state;
 
-	// session identifier, tree different sessions
-	public static int session = 1;
+		// session identifier, tree different sessions
+		public static int session;
 	
-	//public list of trials
-	public static List<trialContainer> trialList = new List<trialContainer> ();
+		//public list of trials
+		public static List<trialContainer> trialList = new List<trialContainer> ();
 	
-	//static variable tracks what trial is in process
-	public static int trialNumber = 0 ;
-	public static string trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
-	public static string parameterFile =  "";
-	public static bool trialINprocess = false;
-	public static bool pointTaskINprocess = false;
+		//static variable tracks what trial is in process
+		public static int trialNumber = 0 ;
+		public static string trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+		public static string parameterFile = "";
+		public static bool trialINprocess = false;
+		public static bool pointTaskINprocess = false;
+		public static float timetoPointingStage = 0.0f;
+		public static float pointingTime = 0.0f;
 
 
-	//Trials and random variables will be generated here
-	void Awake ()
-	{
-		//adding trials to the list
 
-		//First trial - not really used
+		//Trials and random variables will be generated here
+		void Awake ()
+		{
+				//adding trials to the list
 
+				//First trial - not really used
+				//Debug.Log ("Awoken");
 
+				/*
 		for (int i=0; i<1; i++) {
 
 			trialContainer tempTrial = new trialContainer ("Dummy");
-			Debug.Log("Array -->"+trialList); 
+			//Debug.Log("Array -->"+trialList); 
 			trialList.Add (tempTrial);
 
 		}
@@ -79,14 +82,14 @@ public class ManagerScript : MonoBehaviour
 		for (int i=0; i<0; i++) { //5
 			
 				trialContainer tempTrial = new trialContainer ("Explain");
-				Debug.Log ("Array -->" + trialList); 
+				//Debug.Log ("Array -->" + trialList); 
 				trialList.Add (tempTrial);
 				}
 
 		for (int i=0; i<0; i++) { //15
 			
 			trialContainer tempTrial = new trialContainer ("Training");
-			Debug.Log ("Array -->" + trialList); 
+			//Debug.Log ("Array -->" + trialList); 
 			trialList.Add (tempTrial);
 		}
 
@@ -115,114 +118,275 @@ public class ManagerScript : MonoBehaviour
 			trialList.Add (tempTrial);
 		}
 
-
-
-	}
-	//
-	void Start ()
-	{
-		ManagerScript.switchState (states.startScreen);
-	}
-
-	// Update is called once per frame
-	void Update ()
-	{	
-		if (trialNumber == middleQuestionaire) {
-			switchState (states.questionaire);
+*/
 		}
-	}
+		//
+		void Start ()
+		{
+				ManagerScript.switchState (states.startScreen);
+		}
+
+		// Update is called once per frame
+		void Update ()
+		{	
+				//Debug.Log ("Trial number --->" + trialNumber);
+				//Debug.Log ("state -->"+state);
+				//Debug.Log ("time to point -->"+timetoPointingStage);
+				Debug.Log ("Current condition-->" + CondtionTypeVariableInContainer);
+				if (state == states.walking) {
+						timetoPointingStage += Time.deltaTime * 1; 
+				}
+				if (state == states.pointing) {
+						pointingTime += Time.deltaTime * 1; 
+				}
+
+				if (trialNumber == middleQuestionaire) {
+						switchState (states.questionaire);
+				}
+
+
+
+		}
+
+		public static void generateTrials ()
+		{
+
+				if (session == 1) {
+				
+						Debug.Log ("Session 1");
+
+						for (int i=0; i<1; i++) {
+								trialContainer tempTrial = new trialContainer ("Dummy");
+								trialList.Add (tempTrial);
+						}
+				
+						for (int i=0; i<5; i++) { 
+								trialContainer tempTrial = new trialContainer ("Explain");
+								trialList.Add (tempTrial);
+						}
+				
+						for (int i=0; i<40; i++) {
+								trialContainer tempTrial = new trialContainer ("Training");
+								trialList.Add (tempTrial);
+						}
+				
+						for (int i=0; i<2; i++) { 
+								trialContainer tempTrial = new trialContainer ("Easy");
+								trialList.Add (tempTrial);
+						}
+				
+						for (int i=0; i<2; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Hard");
+								trialList.Add (tempTrial);
+						}
+						
+
+						for (int i=0; i<30; i++) { 
+							trialContainer tempTrial = new trialContainer ("Easy");
+							trialList.Add (tempTrial);
+						}
+						
+						for (int i=0; i<30; i++) { //20
+							trialContainer tempTrial = new trialContainer ("Hard");
+							trialList.Add (tempTrial);
+						}
+
+						List<trialContainer> easyBlock1 = new List<trialContainer> ();
+						
+						for (int i=0; i<24; i++) { //20
+							trialContainer tempTrial = new trialContainer ("Easy");
+							easyBlock1.Add (tempTrial);
+						}
+						
+						for (int i=0; i<6; i++) {
+							trialContainer tempTrial = new trialContainer ("Easy-False");
+							easyBlock1.Add (tempTrial);
+						}
+						easyBlock1.Shuffle ();
+						trialList.AddRange (easyBlock1);
+						
+
+						List<trialContainer> hardBlock1 = new List<trialContainer> ();
+						
+						for (int i=0; i<24; i++) { //20
+							trialContainer tempTrial = new trialContainer ("Hard");
+							hardBlock1.Add (tempTrial);
+						}
+						
+						for (int i=0; i<6; i++) {
+							trialContainer tempTrial = new trialContainer ("Hard-False");
+							hardBlock1.Add (tempTrial);
+						}
+						hardBlock1.Shuffle (); // Shuffling function
+						trialList.AddRange (hardBlock1);
+				
+				}
+
+				else{
+				
+						//Debug.Log ("Session 2");
+						List<trialContainer> easyBlock1 = new List<trialContainer> ();
+
+						for (int i=0; i<24; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Easy");
+								easyBlock1.Add (tempTrial);
+						}
+
+						for (int i=0; i<6; i++) {
+								trialContainer tempTrial = new trialContainer ("Easy-False");
+								easyBlock1.Add (tempTrial);
+						}
+						easyBlock1.Shuffle ();
+						trialList.AddRange (easyBlock1);
+
+						List<trialContainer> hardBlock1 = new List<trialContainer> ();
+						
+						for (int i=0; i<24; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Hard");
+								hardBlock1.Add (tempTrial);
+						}
+						
+						for (int i=0; i<6; i++) {
+								trialContainer tempTrial = new trialContainer ("Hard-False");
+								hardBlock1.Add (tempTrial);
+						}
+						hardBlock1.Shuffle (); // Shuffling function
+						trialList.AddRange (hardBlock1);
+
+						List<trialContainer> easyBlock2 = new List<trialContainer> ();
+						
+						for (int i=0; i<24; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Easy");
+								easyBlock2.Add (tempTrial);
+						}
+						
+						for (int i=0; i<6; i++) {
+								trialContainer tempTrial = new trialContainer ("Easy-False");
+								easyBlock2.Add (tempTrial);
+						}
+						easyBlock2.Shuffle ();
+						trialList.AddRange (easyBlock2);
+
+						List<trialContainer> hardBlock2 = new List<trialContainer> ();
+						
+						for (int i=0; i<24; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Hard");
+								hardBlock2.Add (tempTrial);
+						}
+						
+						for (int i=0; i<6; i++) {
+								trialContainer tempTrial = new trialContainer ("Hard-False");
+								hardBlock2.Add (tempTrial);
+						}
+						hardBlock2.Shuffle (); // Shuffling function
+						trialList.AddRange (hardBlock2);
+
+				}
+				
+				
+
+		}
 	
-	public static void abortTrial ()
-	{	
-		trialNumber++;
-		trialINprocess = false;
-		Time.timeScale = 0;
-		CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
-		new     WaitForSeconds (2);
-		Time.timeScale = 1;
-		switchState (states.walking);
-	}
+		public static void abortTrial ()
+		{	
+				trialNumber++;
+				trialINprocess = false;
+				Time.timeScale = 0;
+				CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
+				new     WaitForSeconds (2);
+				Time.timeScale = 1;
+				switchState (states.walking);
+		}
 	
-	public static void newTrial ()
-	{  
-		trialNumber++;
-		//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
-		new    WaitForSeconds (2);
-		//accessng parameters values according to the current trial
-		spawnDistance = trialList[trialNumber].spawnDistance;
-		CoolDown =  trialList[trialNumber].spawnDistance; ;       // How long to hide
-		timer_red = trialList[trialNumber].timer_red; // timer, than needs to reach CoolDown
-		TimerForLooking = trialList[trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
-		moveDistance = trialList[trialNumber].moveDistance;;   // How close can the character get
-		speed = trialList[trialNumber].speed;
+		public static void newTrial ()
+		{  
+
+				trialNumber++;
+				//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
+				new    WaitForSeconds (2);
+				//accessng parameters values according to the current trial
+				spawnDistance = trialList [trialNumber].spawnDistance;
+				CoolDown = trialList [trialNumber].spawnDistance;
+				;       // How long to hide
+				timer_red = trialList [trialNumber].timer_red; // timer, than needs to reach CoolDown
+				TimerForLooking = trialList [trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
+				moveDistance = trialList [trialNumber].moveDistance;
+				;   // How close can the character get
+				speed = trialList [trialNumber].speed;
 //		Camera.main.backgroundColor = trialList[trialNumber].bColor;
-		CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
+				CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
 
 
-		trialINprocess = true;
-		Time.timeScale = 0;
+				trialINprocess = true;
+				Time.timeScale = 0;
 
-		switchState (states.walking);
-		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
-		((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
-		Time.timeScale = 1;
+				switchState (states.walking);
+				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
+				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
+				Time.timeScale = 1;
 
-	}
+				timetoPointingStage = 0.0f;
+				pointingTime = 0.0f;
+
+		}
 	
 	
-	// the state machine
-	public static void switchState (states newState)
-	{
-		switch (newState) {
-			//start screen
-		case states.startScreen:
-			Time.timeScale = 0;
-			GameObject.Find ("Character").SendMessage ("changeMovement", false);
-			ManagerScript.state = states.startScreen;
-			break;
-			//questionaire
-		case states.questionaire:
-			Time.timeScale = 0;
-			GameObject.Find ("Character").SendMessage ("changeMovement", false);
-			ManagerScript.state = states.questionaire;
-			Debug.Log ("questionaire");
-			break;
-			//walking
-		case states.walking:
-			Time.timeScale = 1;
+		// the state machine
+		public static void switchState (states newState)
+		{
+				switch (newState) {
+				//start screen
+				case states.startScreen:
+						Time.timeScale = 0;
+						GameObject.Find ("Character").SendMessage ("changeMovement", false);
+						ManagerScript.state = states.startScreen;
+						break;
+				//questionaire
+				case states.questionaire:
+						Time.timeScale = 0;
+						GameObject.Find ("Character").SendMessage ("changeMovement", false);
+						ManagerScript.state = states.questionaire;
+			//Debug.Log ("questionaire");
+						break;
+				//walking
+				case states.walking:
+						Time.timeScale = 1;
 			
 			// here goes the code for the subject position reset and rotation reset to the starting point 
-			GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position;
-			GameObject.Find ("Character").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+						GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position;
+						GameObject.Find ("Character").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
 			
-			ManagerScript.state = states.walking;
-			GameObject.Find ("Character").SendMessage ("changeMovement", true);
-			((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
-			break;
-			//pause
-		case states.pause:
-			Time.timeScale = 0;
-			ManagerScript.state = states.pause;
-			GameObject.Find ("Character").SendMessage ("changeMovement", false);
-			break;
+						ManagerScript.state = states.walking;
+						GameObject.Find ("Character").SendMessage ("changeMovement", true);
+						((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
+						break;
+				//pause
+				case states.pause:
+						Time.timeScale = 0;
+						ManagerScript.state = states.pause;
+						GameObject.Find ("Character").SendMessage ("changeMovement", false);
+						break;
 			
-			//pointing
-		case states.pointing:
-			Time.timeScale = 1;
-			((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
-			ManagerScript.state = states.pointing;
-			GameObject.Find ("Character").SendMessage ("changeMovement", true);
-			Debug.Log ("pointing");
-			break;
+				//pointing
+				case states.pointing:
+						Time.timeScale = 1;
+						((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
+						ManagerScript.state = states.pointing;
+						GameObject.Find ("Character").SendMessage ("changeMovement", true);
+			//Debug.Log ("pointing");
+						break;
+				}
+		
+		
 		}
-		
-		
-	}
 	
-	void toLongPoint ()
-	{
-		ManagerScript.abortTrial ();
-		Debug.Log ("To long for pointing");
-		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
-	}
+		void toLongPoint ()
+		{
+				ManagerScript.abortTrial ();
+				//Debug.Log ("To long for pointing");
+				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
+		}
+
+
+
 }

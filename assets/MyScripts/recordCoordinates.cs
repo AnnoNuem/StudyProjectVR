@@ -59,7 +59,7 @@ public class recordCoordinates : MonoBehaviour {
 
 		//code will only execute when K is pressed
 		if (Input.GetKeyDown (KeyCode.K) && ManagerScript.state==ManagerScript.states.pointing) {
-			Debug.Log("K pressed");
+			//Debug.Log("K pressed");
 			recordData.recordDataParameters();
 
 			//2d vector definations for angle calculation (we only take x and z coordinates)
@@ -77,7 +77,7 @@ public class recordCoordinates : MonoBehaviour {
 			//if(ManagerScript.trialINprocess){
 				//filePath = ManagerScript.trialFolder+ "/Trial"+ManagerScript.trialNumber+".csv";
 				filePath = ManagerScript.trialFolder+ "/Trial-Error-Angles.csv";
-				Debug.Log ("File Path -->" + filePath);
+				//Debug.Log ("File Path -->" + filePath);
 
 				//string delimiter = ",";
 				
@@ -146,7 +146,7 @@ public class recordCoordinates : MonoBehaviour {
 
 			//HERE
 			ManagerScript.newTrial();
-			Debug.Log(angleBetween);
+			//Debug.Log(angleBetween);
 
 		}
 

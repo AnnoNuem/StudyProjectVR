@@ -67,13 +67,15 @@ public static class recordData
 
 				//putting values for column in csv
 				string[][] output = new string[][]{
-			new string[] {
+			    new string[] {
 						ManagerScript.trialNumber.ToString (),
 						ManagerScript.spawnDistance.ToString (),
 				//ManagerScript.CoolDown.ToString (),
 				//ManagerScript.timer_red.ToString (),
 				//ManagerScript.bColor.ToString (),
 						ManagerScript.generatedAngle.ToString (),
+						ManagerScript.timetoPointingStage.ToString(),
+						ManagerScript.pointingTime.ToString(),
 						conditionVal,
 						
 				} 
@@ -140,7 +142,7 @@ public static class recordData
 						sb.AppendLine (string.Join (delimiter, output [index]));
 				File.AppendAllText (filePath, sb.ToString ());
 		}
-	/*
+		/*
 		public static void recordDataFlow ()
 		{
 				

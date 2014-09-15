@@ -38,12 +38,12 @@ public class recordCoordinatesFeelSpace : MonoBehaviour {
 			Vector2 targetDir = targetVector - transformVector;
 			angleBetween = Vector2.Angle (targetDir, forwardVector);
 			keyPressedK = true;
-			Debug.Log("ManagerScript.trialINprocess value -->"+ManagerScriptFeelSpace.trialINprocess);
+			//Debug.Log("ManagerScript.trialINprocess value -->"+ManagerScriptFeelSpace.trialINprocess);
 
 			//flag to enable new CSV for each trial
 			//if(ManagerScript.trialINprocess){
 			filePath = ManagerScriptFeelSpace.trialFolder+ "/Trial"+ManagerScriptFeelSpace.trialNumber+".csv";
-				Debug.Log ("File Path -->" + filePath);
+				//Debug.Log ("File Path -->" + filePath);
 
 				string delimiter = ",";
 				
@@ -83,7 +83,7 @@ public class recordCoordinatesFeelSpace : MonoBehaviour {
 
 			//HERE
 			ManagerScriptFeelSpace.newTrial();
-			Debug.Log(angleBetween);
+			//Debug.Log(angleBetween);
 
 		}
 
