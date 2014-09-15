@@ -65,60 +65,7 @@ public class ManagerScript : MonoBehaviour
 		//Trials and random variables will be generated here
 		void Awake ()
 		{
-				//adding trials to the list
 
-				//First trial - not really used
-				//Debug.Log ("Awoken");
-
-				/*
-		for (int i=0; i<1; i++) {
-
-			trialContainer tempTrial = new trialContainer ("Dummy");
-			//Debug.Log("Array -->"+trialList); 
-			trialList.Add (tempTrial);
-
-		}
-
-		for (int i=0; i<0; i++) { //5
-			
-				trialContainer tempTrial = new trialContainer ("Explain");
-				//Debug.Log ("Array -->" + trialList); 
-				trialList.Add (tempTrial);
-				}
-
-		for (int i=0; i<0; i++) { //15
-			
-			trialContainer tempTrial = new trialContainer ("Training");
-			//Debug.Log ("Array -->" + trialList); 
-			trialList.Add (tempTrial);
-		}
-
-		for (int i=0; i<2; i++) { //20
-				trialContainer tempTrial = new trialContainer ("Easy");
-				trialList.Add (tempTrial);
-		}
-
-		for (int i=0; i<2; i++) { //20
-			trialContainer tempTrial = new trialContainer ("Hard");
-			trialList.Add (tempTrial);
-		}
-
-		for (int i=0; i<10; i++) {
-			trialContainer tempTrial = new trialContainer ("Easy-False");
-			trialList.Add (tempTrial);
-		}
-
-		for (int i=0; i<10; i++) {
-			trialContainer tempTrial = new trialContainer ("Hard-False");
-			trialList.Add (tempTrial);
-		}
-
-		for (int i=0; i<10; i++) {
-			trialContainer tempTrial = new trialContainer ("ENDTRIAL");
-			trialList.Add (tempTrial);
-		}
-
-*/
 		}
 		//
 		void Start ()
@@ -144,52 +91,64 @@ public class ManagerScript : MonoBehaviour
 						switchState (states.questionaire);
 				}
 
-
-
 		}
 
 		public static void generateTrials ()
 		{
+				trialContainer blockTrial = new trialContainer ("BLOCKOVER");
 
 				if (session == 1) {
 				
 						Debug.Log ("Session 1");
 
+						
+
 						for (int i=0; i<1; i++) {
 								trialContainer tempTrial = new trialContainer ("Dummy");
 								trialList.Add (tempTrial);
 						}
-				
+						
 						for (int i=0; i<5; i++) { 
 								trialContainer tempTrial = new trialContainer ("Explain");
 								trialList.Add (tempTrial);
 						}
-				
+						
+						trialList.Add(blockTrial);
+							
 						for (int i=0; i<40; i++) {
 								trialContainer tempTrial = new trialContainer ("Training");
 								trialList.Add (tempTrial);
 						}
+
+						trialList.Add(blockTrial);
 				
 						for (int i=0; i<2; i++) { 
 								trialContainer tempTrial = new trialContainer ("Easy");
 								trialList.Add (tempTrial);
 						}
+
+						trialList.Add(blockTrial);	
 				
 						for (int i=0; i<2; i++) { //20
 								trialContainer tempTrial = new trialContainer ("Hard");
 								trialList.Add (tempTrial);
 						}
 						
+						trialList.Add(blockTrial);
 
 						for (int i=0; i<30; i++) { 
 							trialContainer tempTrial = new trialContainer ("Easy");
 							trialList.Add (tempTrial);
 						}
 						
+						trialList.Add(blockTrial);
+						
 						for (int i=0; i<30; i++) { //20
 							trialContainer tempTrial = new trialContainer ("Hard");
 							trialList.Add (tempTrial);
 						}
+
+						trialList.Add(blockTrial);
 
 						List<trialContainer> easyBlock1 = new List<trialContainer> ();
 						
@@ -204,7 +163,7 @@ public class ManagerScript : MonoBehaviour
 						}
 						easyBlock1.Shuffle ();
 						trialList.AddRange (easyBlock1);
-						
+						trialList.Add(blockTrial);
 
 						List<trialContainer> hardBlock1 = new List<trialContainer> ();
 						
@@ -219,7 +178,7 @@ public class ManagerScript : MonoBehaviour
 						}
 						hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
-				
+						trialList.Add(blockTrial);
 				}
 
 				else{
@@ -231,13 +190,14 @@ public class ManagerScript : MonoBehaviour
 								trialContainer tempTrial = new trialContainer ("Easy");
 								easyBlock1.Add (tempTrial);
 						}
-
+						
 						for (int i=0; i<6; i++) {
 								trialContainer tempTrial = new trialContainer ("Easy-False");
 								easyBlock1.Add (tempTrial);
 						}
 						easyBlock1.Shuffle ();
 						trialList.AddRange (easyBlock1);
+						trialList.Add(blockTrial);
 
 						List<trialContainer> hardBlock1 = new List<trialContainer> ();
 						
@@ -252,7 +212,8 @@ public class ManagerScript : MonoBehaviour
 						}
 						hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
-
+						trialList.Add(blockTrial);
+						
 						List<trialContainer> easyBlock2 = new List<trialContainer> ();
 						
 						for (int i=0; i<24; i++) { //20
@@ -266,6 +227,7 @@ public class ManagerScript : MonoBehaviour
 						}
 						easyBlock2.Shuffle ();
 						trialList.AddRange (easyBlock2);
+						trialList.Add(blockTrial);
 
 						List<trialContainer> hardBlock2 = new List<trialContainer> ();
 						
@@ -280,11 +242,9 @@ public class ManagerScript : MonoBehaviour
 						}
 						hardBlock2.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock2);
+						trialList.Add(blockTrial);
 
 				}
-				
-				
-
 		}
 	
 		public static void abortTrial ()
@@ -376,8 +336,6 @@ public class ManagerScript : MonoBehaviour
 			//Debug.Log ("pointing");
 						break;
 				}
-		
-		
 		}
 	
 		void toLongPoint ()
@@ -386,7 +344,4 @@ public class ManagerScript : MonoBehaviour
 				//Debug.Log ("To long for pointing");
 				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
 		}
-
-
-
 }

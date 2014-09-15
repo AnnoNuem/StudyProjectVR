@@ -104,6 +104,19 @@ public class trialContainer
 					CondtionTypeVariableInContainer = "ENDTRIAL" ;
 					
 				}
+
+				else if (trialType == "BLOCKOVER") {
+					
+					bColor = Color.black;
+					spawnDistance = 2220;
+					CoolDown = 200000.5;    
+					timer_red = 0.0f; 
+					TimerForLooking = 0.0f; 
+					moveDistance = 5000000;  
+					speed = 0.0f;
+					CondtionTypeVariableInContainer = "BLOCKOVER" ;
+				}
+
 				else {
 						
 					bColor = Color.black;
