@@ -79,7 +79,7 @@ public class ManagerScript : MonoBehaviour
 				//Debug.Log ("Trial number --->" + trialNumber);
 				//Debug.Log ("state -->"+state);
 				//Debug.Log ("time to point -->"+timetoPointingStage);
-				Debug.Log ("Current condition-->" + CondtionTypeVariableInContainer);
+				//Debug.Log ("Current condition-->" + CondtionTypeVariableInContainer);
 				if (state == states.walking) {
 						timetoPointingStage += Time.deltaTime * 1; 
 				}
@@ -99,7 +99,7 @@ public class ManagerScript : MonoBehaviour
 
 				if (session == 1) {
 				
-						Debug.Log ("Session 1");
+						//Debug.Log ("Session 1");
 
 						
 

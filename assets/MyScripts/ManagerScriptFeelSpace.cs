@@ -68,7 +68,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 		for (int i=0; i<80; i++) { 
 			
 			trialContainer tempTrial = new trialContainer ("Training");
-			Debug.Log ("Array -->" + trialList); 
+			//Debug.Log ("Array -->" + trialList); 
 			trialList.Add (tempTrial);
 		}
 
@@ -146,7 +146,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 			Time.timeScale = 0;
 			GameObject.Find ("Character").SendMessage ("changeMovement", false);
 			ManagerScriptFeelSpace.state = states.questionaire;
-			Debug.Log ("questionaire");
+			//Debug.Log ("questionaire");
 			break;
 			//walking
 		case states.walking:
@@ -173,7 +173,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 			((PointingScriptFeelSpace)(GameObject.Find ("helperObject").GetComponent ("PointingScriptFeelSpace"))).NewPointing ();
 			ManagerScriptFeelSpace.state = states.pointing;
 			GameObject.Find ("Character").SendMessage ("changeMovement", true);
-			Debug.Log ("pointing");
+			//Debug.Log ("pointing");
 			break;
 		}
 		
@@ -183,7 +183,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 	void toLongPoint ()
 	{
 		ManagerScriptFeelSpace.abortTrial ();
-		Debug.Log ("To long for pointing");
+		//Debug.Log ("To long for pointing");
 		((GuiScriptFeelspace)(GameObject.Find ("GuiHelper").GetComponent ("GuiScriptFeelspace"))).toSlowPoint ();
 	}
 }

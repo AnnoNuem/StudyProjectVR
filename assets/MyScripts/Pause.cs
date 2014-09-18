@@ -25,11 +25,11 @@ public class Pause : MonoBehaviour
 				if (Input.GetKeyDown (pausekey)) {
 						if (ManagerScript.state == ManagerScript.states.pause) {
 								ManagerScript.switchState (prevState);
-								Debug.Log ("resume");
+								//Debug.Log ("resume");
 						} else if (ManagerScript.state != ManagerScript.states.startScreen) {
 								prevState = ManagerScript.state;
 								ManagerScript.switchState (ManagerScript.states.pause);
-								Debug.Log ("pause");
+								//Debug.Log ("pause");
 						}
 				}
 		}
@@ -38,7 +38,7 @@ public class Pause : MonoBehaviour
 		{
 				// show pause screen
 				if (ManagerScript.state == ManagerScript.states.pause) {
-						Debug.Log ("pausewindow");
+						//Debug.Log ("pausewindow");
 						windowRect = GUI.Window (0, windowRect, WindowFunction, "");
 				}
 		}

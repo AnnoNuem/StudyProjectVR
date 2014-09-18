@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class SpawnLookRed : MonoBehaviour
@@ -67,11 +67,11 @@ public class SpawnLookRed : MonoBehaviour
 				CondtionTypeVariableInContainer = ManagerScript.CondtionTypeVariableInContainer;
 
 				// if the state is walking, lets render the shit out of it. 
-				if (ManagerScript.state == ManagerScript.states.walking && CondtionTypeVariableInContainer != "Explain") {
+		if (ManagerScript.state == ManagerScript.states.walking && CondtionTypeVariableInContainer != "Explain" && CondtionTypeVariableInContainer != "Dummy" && CondtionTypeVariableInContainer != "Training" ) {
 
 						// this part is responsable for wating some time and respawn the object
 						if (!renderer.enabled) {
-								if (spawnDistance != 2220) {
+								
 										timer_red += Time.deltaTime;
 										if (timer_red > CoolDown) { 
 												MoveAndShow ();
@@ -84,7 +84,7 @@ public class SpawnLookRed : MonoBehaviour
 												CanBeDefeated = false;
 												((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
 											//	Debug.Log ("bla");
-										}
+										
 								}
 						}
 		
@@ -131,21 +131,21 @@ public class SpawnLookRed : MonoBehaviour
 						if (TimerAfterSetOn > TimeToRespand) {
 								CanBeDefeated = false;
 								((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
-								if (!willExplode) {
-										willExplode = true;
-					Invoke ("startExp", timeTillExp);
-								}
-						}
+							
+
+							// & renderer.enabled to prevent explosion when the ball is defeated, as it was still expoding.
+							if (!willExplode && renderer.enabled) {
+									willExplode = true;
+									Invoke ("startExp", timeTillExp);
+							}
+						}	
 
 
-						// if you can respind and press the key, the ball is defeaded
+						// if you can respond and press the key, the ball is defeaded
 						if (Input.GetKeyDown (KeyCode.G) && CanBeDefeated) {
-								Debug.Log ("Defeated");
 								renderer.enabled = false;
 								recordData.recordDataStressors ("D");
 								Pause.ChangeNumberOfYellowDefeted ();
-		
-								//Debug.Log ("Stressor destroyed");
 								spawning_red = true;
 						}
 
@@ -156,16 +156,14 @@ public class SpawnLookRed : MonoBehaviour
 								renderer.enabled = false;
 								Pause.ChangeNumberOfYellowMissed ();
 								MoveAndShow ();
-								Debug.Log ("to near");
-
 		
 						}
 
-				} else {
+						} else {
 						// if not in proper state just dissable the rendering and everything is fine
 						renderer.enabled = false;
 
-				}		
+						}		
 		}
 
 		// this is the function that respawns the yellow sphere
