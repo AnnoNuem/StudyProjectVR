@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class SpawnLookRed : MonoBehaviour
 {
@@ -30,7 +31,14 @@ public class SpawnLookRed : MonoBehaviour
 		float TimerFromSpawn;
 		float TimerAfterSetOn;
 		bool CanBeDefeated;
+		bool vibrate;
 
+		/*
+		bool playerIndexSet = false;
+		PlayerIndex playerIndex;
+		GamePadState state;
+		GamePadState prevState;
+*/
 
 		// Use this for initialization
 		void Start ()
@@ -64,26 +72,52 @@ public class SpawnLookRed : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{	
+		 
+
+		
+				//vibrateController ();
+
+				/*
+		// Find a PlayerIndex, for a single player game
+		// Will find the first controller that is connected ans use it
+		if (!playerIndexSet || !prevState.IsConnected)
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				PlayerIndex testPlayerIndex = (PlayerIndex)i;
+				GamePadState testState = GamePad.GetState(testPlayerIndex);
+				if (testState.IsConnected)
+				{
+					Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
+					playerIndex = testPlayerIndex;
+					playerIndexSet = true;
+				}
+			}
+		}
+		
+		prevState = state;
+		state = GamePad.GetState(playerIndex);	
+*/
 				CondtionTypeVariableInContainer = ManagerScript.CondtionTypeVariableInContainer;
 
 				// if the state is walking, lets render the shit out of it. 
-		if (ManagerScript.state == ManagerScript.states.walking && CondtionTypeVariableInContainer != "Explain" && CondtionTypeVariableInContainer != "Dummy" && CondtionTypeVariableInContainer != "Training" ) {
+				if (ManagerScript.state == ManagerScript.states.walking && CondtionTypeVariableInContainer != "Explain" && CondtionTypeVariableInContainer != "Dummy" && CondtionTypeVariableInContainer != "Training") {
 
 						// this part is responsable for wating some time and respawn the object
 						if (!renderer.enabled) {
 								
-										timer_red += Time.deltaTime;
-										if (timer_red > CoolDown) { 
-												MoveAndShow ();
-												renderer.enabled = true;
-												recordData.recordDataStressors ("S");
-												Pause.ChangeNumberOfYellowSpaw ();
-												TimeToRespand = 0;
-												TimerFromSpawn = 0;
-												TimerAfterSetOn = 0;
-												CanBeDefeated = false;
-												((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
-											//	Debug.Log ("bla");
+								timer_red += Time.deltaTime;
+								if (timer_red > CoolDown) { 
+										MoveAndShow ();
+										renderer.enabled = true;
+										recordData.recordDataStressors ("S");
+										Pause.ChangeNumberOfYellowSpaw ();
+										TimeToRespand = 0;
+										TimerFromSpawn = 0;
+										TimerAfterSetOn = 0;
+										CanBeDefeated = false;
+										((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
+										//	Debug.Log ("bla");
 										
 								}
 						}
@@ -133,16 +167,16 @@ public class SpawnLookRed : MonoBehaviour
 								((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
 							
 
-							// & renderer.enabled to prevent explosion when the ball is defeated, as it was still expoding.
-							if (!willExplode && renderer.enabled) {
-									willExplode = true;
-									Invoke ("startExp", timeTillExp);
-							}
+								// & renderer.enabled to prevent explosion when the ball is defeated, as it was still expoding.
+								if (!willExplode && renderer.enabled) {
+										willExplode = true;
+										Invoke ("startExp", timeTillExp);
+								}
 						}	
 
 
 						// if you can respond and press the key, the ball is defeaded
-						if (Input.GetKeyDown (KeyCode.G) && CanBeDefeated) {
+			if ((Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown("360_controllerbuttonB")) && CanBeDefeated) {
 								renderer.enabled = false;
 								recordData.recordDataStressors ("D");
 								Pause.ChangeNumberOfYellowDefeted ();
@@ -159,11 +193,11 @@ public class SpawnLookRed : MonoBehaviour
 		
 						}
 
-						} else {
+				} else {
 						// if not in proper state just dissable the rendering and everything is fine
 						renderer.enabled = false;
 
-						}		
+				}		
 		}
 
 		// this is the function that respawns the yellow sphere
@@ -211,9 +245,23 @@ public class SpawnLookRed : MonoBehaviour
 
 		void startExp ()
 		{
-		Debug.Log ("explosion");
+
+				Debug.Log ("explosion");
+				StartCoroutine (vibrateController ());
 				((Detonator)(this.GetComponent ("Detonator"))).Explode ();
 				renderer.enabled = false;
+
+				
 		}
+
+		IEnumerator vibrateController ()
+		{
+				GamePad.SetVibration (0, 0.5f, 0.5f);
+				yield return new WaitForSeconds (1);
+				GamePad.SetVibration (0, 0.0f, 0.0f);
+		}
+
+
 }
+
 

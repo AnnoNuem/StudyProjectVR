@@ -22,7 +22,7 @@ public class PauseFeelSpace : MonoBehaviour
 		void Update ()
 		{
 				// evalute if pause key is pressed if yes switch state to pause or to state before pause
-				if (Input.GetKeyDown (pausekey)) {
+		if (Input.GetKeyDown (pausekey) || Input.GetButtonDown("360_controllerbuttonBack") ) {
 						if (ManagerScriptFeelSpace.state == ManagerScriptFeelSpace.states.pause) {
 								ManagerScriptFeelSpace.switchState (prevState);
 								Debug.Log ("resume");

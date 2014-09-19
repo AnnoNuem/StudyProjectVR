@@ -25,7 +25,7 @@ public class recordCoordinatesFeelSpace : MonoBehaviour {
 	void FixedUpdate () {
 
 		//code will only execute when K is pressed
-		if (Input.GetKeyDown (KeyCode.K) && ManagerScriptFeelSpace.state==ManagerScriptFeelSpace.states.pointing) {
+		if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown("360_controllerbuttonA") ) && ManagerScriptFeelSpace.state==ManagerScriptFeelSpace.states.pointing) {
 			Debug.Log("K pressed");
 			recordDataFeelSpace.recordDataParameters();
 
