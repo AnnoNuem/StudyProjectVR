@@ -3753,6 +3753,7 @@ GameObject:
   - 114: {fileID: 2010385949}
   - 114: {fileID: 2010385950}
   - 114: {fileID: 2010385948}
+  - 114: {fileID: 2010385951}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -3921,6 +3922,28 @@ MonoBehaviour:
   BiglineLength: 12
   BiglineWidth: 2
   Bigspread: 30
+--- !u!114 &2010385951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2010385942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c0ec7b656e74384d8bac1ea9d832213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiPosition: {x: 0, y: 0, z: 1}
+  guiSize: 1
+  useCurvedSurface: 1
+  acceptMouse: 1
+  acceptKeyboard: 1
+  cursorSize: 32
+  customCursor: {fileID: 0}
+  skin: {fileID: 11400000, guid: ef969272c6f9bbd4c8215db5096d648d, type: 2}
+  SessionId: 
+  SessionNumber: 
+  ComPort: 
 --- !u!1001 &2106148165
 Prefab:
   m_ObjectHideFlags: 0
