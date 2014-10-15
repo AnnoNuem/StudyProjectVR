@@ -42,24 +42,24 @@ public class trialContainer
 				} else if (trialType == "Hard") {
 						
 						bColor = Color.red;
-						spawnDistance = 20;
+						spawnDistance = 25;
 						CoolDown = 2.5;    
 						timer_red = 0.0f; 
 						TimerForLooking = 0.0f; 
 						moveDistance = 5;  
-						speed = 7.0f;
+						speed = 6.0f;
 						CondtionTypeVariableInContainer = "Hard" ;
 						
 						
 				} else if (trialType == "Easy-False") {
 						
 						bColor = Color.red;
-						spawnDistance = 20;
+						spawnDistance = 25;
 						CoolDown = 2.5;    
 						timer_red = 0.0f; 
 						TimerForLooking = 0.0f; 
 						moveDistance = 5;  
-						speed = 7.0f;
+						speed = 6.0f;
 						CondtionTypeVariableInContainer = "Easy-False" ;
 
 						
@@ -67,12 +67,12 @@ public class trialContainer
 				} else if (trialType == "Hard-False") {
 
 						bColor = Color.red;
-						spawnDistance = 20;
+						spawnDistance = 25;
 						CoolDown = 2.5;    
 						timer_red = 0.0f; 
 						TimerForLooking = 0.0f; 
 						moveDistance = 5;  
-						speed = 7.0f;
+						speed = 6.0f;
 						CondtionTypeVariableInContainer = "Hard-False" ;
 
 						

@@ -109,6 +109,9 @@ public class OVRCameraController : MonoBehaviour
 	[SerializeField]
 	private float  		verticalFOV = 90.0f;	 			// in degrees
 
+	public static bool runFlag = false; 
+	Quaternion resetRot = new Quaternion (0,0,0,0);
+
 	/// <summary>
 	// If true, renders to a RenderTexture to allow super-sampling.
 	/// </summary>
@@ -339,6 +342,23 @@ public class OVRCameraController : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
+
+		/*
+		if (ManagerScript.trialINprocess) {
+
+						if (runFlag) {
+								//SetOrientationOffset(resetRot);
+								OVRDevice.HMD.RecenterPose ();
+								//OVRDevice.ResetOrientation ();
+								SetYRotation(0.0f);
+								CameraMain.transform.rotation = GameObject.Find ("ForwardDirection").transform.rotation;
+								OVRDevice.ResetOrientation ();
+								Debug.Log ("penis");
+								runFlag = false; 
+						}
+				}
+				*/
+		//Debug.Log ("Debugs?");
 		// Values that influence the stereo camera orientation up and above the tracker
 		if(FollowOrientation != null)
 			OrientationOffset = FollowOrientation.rotation;
@@ -728,6 +748,9 @@ public class OVRCameraController : MonoBehaviour
 		
 		return true;
 	}
+
+	public static void increase() { runFlag = true; }
+
 	#endregion
 }
 

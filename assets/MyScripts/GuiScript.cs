@@ -14,13 +14,18 @@ public class GuiScript : MonoBehaviour {
 	bool showWalkText;
 	bool showNewTrial;
 	bool showToSlowPointText;
+	GameObject displaytext;
 
 	int displayTime = 2;
 	Rect position;
-	
+
 	// Use this for initialization
 	void Start ()
 	{
+
+		displaytext = GameObject.Find("Displaytext");
+
+
 		toSlowText = "You took to long to reach the blue sphere. \n New Trial";
 		toSlowPointText = "You took to long to point to the origin. \n New Trial";
 		walkToBlueBallText = "Walk to the next blue ball!";
@@ -38,22 +43,32 @@ public class GuiScript : MonoBehaviour {
 	}
 	
 	// OnGUI is called once per frame
+	// OnGUI is called once per frame
 	void OnGUI ()
 	{
 		if (showToSlowText) {			
-			GUI.Label(position, toSlowText);
+			
+			displaytext.GetComponent<TextMesh>().text = toSlowText;
 		}
 		if (showToSlowPointText) {			
-			GUI.Label(position, toSlowPointText);
+			;
+			displaytext.GetComponent<TextMesh>().text = toSlowPointText;
+			
 		}
 		if (showPointText) {			
-			GUI.Label(position, pointToBlueBallText);
+			
+			displaytext.GetComponent<TextMesh>().text = pointToBlueBallText;
+			
 		}
 		if (showWalkText) {			
-			GUI.Label(position, walkToBlueBallText);
+			
+			displaytext.GetComponent<TextMesh>().text = walkToBlueBallText;
+			
 		}
 		if (showNewTrial) {			
-			GUI.Label(position, newTrialText);
+			
+			displaytext.GetComponent<TextMesh>().text = newTrialText;
+			
 		}
 	}
 	
@@ -65,8 +80,9 @@ public class GuiScript : MonoBehaviour {
 	void HideToSlow ()
 	{
 		showToSlowText = false;
+		displaytext.GetComponent<TextMesh>().text = "";
 	}
-
+	
 	public void toSlowPoint ()
 	{
 		showToSlowPointText = true;
@@ -75,9 +91,10 @@ public class GuiScript : MonoBehaviour {
 	void HideToSlowPoint ()
 	{
 		showToSlowPointText = false;
+		displaytext.GetComponent<TextMesh>().text = "";
 	}
-
-
+	
+	
 	public void point ()
 	{
 		showPointText = true;
@@ -86,8 +103,9 @@ public class GuiScript : MonoBehaviour {
 	void HidePoint ()
 	{
 		showPointText = false;
+		displaytext.GetComponent<TextMesh>().text = "";
 	}
-
+	
 	public void walk ()
 	{
 		showWalkText = true;
@@ -96,8 +114,9 @@ public class GuiScript : MonoBehaviour {
 	void HideWalk ()
 	{
 		showWalkText = false;
+		displaytext.GetComponent<TextMesh>().text = "";
 	}
-
+	
 	public void newTrial ()
 	{
 		showNewTrial = true;
@@ -106,7 +125,22 @@ public class GuiScript : MonoBehaviour {
 	void HideNewTrial ()
 	{
 		showNewTrial = false;
+		displaytext.GetComponent<TextMesh>().text = "";
+		
+	}
+
+	public void Shoot(float timer2 ){
+
+		Invoke ("HideShoot", timer2);
+		
+	}
+
+	void HideShoot(){
+		
+		displaytext.GetComponent<TextMesh>().text = "";
+
 	}
 }
+
 	
 

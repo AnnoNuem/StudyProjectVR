@@ -107,7 +107,7 @@ public class OVRPlayerController : MonoBehaviour
 	protected Transform DirXform = null;
 	
 	// We can adjust these to influence speed and rotation of player controller
-	private float MoveScaleMultiplier     = 1.0f; 
+	private float MoveScaleMultiplier     = 3.0f; 
 	private float RotationScaleMultiplier = 1.0f; 
 	private bool  SkipMouseRotation       = false;
 	private bool  HaltUpdateMovement      = false;

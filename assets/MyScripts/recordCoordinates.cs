@@ -58,7 +58,7 @@ public class recordCoordinates : MonoBehaviour {
 		*/
 
 		//code will only execute when K is pressed
-		if (Input.GetKeyDown (KeyCode.K) && ManagerScript.state==ManagerScript.states.pointing) {
+		if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown("360controllerButtonA") ) && ManagerScript.state==ManagerScript.states.pointing) {
 			//Debug.Log("K pressed");
 			recordData.recordDataParameters();
 

@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class SpawnLookRed : MonoBehaviour
 {
+		GameObject displaytext ;
+
 
 		bool spawning_red = true ; // a variable for controlling processes
 		public int spawnDistance = 25 ;
@@ -31,11 +34,21 @@ public class SpawnLookRed : MonoBehaviour
 		float TimerAfterSetOn;
 		bool CanBeDefeated;
 
+		bool vibrate;
+
+		GameObject pController;
+		public MonoBehaviour characterMotor;
+		
+		
+
 
 		// Use this for initialization
 		void Start ()
 		{	// a variable we use to put the position in
 				pos = new Vector3 ();
+
+				displaytext = GameObject.Find ("Displaytext");
+
 
 				spawnDistance = 25;
 				CoolDown = 2.0;    
@@ -49,8 +62,8 @@ public class SpawnLookRed : MonoBehaviour
 				centerRect = new Rect ((float)(Screen.width / 2 - ySize / 2), (float)(Screen.height / 2 - ySize / 2), (float)(ySize), (float)(ySize));
 
 				// is needed for later rendomly put it somewhere 
-				character = GameObject.Find ("Character").transform;
-		
+				//character = GameObject.Find ("Character").transform;
+				character = GameObject.Find ("OVRPlayerController").transform;
 				// first lets hide the ball
 				renderer.enabled = false;
 
@@ -58,6 +71,9 @@ public class SpawnLookRed : MonoBehaviour
 				urand = new UnityRandom (213123);
 
 				renderer.enabled = false;
+
+				
+				
 
 		}
 
@@ -71,7 +87,7 @@ public class SpawnLookRed : MonoBehaviour
 
 						// this part is responsable for wating some time and respawn the object
 						if (!renderer.enabled) {
-								
+				//Debug.Log(CondtionTypeVariableInContainer);
 										timer_red += Time.deltaTime;
 										if (timer_red > CoolDown) { 
 												MoveAndShow ();
@@ -82,7 +98,7 @@ public class SpawnLookRed : MonoBehaviour
 												TimerFromSpawn = 0;
 												TimerAfterSetOn = 0;
 												CanBeDefeated = false;
-												((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
+												((Crosshairtesting2)(GameObject.Find ("OVRPlayerController").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
 											//	Debug.Log ("bla");
 										
 								}
@@ -122,7 +138,11 @@ public class SpawnLookRed : MonoBehaviour
 
 						if (CanBeDefeated) {
 								TimerAfterSetOn += Time.deltaTime;
-								((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).BigCrosshair ();
+								//((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).BigCrosshair ();
+						//	((Crosshairtesting2)(GameObject.Find ("OVRPlayerController").GetComponent ("Crosshairtesting2"))).BigCrosshair ();
+							displaytext.GetComponent<TextMesh>().text = "SHOOT" ;
+
+							
 
 						}
 
@@ -130,8 +150,11 @@ public class SpawnLookRed : MonoBehaviour
 			
 						if (TimerAfterSetOn > TimeToRespand) {
 								CanBeDefeated = false;
-								((Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
-							
+			                 	displaytext.GetComponent<TextMesh>().text = " " ;
+
+
+ 				//  Crosshairtesting2)(GameObject.Find ("Character").GetComponent ("Crosshairtesting2"))).SmallCrosshair ();
+				//  ((Crosshairtesting2)(GameObject.Find ("OVRPlayerController").GetComponent("Crosshairtesting2"))).SmallCrosshair ();
 
 							// & renderer.enabled to prevent explosion when the ball is defeated, as it was still expoding.
 							if (!willExplode && renderer.enabled) {
@@ -142,16 +165,18 @@ public class SpawnLookRed : MonoBehaviour
 
 
 						// if you can respond and press the key, the ball is defeaded
-						if (Input.GetKeyDown (KeyCode.G) && CanBeDefeated) {
+						if ( (Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown("360controllerButtonB") ) && CanBeDefeated) {
 								renderer.enabled = false;
 								recordData.recordDataStressors ("D");
 								Pause.ChangeNumberOfYellowDefeted ();
 								spawning_red = true;
+								MoveAndShow ();
 						}
 
 						// if the object is to near the player , lets respawn the ball
 						if (Vector3.Distance (character.position, transform.position) < moveDistance) {
 								recordData.recordDataStressors ("M");
+								
 								//Debug.Log ("Stressor missed");
 								renderer.enabled = false;
 								Pause.ChangeNumberOfYellowMissed ();
@@ -162,6 +187,7 @@ public class SpawnLookRed : MonoBehaviour
 						} else {
 						// if not in proper state just dissable the rendering and everything is fine
 						renderer.enabled = false;
+		//	Debug.Log("turn off render of ball") ;
 
 						}		
 		}
@@ -176,7 +202,7 @@ public class SpawnLookRed : MonoBehaviour
 
 
 
-				float temp123 = (float)urand.Range (1, 9, UnityRandom.Normalization.STDNORMAL, 0.1f);
+				float temp123 = (float)urand.Range (3, 8, UnityRandom.Normalization.STDNORMAL, 0.1f);
 				pos.x = (temp123 / 10);
 				pos.z = (float)spawnDistance;
 
@@ -191,12 +217,15 @@ public class SpawnLookRed : MonoBehaviour
 				timer_red = 0.0f;
 
 //Mapping values to stressors
-				spawnDistance = ManagerScript.spawnDistance;
-				//CoolDown = ManagerScript.CoolDown;    
-				timer_red = ManagerScript.timer_red; 
-				TimerForLooking = ManagerScript.TimerForLooking; 
-				moveDistance = ManagerScript.moveDistance;  
-				speed = ManagerScript.speed; 
+
+
+		// HERE I COMENT 
+//				spawnDistance = ManagerScript.spawnDistance;
+//				//CoolDown = ManagerScript.CoolDown;    
+//				timer_red = ManagerScript.timer_red; 
+//				TimerForLooking = ManagerScript.TimerForLooking; 
+//				moveDistance = ManagerScript.moveDistance;  
+//				speed = ManagerScript.speed; 
 		}
 
 
@@ -206,14 +235,39 @@ public class SpawnLookRed : MonoBehaviour
 				TimeOnsetOfDefeatTime = (float)urand.Range (8, 25, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				TimeOnsetOfDefeatTime = TimeOnsetOfDefeatTime / 10;
 				// this change the spawn distance, so the stressor tends to explode near the player
-				spawnDistance = (int)(14 * TimeOnsetOfDefeatTime);
+				spawnDistance = (int)(22 * TimeOnsetOfDefeatTime);
 		}
 
 		void startExp ()
 		{
-		Debug.Log ("explosion");
+				//Debug.Log ("explosion");
+				StartCoroutine (stun ());
+				StartCoroutine (vibrateController ());
 				((Detonator)(this.GetComponent ("Detonator"))).Explode ();
 				renderer.enabled = false;
 		}
+
+	IEnumerator vibrateController ()
+	{
+		GamePad.SetVibration (0, 0.5f, 0.5f);
+		yield return new WaitForSeconds (1);
+		GamePad.SetVibration (0, 0.0f, 0.0f);
+	}
+
+	IEnumerator stun ()
+	{
+		pController = GameObject.Find ("OVRPlayerController");
+		OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+		controller.SetMoveScaleMultiplier(0.0f);
+		//--GameObject.Find ("Character").SendMessage ("changeMovement", false);
+		yield return new WaitForSeconds (1);
+		controller.SetMoveScaleMultiplier(3.0f);
+		//--GameObject.Find ("Character").SendMessage ("changeMovement", true);
+		//GameObject.Find ("Character").SendMessage ("changeMovement", true);
+		//characterMotor.enabled = true;
+		//character1.GetComponent<CharacterMotor>().enabled = true;
+		//GameObject.Find ("Character").SendMessage ("changeMovement", true);
+	}
+	
 }
 

@@ -25,11 +25,11 @@ public class PauseFeelSpace : MonoBehaviour
 				if (Input.GetKeyDown (pausekey)) {
 						if (ManagerScriptFeelSpace.state == ManagerScriptFeelSpace.states.pause) {
 								ManagerScriptFeelSpace.switchState (prevState);
-								Debug.Log ("resume");
+								//Debug.Log ("resume");
 						} else if (ManagerScriptFeelSpace.state != ManagerScriptFeelSpace.states.startScreen) {
 								prevState = ManagerScriptFeelSpace.state;
 								ManagerScriptFeelSpace.switchState (ManagerScriptFeelSpace.states.pause);
-								Debug.Log ("pause");
+								//Debug.Log ("pause");
 						}
 				}
 		}
@@ -38,7 +38,7 @@ public class PauseFeelSpace : MonoBehaviour
 		{
 				// show pause screen
 				if (ManagerScriptFeelSpace.state == ManagerScriptFeelSpace.states.pause) {
-						Debug.Log ("pausewindow");
+					//	Debug.Log ("pausewindow");
 						windowRect = GUI.Window (0, windowRect, WindowFunction, "");
 				}
 		}

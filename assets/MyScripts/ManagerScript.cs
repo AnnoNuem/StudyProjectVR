@@ -76,6 +76,8 @@ public class ManagerScript : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{	
+
+		//Debug.Log ("working manager == "+GameObject.Find ("OVRCameraController").transform.forward);
 				//Debug.Log ("Trial number --->" + trialNumber);
 				//Debug.Log ("state -->"+state);
 				//Debug.Log ("time to point -->"+timetoPointingStage);
@@ -87,9 +89,7 @@ public class ManagerScript : MonoBehaviour
 						pointingTime += Time.deltaTime * 1; 
 				}
 
-				if (trialNumber == middleQuestionaire) {
-						switchState (states.questionaire);
-				}
+				
 
 		}
 
@@ -103,85 +103,83 @@ public class ManagerScript : MonoBehaviour
 
 						
 
-						for (int i=0; i<1; i++) {
-								trialContainer tempTrial = new trialContainer ("Dummy");
-								trialList.Add (tempTrial);
-						}
+//						for (int i=0; i<1; i++) {
+//								trialContainer tempTrial = new trialContainer ("Dummy");
+//								trialList.Add (tempTrial);
+//						}
 						
 						for (int i=0; i<5; i++) { 
 								trialContainer tempTrial = new trialContainer ("Explain");
 								trialList.Add (tempTrial);
 						}
 						
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 							
 						for (int i=0; i<40; i++) {
 								trialContainer tempTrial = new trialContainer ("Training");
 								trialList.Add (tempTrial);
 						}
 
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 				
 						for (int i=0; i<2; i++) { 
 								trialContainer tempTrial = new trialContainer ("Easy");
 								trialList.Add (tempTrial);
 						}
 
-						trialList.Add(blockTrial);	
+						trialList.Add (blockTrial);	
 				
 						for (int i=0; i<2; i++) { //20
 								trialContainer tempTrial = new trialContainer ("Hard");
 								trialList.Add (tempTrial);
 						}
 						
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 
 						for (int i=0; i<30; i++) { 
-							trialContainer tempTrial = new trialContainer ("Easy");
-							trialList.Add (tempTrial);
+								trialContainer tempTrial = new trialContainer ("Easy");
+								trialList.Add (tempTrial);
 						}
 						
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 						
 						for (int i=0; i<30; i++) { //20
-							trialContainer tempTrial = new trialContainer ("Hard");
-							trialList.Add (tempTrial);
+								trialContainer tempTrial = new trialContainer ("Hard");
+								trialList.Add (tempTrial);
 						}
 
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 
 						List<trialContainer> easyBlock1 = new List<trialContainer> ();
 						
 						for (int i=0; i<24; i++) { //20
-							trialContainer tempTrial = new trialContainer ("Easy");
-							easyBlock1.Add (tempTrial);
+								trialContainer tempTrial = new trialContainer ("Easy");
+								easyBlock1.Add (tempTrial);
 						}
 						
 						for (int i=0; i<6; i++) {
-							trialContainer tempTrial = new trialContainer ("Easy-False");
-							easyBlock1.Add (tempTrial);
+								trialContainer tempTrial = new trialContainer ("Easy-False");
+								easyBlock1.Add (tempTrial);
 						}
 						easyBlock1.Shuffle ();
 						trialList.AddRange (easyBlock1);
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 
 						List<trialContainer> hardBlock1 = new List<trialContainer> ();
 						
 						for (int i=0; i<24; i++) { //20
-							trialContainer tempTrial = new trialContainer ("Hard");
-							hardBlock1.Add (tempTrial);
+								trialContainer tempTrial = new trialContainer ("Hard");
+								hardBlock1.Add (tempTrial);
 						}
 						
 						for (int i=0; i<6; i++) {
-							trialContainer tempTrial = new trialContainer ("Hard-False");
-							hardBlock1.Add (tempTrial);
+								trialContainer tempTrial = new trialContainer ("Hard-False");
+								hardBlock1.Add (tempTrial);
 						}
 						hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
-						trialList.Add(blockTrial);
-				}
-
-				else{
+						trialList.Add (blockTrial);
+				} else if (session == 2) {
 				
 						//Debug.Log ("Session 2");
 						List<trialContainer> easyBlock1 = new List<trialContainer> ();
@@ -197,7 +195,7 @@ public class ManagerScript : MonoBehaviour
 						}
 						easyBlock1.Shuffle ();
 						trialList.AddRange (easyBlock1);
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 
 						List<trialContainer> hardBlock1 = new List<trialContainer> ();
 						
@@ -212,7 +210,7 @@ public class ManagerScript : MonoBehaviour
 						}
 						hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 						
 						List<trialContainer> easyBlock2 = new List<trialContainer> ();
 						
@@ -227,7 +225,7 @@ public class ManagerScript : MonoBehaviour
 						}
 						easyBlock2.Shuffle ();
 						trialList.AddRange (easyBlock2);
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 
 						List<trialContainer> hardBlock2 = new List<trialContainer> ();
 						
@@ -242,8 +240,82 @@ public class ManagerScript : MonoBehaviour
 						}
 						hardBlock2.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock2);
-						trialList.Add(blockTrial);
+						trialList.Add (blockTrial);
 
+				} else {
+				
+		
+			//Debug.Log ("Session 2");
+
+			for (int i=0; i<5; i++) { 
+				trialContainer tempTrial = new trialContainer ("Explain");
+				trialList.Add (tempTrial);
+			}
+			
+			trialList.Add (blockTrial);
+
+			List<trialContainer> easyBlock1 = new List<trialContainer> ();
+
+			for (int i=0; i<5; i++) { //20
+				trialContainer tempTrial = new trialContainer ("Easy");
+				easyBlock1.Add (tempTrial);
+			}
+			
+			for (int i=0; i<5; i++) {
+				trialContainer tempTrial = new trialContainer ("Easy-False");
+				easyBlock1.Add (tempTrial);
+			}
+			easyBlock1.Shuffle ();
+			trialList.AddRange (easyBlock1);
+			trialList.Add (blockTrial);
+			
+			List<trialContainer> hardBlock1 = new List<trialContainer> ();
+			
+			for (int i=0; i<5; i++) { //20
+				trialContainer tempTrial = new trialContainer ("Hard");
+				hardBlock1.Add (tempTrial);
+			}
+			
+			for (int i=0; i<5; i++) {
+				trialContainer tempTrial = new trialContainer ("Hard-False");
+				hardBlock1.Add (tempTrial);
+			}
+			hardBlock1.Shuffle (); // Shuffling function
+			trialList.AddRange (hardBlock1);
+			trialList.Add (blockTrial);
+			
+			List<trialContainer> easyBlock2 = new List<trialContainer> ();
+			
+			for (int i=0; i<24; i++) { //20
+				trialContainer tempTrial = new trialContainer ("Easy");
+				easyBlock2.Add (tempTrial);
+			}
+			
+			for (int i=0; i<6; i++) {
+				trialContainer tempTrial = new trialContainer ("Easy-False");
+				easyBlock2.Add (tempTrial);
+			}
+			easyBlock2.Shuffle ();
+			trialList.AddRange (easyBlock2);
+			trialList.Add (blockTrial);
+			
+			List<trialContainer> hardBlock2 = new List<trialContainer> ();
+			
+			for (int i=0; i<24; i++) { //20
+				trialContainer tempTrial = new trialContainer ("Hard");
+				hardBlock2.Add (tempTrial);
+			}
+			
+			for (int i=0; i<6; i++) {
+				trialContainer tempTrial = new trialContainer ("Hard-False");
+				hardBlock2.Add (tempTrial);
+			}
+			hardBlock2.Shuffle (); // Shuffling function
+			trialList.AddRange (hardBlock2);
+			trialList.Add (blockTrial);
+						
+		
+		
 				}
 		}
 	
@@ -277,6 +349,12 @@ public class ManagerScript : MonoBehaviour
 				CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
 
 
+				//OVRDevice.HMD.RecenterPose ();
+
+				
+
+		//O;	
+				//OVRCameraController.increase();
 				trialINprocess = true;
 				Time.timeScale = 0;
 
@@ -298,13 +376,13 @@ public class ManagerScript : MonoBehaviour
 				//start screen
 				case states.startScreen:
 						Time.timeScale = 0;
-						GameObject.Find ("Character").SendMessage ("changeMovement", false);
+						//--GameObject.Find ("OVRPlayerController").SendMessage ("changeMovement", false);
 						ManagerScript.state = states.startScreen;
 						break;
 				//questionaire
 				case states.questionaire:
 						Time.timeScale = 0;
-						GameObject.Find ("Character").SendMessage ("changeMovement", false);
+						//--GameObject.Find ("OVRPlayerController").SendMessage ("changeMovement", false);
 						ManagerScript.state = states.questionaire;
 			//Debug.Log ("questionaire");
 						break;
@@ -313,18 +391,28 @@ public class ManagerScript : MonoBehaviour
 						Time.timeScale = 1;
 			
 			// here goes the code for the subject position reset and rotation reset to the starting point 
-						GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position;
-						GameObject.Find ("Character").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
-			
+						
+						//GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position;
+						//GameObject.Find ("Character").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+
+
+			GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
+			GameObject.Find ("OVRPlayerController").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+
+			//Debug.Log("mapping occurs");
+
+			//GameObject.Find ("ForwardDirection").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+
 						ManagerScript.state = states.walking;
-						GameObject.Find ("Character").SendMessage ("changeMovement", true);
-						((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
+			//--GameObject.Find ("OVRPlayerController").SendMessage ("changeMovement", true);
+						//((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
+						((PlayerLookingAt)(GameObject.Find ("BlueBallGLow").GetComponent ("PlayerLookingAt"))).newTrial ();
 						break;
 				//pause
 				case states.pause:
 						Time.timeScale = 0;
 						ManagerScript.state = states.pause;
-						GameObject.Find ("Character").SendMessage ("changeMovement", false);
+						//--GameObject.Find ("Character").SendMessage ("changeMovement", false);
 						break;
 			
 				//pointing
@@ -332,7 +420,7 @@ public class ManagerScript : MonoBehaviour
 						Time.timeScale = 1;
 						((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
 						ManagerScript.state = states.pointing;
-						GameObject.Find ("Character").SendMessage ("changeMovement", true);
+						//--GameObject.Find ("Character").SendMessage ("changeMovement", true);
 			//Debug.Log ("pointing");
 						break;
 				}

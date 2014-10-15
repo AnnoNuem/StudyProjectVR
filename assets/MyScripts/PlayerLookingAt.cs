@@ -1,0 +1,247 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class PlayerLookingAt : MonoBehaviour
+{
+Transform cameraTransform = null;
+		Vector3 pos_blue;
+		Vector3 pos_new;
+
+		int numberOfSpheres = 2;
+		int numberOfReachedSpheres;
+	
+		// script for arrow pointing
+		public ArrowPointingScript pointingScript;
+		public GuiScript guiScript;
+	
+		// time a user has to reach the next blue sphere
+		int timeToGetToBlueSphere = 20;
+	
+		// for looking at check
+		double percentageOfScreenHeight = .50;
+		private Rect centerRect;
+	
+		// lets force playber to look 1 second at the blue light
+		private float timer = 0.0f;
+		GameObject displaytext;
+		// variable to count how often the ball is looked at
+		int HowOftenIsLookedAt = 0 ;
+	
+		// omportend for respawning
+		double hideTime = 0.5;       // How long to hide
+		double spawnDistance = 40.0; // How far away to spawn
+		double moveDistance = 15.0;   // How close can the character get
+		private Transform character; // this will be the variable we can acess players position
+		private bool hiding = false; // for inner logic
+		private UnityRandom urand;
+		int HowHighObjectRespawns = 4;  // so the object will respawn on the same hight
+
+	
+		// this is for the spawn degree
+		// cation, in genral works, is wrong. see explanation later
+		bool left = false;
+		float DegreeOfSpawn;
+		
+		private Transform OVRCamD;
+		void Awake ()
+		{
+				cameraTransform = GameObject.FindWithTag ("OVRcam").transform;
+		}
+
+		void Start ()
+		{
+				
+		displaytext = GameObject.Find("Displaytext");
+
+				// who shall not pass the blue light ?
+				character = GameObject.Find ("CameraRight").transform;
+				//OVRCamD = GameObject.Find ("OVRCameraController").transform;
+				// this is our rectangle, in middle of creeen. It is the area that counts as our vision middle.
+				// we check with this if the object is loocked at
+				//double ySize = Screen.height * percentageOfScreenHeight;
+				//centerRect = new Rect ((float)(Screen.width / 2 - ySize / 2), (float)(Screen.height / 2 - ySize / 2), (float)ySize, (float)ySize);
+		
+		
+				renderer.enabled = false;
+				urand = new UnityRandom (213123);
+		}
+	
+		void Update ()
+		{
+				//Debug.Log ("x-coordinate"+character.position.x);
+				//Debug.Log ("y-yordinate"+character.position.y);
+
+				float length = 10.0f;
+				RaycastHit hit;
+				Vector3 rayDirection = cameraTransform.TransformDirection (Vector3.forward);
+				Vector3 rayStart = cameraTransform.position + rayDirection;      // Start the ray away from the player to avoid hitting itself
+
+				Debug.DrawRay (rayStart, rayDirection * length, Color.green);
+				
+
+				if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
+				
+						if (Physics.Raycast (rayStart, rayDirection, out hit, length)) {
+								if (hit.collider.tag == "blueball") {
+										//Debug.Log ("Gazed at");
+										timer += Time.deltaTime;  
+								
+								} 
+						} else {
+								timer = 0.0f;
+						}
+				
+						if (!hiding && Vector3.Distance (character.position, transform.position) < moveDistance) {
+								if (timer > 0.5) {
+										HideAndMove ();	
+					//Debug.Log("Blu");
+								}	
+						}
+				
+				}
+
+		}
+
+		public void newTrial ()
+		{
+				//character = GameObject.Find ("CameraRight").transform;
+				OVRDevice.ResetOrientation();
+				numberOfReachedSpheres = 0;
+				// This puts the blue sphere in the beginning of the game in the front of the playr 
+				pos_blue.x = (float)(character.position.x );
+				pos_blue.y = (float)HowHighObjectRespawns;
+				pos_blue.z = (float)(character.position.z+ spawnDistance);
+				//pos_new.x = (float)(character.position.x );
+				//Quaternion resetRot = new Quaternion (0,0,0,0);
+				
+				//transform.position = GameObject.Find ("CameraRight").transform.position;
+				
+		//	float fSpawn = (float)spawnDistance;
+				//transform.position = transform.forward *fSpawn ;
+				//character.transform.forward *spawnDistance;
+				//transform.position.y = (float)HowHighObjectRespawns;
+				//transform.forward*(float)fSpawn;
+				
+				//transform.position = GameObject.Find ("CameraRight").transform.position; 
+				//transform.Translate((GameObject.Find ("CameraRight").transform.forward)*(float)spawnDistance);
+				//transform.position = pos_blue;
+				//--transform.position += GameObject.Find ("CameraRight").transform.forward* (float)spawnDistance;
+				transform.position = pos_blue;
+		//transform.Translate((GameObject.Find ("CameraRight").transform.forward)*(float)spawnDistance);
+				renderer.enabled = true;
+				
+				hiding = false;
+				timer = 0;
+				numberOfReachedSpheres = 0;
+				HowOftenIsLookedAt = 0;
+				// user reached blue sphere in time
+				Invoke ("toLong", timeToGetToBlueSphere);
+		
+		}
+
+		void HideAndMove ()
+		{
+				HowOftenIsLookedAt++;
+		
+				if (HowOftenIsLookedAt != 2) {
+						numberOfReachedSpheres++;
+			
+						// user reached blue sphere in time
+						CancelInvoke ("toLong");
+			
+						hiding = true;
+						renderer.enabled = false;
+			
+						// if we reached the number of spheres point back
+						if (numberOfReachedSpheres == numberOfSpheres) {
+								point ();
+								return;
+						}
+			
+						// spanning random at 30 60 90 degrees left or right
+						switch (Random.Range (1, 6)) {
+						// the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
+						// lets try it with 10 degree in total
+						case 1:
+								left = false;
+				//DegreeOfSpawn = 90;
+								DegreeOfSpawn = urand.Range (85, 95, UnityRandom.Normalization.STDNORMAL, 1.0f);
+								break;
+						case 2:
+								left = false;
+				//DegreeOfSpawn = 60 ;
+								DegreeOfSpawn = urand.Range (55, 65, UnityRandom.Normalization.STDNORMAL, 1.0f);
+								break;
+						case 3:
+								left = false;
+				//DegreeOfSpawn = 30 ;
+								DegreeOfSpawn = urand.Range (25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
+								break;
+						case 4:
+								left = true;
+								DegreeOfSpawn = urand.Range (85, 95, UnityRandom.Normalization.STDNORMAL, 1.0f);
+								break;
+						case 5:
+								left = true;
+								DegreeOfSpawn = urand.Range (55, 8, UnityRandom.Normalization.STDNORMAL, 1.0f);
+								break;
+						case 6:
+								left = true;
+								DegreeOfSpawn = urand.Range (25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
+								break;
+						}
+			
+
+						// here depending on the conditon, we rotate the spehre and move it forward
+						if (left) {
+				
+								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(360 - DegreeOfSpawn), transform.eulerAngles.z);
+								transform.localPosition += transform.forward * (float)spawnDistance;	
+								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.left);
+				displaytext.GetComponent<TextMesh>().text = "< --" ;
+				Invoke("clearGUItext" , 0.5f) ;
+
+						} else {
+				
+								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z);
+								transform.localPosition += transform.forward * (float)spawnDistance;
+								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.right);
+				displaytext.GetComponent<TextMesh>().text = "-- >" ;
+				Invoke("clearGUItext" , 0.5f) ;
+
+								}
+			
+			
+						//Debug.Log (DegreeOfSpawn);
+						renderer.enabled = true;
+
+						// call function if user takes to long to get to blue sphere
+						Invoke ("toLong", timeToGetToBlueSphere);
+
+						hiding = false;
+			
+				}
+		
+				if (numberOfReachedSpheres == 1) {
+						ManagerScript.generatedAngle = DegreeOfSpawn;
+				}
+		}
+	
+		void toLong ()
+		{
+				ManagerScript.abortTrial ();
+				//Debug.Log ("Blue Sphere not reached in time");
+				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
+		}
+	
+		void point ()
+		{
+				CancelInvoke ("toLong");
+				//Debug.Log ("Point");
+				ManagerScript.switchState (ManagerScript.states.pointing);
+				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).point ();
+		}
+
+	void clearGUItext(){ 		displaytext.GetComponent<TextMesh>().text = "" ;
+	}
+}

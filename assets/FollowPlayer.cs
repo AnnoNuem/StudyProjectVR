@@ -6,7 +6,7 @@ public class FollowPlayer : MonoBehaviour {
 	private Transform character;
 	// Use this for initialization
 	void Start () {
-		character = GameObject.Find ("Character").transform;
+		character = GameObject.Find ("OVRPlayerController").transform;
 	}
 	
 	// Update is called once per frame

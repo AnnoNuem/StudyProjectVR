@@ -26,7 +26,7 @@ public class recordCoordinatesFeelSpace : MonoBehaviour {
 
 		//code will only execute when K is pressed
 		if (Input.GetKeyDown (KeyCode.K) && ManagerScriptFeelSpace.state==ManagerScriptFeelSpace.states.pointing) {
-			Debug.Log("K pressed");
+			//Debug.Log("K pressed");
 			recordDataFeelSpace.recordDataParameters();
 
 			//2d vector definations for angle calculation (we only take x and z coordinates)
