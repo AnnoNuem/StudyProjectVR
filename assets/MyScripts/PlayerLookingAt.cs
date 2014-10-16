@@ -6,6 +6,8 @@ public class PlayerLookingAt : MonoBehaviour
 Transform cameraTransform = null;
 		Vector3 pos_blue;
 		Vector3 pos_new;
+	Ray r;
+	float rotationSpeed = 4f;
 
 		int numberOfSpheres = 2;
 		int numberOfReachedSpheres;
@@ -29,7 +31,7 @@ Transform cameraTransform = null;
 	
 		// omportend for respawning
 		double hideTime = 0.5;       // How long to hide
-		double spawnDistance = 40.0; // How far away to spawn
+		float spawnDistance = 40.0f; // How far away to spawn
 		double moveDistance = 15.0;   // How close can the character get
 		private Transform character; // this will be the variable we can acess players position
 		private bool hiding = false; // for inner logic
@@ -63,7 +65,7 @@ Transform cameraTransform = null;
 		
 		
 				renderer.enabled = false;
-				urand = new UnityRandom (213123);
+				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
 		}
 	
 		void Update ()
@@ -77,6 +79,8 @@ Transform cameraTransform = null;
 				Vector3 rayStart = cameraTransform.position + rayDirection;      // Start the ray away from the player to avoid hitting itself
 
 				Debug.DrawRay (rayStart, rayDirection * length, Color.green);
+
+				//transform.Rotate (Vector3.right * Time.deltaTime * rotationSpeed);
 				
 
 				if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
@@ -104,30 +108,15 @@ Transform cameraTransform = null;
 
 		public void newTrial ()
 		{
-				//character = GameObject.Find ("CameraRight").transform;
 				OVRDevice.ResetOrientation();
 				numberOfReachedSpheres = 0;
-				// This puts the blue sphere in the beginning of the game in the front of the playr 
-				pos_blue.x = (float)(character.position.x );
+
+				r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
+				pos_blue.x = character.position.x + spawnDistance * r.direction.x;
 				pos_blue.y = (float)HowHighObjectRespawns;
-				pos_blue.z = (float)(character.position.z+ spawnDistance);
-				//pos_new.x = (float)(character.position.x );
-				//Quaternion resetRot = new Quaternion (0,0,0,0);
-				
-				//transform.position = GameObject.Find ("CameraRight").transform.position;
-				
-		//	float fSpawn = (float)spawnDistance;
-				//transform.position = transform.forward *fSpawn ;
-				//character.transform.forward *spawnDistance;
-				//transform.position.y = (float)HowHighObjectRespawns;
-				//transform.forward*(float)fSpawn;
-				
-				//transform.position = GameObject.Find ("CameraRight").transform.position; 
-				//transform.Translate((GameObject.Find ("CameraRight").transform.forward)*(float)spawnDistance);
-				//transform.position = pos_blue;
-				//--transform.position += GameObject.Find ("CameraRight").transform.forward* (float)spawnDistance;
+				pos_blue.z = character.position.z + spawnDistance * r.direction.z;
 				transform.position = pos_blue;
-		//transform.Translate((GameObject.Find ("CameraRight").transform.forward)*(float)spawnDistance);
+
 				renderer.enabled = true;
 				
 				hiding = false;

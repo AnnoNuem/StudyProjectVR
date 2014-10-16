@@ -32,12 +32,11 @@ public class GuiScript : MonoBehaviour {
 		pointToBlueBallText = "Point to origin.";
 		newTrialText = "New Trial";
 
-		bool showToSlowText = false;
-		bool showToSlowPointText = false;
-		bool showPointText = false;
-		bool showWalkText =false;
-		bool showNewTrial = false;
-		bool bla = false;
+//		bool showToSlowText = false;
+//		bool showToSlowPointText = false;
+//		bool showPointText = false;
+//		bool showWalkText =false;
+//		bool showNewTrial = false;
 
 		position = new Rect (Screen.width / 2 - 150, Screen.height / 2 - 200, 300, 40);
 	}

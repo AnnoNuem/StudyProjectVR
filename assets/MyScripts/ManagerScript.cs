@@ -407,6 +407,7 @@ public class ManagerScript : MonoBehaviour
 			//--GameObject.Find ("OVRPlayerController").SendMessage ("changeMovement", true);
 						//((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
 						((PlayerLookingAt)(GameObject.Find ("BlueBallGLow").GetComponent ("PlayerLookingAt"))).newTrial ();
+//						((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).newTrial();
 						break;
 				//pause
 				case states.pause:

@@ -50,10 +50,8 @@ public class SpawnLookRed : MonoBehaviour
 		{	// a variable we use to put the position in
 				pos = new Vector3 ();
 
-				displaytext = GameObject.Find ("Displaytext");
-
-
-				spawnDistance = 25;
+				displaytext = GameObject.Find ("Displaytext2");
+	
 				CoolDown = 2.0;    
 				timer_red = 0.0f; 
 				TimerForLooking = 0.0f; 
@@ -186,16 +184,18 @@ public class SpawnLookRed : MonoBehaviour
 								MoveAndShow ();
 						}
 
+
+						// THATS SO FUCKING STUPID
 						// if the object is to near the player , lets respawn the ball
-						if (Vector3.Distance (character.position, transform.position) < moveDistance) {
-								recordData.recordDataStressors ("M");
-								
-								//Debug.Log ("Stressor missed");
-								renderer.enabled = false;
-								Pause.ChangeNumberOfYellowMissed ();
-								MoveAndShow ();
-		
-						}
+//						if (Vector3.Distance (character.position, transform.position) < moveDistance) {
+//								recordData.recordDataStressors ("M");
+//								
+//								//Debug.Log ("Stressor missed");
+//								renderer.enabled = false;
+//								Pause.ChangeNumberOfYellowMissed ();
+//								MoveAndShow ();
+//		
+//						}
 
 				} else {
 						// if not in proper state just dissable the rendering and everything is fine
@@ -222,8 +222,7 @@ public class SpawnLookRed : MonoBehaviour
 				transform.position = pos;
 			
 				timer_red = 0.0f;
-		renderer.enabled = true;
-
+//				renderer.enabled = true;
 		}
 
 
@@ -232,8 +231,6 @@ public class SpawnLookRed : MonoBehaviour
 		{
 				TimeOnsetOfDefeatTime = (float)urand.Range (8, 25, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				TimeOnsetOfDefeatTime = TimeOnsetOfDefeatTime / 10;
-				// this change the spawn distance, so the stressor tends to explode near the player
-				spawnDistance = (int)(22 * TimeOnsetOfDefeatTime);
 		}
 
 		void startExp ()
@@ -266,6 +263,11 @@ public class SpawnLookRed : MonoBehaviour
 				//character1.GetComponent<CharacterMotor>().enabled = true;
 				//GameObject.Find ("Character").SendMessage ("changeMovement", true);
 		}
-	
+
+	public void newTrial(){
+	//	CanBeDefeated = false;
+		renderer.enabled = false;
+		timer_red = 0.0f;
+	}
 }
 
