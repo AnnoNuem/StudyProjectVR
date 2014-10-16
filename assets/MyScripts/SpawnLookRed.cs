@@ -6,14 +6,20 @@ public class SpawnLookRed : MonoBehaviour
 {
 		GameObject displaytext ;
 
+	Vector3 v;
+	Ray r;
+	float rotationSpeed = 130f;
+	float transformationSpeed = 15f;
+	float distanceToGoal = 10;
 
 		bool spawning_red = true ; // a variable for controlling processes
-		public int spawnDistance = 25 ;
+		public int spawnDistance = 40 ;
+		float spawnheight = 20f;
 		public double CoolDown = 2.0;       // How long to hide
 		public float timer_red = 0.0f; // timer, than needs to reach CoolDown
 		public float TimerForLooking = 0.0f; // timer, than needs to reach CoolDownValue
 		public int moveDistance = 5;   // How close can the character get
-		public float speed = 5.0f ; // the speed of the sphere
+	//	public float speed = 5.0f ; // the speed of the sphere
 		private UnityRandom urand;
 		Vector3 pos;
 		private int timeTillExp = 1; // how long till explosion
@@ -55,7 +61,6 @@ public class SpawnLookRed : MonoBehaviour
 				timer_red = 0.0f; 
 				TimerForLooking = 0.0f; 
 				moveDistance = 5;  
-				speed = 5.0f; 
 
 				// importend for checking of looked at - code for normal camera
 				double ySize = Screen.height * percentageOfScreenHeight;
@@ -106,7 +111,18 @@ public class SpawnLookRed : MonoBehaviour
 		
 						// if object visible move it towards the player =)
 						if (renderer.enabled) {
-								transform.position = Vector3.MoveTowards (transform.position, character.position, (float)(speed * Time.deltaTime));
+				v = character.position;
+				r = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+				v.x = v.x + r.direction.x * distanceToGoal;
+				v.z = v.z + r.direction.z * distanceToGoal;
+				v.y=7;			
+				
+				
+				
+				transform.position = Vector3.MoveTowards (transform.position, v, (float)(transformationSpeed * Time.deltaTime));
+				//profesional hardcoding to prevent taht zellow spehere flows into ground
+
+				transform.Rotate(Vector3.right * Time.deltaTime * rotationSpeed );
 						}
 
 
@@ -211,7 +227,7 @@ public class SpawnLookRed : MonoBehaviour
 				//randomize the height of the spwan position of the orange sphere between 4 and 12
 
 				//pos.y = Random.Range (4, 13);
-				pos.y = 5;
+				pos.y = spawnheight;
 				//apply new position
 				transform.position = pos; 
 				timer_red = 0.0f;
