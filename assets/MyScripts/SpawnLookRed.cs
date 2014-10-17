@@ -30,7 +30,7 @@ public class SpawnLookRed : MonoBehaviour
 //		private Rect centerRect;
 	
 		// to acces the coordinates of the player so we can move the ball towards him
-		private Transform character;
+	//	private Transform character;
 
 		// the condition is saved here, comes from manager script
 		public string CondtionTypeVariableInContainer;
@@ -68,7 +68,7 @@ public class SpawnLookRed : MonoBehaviour
 
 				// is needed for later rendomly put it somewhere 
 				//character = GameObject.Find ("Character").transform;
-				character = GameObject.Find ("OVRPlayerController").transform;
+	//			character = GameObject.Find ("OVRPlayerController").transform;
 				// first lets hide the ball
 				renderer.enabled = false;
 
@@ -111,7 +111,7 @@ public class SpawnLookRed : MonoBehaviour
 		
 						// if object visible move it towards the player =)
 						if (renderer.enabled) {
-								v = character.position;
+								v = cameraTransform.position;
 								rayDirection = cameraTransform.TransformDirection (Vector3.forward);
 								v.x = v.x + rayDirection.x * distanceToGoal + Mathf.Sin (Time.time) * 2;
 								v.z = v.z + rayDirection.z * distanceToGoal + Mathf.Sin (Time.time) * 2;
@@ -220,8 +220,8 @@ public class SpawnLookRed : MonoBehaviour
 
 				random = (float)urand.Range (-10, 10, UnityRandom.Normalization.STDNORMAL, 0.1f);
 				rayDirection = cameraTransform.TransformDirection (Vector3.forward);
-				pos.x = (character.position.x + rayDirection.x * spawnDistance) + random;
-				pos.z = (character.position.z + rayDirection.z * spawnDistance) - random;
+		pos.x = (cameraTransform.position.x + rayDirection.x * spawnDistance) + random;
+		pos.z = (cameraTransform.position.z + rayDirection.z * spawnDistance) - random;
 				pos.y = spawnheight;
 				transform.position = pos;
 			

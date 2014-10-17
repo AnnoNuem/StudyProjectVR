@@ -6,7 +6,8 @@ public class PlayerLookingAt : MonoBehaviour
 Transform cameraTransform = null;
 		Vector3 pos_blue;
 		Vector3 pos_new;
-	Ray r;
+//		Ray r;
+		Vector3 rayDirection;
 //	float rotationSpeed = 4f;
 
 		int numberOfSpheres = 2;
@@ -29,7 +30,7 @@ Transform cameraTransform = null;
 //		double hideTime = 0.5;       // How long to hide
 		float spawnDistance = 40.0f; // How far away to spawn
 		double moveDistance = 15.0;   // How close can the character get
-		private Transform character; // this will be the variable we can acess players position
+//		private Transform character; // this will be the variable we can acess players position
 		private bool hiding = false; // for inner logic
 		private UnityRandom urand;
 		int HowHighObjectRespawns = 4;  // so the object will respawn on the same hight
@@ -52,7 +53,7 @@ Transform cameraTransform = null;
 		displaytext = GameObject.Find("Displaytext");
 
 				// who shall not pass the blue light ?
-				character = GameObject.Find ("CameraRight").transform;
+//				character = GameObject.Find ("CameraRight").transform;
 				//OVRCamD = GameObject.Find ("OVRCameraController").transform;
 				// this is our rectangle, in middle of creeen. It is the area that counts as our vision middle.
 				// we check with this if the object is loocked at
@@ -71,7 +72,7 @@ Transform cameraTransform = null;
 
 				float length = 10.0f;
 				RaycastHit hit;
-				Vector3 rayDirection = cameraTransform.TransformDirection (Vector3.forward);
+				rayDirection = cameraTransform.TransformDirection (Vector3.forward);
 				Vector3 rayStart = cameraTransform.position + rayDirection;      // Start the ray away from the player to avoid hitting itself
 
 				Debug.DrawRay (rayStart, rayDirection * length, Color.green);
@@ -91,7 +92,7 @@ Transform cameraTransform = null;
 								timer = 0.0f;
 						}
 				
-						if (!hiding && Vector3.Distance (character.position, transform.position) < moveDistance) {
+						if (!hiding && Vector3.Distance (cameraTransform.position, transform.position) < moveDistance) {
 								if (timer > 0.5) {
 										HideAndMove ();	
 					//Debug.Log("Blu");
@@ -107,10 +108,11 @@ Transform cameraTransform = null;
 				OVRDevice.ResetOrientation();
 				numberOfReachedSpheres = 0;
 
-				r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
-				pos_blue.x = character.position.x + spawnDistance * r.direction.x;
+//				r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
+				rayDirection = cameraTransform.TransformDirection (Vector3.forward);
+		pos_blue.x = cameraTransform.position.x + spawnDistance * rayDirection.x;
 				pos_blue.y = (float)HowHighObjectRespawns;
-				pos_blue.z = character.position.z + spawnDistance * r.direction.z;
+		pos_blue.z = cameraTransform.position.z + spawnDistance * rayDirection.z;
 				transform.position = pos_blue;
 
 				renderer.enabled = true;
