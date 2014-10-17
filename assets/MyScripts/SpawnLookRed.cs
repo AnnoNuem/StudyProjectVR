@@ -7,7 +7,8 @@ public class SpawnLookRed : MonoBehaviour
 		GameObject displaytext ;
 	float random;
 		Vector3 v;
-		Ray r, r2;
+		Ray r;
+		Vector3 rayDirection;
 		float rotationSpeed = 130f;
 		float transformationSpeed = 15f;
 		float distanceToGoal = 10;
@@ -41,10 +42,14 @@ public class SpawnLookRed : MonoBehaviour
 		bool vibrate;
 		GameObject pController;
 		public MonoBehaviour characterMotor;
+		Transform cameraTransform = null;
 		
 		
 
-
+	void Awake ()
+	{
+		cameraTransform = GameObject.FindWithTag ("OVRcam").transform;
+	}
 		// Use this for initialization
 		void Start ()
 		{	// a variable we use to put the position in
@@ -107,10 +112,10 @@ public class SpawnLookRed : MonoBehaviour
 						// if object visible move it towards the player =)
 						if (renderer.enabled) {
 								v = character.position;
-								r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
-								v.x = v.x + r.direction.x * distanceToGoal;
-								v.z = v.z + r.direction.z * distanceToGoal;
-								v.y = 7;			
+								rayDirection = cameraTransform.TransformDirection (Vector3.forward);
+								v.x = v.x + rayDirection.x * distanceToGoal + Mathf.Sin (Time.time) * 2;
+								v.z = v.z + rayDirection.z * distanceToGoal + Mathf.Sin (Time.time) * 2;
+								v.y = 7 + Mathf.Sin (Time.time) * 2;			
 				
 				
 				
@@ -214,9 +219,9 @@ public class SpawnLookRed : MonoBehaviour
 				GenerateTimeOnsetOfDefeatTime ();
 
 				random = (float)urand.Range (-10, 10, UnityRandom.Normalization.STDNORMAL, 0.1f);
-				r2 = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
-				pos.x = (character.position.x + r2.direction.x * spawnDistance) + random;
-				pos.z = (character.position.z + r2.direction.z * spawnDistance) - random;
+				rayDirection = cameraTransform.TransformDirection (Vector3.forward);
+				pos.x = (character.position.x + rayDirection.x * spawnDistance) + random;
+				pos.z = (character.position.z + rayDirection.z * spawnDistance) - random;
 				pos.y = spawnheight;
 				transform.position = pos;
 			
