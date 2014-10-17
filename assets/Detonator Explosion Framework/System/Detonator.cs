@@ -209,7 +209,7 @@ public class Detonator : MonoBehaviour {
 		{
 			if (_lastExplosionTime + destroyTime <= Time.time)
 			{
-				Destroy(gameObject);
+				//Destroy(gameObject);
 			}
 		}
 	}

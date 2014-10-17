@@ -45,22 +45,11 @@ Transform cameraTransform = null;
 		void Awake ()
 		{
 				cameraTransform = GameObject.FindWithTag ("OVRcam").transform;
+				displaytext = GameObject.Find("Displaytext");
 		}
 
 		void Start ()
 		{
-				
-		displaytext = GameObject.Find("Displaytext");
-
-				// who shall not pass the blue light ?
-//				character = GameObject.Find ("CameraRight").transform;
-				//OVRCamD = GameObject.Find ("OVRCameraController").transform;
-				// this is our rectangle, in middle of creeen. It is the area that counts as our vision middle.
-				// we check with this if the object is loocked at
-				//double ySize = Screen.height * percentageOfScreenHeight;
-				//centerRect = new Rect ((float)(Screen.width / 2 - ySize / 2), (float)(Screen.height / 2 - ySize / 2), (float)ySize, (float)ySize);
-		
-		
 				renderer.enabled = false;
 				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
 		}
@@ -185,7 +174,7 @@ Transform cameraTransform = null;
 								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(360 - DegreeOfSpawn), transform.eulerAngles.z);
 								transform.localPosition += transform.forward * (float)spawnDistance;	
 								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.left);
-				displaytext.GetComponent<TextMesh>().text = "< --" ;
+				displaytext.GetComponent<TextMesh>().text = "<--" ;
 				Invoke("clearGUItext" , 0.5f) ;
 
 						} else {
@@ -193,7 +182,7 @@ Transform cameraTransform = null;
 								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z);
 								transform.localPosition += transform.forward * (float)spawnDistance;
 								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.right);
-				displaytext.GetComponent<TextMesh>().text = "-- >" ;
+				displaytext.GetComponent<TextMesh>().text = "-->" ;
 				Invoke("clearGUItext" , 0.5f) ;
 
 								}
@@ -217,6 +206,8 @@ Transform cameraTransform = null;
 		void toLong ()
 		{
 				ManagerScript.abortTrial ();
+				displaytext.GetComponent<TextMesh>().text = "Time's up for this trial!";
+				Invoke("clearGUItext" , 0.5f) ;
 				//Debug.Log ("Blue Sphere not reached in time");
 		//		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
 		}
@@ -229,6 +220,7 @@ Transform cameraTransform = null;
 			//	((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).point ();
 		}
 
-	void clearGUItext(){ 		displaytext.GetComponent<TextMesh>().text = "" ;
-	}
+		void clearGUItext(){ 		
+			displaytext.GetComponent<TextMesh>().text = "" ;
+		}
 }

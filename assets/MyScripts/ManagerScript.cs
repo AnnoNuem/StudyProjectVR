@@ -339,7 +339,7 @@ public class ManagerScript : MonoBehaviour
 				new    WaitForSeconds (2);
 				//accessng parameters values according to the current trial
 				spawnDistance = trialList [trialNumber].spawnDistance;
-				CoolDown = trialList [trialNumber].spawnDistance;
+				CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
 				;       // How long to hide
 				timer_red = trialList [trialNumber].timer_red; // timer, than needs to reach CoolDown
 				TimerForLooking = trialList [trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
@@ -410,8 +410,9 @@ public class ManagerScript : MonoBehaviour
 			//--GameObject.Find ("OVRPlayerController").SendMessage ("changeMovement", true);
 						//((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
 						((PlayerLookingAt)(GameObject.Find ("BlueBallGLow").GetComponent ("PlayerLookingAt"))).newTrial ();
-//						((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).newTrial();
+						((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).newTrial();
 						break;
+						
 				//pause
 				case states.pause:
 						Time.timeScale = 0;

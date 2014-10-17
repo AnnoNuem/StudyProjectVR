@@ -717,7 +717,7 @@ SphereCollider:
   m_GameObject: {fileID: 564865210}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
@@ -752,14 +752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fb063b81770fac4e8deff6ae66b96a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDistance: 25
-  CoolDown: 2
-  timer_red: 0
-  TimerForLooking: 0
-  moveDistance: 5
-  CondtionTypeVariableInContainer: 
-  TimeOnsetOfDefeatTime: 0
-  characterMotor: {fileID: 0}
 --- !u!114 &564865216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4284,6 +4276,10 @@ Prefab:
     - target: {fileID: 400000, guid: 34204668b1400c34abe2e7335c479d86, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 13500000, guid: 34204668b1400c34abe2e7335c479d86, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34204668b1400c34abe2e7335c479d86, type: 2}
