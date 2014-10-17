@@ -399,6 +399,8 @@ public class ManagerScript : MonoBehaviour
 
 			GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
 			GameObject.Find ("OVRPlayerController").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+			GameObject.FindWithTag ("OVRcam").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+			GameObject.FindWithTag ("OVRcam").transform.position = GameObject.Find ("StartPoint").transform.position;
 
 			//Debug.Log("mapping occurs");
 
