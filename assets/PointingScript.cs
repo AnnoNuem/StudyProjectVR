@@ -28,7 +28,7 @@ public class PointingScript : MonoBehaviour {
 	void toLongPoint(){
 		ManagerScript.abortTrial ();
 		Debug.Log ("To long for pointing");
-		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
+//		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
 	}
 
 }	

@@ -5,7 +5,7 @@ using System.IO;
 public class StartMenu3dGui : VRGUI
 {
 		public GUISkin skin;
-		int count = 0;
+//		int count = 0;
 		public string SessionId;
 		public string SessionNumber;
 		public string ComPort ;

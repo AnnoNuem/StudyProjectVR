@@ -110,7 +110,7 @@ public class OVRCameraController : MonoBehaviour
 	private float  		verticalFOV = 90.0f;	 			// in degrees
 
 	public static bool runFlag = false; 
-	Quaternion resetRot = new Quaternion (0,0,0,0);
+//	Quaternion resetRot = new Quaternion (0,0,0,0);
 
 	/// <summary>
 	// If true, renders to a RenderTexture to allow super-sampling.

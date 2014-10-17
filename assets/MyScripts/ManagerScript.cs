@@ -26,10 +26,10 @@ public class ManagerScript : MonoBehaviour
 		//public static List<float> generatedAngles = new List<float> ();
 		public static float generatedAngle;
 		// when should the questionaire be in the middle be
-		int middleQuestionaire = 1000;
+//		int middleQuestionaire = 1000;
 	
 		// how much time for pointing
-		int timeForPointing = 8;
+//		int timeForPointing = 8;
 	
 		// states for state machine to describe in which experiment state we are
 		public enum states
@@ -53,7 +53,7 @@ public class ManagerScript : MonoBehaviour
 	
 		//static variable tracks what trial is in process
 		public static int trialNumber = 0 ;
-		public static string trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+	public static string trialFolder;
 		public static string parameterFile = "";
 		public static bool trialINprocess = false;
 		public static bool pointTaskINprocess = false;
@@ -70,7 +70,8 @@ public class ManagerScript : MonoBehaviour
 		//
 		void Start ()
 		{
-				ManagerScript.switchState (states.startScreen);
+		ManagerScript.switchState (states.startScreen);
+		trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
 		}
 
 		// Update is called once per frame
@@ -359,7 +360,7 @@ public class ManagerScript : MonoBehaviour
 				Time.timeScale = 0;
 
 				switchState (states.walking);
-				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
+//				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
 				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
 				Time.timeScale = 1;
 
@@ -431,6 +432,6 @@ public class ManagerScript : MonoBehaviour
 		{
 				ManagerScript.abortTrial ();
 				//Debug.Log ("To long for pointing");
-				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
+	//			((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
 		}
 }

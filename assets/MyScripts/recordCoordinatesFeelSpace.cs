@@ -16,7 +16,7 @@ public class recordCoordinatesFeelSpace : MonoBehaviour {
 	public Transform target; // this will be the field in the inspector we will drag and drop our start point. 
 
 	//boolean for button press
-	private bool keyPressedK = false; 
+//	private bool keyPressedK = false; 
 
 	void Awake() {
 	}
@@ -37,7 +37,7 @@ public class recordCoordinatesFeelSpace : MonoBehaviour {
 			//Actual calculation
 			Vector2 targetDir = targetVector - transformVector;
 			angleBetween = Vector2.Angle (targetDir, forwardVector);
-			keyPressedK = true;
+//			keyPressedK = true;
 			//Debug.Log("ManagerScript.trialINprocess value -->"+ManagerScriptFeelSpace.trialINprocess);
 
 			//flag to enable new CSV for each trial

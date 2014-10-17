@@ -6,8 +6,8 @@ public class Pause : VRGUI
 	
 	private KeyCode pausekey = KeyCode.P;
 	private ManagerScript.states prevState;
-	private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
-	private Rect labelRect = new Rect (170, 185, 300, 250);
+//	private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
+//	private Rect labelRect = new Rect (170, 185, 300, 250);
 	
 	static int NumberOfYellowSpaw = 0 ;
 	static int NumberOfYellowDefeted = 0;

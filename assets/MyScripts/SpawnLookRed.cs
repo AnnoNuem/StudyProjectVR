@@ -11,7 +11,7 @@ public class SpawnLookRed : MonoBehaviour
 		float rotationSpeed = 130f;
 		float transformationSpeed = 15f;
 		float distanceToGoal = 10;
-		bool spawning_red = true ; // a variable for controlling processes
+//		bool spawning_red = true ; // a variable for controlling processes
 		public float spawnDistance = 40f ;
 		float spawnheight = 20f;
 		public double CoolDown = 2.0;       // How long to hide
@@ -25,8 +25,8 @@ public class SpawnLookRed : MonoBehaviour
 		private bool willExplode = false; // will the ball explode
 
 		// for looking at check
-		float percentageOfScreenHeight = 0.20f;
-		private Rect centerRect;
+//		float percentageOfScreenHeight = 0.20f;
+//		private Rect centerRect;
 	
 		// to acces the coordinates of the player so we can move the ball towards him
 		private Transform character;
@@ -58,8 +58,8 @@ public class SpawnLookRed : MonoBehaviour
 				moveDistance = 5;  
 
 				// importend for checking of looked at - code for normal camera
-				double ySize = Screen.height * percentageOfScreenHeight;
-				centerRect = new Rect ((float)(Screen.width / 2 - ySize / 2), (float)(Screen.height / 2 - ySize / 2), (float)(ySize), (float)(ySize));
+//				double ySize = Screen.height * percentageOfScreenHeight;
+//				centerRect = new Rect ((float)(Screen.width / 2 - ySize / 2), (float)(Screen.height / 2 - ySize / 2), (float)(ySize), (float)(ySize));
 
 				// is needed for later rendomly put it somewhere 
 				//character = GameObject.Find ("Character").transform;
@@ -115,7 +115,6 @@ public class SpawnLookRed : MonoBehaviour
 				
 				
 								transform.position = Vector3.MoveTowards (transform.position, v, (float)(transformationSpeed * Time.deltaTime));
-								//profesional hardcoding to prevent taht zellow spehere flows into ground
 
 								transform.Rotate (Vector3.right * Time.deltaTime * rotationSpeed);
 						}
@@ -180,7 +179,7 @@ public class SpawnLookRed : MonoBehaviour
 								renderer.enabled = false;
 								recordData.recordDataStressors ("D");
 								Pause.ChangeNumberOfYellowDefeted ();
-								spawning_red = true;
+//								spawning_red = true;
 								MoveAndShow ();
 						}
 

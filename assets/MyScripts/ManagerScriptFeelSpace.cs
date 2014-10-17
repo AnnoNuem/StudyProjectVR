@@ -30,7 +30,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 	int middleQuestionaire = 1000;
 	
 	// how much time for pointing
-	int timeForPointing = 8;
+//	int timeForPointing = 8;
 	
 	// states for state machine to describe in which experiment state we are
 	public enum states
@@ -124,7 +124,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 		Time.timeScale = 0;
 
 		switchState (states.walking);
-		((GuiScriptFeelspace)(GameObject.Find ("GuiHelper").GetComponent ("GuiScriptFeelspace"))).newTrial ();
+//		((GuiScriptFeelspace)(GameObject.Find ("GuiHelper").GetComponent ("GuiScriptFeelspace"))).newTrial ();
 		((PointingScriptFeelSpace)(GameObject.Find ("helperObject").GetComponent ("PointingScriptFeelSpace"))).CancelInvoke ("toLongPoint");
 		Time.timeScale = 1;
 
@@ -158,7 +158,7 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 
 			ManagerScriptFeelSpace.state = states.walking;
 			GameObject.Find ("Character").SendMessage ("changeMovement", true);
-			((LookAtMeBlueBallFeelSpace)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBallFeelSpace"))).newTrial ();
+		//	((LookAtMeBlueBallFeelSpace)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBallFeelSpace"))).newTrial ();
 			break;
 			//pause
 		case states.pause:
@@ -184,6 +184,6 @@ public class ManagerScriptFeelSpace : MonoBehaviour
 	{
 		ManagerScriptFeelSpace.abortTrial ();
 		//Debug.Log ("To long for pointing");
-		((GuiScriptFeelspace)(GameObject.Find ("GuiHelper").GetComponent ("GuiScriptFeelspace"))).toSlowPoint ();
+		//((GuiScriptFeelspace)(GameObject.Find ("GuiHelper").GetComponent ("GuiScriptFeelspace"))).toSlowPoint ();
 	}
 }

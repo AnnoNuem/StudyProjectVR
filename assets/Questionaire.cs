@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Questionaire : MonoBehaviour {
 
-	private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
+//	private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
 	private Rect buttonRect = new Rect (270, 260, 100, 30);
 	private Rect labelRect = new Rect (10, 185, 300, 20);
 	

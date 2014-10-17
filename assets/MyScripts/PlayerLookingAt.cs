@@ -7,20 +7,16 @@ Transform cameraTransform = null;
 		Vector3 pos_blue;
 		Vector3 pos_new;
 	Ray r;
-	float rotationSpeed = 4f;
+//	float rotationSpeed = 4f;
 
 		int numberOfSpheres = 2;
 		int numberOfReachedSpheres;
-	
-		// script for arrow pointing
-		public ArrowPointingScript pointingScript;
-		public GuiScript guiScript;
 	
 		// time a user has to reach the next blue sphere
 		int timeToGetToBlueSphere = 20;
 	
 		// for looking at check
-		double percentageOfScreenHeight = .50;
+//		double percentageOfScreenHeight = .50;
 		private Rect centerRect;
 	
 		// lets force playber to look 1 second at the blue light
@@ -30,7 +26,7 @@ Transform cameraTransform = null;
 		int HowOftenIsLookedAt = 0 ;
 	
 		// omportend for respawning
-		double hideTime = 0.5;       // How long to hide
+//		double hideTime = 0.5;       // How long to hide
 		float spawnDistance = 40.0f; // How far away to spawn
 		double moveDistance = 15.0;   // How close can the character get
 		private Transform character; // this will be the variable we can acess players position
@@ -220,7 +216,7 @@ Transform cameraTransform = null;
 		{
 				ManagerScript.abortTrial ();
 				//Debug.Log ("Blue Sphere not reached in time");
-				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
+		//		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
 		}
 	
 		void point ()
@@ -228,7 +224,7 @@ Transform cameraTransform = null;
 				CancelInvoke ("toLong");
 				//Debug.Log ("Point");
 				ManagerScript.switchState (ManagerScript.states.pointing);
-				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).point ();
+			//	((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).point ();
 		}
 
 	void clearGUItext(){ 		displaytext.GetComponent<TextMesh>().text = "" ;
