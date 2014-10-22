@@ -373,6 +373,7 @@ public class ManagerScript : MonoBehaviour
 		// the state machine
 		public static void switchState (states newState)
 		{
+				
 				switch (newState) {
 				//start screen
 				case states.startScreen:
@@ -389,6 +390,7 @@ public class ManagerScript : MonoBehaviour
 						break;
 				//walking
 				case states.walking:
+						unStun();
 						Time.timeScale = 1;
 			
 			// here goes the code for the subject position reset and rotation reset to the starting point 
@@ -424,6 +426,7 @@ public class ManagerScript : MonoBehaviour
 				case states.pointing:
 						Time.timeScale = 1;
 						((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
+						stun();
 						ManagerScript.state = states.pointing;
 						//--GameObject.Find ("Character").SendMessage ("changeMovement", true);
 			//Debug.Log ("pointing");
@@ -437,4 +440,20 @@ public class ManagerScript : MonoBehaviour
 				//Debug.Log ("To long for pointing");
 	//			((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
 		}
+
+	static void stun ()
+	{
+		GameObject pController = GameObject.Find ("OVRPlayerController");
+		OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+		controller.SetMoveScaleMultiplier (0.0f);
+	}
+
+	static void unStun ()
+	{
+		GameObject pController = GameObject.Find ("OVRPlayerController");
+		OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+		controller.SetMoveScaleMultiplier (3.0f);
+	}
+
+
 }

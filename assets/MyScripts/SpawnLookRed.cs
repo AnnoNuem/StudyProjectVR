@@ -8,13 +8,12 @@ public class SpawnLookRed : MonoBehaviour
 		float random;
 		Vector3 v, pos;
 		Vector3 rayDirection;
-
+		bool keyPressedToEarly = false;
 		float rotationSpeed = 500f;
 		float transformationSpeed = 15f;
 		float distanceToGoal = 10;
 		float spawnDistance = 40f ;
 		float spawnheight = 20f;
-
 		float coolDown = 2.0f;       // How long to hide
 		float showSphereAtTime = 0.0f; // timer, than needs to reach CoolDown
 
@@ -58,18 +57,26 @@ public class SpawnLookRed : MonoBehaviour
 										break;
 								}
 								move ();
-								if ((Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown ("360controllerButtonB"))) {
+								if ((Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown ("360controllerButtonB")) && !keyPressedToEarly) {
 										switchState (yellowSphereStates.hidden);
 										recordData.recordDataStressors ("D");
 										Pause.ChangeNumberOfYellowDefeted ();
 								}
 								break;
 						case yellowSphereStates.hidden:
+								if (Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown ("360controllerButtonB")) {
+										keyPressedToEarly = true;
+										Debug.Log ("shootkey pressed to early");
+								}			
 								if (Time.time > showSphereAtTime) {
 										switchState (yellowSphereStates.moving);
 								}
 								break;
 						case yellowSphereStates.moving:
+								if (Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown ("360controllerButtonB")) {
+										keyPressedToEarly = true;
+										Debug.Log ("shootkey pressed to early");
+								}	
 								if (Time.time > onsetOfDefeatAtTime) {
 										switchState (yellowSphereStates.defeatable);
 								}
@@ -89,6 +96,7 @@ public class SpawnLookRed : MonoBehaviour
 				renderer.enabled = false;
 				CancelInvoke ("startExp"); 
 				showSphereAtTime = Time.time + coolDown;
+				keyPressedToEarly = false;
 		}
 
 	
@@ -122,7 +130,7 @@ public class SpawnLookRed : MonoBehaviour
 
 		void startExp ()
 		{
-				StartCoroutine (stun ());
+				StartCoroutine (stunForSeconds (1));
 				StartCoroutine (vibrateController ());
 				((Detonator)(this.GetComponent ("Detonator"))).Explode ();
 				switchState (yellowSphereStates.hidden);
@@ -135,22 +143,23 @@ public class SpawnLookRed : MonoBehaviour
 				GamePad.SetVibration (0, 0.0f, 0.0f);
 		}
 
-		IEnumerator stun ()
+		IEnumerator stunForSeconds (int sec)
 		{
 				pController = GameObject.Find ("OVRPlayerController");
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
 				controller.SetMoveScaleMultiplier (0.0f);
-				yield return new WaitForSeconds (1);
+				yield return new WaitForSeconds (sec);
 				controller.SetMoveScaleMultiplier (3.0f);
 		}
 
 		public void newTrial ()
 		{
+		Debug.Log (ManagerScript.CondtionTypeVariableInContainer);
 				// set respawn time acording to condition
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {
-						durationOfResponsePeriod = 1.0f;
+						durationOfResponsePeriod = 0.600f + (Random.Range ( -100f, 100f))/1000;
 				} else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False") {
-						durationOfResponsePeriod = 0.5f;
+						durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f))/1000;
 				}
 				switchState (yellowSphereStates.hidden);
 		}
@@ -169,12 +178,13 @@ public class SpawnLookRed : MonoBehaviour
 		void switchState (yellowSphereStates newState)
 		{
 				displaytext.GetComponent<TextMesh> ().text = "";
-		Debug.Log (newState);
+				Debug.Log (newState);
 				switch (newState) {
 				case yellowSphereStates.defeatable:
 						displaytext.GetComponent<TextMesh> ().text = "SHOOT";
 						s = yellowSphereStates.defeatable;
 						defeatableTillTime = Time.time + durationOfResponsePeriod;
+			Debug.Log("DurationOfresponsePeriod:" + durationOfResponsePeriod);
 						break;
 				case yellowSphereStates.hidden:
 						s = yellowSphereStates.hidden;
@@ -185,14 +195,16 @@ public class SpawnLookRed : MonoBehaviour
 						MoveAndShow ();
 						break;
 				case yellowSphereStates.notDefeatedInTime:
+						Pause.ChangeNumberOfYellowMissed ();
 						Invoke ("startExp", timeTillExp);
 						s = yellowSphereStates.notDefeatedInTime;
 						break;	
 				}
 		}
 
-		public void onDestroy(){
-		Debug.Log ("wtf");
-	}
+		public void onDestroy ()
+		{
+				Debug.Log ("wtf");
+		}
 }
 
