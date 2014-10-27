@@ -37,7 +37,7 @@ public class StartScreen : MonoBehaviour
 
 	void OnGUI ()
 	{
-			if (ManagerScript.state == ManagerScript.states.startScreen) {
+		if (ManagerScript.getState () == ManagerScript.states.startScreen) {
 				windowRect = GUI.Window (0, windowRect, WindowFunction, "Inlusio VR");
 			// result of manger box selection is send to managerscript.session ( added 1 to get values between 1 and max)
 			ManagerScript.session =  comboBoxControl.Show() + 1;
@@ -66,7 +66,7 @@ public class StartScreen : MonoBehaviour
 
 			recordData.recordDataParametersInit();
 			ManagerScript.generateTrials();
-			ManagerScript.switchState(ManagerScript.states.questionaire);
+			ManagerScript.switchState(ManagerScript.states.walking);
 		}
 	}
 	

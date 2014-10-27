@@ -4,31 +4,26 @@ using System.Collections;
 public class Pause : VRGUI
 {
 	
-	private KeyCode pausekey = KeyCode.P;
-	private ManagerScript.states prevState;
+	private static KeyCode pausekey = KeyCode.P;
+	private static ManagerScript.states prevState;
 //	private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
 //	private Rect labelRect = new Rect (170, 185, 300, 250);
 	
-	static int NumberOfYellowSpaw = 0 ;
-	static int NumberOfYellowDefeted = 0;
-	static int NumberOfYellowMissed = 0;
+	private static int NumberOfYellowSpaw = 0 ;
+	private static int NumberOfYellowDefeted = 0;
+	private static int NumberOfYellowMissed = 0;
 	
-	public string CondtionTypeVariableInContainer;
-	public string tempVarForCondition;
-	public bool BoolWhenToDisplayPause = false;
+	private static string CondtionTypeVariableInContainer;
+	private static string tempVarForCondition;
+	private static bool paused = false;
 	
-	public string dummyTextForLater = "i am empty" ;
-	
-	// Use this for initialization
-	
+	private static string displayText = "" ;
+
 	public GUISkin skin;
 	
 	
 	void Start ()
 	{
-		
-		
-		
 	}
 	
 	// Update is called once per frame
@@ -38,41 +33,18 @@ public class Pause : VRGUI
 		
 		// evalute if pause key is pressed if yes switch state to pause or to state before pause
 		if (Input.GetKeyDown (pausekey) || Input.GetButtonDown("360controllerButtonStart")) {
-			if (ManagerScript.state == ManagerScript.states.pause) {
+			if (paused && ManagerScript.getState() == ManagerScript.states.blockover) {
+				ManagerScript.newTrial();
+				paused = false;
+			} else if (paused){
 				ManagerScript.switchState (prevState);
-				//Debug.Log ("resume");
-			} else if (ManagerScript.state != ManagerScript.states.startScreen) {
-				prevState = ManagerScript.state;
+				displayText = "";
+				paused = false;
+			} else if (!paused && ManagerScript.getState () != ManagerScript.states.startScreen) {
+				paused = true;
+				prevState = ManagerScript.getState ();
 				ManagerScript.switchState (ManagerScript.states.pause);
-				//Debug.Log ("pause");
 			}
-		}
-		
-		// before the first condition and after all blocks we need to display a text as well as the statistics in a paused game style
-		
-		CondtionTypeVariableInContainer = ManagerScript.CondtionTypeVariableInContainer;
-		
-		if (!BoolWhenToDisplayPause && CondtionTypeVariableInContainer != "BLOCKOVER") {
-			tempVarForCondition = CondtionTypeVariableInContainer ;
-			BoolWhenToDisplayPause = true;
-			
-		}
-		
-		
-		if (BoolWhenToDisplayPause && CondtionTypeVariableInContainer == "BLOCKOVER") {
-			// how often was BLOCKOVER displazed ?
-			BoolWhenToDisplayPause = false;
-			
-			// we pause the game
-			prevState = ManagerScript.state;
-			ManagerScript.switchState (ManagerScript.states.pause);
-			//Debug.Log ("pause");
-			
-			// we need to decide base on the previous state, what to do:
-			
-			
-			
-			
 		}
 		
 	}
@@ -83,13 +55,13 @@ public class Pause : VRGUI
 		GUI.skin = skin;
 		
 		// show pause screen
-		if (ManagerScript.state == ManagerScript.states.pause) {
+		if (paused) {
 			//Debug.Log ("pausewindow");
 			GUILayout.BeginArea (new Rect (0, 0, Screen.width, Screen.height));
 			GUILayout.BeginVertical ("box");
 			GUILayout.Label ("<color=lime> PAUSE </color>");
 			GUILayout.Label ("Press " + pausekey.ToString () + " to resume.");
-			GUILayout.Label (dummyTextForLater);
+			GUILayout.Label (displayText);
 			GUILayout.Label (NumberOfYellowSpaw + " " + "Number of Yellow Spawn" );
 			GUILayout.Label (NumberOfYellowDefeted + " " + "Number of Yellow defeated " );
 			GUILayout.Label (NumberOfYellowMissed + " " + "Number of Yellow missed ");
@@ -117,5 +89,17 @@ public class Pause : VRGUI
 	public static void ChangeNumberOfYellowMissed(){
 		
 		NumberOfYellowMissed++ ;
+	}
+	
+	public static void PauseBetweenStates (string NextBlockType){
+		paused = true;
+		if (NextBlockType.Contains("Easy")){
+			displayText = "Next block of Trials is Easy";
+		} else {
+			displayText = "Next block of Trials is Hard";
+		}
+
+		prevState = ManagerScript.getState ();
+		//Debug.Log ("pause");
 	}
 }

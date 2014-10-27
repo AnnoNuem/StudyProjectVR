@@ -13,7 +13,7 @@ public class StartMenu3dGui : VRGUI
 		public override void OnVRGUI ()
 		{
 
-				if (ManagerScript.state == ManagerScript.states.startScreen) {
+		if (ManagerScript.getState () == ManagerScript.states.startScreen) {
 
 						GUI.skin = skin;
 						GUILayout.BeginArea (new Rect (0, 0, Screen.width, Screen.height));

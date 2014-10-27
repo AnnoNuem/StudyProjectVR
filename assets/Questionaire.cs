@@ -9,7 +9,7 @@ public class Questionaire : MonoBehaviour {
 	
 	void OnGUI ()
 	{
-		if (ManagerScript.state == ManagerScript.states.questionaire) {
+		if (ManagerScript.getState () == ManagerScript.states.questionaire) {
 			//at the moment we not need no questionaire
 			ManagerScript.newTrial();
 		//	windowRect = GUI.Window (0, windowRect, WindowFunction, "Questionaire");

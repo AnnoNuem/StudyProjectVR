@@ -38,12 +38,13 @@ public class ManagerScript : MonoBehaviour
 				walking,
 				pointing,
 				questionaire,
+				blockover,
 				pause}
 		;
 	
 		// chiffre for identification, can be changed in start screen
 		public static string chiffre = "";
-		public static states state;
+		private static states state;
 
 		// session identifier, tree different sessions
 		public static int session;
@@ -53,7 +54,7 @@ public class ManagerScript : MonoBehaviour
 	
 		//static variable tracks what trial is in process
 		public static int trialNumber = 0 ;
-	public static string trialFolder;
+		public static string trialFolder;
 		public static string parameterFile = "";
 		public static bool trialINprocess = false;
 		public static bool pointTaskINprocess = false;
@@ -70,52 +71,31 @@ public class ManagerScript : MonoBehaviour
 		//
 		void Start ()
 		{
-		ManagerScript.switchState (states.startScreen);
-		trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+				ManagerScript.switchState (states.startScreen);
+				trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
 		}
 
 		// Update is called once per frame
 		void Update ()
 		{	
-
-		//Debug.Log ("working manager == "+GameObject.Find ("OVRCameraController").transform.forward);
-				//Debug.Log ("Trial number --->" + trialNumber);
-				//Debug.Log ("state -->"+state);
-				//Debug.Log ("time to point -->"+timetoPointingStage);
-				//Debug.Log ("Current condition-->" + CondtionTypeVariableInContainer);
 				if (state == states.walking) {
 						timetoPointingStage += Time.deltaTime * 1; 
 				}
 				if (state == states.pointing) {
 						pointingTime += Time.deltaTime * 1; 
 				}
-
-				
-
 		}
 
 		public static void generateTrials ()
 		{
 				trialContainer blockTrial = new trialContainer ("BLOCKOVER");
 
-				if (session == 1) {
-				
-						//Debug.Log ("Session 1");
-
-						
-
-//						for (int i=0; i<1; i++) {
-//								trialContainer tempTrial = new trialContainer ("Dummy");
-//								trialList.Add (tempTrial);
-//						}
-						
+				if (session == 1) {						
 						for (int i=0; i<5; i++) { 
 								trialContainer tempTrial = new trialContainer ("Explain");
 								trialList.Add (tempTrial);
-						}
-						
-						trialList.Add (blockTrial);
-							
+						}						
+						trialList.Add (blockTrial);							
 						for (int i=0; i<40; i++) {
 								trialContainer tempTrial = new trialContainer ("Training");
 								trialList.Add (tempTrial);
@@ -244,76 +224,74 @@ public class ManagerScript : MonoBehaviour
 						trialList.Add (blockTrial);
 
 				} else {
-				
-		
-			//Debug.Log ("Session 2");
 
-			for (int i=0; i<5; i++) { 
-				trialContainer tempTrial = new trialContainer ("Explain");
-				trialList.Add (tempTrial);
-			}
-			
-			trialList.Add (blockTrial);
 
-			List<trialContainer> easyBlock1 = new List<trialContainer> ();
+						for (int i=0; i<2; i++) { 
+								trialContainer tempTrial = new trialContainer ("Explain");
+								trialList.Add (tempTrial);
+						}
+			
+						trialList.Add (blockTrial);
 
-			for (int i=0; i<5; i++) { //20
-				trialContainer tempTrial = new trialContainer ("Easy");
-				easyBlock1.Add (tempTrial);
-			}
+						List<trialContainer> easyBlock1 = new List<trialContainer> ();
+
+						for (int i=0; i<2; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Easy");
+								easyBlock1.Add (tempTrial);
+						}
 			
-			for (int i=0; i<5; i++) {
-				trialContainer tempTrial = new trialContainer ("Easy-False");
-				easyBlock1.Add (tempTrial);
-			}
-			easyBlock1.Shuffle ();
-			trialList.AddRange (easyBlock1);
-			trialList.Add (blockTrial);
+						for (int i=0; i<2; i++) {
+								trialContainer tempTrial = new trialContainer ("Easy-False");
+								easyBlock1.Add (tempTrial);
+						}
+						easyBlock1.Shuffle ();
+						trialList.AddRange (easyBlock1);
+						trialList.Add (blockTrial);
 			
-			List<trialContainer> hardBlock1 = new List<trialContainer> ();
+						List<trialContainer> hardBlock1 = new List<trialContainer> ();
 			
-			for (int i=0; i<5; i++) { //20
-				trialContainer tempTrial = new trialContainer ("Hard");
-				hardBlock1.Add (tempTrial);
-			}
+						for (int i=0; i<2; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Hard");
+								hardBlock1.Add (tempTrial);
+						}
 			
-			for (int i=0; i<5; i++) {
-				trialContainer tempTrial = new trialContainer ("Hard-False");
-				hardBlock1.Add (tempTrial);
-			}
-			hardBlock1.Shuffle (); // Shuffling function
-			trialList.AddRange (hardBlock1);
-			trialList.Add (blockTrial);
+						for (int i=0; i<2; i++) {
+								trialContainer tempTrial = new trialContainer ("Hard-False");
+								hardBlock1.Add (tempTrial);
+						}
+						hardBlock1.Shuffle (); // Shuffling function
+						trialList.AddRange (hardBlock1);
+						trialList.Add (blockTrial);
 			
-			List<trialContainer> easyBlock2 = new List<trialContainer> ();
+						List<trialContainer> easyBlock2 = new List<trialContainer> ();
 			
-			for (int i=0; i<24; i++) { //20
-				trialContainer tempTrial = new trialContainer ("Easy");
-				easyBlock2.Add (tempTrial);
-			}
+						for (int i=0; i<24; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Easy");
+								easyBlock2.Add (tempTrial);
+						}
 			
-			for (int i=0; i<6; i++) {
-				trialContainer tempTrial = new trialContainer ("Easy-False");
-				easyBlock2.Add (tempTrial);
-			}
-			easyBlock2.Shuffle ();
-			trialList.AddRange (easyBlock2);
-			trialList.Add (blockTrial);
+						for (int i=0; i<6; i++) {
+								trialContainer tempTrial = new trialContainer ("Easy-False");
+								easyBlock2.Add (tempTrial);
+						}
+						easyBlock2.Shuffle ();
+						trialList.AddRange (easyBlock2);
+						trialList.Add (blockTrial);
 			
-			List<trialContainer> hardBlock2 = new List<trialContainer> ();
+						List<trialContainer> hardBlock2 = new List<trialContainer> ();
 			
-			for (int i=0; i<24; i++) { //20
-				trialContainer tempTrial = new trialContainer ("Hard");
-				hardBlock2.Add (tempTrial);
-			}
+						for (int i=0; i<24; i++) { //20
+								trialContainer tempTrial = new trialContainer ("Hard");
+								hardBlock2.Add (tempTrial);
+						}
 			
-			for (int i=0; i<6; i++) {
-				trialContainer tempTrial = new trialContainer ("Hard-False");
-				hardBlock2.Add (tempTrial);
-			}
-			hardBlock2.Shuffle (); // Shuffling function
-			trialList.AddRange (hardBlock2);
-			trialList.Add (blockTrial);
+						for (int i=0; i<6; i++) {
+								trialContainer tempTrial = new trialContainer ("Hard-False");
+								hardBlock2.Add (tempTrial);
+						}
+						hardBlock2.Shuffle (); // Shuffling function
+						trialList.AddRange (hardBlock2);
+						trialList.Add (blockTrial);
 						
 		
 		
@@ -333,10 +311,16 @@ public class ManagerScript : MonoBehaviour
 	
 		public static void newTrial ()
 		{  
-
-				trialNumber++;
+				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
+				Time.timeScale = 1;
+		
+				timetoPointingStage = 0.0f;
+				pointingTime = 0.0f;
 				//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 				new    WaitForSeconds (2);
+
+
+
 				//accessng parameters values according to the current trial
 				spawnDistance = trialList [trialNumber].spawnDistance;
 				CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
@@ -352,108 +336,101 @@ public class ManagerScript : MonoBehaviour
 
 				//OVRDevice.HMD.RecenterPose ();
 
-				
 
-		//O;	
+				//O;	
 				//OVRCameraController.increase();
 				trialINprocess = true;
 				Time.timeScale = 0;
 
-				switchState (states.walking);
+
 //				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
-				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
-				Time.timeScale = 1;
-
-				timetoPointingStage = 0.0f;
-				pointingTime = 0.0f;
-
+				if (trialList [trialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") {
+						Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
+						switchState (states.blockover);
+				} else {
+						switchState (states.walking);
+				}
+				trialNumber++;
 		}
 	
 	
 		// the state machine
 		public static void switchState (states newState)
-		{
-				
+		{				
+				unStun ();
 				switch (newState) {
 				//start screen
 				case states.startScreen:
 						Time.timeScale = 0;
-						//--GameObject.Find ("OVRPlayerController").SendMessage ("changeMovement", false);
 						ManagerScript.state = states.startScreen;
 						break;
 				//questionaire
 				case states.questionaire:
 						Time.timeScale = 0;
-						//--GameObject.Find ("OVRPlayerController").SendMessage ("changeMovement", false);
 						ManagerScript.state = states.questionaire;
-			//Debug.Log ("questionaire");
 						break;
 				//walking
 				case states.walking:
-						unStun();
+						
 						Time.timeScale = 1;
 			
-			// here goes the code for the subject position reset and rotation reset to the starting point 
-						
-						//GameObject.Find ("Character").transform.position = GameObject.Find ("StartPoint").transform.position;
-						//GameObject.Find ("Character").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+				// here goes the code for the subject position reset and rotation reset to the starting point 						
+						GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
+						GameObject.Find ("OVRPlayerController").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+						GameObject.FindWithTag ("OVRcam").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+						GameObject.FindWithTag ("OVRcam").transform.position = GameObject.Find ("StartPoint").transform.position;
 
-
-			GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
-			GameObject.Find ("OVRPlayerController").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
-			GameObject.FindWithTag ("OVRcam").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
-			GameObject.FindWithTag ("OVRcam").transform.position = GameObject.Find ("StartPoint").transform.position;
-
-			//Debug.Log("mapping occurs");
-
-			//GameObject.Find ("ForwardDirection").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
 
 						ManagerScript.state = states.walking;
-			//--GameObject.Find ("OVRPlayerController").SendMessage ("changeMovement", true);
-						//((LookAtMeBlueBall)(GameObject.Find ("BlueBallGLow").GetComponent ("LookAtMeBlueBall"))).newTrial ();
 						((PlayerLookingAt)(GameObject.Find ("BlueBallGLow").GetComponent ("PlayerLookingAt"))).newTrial ();
-						((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).newTrial();
+						((SpawnLookRed)(GameObject.Find ("RedBallGlow").GetComponent ("SpawnLookRed"))).newTrial ();
 						break;
 						
 				//pause
 				case states.pause:
 						Time.timeScale = 0;
 						ManagerScript.state = states.pause;
-						//--GameObject.Find ("Character").SendMessage ("changeMovement", false);
 						break;
 			
 				//pointing
 				case states.pointing:
 						Time.timeScale = 1;
 						((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).NewPointing ();
-						stun();
+						stun ();
 						ManagerScript.state = states.pointing;
-						//--GameObject.Find ("Character").SendMessage ("changeMovement", true);
-			//Debug.Log ("pointing");
+						break;
+				
+				//blockover
+				case states.blockover:
+						ManagerScript.state = states.blockover;
 						break;
 				}
+
 		}
 	
 		void toLongPoint ()
 		{
 				ManagerScript.abortTrial ();
-				//Debug.Log ("To long for pointing");
-	//			((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();
 		}
 
-	static void stun ()
-	{
-		GameObject pController = GameObject.Find ("OVRPlayerController");
-		OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
-		controller.SetMoveScaleMultiplier (0.0f);
-	}
+		static void stun ()
+		{
+				GameObject pController = GameObject.Find ("OVRPlayerController");
+				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+				controller.SetMoveScaleMultiplier (0.0f);
+		}
 
-	static void unStun ()
-	{
-		GameObject pController = GameObject.Find ("OVRPlayerController");
-		OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
-		controller.SetMoveScaleMultiplier (3.0f);
-	}
+		static void unStun ()
+		{
+				GameObject pController = GameObject.Find ("OVRPlayerController");
+				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+				controller.SetMoveScaleMultiplier (3.0f);
+		}
+
+		public static states getState ()
+		{
+				return state;
+		}
 
 
 }

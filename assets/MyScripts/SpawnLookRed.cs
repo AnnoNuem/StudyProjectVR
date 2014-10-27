@@ -49,7 +49,7 @@ public class SpawnLookRed : MonoBehaviour
 
 		void Update ()
 		{	
-				if (ManagerScript.state == ManagerScript.states.walking && ManagerScript.CondtionTypeVariableInContainer != "Explain" && ManagerScript.CondtionTypeVariableInContainer != "Dummy" && ManagerScript.CondtionTypeVariableInContainer != "Training") {
+		if (ManagerScript.getState () == ManagerScript.states.walking && ManagerScript.CondtionTypeVariableInContainer != "Explain" && ManagerScript.CondtionTypeVariableInContainer != "Dummy" && ManagerScript.CondtionTypeVariableInContainer != "Training") {
 						switch (s) {
 						case yellowSphereStates.defeatable:
 								if (Time.time > defeatableTillTime) {

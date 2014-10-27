@@ -19,7 +19,7 @@ public class PointingScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(ManagerScript.state == ManagerScript.states.pointing)
+		if(ManagerScript.getState () == ManagerScript.states.pointing)
 		{
 			//stuff for pointing, waiting for keys computing angles etc goes here
 			//transit to walking (new trial) if finisched.

@@ -69,7 +69,7 @@ Transform cameraTransform = null;
 				//transform.Rotate (Vector3.right * Time.deltaTime * rotationSpeed);
 				
 
-				if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
+		if (ManagerScript.getState () == ManagerScript.states.walking || ManagerScript.getState () == ManagerScript.states.pointing) {
 				
 						if (Physics.Raycast (rayStart, rayDirection, out hit, length)) {
 								if (hit.collider.tag == "blueball") {

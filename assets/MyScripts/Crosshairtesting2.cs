@@ -32,7 +32,7 @@ public class Crosshairtesting2 : MonoBehaviour {
 	
 	void OnGUI ()
 	{
-		if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
+		if (ManagerScript.getState() == ManagerScript.states.walking || ManagerScript.getState() == ManagerScript.states.pointing) {
 			Vector2 centerPoint = new Vector2 (Screen.width / 2, Screen.height / 2);
 		
 			if (drawCrosshairSmall) {

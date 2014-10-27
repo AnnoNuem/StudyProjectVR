@@ -32,7 +32,7 @@ public class MouseLook : MonoBehaviour {
 
 	void Update ()
 	{
-		if (ManagerScript.state == ManagerScript.states.walking || ManagerScript.state == ManagerScript.states.pointing) {
+		if (ManagerScript.getState () == ManagerScript.states.walking || ManagerScript.getState () == ManagerScript.states.pointing) {
 						if (axes == RotationAxes.MouseXAndY) {
 								float rotationX = transform.localEulerAngles.y + Input.GetAxis ("Mouse X") * sensitivityX;
 			
