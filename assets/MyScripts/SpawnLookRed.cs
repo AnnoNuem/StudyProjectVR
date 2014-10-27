@@ -88,6 +88,8 @@ public class SpawnLookRed : MonoBehaviour
 						}	
 				} else {
 						renderer.enabled = false;
+						displaytext.GetComponent<TextMesh> ().text = "";
+			CancelInvoke("startExp");
 				}		
 		}
 
