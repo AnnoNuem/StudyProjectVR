@@ -19,12 +19,13 @@ public class PointingScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(ManagerScript.getState () == ManagerScript.states.pointing)
-		{
-			//stuff for pointing, waiting for keys computing angles etc goes here
-			//transit to walking (new trial) if finisched.
+				if (ManagerScript.getState () == ManagerScript.states.pointing) {
+						//stuff for pointing, waiting for keys computing angles etc goes here
+						//transit to walking (new trial) if finisched.
 
-			//ManagerScript.switchState(ManagerScript.states.walking);
+						//ManagerScript.switchState(ManagerScript.states.walking);
+		} else if (		displaytext.GetComponent<TextMesh>().text.Contains("Point to Origin")){
+						clearGUItext ();
 		}
 	}
 

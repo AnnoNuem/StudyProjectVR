@@ -19,8 +19,13 @@ public class Pause : VRGUI
 	
 	private static string displayText = "" ;
 
+	Transform cameraTransform = null;
+
 	public GUISkin skin;
-	
+
+	void Awake (){
+				cameraTransform = GameObject.FindWithTag ("OVRcam").transform;
+		}
 	
 	void Start ()
 	{
@@ -53,6 +58,8 @@ public class Pause : VRGUI
 	{
 		
 		GUI.skin = skin;
+	//	guiPosition.x = cameraTransform.position.x + 10;
+	//	guiPosition.z = cameraTransform.position.z + 10;
 		
 		// show pause screen
 		if (paused) {
@@ -60,7 +67,7 @@ public class Pause : VRGUI
 			GUILayout.BeginArea (new Rect (0, 0, Screen.width, Screen.height));
 			GUILayout.BeginVertical ("box");
 			GUILayout.Label ("<color=lime> PAUSE </color>");
-			GUILayout.Label ("Press " + pausekey.ToString () + " to resume.");
+			GUILayout.Label ("Press " + pausekey.ToString () + " to resume.\n");
 			GUILayout.Label (displayText);
 			GUILayout.Label (NumberOfYellowSpaw + " " + "Number of Yellow Spawn" );
 			GUILayout.Label (NumberOfYellowDefeted + " " + "Number of Yellow defeated " );
@@ -94,9 +101,9 @@ public class Pause : VRGUI
 	public static void PauseBetweenStates (string NextBlockType){
 		paused = true;
 		if (NextBlockType.Contains("Easy")){
-			displayText = "Next block of Trials is Easy";
+			displayText = "Block Complted.\nNext block of Trials is Easy.\n";
 		} else {
-			displayText = "Next block of Trials is Hard";
+			displayText = "Block Complted.\nNext block of Trials is Hard.\n";
 		}
 
 		prevState = ManagerScript.getState ();

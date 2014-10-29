@@ -206,8 +206,8 @@ Transform cameraTransform = null;
 		void toLong ()
 		{
 				ManagerScript.abortTrial ();
-				displaytext.GetComponent<TextMesh>().text = "Time's up for this trial!";
-				Invoke("clearGUItext" , 0.5f) ;
+				displaytext.GetComponent<TextMesh>().text = "Time's up for this trial!\nNew Trial";
+				Invoke("clearGUItext" , 1f) ;
 				//Debug.Log ("Blue Sphere not reached in time");
 		//		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlow ();
 		}
