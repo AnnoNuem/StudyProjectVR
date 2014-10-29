@@ -430,6 +430,7 @@ GameObject:
   - 4: {fileID: 232248646}
   - 114: {fileID: 232248648}
   - 114: {fileID: 232248647}
+  - 114: {fileID: 232248649}
   m_Layer: 8
   m_Name: OVRCameraController
   m_TagString: OVRcam
@@ -495,6 +496,25 @@ MonoBehaviour:
   backgroundColor: {r: 0, g: 0, b: 0, a: 1}
   nearClipPlane: .150000006
   farClipPlane: 1000
+--- !u!114 &232248649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 232248645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11930d139c219ac4f8faa6f71a13ba73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiPosition: {x: 0, y: 0, z: 1}
+  guiSize: 1
+  useCurvedSurface: 1
+  acceptMouse: 1
+  acceptKeyboard: 1
+  cursorSize: 32
+  customCursor: {fileID: 0}
+  skin: {fileID: 0}
 --- !u!1 &247557681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,7 +2553,6 @@ GameObject:
   - 114: {fileID: 1500412472}
   - 114: {fileID: 1500412471}
   - 114: {fileID: 1500412470}
-  - 114: {fileID: 1500412476}
   - 114: {fileID: 1500412475}
   - 114: {fileID: 1500412474}
   - 114: {fileID: 1500412477}
@@ -2660,29 +2679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70c1af876734154f9fe4721564a2496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1500412476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1500412468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11930d139c219ac4f8faa6f71a13ba73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guiPosition: {x: 0, y: 1, z: 10}
-  guiSize: 5
-  useCurvedSurface: 0
-  acceptMouse: 0
-  acceptKeyboard: 0
-  cursorSize: 32
-  customCursor: {fileID: 0}
-  CondtionTypeVariableInContainer: 
-  tempVarForCondition: 
-  BoolWhenToDisplayPause: 0
-  dummyTextForLater: i am empty
-  skin: {fileID: 11400000, guid: ef969272c6f9bbd4c8215db5096d648d, type: 2}
 --- !u!114 &1500412477
 MonoBehaviour:
   m_ObjectHideFlags: 0

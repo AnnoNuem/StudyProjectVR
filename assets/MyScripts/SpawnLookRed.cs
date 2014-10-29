@@ -11,6 +11,8 @@ public class SpawnLookRed : MonoBehaviour
 		bool keyPressedToEarly = false;
 		float rotationSpeed = 500f;
 		float transformationSpeed = 15f;
+	float transformationSpeedEasy = 15f;
+	float transformationSpeedHard = 25f;
 		float distanceToGoal = 10;
 		float spawnDistance = 40f ;
 		float spawnheight = 20f;
@@ -158,8 +160,10 @@ public class SpawnLookRed : MonoBehaviour
 				// set respawn time acording to condition
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {
 						durationOfResponsePeriod = 0.600f + (Random.Range ( -100f, 100f))/1000;
+			transformationSpeed = transformationSpeedEasy;
 				} else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False") {
 						durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f))/1000;
+			transformationSpeed = transformationSpeedHard;
 				}
 				switchState (yellowSphereStates.hidden);
 		}
