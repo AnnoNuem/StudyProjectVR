@@ -94,7 +94,7 @@ public class trialContainer
 				else if (trialType == "ENDTRIAL") {
 					
 					//Placing the value in container
-					bColor = Color.yellow;
+					bColor = Color.black;
 					spawnDistance = 30;
 					CoolDown = 2.0;    
 					timer_red = 0.0f; 

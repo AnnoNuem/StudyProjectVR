@@ -39,9 +39,10 @@ public class ManagerScript : MonoBehaviour
 				pointing,
 				questionaire,
 				blockover,
-				pause}
+				pause,
+				end}
 		;
-	
+
 		// chiffre for identification, can be changed in start screen
 		public static string chiffre = "";
 		private static states state;
@@ -89,6 +90,7 @@ public class ManagerScript : MonoBehaviour
 		public static void generateTrials ()
 		{
 				trialContainer blockTrial = new trialContainer ("BLOCKOVER");
+				trialContainer endTrial = new trialContainer ("ENDTRIAL");
 
 				if (session == 1) {						
 						for (int i=0; i<5; i++) { 
@@ -159,7 +161,7 @@ public class ManagerScript : MonoBehaviour
 						}
 						hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
-						trialList.Add (blockTrial);
+						trialList.Add (endTrial);
 				} else if (session == 2) {
 				
 						//Debug.Log ("Session 2");
@@ -207,7 +209,7 @@ public class ManagerScript : MonoBehaviour
 						easyBlock2.Shuffle ();
 						trialList.AddRange (easyBlock2);
 						trialList.Add (blockTrial);
-
+			
 						List<trialContainer> hardBlock2 = new List<trialContainer> ();
 						
 						for (int i=0; i<24; i++) { //20
@@ -221,8 +223,11 @@ public class ManagerScript : MonoBehaviour
 						}
 						hardBlock2.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock2);
-						trialList.Add (blockTrial);
+						trialList.Add (endTrial);
 
+				} else if (session == 4) {
+			trialList.Add ( new trialContainer ("Training"));
+						trialList.Add (endTrial);
 				} else {
 
 
@@ -291,7 +296,7 @@ public class ManagerScript : MonoBehaviour
 						}
 						hardBlock2.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock2);
-						trialList.Add (blockTrial);
+						trialList.Add (endTrial);
 						
 		
 		
@@ -347,6 +352,8 @@ public class ManagerScript : MonoBehaviour
 				if (trialList [trialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") {
 						Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
 						switchState (states.blockover);
+				} else if (trialList [trialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") {
+						switchState (states.end);				
 				} else {
 						switchState (states.walking);
 				}
@@ -404,6 +411,9 @@ public class ManagerScript : MonoBehaviour
 				case states.blockover:
 						ManagerScript.state = states.blockover;
 						break;
+		case states.end:
+			ManagerScript.state = states.end;
+			break;
 				}
 
 		}
