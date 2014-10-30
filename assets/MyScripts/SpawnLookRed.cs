@@ -134,7 +134,8 @@ public class SpawnLookRed : MonoBehaviour
 
 		void startExp ()
 		{
-				StartCoroutine (stunForSeconds (1));
+				recordData.recordDataStressors ("M");
+				StartCoroutine (stunForSeconds (2));
 				StartCoroutine (vibrateController ());
 				((Detonator)(this.GetComponent ("Detonator"))).Explode ();
 				switchState (yellowSphereStates.hidden);
