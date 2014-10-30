@@ -307,7 +307,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400020, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: FollowOrientation
@@ -329,7 +329,12 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2000002, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
+      propertyPath: m_OcclusionCulling
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 11400000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
   m_RootGameObject: {fileID: 1500412468}
   m_IsPrefabParent: 0
@@ -507,14 +512,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11930d139c219ac4f8faa6f71a13ba73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guiPosition: {x: 0, y: 0, z: 1}
-  guiSize: 1
-  useCurvedSurface: 1
-  acceptMouse: 1
+  guiPosition: {x: 0, y: 5, z: 10}
+  guiSize: 5
+  useCurvedSurface: 0
+  acceptMouse: 0
   acceptKeyboard: 1
   cursorSize: 32
   customCursor: {fileID: 0}
-  skin: {fileID: 0}
+  skin: {fileID: 11400000, guid: ef969272c6f9bbd4c8215db5096d648d, type: 2}
 --- !u!1 &247557681
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,7 +931,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_HDR: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
 --- !u!114 &660702276
@@ -2552,13 +2557,11 @@ GameObject:
   - 143: {fileID: 1500412473}
   - 114: {fileID: 1500412472}
   - 114: {fileID: 1500412471}
-  - 114: {fileID: 1500412470}
   - 114: {fileID: 1500412475}
   - 114: {fileID: 1500412474}
   - 114: {fileID: 1500412477}
   - 114: {fileID: 1500412478}
   - 114: {fileID: 1500412479}
-  - 114: {fileID: 1500412480}
   m_Layer: 0
   m_Name: OVRPlayerController
   m_TagString: Untagged
@@ -2581,34 +2584,6 @@ Transform:
   - {fileID: 157215720}
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &1500412470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: ce816f2e6abb0504092c23ed9b970dfd,
-    type: 2}
-  m_PrefabInternal: {fileID: 154074108}
-  m_GameObject: {fileID: 1500412468}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e437ffb7de5844b42b64f89763daf449, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FadeInTime: 2
-  FadeInTexture: {fileID: 2800000, guid: a025c23fceb7d4966b603419f551ce99, type: 3}
-  FontReplace: {fileID: 0}
-  MenuKey: 32
-  QuitKey: 27
-  SceneNames:
-  - Hit 'return' to reset..
-  Scenes:
-  - VRDemo_Tuscany
-  IPDIncrement: .000250000012
-  PredictionIncrement: .00100000005
-  FOVIncrement: .200000003
-  HeightIncrement: .00999999978
-  SpeedRotationIncrement: .0500000007
-  LayerName: Default
-  CrosshairImage: {fileID: 2800000, guid: 64ce76f827a71b44da62c30c0b506fd2, type: 3}
 --- !u!114 &1500412471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2738,10 +2713,10 @@ MonoBehaviour:
     perpAmount: 0
     steepPerpAmount: .5
   movingPlatform:
-    enabled: 1
+    enabled: 0
     movementTransfer: 2
   sliding:
-    enabled: 1
+    enabled: 0
     slidingSpeed: 10
     sidewaysControl: 1
     speedControl: .400000006
@@ -2767,27 +2742,6 @@ MonoBehaviour:
   SessionId: 
   SessionNumber: 
   ComPort: 
---- !u!114 &1500412480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1500412468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62c88315990e90349ae1b821b4c040ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawCrosshairSmall: 0
-  drawCrosshairBig: 0
-  BigcrosshairColor: {r: 1, g: 0, b: 1, a: 1}
-  SmallcrosshairColor: {r: 1, g: 1, b: 1, a: 1}
-  SmalllineLength: 10
-  SmalllineWidth: 1
-  Smallspread: 20
-  BiglineLength: 12
-  BiglineWidth: 2
-  Bigspread: 30
 --- !u!21 &1653952110
 Material:
   serializedVersion: 3

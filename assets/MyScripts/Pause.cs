@@ -29,6 +29,7 @@ public class Pause : VRGUI
 	
 	void Start ()
 	{
+		GUI.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -56,16 +57,16 @@ public class Pause : VRGUI
 	
 	public override void OnVRGUI()
 	{
-		
 		GUI.skin = skin;
-	//	guiPosition.x = cameraTransform.position.x + 10;
-	//	guiPosition.z = cameraTransform.position.z + 10;
+		guiPosition.x = cameraTransform.position.x + 10;
+		guiPosition.z = cameraTransform.position.z + 10;
 		
 		// show pause screen
 		if (paused) {
 			//Debug.Log ("pausewindow");
 			GUILayout.BeginArea (new Rect (0, 0, Screen.width, Screen.height));
-			GUILayout.BeginVertical ("box");
+			GUILayout.BeginVertical ("box2");
+			GUILayout.FlexibleSpace();
 			GUILayout.Label ("<color=lime> PAUSE </color>");
 			GUILayout.Label ("Press " + pausekey.ToString () + " to resume.\n");
 			GUILayout.Label (displayText);
