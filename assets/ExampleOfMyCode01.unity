@@ -333,6 +333,10 @@ Prefab:
       propertyPath: m_OcclusionCulling
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
+      propertyPath: RotationAmount
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
@@ -2613,7 +2617,7 @@ MonoBehaviour:
   Damping: .300000012
   BackAndSideDampen: .5
   JumpForce: .300000012
-  RotationAmount: 1.5
+  RotationAmount: 0
   RotationRatchet: 45
   GravityModifier: .379000008
 --- !u!114 &1500412472

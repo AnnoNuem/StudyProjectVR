@@ -246,17 +246,17 @@ public class OVRPlayerController : MonoBehaviour
 
 		// D-Pad
 		bool dpad_move = false;
-		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Up) == true)
-		{
-			moveForward = true;
-			dpad_move   = true;
-	
-		}	
-		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Down) == true)
-		{
-			moveBack  = true; 
-			dpad_move = true;
-		}
+//		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Up) == true)
+//		{
+//			moveForward = true;
+//			dpad_move   = true;
+//	
+//		}	
+//		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Down) == true)
+//		{
+//			moveBack  = true; 
+//			dpad_move = true;
+//		}
 			
 		if ( (moveForward && moveLeft) || (moveForward && moveRight) ||
 			 (moveBack && moveLeft)    || (moveBack && moveRight) )
@@ -294,8 +294,8 @@ public class OVRPlayerController : MonoBehaviour
 		// D-Pad rachet
 
 		bool curHatLeft = false;
-		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Left) == true)
-			curHatLeft = true;
+//		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Left) == true)
+//			curHatLeft = true;
 
 		if(curHatLeft && !prevHatLeft)
 			YRotation -= RotationRatchet; 
@@ -303,8 +303,8 @@ public class OVRPlayerController : MonoBehaviour
 		prevHatLeft = curHatLeft;
 
 		bool curHatRight = false;
-		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Right) == true)
-			curHatRight = true;
+//		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Right) == true)
+//			curHatRight = true;
 
 		if(curHatRight && !prevHatRight)
 			YRotation += RotationRatchet; 

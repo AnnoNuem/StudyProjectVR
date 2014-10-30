@@ -46,7 +46,7 @@ public class Pause : VRGUI
 				ManagerScript.switchState (prevState);
 				displayText = "";
 				paused = false;
-			} else if (!paused && ManagerScript.getState () != ManagerScript.states.startScreen) {
+			} else if (!paused && ManagerScript.getState () != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing) {
 				paused = true;
 				prevState = ManagerScript.getState ();
 				ManagerScript.switchState (ManagerScript.states.pause);

@@ -780,12 +780,12 @@ public class OVRMainMenu : MonoBehaviour
 	int GetCurrentLevel()
 	{
 		bool curHatDown = false;
-		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Down) == true)
-			curHatDown = true;
+//		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Down) == true)
+//			curHatDown = true;
 		
 		bool curHatUp = false;
-		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Down) == true)
-			curHatUp = true;
+//		if(OVRGamepadController.GPC_GetButton((int)OVRGamepadController.Button.Down) == true)
+//			curHatUp = true;
 		
 		if((PrevHatDown == false) && (curHatDown == true) ||
 			Input.GetKeyDown(KeyCode.DownArrow))
