@@ -436,6 +436,7 @@ GameObject:
   - 114: {fileID: 232248648}
   - 114: {fileID: 232248647}
   - 114: {fileID: 232248649}
+  - 114: {fileID: 232248650}
   m_Layer: 8
   m_Name: OVRCameraController
   m_TagString: OVRcam
@@ -520,6 +521,19 @@ MonoBehaviour:
   cursorSize: 32
   customCursor: {fileID: 0}
   skin: {fileID: 11400000, guid: ef969272c6f9bbd4c8215db5096d648d, type: 2}
+--- !u!114 &232248650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 232248645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b4a0ac6b29a6f479e37cfe907955e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleBetween: 999
+  target: {fileID: 725266473}
 --- !u!1 &247557681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,7 +2572,6 @@ GameObject:
   - 114: {fileID: 1500412472}
   - 114: {fileID: 1500412471}
   - 114: {fileID: 1500412475}
-  - 114: {fileID: 1500412474}
   - 114: {fileID: 1500412477}
   - 114: {fileID: 1500412478}
   - 114: {fileID: 1500412479}
@@ -2630,19 +2643,6 @@ CharacterController:
   m_SkinWidth: .0500000007
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1500412474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1500412468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3b4a0ac6b29a6f479e37cfe907955e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angleBetween: 999
-  target: {fileID: 725266473}
 --- !u!114 &1500412475
 MonoBehaviour:
   m_ObjectHideFlags: 0
