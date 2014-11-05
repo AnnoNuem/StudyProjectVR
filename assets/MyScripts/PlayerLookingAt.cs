@@ -40,6 +40,9 @@ Transform cameraTransform = null;
 		// cation, in genral works, is wrong. see explanation later
 		bool left = false;
 		float DegreeOfSpawn;
+
+	int HowOftenTurnedLeft = 0;
+	int HowOftenTurnedRight = 0;
 		
 		private Transform OVRCamD;
 		void Awake ()
@@ -135,7 +138,7 @@ Transform cameraTransform = null;
 						}
 			
 						// spanning random at 30 60 90 degrees left or right
-						switch (Random.Range (1, 6)) {
+						switch ((int)(urand.Range(1,6))) {
 						// the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
 						// lets try it with 10 degree in total
 						case 1:
@@ -167,6 +170,13 @@ Transform cameraTransform = null;
 								break;
 						}
 			
+			if((HowOftenTurnedLeft+10) > HowOftenTurnedRight )
+			{ left = false ; }
+
+			
+			if((HowOftenTurnedRight+10) > HowOftenTurnedLeft)
+			{ left = true ; }
+
 
 						// here depending on the conditon, we rotate the spehre and move it forward
 						if (left) {
@@ -176,6 +186,7 @@ Transform cameraTransform = null;
 								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.left);
 				displaytext.GetComponent<TextMesh>().text = "<--" ;
 				Invoke("clearGUItext" , 0.5f) ;
+				HowOftenTurnedLeft++ ;
 
 						} else {
 				
@@ -184,6 +195,7 @@ Transform cameraTransform = null;
 								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.right);
 				displaytext.GetComponent<TextMesh>().text = "-->" ;
 				Invoke("clearGUItext" , 0.5f) ;
+				HowOftenTurnedRight++;
 
 								}
 			

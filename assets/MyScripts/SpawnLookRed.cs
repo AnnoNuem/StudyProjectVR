@@ -9,10 +9,12 @@ public class SpawnLookRed : MonoBehaviour
 		Vector3 v, pos;
 		Vector3 rayDirection;
 		bool keyPressedToEarly = false;
-		float rotationSpeed = 500f;
+		float rotationSpeed = 100f;
+		float rotationSpeedEasy = 50f;
+		float rotationSpeedHard = 500f;
 		float transformationSpeed = 15f;
-	float transformationSpeedEasy = 15f;
-	float transformationSpeedHard = 25f;
+		//float transformationSpeedEasy = 15f;
+		//float transformationSpeedHard = 25f;
 		float distanceToGoal = 10;
 		float spawnDistance = 40f ;
 		float spawnheight = 20f;
@@ -51,7 +53,7 @@ public class SpawnLookRed : MonoBehaviour
 
 		void Update ()
 		{	
-		if (ManagerScript.getState () == ManagerScript.states.walking && ManagerScript.CondtionTypeVariableInContainer != "Explain" && ManagerScript.CondtionTypeVariableInContainer != "Dummy" && ManagerScript.CondtionTypeVariableInContainer != "Training") {
+				if (ManagerScript.getState () == ManagerScript.states.walking && ManagerScript.CondtionTypeVariableInContainer != "Explain" && ManagerScript.CondtionTypeVariableInContainer != "Dummy" && ManagerScript.CondtionTypeVariableInContainer != "Training") {
 						switch (s) {
 						case yellowSphereStates.defeatable:
 								if (Time.time > defeatableTillTime) {
@@ -91,7 +93,7 @@ public class SpawnLookRed : MonoBehaviour
 				} else {
 						renderer.enabled = false;
 						displaytext.GetComponent<TextMesh> ().text = "";
-			CancelInvoke("startExp");
+						CancelInvoke ("startExp");
 				}		
 		}
 
@@ -159,14 +161,14 @@ public class SpawnLookRed : MonoBehaviour
 
 		public void newTrial ()
 		{
-		Debug.Log (ManagerScript.CondtionTypeVariableInContainer);
+				Debug.Log (ManagerScript.CondtionTypeVariableInContainer);
 				// set respawn time acording to condition
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {
-						durationOfResponsePeriod = 0.600f + (Random.Range ( -100f, 100f))/1000;
-			transformationSpeed = transformationSpeedEasy;
+						durationOfResponsePeriod = 0.600f + (Random.Range (-100f, 100f)) / 1000;
+						rotationSpeed = rotationSpeedEasy;
 				} else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False") {
-						durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f))/1000;
-			transformationSpeed = transformationSpeedHard;
+						durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f)) / 1000;
+						rotationSpeed = rotationSpeedHard;
 				}
 				switchState (yellowSphereStates.hidden);
 		}
@@ -191,7 +193,7 @@ public class SpawnLookRed : MonoBehaviour
 						displaytext.GetComponent<TextMesh> ().text = "SHOOT";
 						s = yellowSphereStates.defeatable;
 						defeatableTillTime = Time.time + durationOfResponsePeriod;
-			Debug.Log("DurationOfresponsePeriod:" + durationOfResponsePeriod);
+						Debug.Log ("DurationOfresponsePeriod:" + durationOfResponsePeriod);
 						break;
 				case yellowSphereStates.hidden:
 						s = yellowSphereStates.hidden;
