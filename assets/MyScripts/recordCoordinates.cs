@@ -15,52 +15,19 @@ public class recordCoordinates : MonoBehaviour {
 
 	//for degree measurment
 	public float angleBetween = 999.0F;
+	public float angleBetween2 = 999.0F;
 	public Transform target; // this will be the field in the inspector we will drag and drop our start point. 
-
-	//boolean for button press
-//	private bool keyPressedK = false; 
-
+	
 	void Awake() {
 	}
 
 	//FixedUpdate is used for rigid bodies and is executed independently of the configuration of system i.e. runs on regular set of intervals
 	void FixedUpdate () {
 
-		/*
-		filePath1 = ManagerScript.trialFolder+ "/Trial-"+ ManagerScript.trialNumber +"-Flow.csv";
-		string delimiter = ",";
-
-		if (!File.Exists (filePath)) {
-						File.Create (filePath).Close ();
-				}
-
-		string[][] output1 = new string[][]{
-			new string[]{
-				//ManagerScript.trialNumber.ToString (),
-				(transform.position.x).ToString(),
-				(transform.position.y).ToString(),
-				(transform.position.z).ToString(),}
-				//(transform.forward).ToString(),
-				//(Time.realtimeSinceStartup).ToString(),
-				//(Time.deltaTime).ToString(),
-				//(angleBetween).ToString(),
-				//ManagerScript.CondtionTypeVariableInContainer} 
-		};
-		
-		int length1 = output1.GetLength(0);
-		
-		StringBuilder sb1 = new StringBuilder();
-		
-		for (int index = 0; index < length1; index++)
-			sb1.AppendLine(string.Join(delimiter, output1[index]));
-		File.AppendAllText(filePath1, sb1.ToString());
-
-		*/
-
 		//code will only execute when K is pressed
 		if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown("360controllerButtonA") ) && ManagerScript.getState ()==ManagerScript.states.pointing) {
 			//Debug.Log("K pressed");
-			recordData.recordDataParameters();
+			recordData.recordDataParameters(1);
 
 			//2d vector definations for angle calculation (we only take x and z coordinates)
 			Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
@@ -69,7 +36,13 @@ public class recordCoordinates : MonoBehaviour {
 
 			//Actual calculation
 			Vector2 targetDir = targetVector - transformVector;
+			//angleBetween2 = Mathf.Atan2(targetDir, forwardVector) * Mathf.Rad2Deg;
 			angleBetween = Vector2.Angle (targetDir, forwardVector);
+
+			angleBetween2 = angleBetween;
+			Vector3 cross =  Vector3.Cross(targetDir,forwardVector);
+			if (cross.z > 0)
+				angleBetween2 = 360 - angleBetween2;
 //			keyPressedK = true;
 			//Debug.Log("ManagerScript.trialINprocess value -->"+ManagerScript.trialINprocess);
 
@@ -122,6 +95,7 @@ public class recordCoordinates : MonoBehaviour {
 				//putting values for column in csv
 				string[][] output = new string[][]{
 					new string[]{
+					System.DateTime.Now.ToString(),
 					ManagerScript.trialNumber.ToString (),
 					//(transform.position.x).ToString(),
 					//(transform.position.y).ToString(),
@@ -130,6 +104,7 @@ public class recordCoordinates : MonoBehaviour {
 					(Time.realtimeSinceStartup).ToString(),
 					//(Time.deltaTime).ToString(),
 					(angleBetween).ToString(),
+					(angleBetween2).ToString(),
 					conditionVal
 					//ManagerScript.CondtionTypeVariableInContainer
 				} 

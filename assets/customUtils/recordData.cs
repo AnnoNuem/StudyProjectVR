@@ -19,34 +19,18 @@ public static class recordData
 						File.Create (filePath).Close ();
 						ManagerScript.parameterFile = filePath;
 				}
-				//"Trial Number","Spawn Distance","Cool Down","Timer Red","Color","Generated Angle"
 				
-				/*
-				string[][] output = new string[][]{
-				new string[] {
-							"Trial Number",
-							"Spawn Distance",
-							"Cool Down",
-							"Timer Red",
-							"Color",
-							"Generated Angle","State",
-					} 
-				};
-			
-				int length = output.GetLength (0);
-			
-				StringBuilder sb = new StringBuilder ();
-			
-				for (int index = 0; index < length; index++)
-						sb.AppendLine (string.Join (delimiter, output [index]));
-				File.AppendAllText (filePath, sb.ToString ());
-				*/
 		}
 		
 		//records the paramters
-		public static void recordDataParameters ()
+		public static void recordDataParameters (int success)
 		{
-
+			string successString;
+				if (success == 1) {
+						successString = "1";
+				} else {
+						successString = "0";
+				}
 				string conditionVal = "";
 
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy") {
@@ -68,6 +52,7 @@ public static class recordData
 				//putting values for column in csv
 				string[][] output = new string[][]{
 			    new string[] {
+						System.DateTime.Now.ToString("o"),
 						ManagerScript.trialNumber.ToString (),
 						ManagerScript.spawnDistance.ToString (),
 				//ManagerScript.CoolDown.ToString (),
@@ -77,7 +62,7 @@ public static class recordData
 						ManagerScript.timetoPointingStage.ToString(),
 						ManagerScript.pointingTime.ToString(),
 						conditionVal,
-						
+				successString,
 				} 
 		};
 
@@ -129,6 +114,7 @@ public static class recordData
 				//putting values for column in csv
 				string[][] output = new string[][]{
 					new string[]{
+					System.DateTime.Now.ToString("o"),
 					ManagerScript.trialNumber.ToString (),
 					(Time.realtimeSinceStartup).ToString (),
 					statusVal} 

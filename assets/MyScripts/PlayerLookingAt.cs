@@ -205,6 +205,7 @@ Transform cameraTransform = null;
 
 						// call function if user takes to long to get to blue sphere
 						Invoke ("toLong", timeToGetToBlueSphere);
+						
 
 						hiding = false;
 			
@@ -217,6 +218,8 @@ Transform cameraTransform = null;
 	
 		void toLong ()
 		{
+				//Add parameters
+				recordData.recordDataParameters(0);
 				ManagerScript.abortTrial ();
 				displaytext.GetComponent<TextMesh>().text = "Time's up for this trial!\nNew Trial";
 				Invoke("clearGUItext" , 1f) ;
