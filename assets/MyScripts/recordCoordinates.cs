@@ -95,7 +95,7 @@ public class recordCoordinates : MonoBehaviour {
 				//putting values for column in csv
 				string[][] output = new string[][]{
 					new string[]{
-					System.DateTime.Now.ToString(),
+					System.DateTime.Now.ToString("o"),
 					ManagerScript.trialNumber.ToString (),
 					//(transform.position.x).ToString(),
 					//(transform.position.y).ToString(),
