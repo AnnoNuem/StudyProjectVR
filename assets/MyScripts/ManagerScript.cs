@@ -62,7 +62,7 @@ public class ManagerScript : MonoBehaviour
 		public static float timetoPointingStage = 0.0f;
 		public static float pointingTime = 0.0f;
 
-
+		privat CharacterMotor jsScript;
 
 		//Trials and random variables will be generated here
 		void Awake ()
@@ -365,6 +365,7 @@ public class ManagerScript : MonoBehaviour
 		public static void switchState (states newState)
 		{				
 				unStun ();
+				unSlowDown ();
 				switch (newState) {
 				//start screen
 				case states.startScreen:
@@ -422,12 +423,14 @@ public class ManagerScript : MonoBehaviour
 		{
 				ManagerScript.abortTrial ();
 		}
-
+		
+		// this function stuns the plyer as well as making him slower 
 		static void stun ()
 		{
 				GameObject pController = GameObject.Find ("OVRPlayerController");
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
 				controller.SetMoveScaleMultiplier (0.0f);
+				slowDown ();
 		}
 
 		static void unStun ()
@@ -441,6 +444,12 @@ public class ManagerScript : MonoBehaviour
 		{
 				return state;
 		}
+
+	public void slowDown();
+	{
+		jsScript =this.GetComponent<CharacterMotor> ;
+
+	}
 
 
 }
