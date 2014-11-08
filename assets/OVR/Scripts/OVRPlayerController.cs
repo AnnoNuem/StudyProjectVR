@@ -340,10 +340,11 @@ public class OVRPlayerController : MonoBehaviour
 			
 		// Compute this for xinput movement
 		moveInfluence = OVRDevice.SimulationRate * Time.deltaTime * Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
-			
+
+		//MQ-change
 		// Run!
-		moveInfluence *= 1.0f + 
-					     OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftTrigger);
+		//moveInfluence *= 1.0f + 
+		//			     OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftTrigger);
 			
 		// Move
 		if(DirXform != null)
