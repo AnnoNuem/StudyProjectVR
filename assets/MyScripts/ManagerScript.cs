@@ -66,13 +66,13 @@ public class ManagerScript : MonoBehaviour
 
 
 
-	private static SlowDownHelper slowdownhelper;
+	//private static SlowDownHelper slowdownhelper;
 
 		//Trials and random variables will be generated here
 		void Awake()
 		{
 
-	slowdownhelper = GetComponent<SlowDownHelper> ();
+	//slowdownhelper = GetComponent<SlowDownHelper> ();
 
 		}
 		//
@@ -325,8 +325,8 @@ public class ManagerScript : MonoBehaviour
 				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
 				Time.timeScale = 1;
 				
-		slowdownhelper.RestoreSpeed ();
-		slowdownhelper.RestoreAcceleration ();
+	//	slowdownhelper.RestoreSpeed ();
+	//	slowdownhelper.RestoreAcceleration ();
 		
 		timetoPointingStage = 0.0f;
 				pointingTime = 0.0f;
@@ -441,8 +441,8 @@ public class ManagerScript : MonoBehaviour
 		//slowdownhelper.SlowSpeed ();
 //		slowdownhelper.SlowAcceleration ();
 
-		slowdownhelper.SlowSpeed ();
-		slowdownhelper.SlowAcceleration ();
+		//slowdownhelper.SlowSpeed ();
+		//slowdownhelper.SlowAcceleration ();
 		
 		}
 
