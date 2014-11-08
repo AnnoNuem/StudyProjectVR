@@ -15,8 +15,9 @@
   
  function SlowSpeed (){
   
-     var temp = motor.movement.maxForwardSpeed - 2;
+     var temp = motor.movement.maxForwardSpeed - 5;
      motor.movement.maxForwardSpeed = temp ;
+     motor.ChangemaxForwardSpeed(2);
      //motor.movement.maxForwardSpeed = 20 ;
      
   
@@ -24,7 +25,7 @@
 
 function SlowAcceleration (){
   
-    var temp = motor.movement.maxGroundAcceleration - 5;
+    var temp = motor.movement.maxGroundAcceleration - 10;
      motor.movement.maxGroundAcceleration = temp;
      //motor.movement.maxForwardSpeed = 20 ;
      

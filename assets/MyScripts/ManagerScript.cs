@@ -441,6 +441,8 @@ public class ManagerScript : MonoBehaviour
 		//slowdownhelper.SlowSpeed ();
 //		slowdownhelper.SlowAcceleration ();
 
+		slowdownhelper.SlowSpeed ();
+		slowdownhelper.SlowAcceleration ();
 		
 		}
 

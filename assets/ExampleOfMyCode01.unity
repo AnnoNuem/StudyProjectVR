@@ -1313,7 +1313,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_Name
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_CastShadows: 1
   m_LightmapIndex: -1
   m_LightmapSize: 1024
-  m_DrawTreesAndFoliage: 0
+  m_DrawTreesAndFoliage: 1
   m_MaterialTemplate: {fileID: 0}
 --- !u!4 &1139026901
 Transform:
@@ -1524,7 +1524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &1334744263
 ParticleSystemRenderer:
   m_ObjectHideFlags: 0
@@ -2698,7 +2698,7 @@ MonoBehaviour:
   canControl: 1
   useFixedUpdate: 1
   movement:
-    maxForwardSpeed: 9
+    maxForwardSpeed: 0
     maxSidewaysSpeed: 9
     maxBackwardsSpeed: 9
     slopeSpeedMultiplier:
@@ -2807,7 +2807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &1724248660
 ParticleSystemRenderer:
   m_ObjectHideFlags: 0
@@ -4109,7 +4109,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
