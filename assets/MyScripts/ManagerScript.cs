@@ -63,18 +63,17 @@ public class ManagerScript : MonoBehaviour
 		public static float pointingTime = 0.0f;
 		
 	 	private GameObject helperObject ;
-		private SlowDownHelper slowDownHelper;
+
+
+
+	private static SlowDownHelper slowdownhelper;
 
 		//Trials and random variables will be generated here
-		void Awake ()
+		void Awake()
 		{
-		slowDownHelper = helperObject.GetComponent<SlowDownHelper>();
-		bla = slowDownHelper.isPlayerAlive() ;
-		Debug.Log (bla);
-	//	jsScript = OVRPlayerController.GetComponent();
 
-		//characterMotor = GetComponent<CharacterMotor>;
-		//Debug.Log (characterMotor.maxForwardSpeed);
+	slowdownhelper = GetComponent<SlowDownHelper> ();
+
 		}
 		//
 		void Start ()
@@ -325,15 +324,17 @@ public class ManagerScript : MonoBehaviour
 		{  
 				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
 				Time.timeScale = 1;
+				
+		slowdownhelper.RestoreSpeed ();
+		slowdownhelper.RestoreAcceleration ();
 		
-				timetoPointingStage = 0.0f;
+		timetoPointingStage = 0.0f;
 				pointingTime = 0.0f;
 				//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 				new    WaitForSeconds (2);
+				
 
-
-
-				//accessng parameters values according to the current trial
+			//accessng parameters values according to the current trial
 				spawnDistance = trialList [trialNumber].spawnDistance;
 				CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
 				;       // How long to hide
@@ -361,7 +362,7 @@ public class ManagerScript : MonoBehaviour
 						switchState (states.blockover);
 				} else if (trialList [trialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") {
 						switchState (states.end);				
-				} else {
+				} else {	
 						switchState (states.walking);
 				}
 				trialNumber++;
@@ -372,7 +373,6 @@ public class ManagerScript : MonoBehaviour
 		public static void switchState (states newState)
 		{				
 				unStun ();
-				unSlowDown ();
 				switch (newState) {
 				//start screen
 				case states.startScreen:
@@ -437,7 +437,11 @@ public class ManagerScript : MonoBehaviour
 				GameObject pController = GameObject.Find ("OVRPlayerController");
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
 				controller.SetMoveScaleMultiplier (0.0f);
-				slowDown ();
+
+		//slowdownhelper.SlowSpeed ();
+//		slowdownhelper.SlowAcceleration ();
+
+		
 		}
 
 		static void unStun ()
@@ -452,19 +456,7 @@ public class ManagerScript : MonoBehaviour
 				return state;
 		}
 
-	static void slowDown()
-	{
-		//jsScript =this.GetComponent<CharacterMotor> ;
 
-	}
-
-
-
-	static void unSlowDown()
-	{
-		//jsScript =this.GetComponent<CharacterMotor> ;
-		
-	}
 
 
 }

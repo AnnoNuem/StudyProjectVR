@@ -1129,6 +1129,7 @@ GameObject:
   - 114: {fileID: 845199638}
   - 114: {fileID: 845199641}
   - 114: {fileID: 845199642}
+  - 114: {fileID: 845199640}
   m_Layer: 0
   m_Name: helperObject
   m_TagString: Untagged
@@ -1159,6 +1160,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &845199640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 845199637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a72a61fae97e34a9ac551049421409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motor: {fileID: 0}
+  tempSpeed1: 0
+  tempAcceleration1: 0
 --- !u!114 &845199641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1298,7 +1313,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_Name
@@ -1448,7 +1463,7 @@ MonoBehaviour:
   m_CastShadows: 1
   m_LightmapIndex: -1
   m_LightmapSize: 1024
-  m_DrawTreesAndFoliage: 1
+  m_DrawTreesAndFoliage: 0
   m_MaterialTemplate: {fileID: 0}
 --- !u!4 &1139026901
 Transform:
@@ -1509,7 +1524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1334744263
 ParticleSystemRenderer:
   m_ObjectHideFlags: 0
@@ -2792,7 +2807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1724248660
 ParticleSystemRenderer:
   m_ObjectHideFlags: 0
@@ -4094,7 +4109,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}

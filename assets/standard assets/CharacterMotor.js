@@ -514,7 +514,7 @@ private function GetDesiredHorizontalVelocity () {
 	var desiredLocalDirection : Vector3 = tr.InverseTransformDirection(inputMoveDirection);
 	var maxSpeed : float = MaxSpeedInDirection(desiredLocalDirection);
 	if (grounded) {
-		// Modify max speed on slopes based on slope speed multiplier curve
+		// Modify max speed on slopes based on slope speed ZZmultiplier curve
 		var movementSlopeAngle = Mathf.Asin(movement.velocity.normalized.y)  * Mathf.Rad2Deg;
 		maxSpeed *= movement.slopeSpeedMultiplier.Evaluate(movementSlopeAngle);
 	}
@@ -537,6 +537,22 @@ function GetMaxAcceleration (grounded : boolean) : float {
 	else
 		return movement.maxAirAcceleration;
 }
+
+// here we change the maximum acceleration lol 
+
+function ChangeMaxAcceleration1 (blabla : float ) {
+
+		movement.maxGroundAcceleration = blabla;
+
+}
+// here we change the maximum acceleration lol 
+
+function ChangeMaxForwardSpeed1 (blabla : int ) {
+
+		movement.maxForwardSpeed = blabla;
+
+}
+
 
 function CalculateJumpVerticalSpeed (targetJumpHeight : float) {
 	// From the jump height and gravity we deduce the upwards speed 
@@ -591,6 +607,32 @@ function SetVelocity (velocity : Vector3) {
 	movement.frameVelocity = Vector3.zero;
 	SendMessage("OnExternalVelocity");
 }
+
+function ChangemaxForwardSpeed(abc : int ) { 
+
+ChangeMaxForwardSpeed1(abc);
+
+}
+
+function ChangemaxGroundAcceleration(abc : float) { 
+
+ChangeMaxAcceleration1(abc);
+
+}
+
+function ReturnmaxForwardSpeed() : int { 
+
+return movement.maxForwardSpeed;
+
+}
+function ReturnmaxGroundAcceleration() : float { 
+
+return movement.maxGroundAcceleration;
+
+}
+
+
+
 
 // Require a character controller to be attached to the same game object
 @script RequireComponent (CharacterController)
