@@ -49,7 +49,7 @@ public class ManagerScript : MonoBehaviour
 
 		// session identifier, tree different sessions
 		public static int session;
-	
+		int bla;
 		//public list of trials
 		public static List<trialContainer> trialList = new List<trialContainer> ();
 	
@@ -61,13 +61,20 @@ public class ManagerScript : MonoBehaviour
 		public static bool pointTaskINprocess = false;
 		public static float timetoPointingStage = 0.0f;
 		public static float pointingTime = 0.0f;
-
-		privat CharacterMotor jsScript;
+		
+	 	private GameObject helperObject ;
+		private SlowDownHelper slowDownHelper;
 
 		//Trials and random variables will be generated here
 		void Awake ()
 		{
+		slowDownHelper = helperObject.GetComponent<SlowDownHelper>();
+		bla = slowDownHelper.isPlayerAlive() ;
+		Debug.Log (bla);
+	//	jsScript = OVRPlayerController.GetComponent();
 
+		//characterMotor = GetComponent<CharacterMotor>;
+		//Debug.Log (characterMotor.maxForwardSpeed);
 		}
 		//
 		void Start ()
@@ -445,10 +452,18 @@ public class ManagerScript : MonoBehaviour
 				return state;
 		}
 
-	public void slowDown();
+	static void slowDown()
 	{
-		jsScript =this.GetComponent<CharacterMotor> ;
+		//jsScript =this.GetComponent<CharacterMotor> ;
 
+	}
+
+
+
+	static void unSlowDown()
+	{
+		//jsScript =this.GetComponent<CharacterMotor> ;
+		
 	}
 
 
