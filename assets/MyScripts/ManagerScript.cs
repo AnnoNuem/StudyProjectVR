@@ -61,7 +61,7 @@ public class ManagerScript : MonoBehaviour
 		public static bool pointTaskINprocess = false;
 		public static float timetoPointingStage = 0.0f;
 		public static float pointingTime = 0.0f;
-
+		static bool duplicatePresent = true;
 
 
 		//Trials and random variables will be generated here
@@ -144,9 +144,33 @@ public class ManagerScript : MonoBehaviour
 								trialContainer tempTrial = new trialContainer ("Easy-False");
 								easyBlock1.Add (tempTrial);
 						}
-						easyBlock1.Shuffle ();
+						
+
+						// this loop does not allow mismatch conditions to be generated consecutively
+						while (duplicatePresent) {
+								easyBlock1.Shuffle ();
+								for (int i=0; i < easyBlock1.Count-1; i++) {
+										if (easyBlock1 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1 [i + 1].CondtionTypeVariableInContainer == "Easy-False") {
+												duplicatePresent = true;
+												break;
+										} else {
+												duplicatePresent = false;
+										}
+								}
+						}
+						//////
+						
+						//easyBlock1.Shuffle ();
 						trialList.AddRange (easyBlock1);
 						trialList.Add (blockTrial);
+						duplicatePresent = true;
+						
+						/*
+						for(int i=0; i <trialList.Count;i++){
+							Debug.Log("Types -> "+trialList[i].CondtionTypeVariableInContainer);
+						}
+						*/
+						
 
 						List<trialContainer> hardBlock1 = new List<trialContainer> ();
 						
@@ -159,74 +183,160 @@ public class ManagerScript : MonoBehaviour
 								trialContainer tempTrial = new trialContainer ("Hard-False");
 								hardBlock1.Add (tempTrial);
 						}
-						hardBlock1.Shuffle (); // Shuffling function
+
+						while (duplicatePresent) {
+								hardBlock1.Shuffle ();
+								for (int i=0; i < easyBlock1.Count-1; i++) {
+										if (hardBlock1 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1 [i + 1].CondtionTypeVariableInContainer == "Hard-False") {
+												duplicatePresent = true;
+												break;
+										} else {
+												duplicatePresent = false;
+										}
+								}
+						}
+
+						//hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
 						trialList.Add (endTrial);
-				} else if (session == 2) {
+				} else if (session == 2 || session == 3) {
 				
-						//Debug.Log ("Session 2");
-						List<trialContainer> easyBlock1 = new List<trialContainer> ();
+						List<int> orderNumbers = new List<int> (){1,2,3,4};
+						orderNumbers.Shuffle ();
+						
+						for (int u=0; u<orderNumbers.Count; u++) {
+								switch (orderNumbers [u]) {
 
-						for (int i=0; i<24; i++) { //20
-								trialContainer tempTrial = new trialContainer ("Easy");
-								easyBlock1.Add (tempTrial);
-						}
-						
-						for (int i=0; i<6; i++) {
-								trialContainer tempTrial = new trialContainer ("Easy-False");
-								easyBlock1.Add (tempTrial);
-						}
-						easyBlock1.Shuffle ();
-						trialList.AddRange (easyBlock1);
-						trialList.Add (blockTrial);
+								case 1:
+										Debug.Log ("E B 1");
+										List<trialContainer> easyBlock1 = new List<trialContainer> ();
 
-						List<trialContainer> hardBlock1 = new List<trialContainer> ();
+										for (int i=0; i<24; i++) { //20
+												trialContainer tempTrial = new trialContainer ("Easy");
+												easyBlock1.Add (tempTrial);
+										}
+								
+										for (int i=0; i<6; i++) {
+												trialContainer tempTrial = new trialContainer ("Easy-False");
+												easyBlock1.Add (tempTrial);
+										}
+								
+										while (duplicatePresent) {
+												easyBlock1.Shuffle ();
+												for (int i=0; i < easyBlock1.Count-1; i++) {
+														if (easyBlock1 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1 [i + 1].CondtionTypeVariableInContainer == "Easy-False") {
+																duplicatePresent = true;
+																break;
+														} else {
+																duplicatePresent = false;
+														}
+												}
+										}
+									
+							
+								//easyBlock1.Shuffle ();
+										trialList.AddRange (easyBlock1);
+										trialList.Add (blockTrial);
+										duplicatePresent = true;
+										break;
+
+								case 2:
+										Debug.Log ("H B 1");
+										List<trialContainer> hardBlock1 = new List<trialContainer> ();
+									
+										for (int i=0; i<24; i++) { //20
+												trialContainer tempTrial = new trialContainer ("Hard");
+												hardBlock1.Add (tempTrial);
+										}
+									
+										for (int i=0; i<6; i++) {
+												trialContainer tempTrial = new trialContainer ("Hard-False");
+												hardBlock1.Add (tempTrial);
+										}
+
+										while (duplicatePresent) {
+												hardBlock1.Shuffle ();
+												for (int i=0; i < hardBlock1.Count-1; i++) {
+														if (hardBlock1 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1 [i + 1].CondtionTypeVariableInContainer == "Hard-False") {
+																duplicatePresent = true;
+																break;
+														} else {
+																duplicatePresent = false;
+														}
+												}
+										}
+									//hardBlock1.Shuffle (); // Shuffling function
+										trialList.AddRange (hardBlock1);
+										trialList.Add (blockTrial);
+										duplicatePresent = true;
+										break;
 						
-						for (int i=0; i<24; i++) { //20
-								trialContainer tempTrial = new trialContainer ("Hard");
-								hardBlock1.Add (tempTrial);
+								case 3:
+										Debug.Log ("E B 2");
+										List<trialContainer> easyBlock2 = new List<trialContainer> ();
+								
+										for (int i=0; i<24; i++) { //20
+												trialContainer tempTrial = new trialContainer ("Easy");
+												easyBlock2.Add (tempTrial);
+										}
+								
+										for (int i=0; i<6; i++) {
+												trialContainer tempTrial = new trialContainer ("Easy-False");
+												easyBlock2.Add (tempTrial);
+										}
+								
+										while (duplicatePresent) {
+												easyBlock2.Shuffle ();
+												for (int i=0; i < easyBlock2.Count-1; i++) {
+														if (easyBlock2 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock2 [i + 1].CondtionTypeVariableInContainer == "Easy-False") {
+																duplicatePresent = true;
+																break;
+														} else {
+																duplicatePresent = false;
+														}
+												}
+										}
+								//easyBlock2.Shuffle ();
+										trialList.AddRange (easyBlock2);
+										trialList.Add (blockTrial);
+										duplicatePresent = true;
+										break;
+
+								case 4:
+										Debug.Log ("H B 2");
+										List<trialContainer> hardBlock2 = new List<trialContainer> ();
+								
+										for (int i=0; i<24; i++) { //20
+												trialContainer tempTrial = new trialContainer ("Hard");
+												hardBlock2.Add (tempTrial);
+										}
+								
+										for (int i=0; i<6; i++) {
+												trialContainer tempTrial = new trialContainer ("Hard-False");
+												hardBlock2.Add (tempTrial);
+										}
+
+										while (duplicatePresent) {
+												hardBlock2.Shuffle ();
+												for (int i=0; i < hardBlock2.Count-1; i++) {
+														if (hardBlock2 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock2 [i + 1].CondtionTypeVariableInContainer == "Hard-False") {
+																duplicatePresent = true;
+																break;
+														} else {
+																duplicatePresent = false;
+														}
+												}
+										}
+								//hardBlock2.Shuffle (); // Shuffling function
+										trialList.AddRange (hardBlock2);
+										//trialList.Add (endTrial);
+										duplicatePresent = true;
+										break;
+								}
 						}
-						
-						for (int i=0; i<6; i++) {
-								trialContainer tempTrial = new trialContainer ("Hard-False");
-								hardBlock1.Add (tempTrial);
-						}
-						hardBlock1.Shuffle (); // Shuffling function
-						trialList.AddRange (hardBlock1);
-						trialList.Add (blockTrial);
-						
-						List<trialContainer> easyBlock2 = new List<trialContainer> ();
-						
-						for (int i=0; i<24; i++) { //20
-								trialContainer tempTrial = new trialContainer ("Easy");
-								easyBlock2.Add (tempTrial);
-						}
-						
-						for (int i=0; i<6; i++) {
-								trialContainer tempTrial = new trialContainer ("Easy-False");
-								easyBlock2.Add (tempTrial);
-						}
-						easyBlock2.Shuffle ();
-						trialList.AddRange (easyBlock2);
-						trialList.Add (blockTrial);
-			
-						List<trialContainer> hardBlock2 = new List<trialContainer> ();
-						
-						for (int i=0; i<24; i++) { //20
-								trialContainer tempTrial = new trialContainer ("Hard");
-								hardBlock2.Add (tempTrial);
-						}
-						
-						for (int i=0; i<6; i++) {
-								trialContainer tempTrial = new trialContainer ("Hard-False");
-								hardBlock2.Add (tempTrial);
-						}
-						hardBlock2.Shuffle (); // Shuffling function
-						trialList.AddRange (hardBlock2);
 						trialList.Add (endTrial);
-
 				} else if (session == 4) {
-			trialList.Add ( new trialContainer ("Training"));
+						trialList.Add (new trialContainer ("Training"));
 						trialList.Add (endTrial);
 				} else {
 
@@ -249,10 +359,23 @@ public class ManagerScript : MonoBehaviour
 								trialContainer tempTrial = new trialContainer ("Easy-False");
 								easyBlock1.Add (tempTrial);
 						}
-						easyBlock1.Shuffle ();
+
+						while (duplicatePresent) {
+								easyBlock1.Shuffle ();
+								for (int i=0; i < easyBlock1.Count-1; i++) {
+										if (easyBlock1 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1 [i + 1].CondtionTypeVariableInContainer == "Easy-False") {
+												duplicatePresent = true;
+												break;
+										} else {
+												duplicatePresent = false;
+										}
+								}
+						}
+						//easyBlock1.Shuffle ();
 						trialList.AddRange (easyBlock1);
 						trialList.Add (blockTrial);
-			
+						duplicatePresent = true;
+
 						List<trialContainer> hardBlock1 = new List<trialContainer> ();
 			
 						for (int i=0; i<2; i++) { //20
@@ -264,9 +387,22 @@ public class ManagerScript : MonoBehaviour
 								trialContainer tempTrial = new trialContainer ("Hard-False");
 								hardBlock1.Add (tempTrial);
 						}
-						hardBlock1.Shuffle (); // Shuffling function
+
+						while (duplicatePresent) {
+								hardBlock1.Shuffle ();
+								for (int i=0; i < easyBlock1.Count-1; i++) {
+										if (hardBlock1 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1 [i + 1].CondtionTypeVariableInContainer == "Hard-False") {
+												duplicatePresent = true;
+												break;
+										} else {
+												duplicatePresent = false;
+										}
+								}
+						}
+						//hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
 						trialList.Add (blockTrial);
+						duplicatePresent = true;
 			
 						List<trialContainer> easyBlock2 = new List<trialContainer> ();
 			
@@ -279,9 +415,22 @@ public class ManagerScript : MonoBehaviour
 								trialContainer tempTrial = new trialContainer ("Easy-False");
 								easyBlock2.Add (tempTrial);
 						}
-						easyBlock2.Shuffle ();
+
+						while (duplicatePresent) {
+								easyBlock2.Shuffle ();
+								for (int i=0; i < easyBlock1.Count-1; i++) {
+										if (easyBlock2 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock2 [i + 1].CondtionTypeVariableInContainer == "Easy-False") {
+												duplicatePresent = true;
+												break;
+										} else {
+												duplicatePresent = false;
+										}
+								}
+						}
+						//easyBlock2.Shuffle ();
 						trialList.AddRange (easyBlock2);
 						trialList.Add (blockTrial);
+						duplicatePresent = true;
 			
 						List<trialContainer> hardBlock2 = new List<trialContainer> ();
 			
@@ -294,12 +443,21 @@ public class ManagerScript : MonoBehaviour
 								trialContainer tempTrial = new trialContainer ("Hard-False");
 								hardBlock2.Add (tempTrial);
 						}
-						hardBlock2.Shuffle (); // Shuffling function
+						
+						while (duplicatePresent) {
+								hardBlock2.Shuffle ();
+								for (int i=0; i < easyBlock1.Count-1; i++) {
+										if (hardBlock2 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock2 [i + 1].CondtionTypeVariableInContainer == "Hard-False") {
+												duplicatePresent = true;
+												break;
+										} else {
+												duplicatePresent = false;
+										}
+								}
+						}
+						//hardBlock2.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock2);
 						trialList.Add (endTrial);
-						
-		
-		
 				}
 		}
 	
@@ -411,9 +569,9 @@ public class ManagerScript : MonoBehaviour
 				case states.blockover:
 						ManagerScript.state = states.blockover;
 						break;
-		case states.end:
-			ManagerScript.state = states.end;
-			break;
+				case states.end:
+						ManagerScript.state = states.end;
+						break;
 				}
 
 		}
