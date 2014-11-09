@@ -21,6 +21,7 @@ public class ManagerScript : MonoBehaviour
 		public static double hideTime;       // How long to hide
 		public static double blue_spawnDistance; // How far away to spawn
 		public static double blue_moveDistance;   // How close can the character get
+		static float moveScale ;
 
 
 		//public static List<float> generatedAngles = new List<float> ();
@@ -62,7 +63,9 @@ public class ManagerScript : MonoBehaviour
 		public static float timetoPointingStage = 0.0f;
 		public static float pointingTime = 0.0f;
 		static bool duplicatePresent = true;
-
+		
+	float AccelerationTemp;
+	float DumpingTemp ;
 
 		//Trials and random variables will be generated here
 		void Awake ()
@@ -72,6 +75,11 @@ public class ManagerScript : MonoBehaviour
 		//
 		void Start ()
 		{
+				GameObject pController = GameObject.Find ("OVRPlayerController");
+				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+				controller.GetMoveScaleMultiplier (ref moveScale);
+		moveScale = moveScale * 0.2f;
+				Debug.Log ("Value--->"+moveScale);
 				ManagerScript.switchState (states.startScreen);
 				trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
 		}
@@ -586,12 +594,25 @@ public class ManagerScript : MonoBehaviour
 				GameObject pController = GameObject.Find ("OVRPlayerController");
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
 				controller.SetMoveScaleMultiplier (0.0f);
+				/*
+				float tempAcc1;
+				float tempDump1;
+
+				tempAcc1 = GameObject.Find ("OVRPlayerController").GetComponent<OVRPlayerController>().Acceleration;
+				tempDump1 = GameObject.Find ("OVRPlayerController").GetComponent<OVRPlayerController>().Damping;
+
+				GameObject.Find ("OVRPlayerController").GetComponent<OVRPlayerController> ().Acceleration = 2;
+
+				GameObject.Find ("OVRPlayerController").GetComponent<OVRPlayerController> ().Damping = 0.1f;
+				*/
+				
 		}
 
 		static void unStun ()
 		{
 				GameObject pController = GameObject.Find ("OVRPlayerController");
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+				
 				controller.SetMoveScaleMultiplier (3.0f);
 		}
 

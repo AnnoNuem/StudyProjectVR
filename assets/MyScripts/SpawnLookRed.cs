@@ -24,6 +24,7 @@ public class SpawnLookRed : MonoBehaviour
 		private UnityRandom urand;
 		private int timeTillExp = 1; // how long till explosion
 		float defeatableTillTime;
+		static float moveScale ;
 	
 		// the condition is saved here, comes from manager script
 		float onsetOfDefeatAtTime;
@@ -47,6 +48,9 @@ public class SpawnLookRed : MonoBehaviour
 
 		void Start ()
 		{	
+				GameObject pController = GameObject.Find ("OVRPlayerController");
+				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+				controller.GetMoveScaleMultiplier (ref moveScale);
 				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);	
 				switchState (yellowSphereStates.hidden);
 		}
@@ -156,7 +160,10 @@ public class SpawnLookRed : MonoBehaviour
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
 				controller.SetMoveScaleMultiplier (0.0f);
 				yield return new WaitForSeconds (sec);
-				controller.SetMoveScaleMultiplier (3.0f);
+				controller.SetMoveScaleMultiplier (moveScale*0.5f);
+				float temp = 0.0f;
+				controller.GetMoveScaleMultiplier (ref temp);
+				Debug.Log ("move scale value -->" + temp);
 		}
 
 		public void newTrial ()
