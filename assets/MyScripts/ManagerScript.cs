@@ -25,12 +25,7 @@ public class ManagerScript : MonoBehaviour
 
 		//public static List<float> generatedAngles = new List<float> ();
 		public static float generatedAngle;
-		// when should the questionaire be in the middle be
-//		int middleQuestionaire = 1000;
-	
-		// how much time for pointing
-//		int timeForPointing = 8;
-	
+
 		// states for state machine to describe in which experiment state we are
 		public enum states
 		{
@@ -63,16 +58,10 @@ public class ManagerScript : MonoBehaviour
 		public static float pointingTime = 0.0f;
 		
 	 	private GameObject helperObject ;
+	
 
-
-
-	//private static SlowDownHelper slowdownhelper;
-
-		//Trials and random variables will be generated here
 		void Awake()
 		{
-
-	//slowdownhelper = GetComponent<SlowDownHelper> ();
 
 		}
 		//
@@ -110,15 +99,15 @@ public class ManagerScript : MonoBehaviour
 						}
 
 						trialList.Add (blockTrial);
-				
-						for (int i=0; i<2; i++) { 
+						// Explanation trials
+						for (int i=0; i<5; i++) { 
 								trialContainer tempTrial = new trialContainer ("Easy");
 								trialList.Add (tempTrial);
 						}
 
 						trialList.Add (blockTrial);	
-				
-						for (int i=0; i<2; i++) { //20
+						// Explanation trials
+						for (int i=0; i<5; i++) { //20
 								trialContainer tempTrial = new trialContainer ("Hard");
 								trialList.Add (tempTrial);
 						}
@@ -168,7 +157,7 @@ public class ManagerScript : MonoBehaviour
 						hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
 						trialList.Add (endTrial);
-				} else if (session == 2) {
+		} else if(session != 1)  {
 				
 						//Debug.Log ("Session 2");
 						List<trialContainer> easyBlock1 = new List<trialContainer> ();
@@ -231,82 +220,8 @@ public class ManagerScript : MonoBehaviour
 						trialList.AddRange (hardBlock2);
 						trialList.Add (endTrial);
 
-				} else if (session == 4) {
-			trialList.Add ( new trialContainer ("Training"));
-						trialList.Add (endTrial);
-				} else {
-
-
-						for (int i=0; i<2; i++) { 
-								trialContainer tempTrial = new trialContainer ("Explain");
-								trialList.Add (tempTrial);
-						}
-			
-						trialList.Add (blockTrial);
-
-						List<trialContainer> easyBlock1 = new List<trialContainer> ();
-
-						for (int i=0; i<2; i++) { //20
-								trialContainer tempTrial = new trialContainer ("Easy");
-								easyBlock1.Add (tempTrial);
-						}
-			
-						for (int i=0; i<2; i++) {
-								trialContainer tempTrial = new trialContainer ("Easy-False");
-								easyBlock1.Add (tempTrial);
-						}
-						easyBlock1.Shuffle ();
-						trialList.AddRange (easyBlock1);
-						trialList.Add (blockTrial);
-			
-						List<trialContainer> hardBlock1 = new List<trialContainer> ();
-			
-						for (int i=0; i<2; i++) { //20
-								trialContainer tempTrial = new trialContainer ("Hard");
-								hardBlock1.Add (tempTrial);
-						}
-			
-						for (int i=0; i<2; i++) {
-								trialContainer tempTrial = new trialContainer ("Hard-False");
-								hardBlock1.Add (tempTrial);
-						}
-						hardBlock1.Shuffle (); // Shuffling function
-						trialList.AddRange (hardBlock1);
-						trialList.Add (blockTrial);
-			
-						List<trialContainer> easyBlock2 = new List<trialContainer> ();
-			
-						for (int i=0; i<24; i++) { //20
-								trialContainer tempTrial = new trialContainer ("Easy");
-								easyBlock2.Add (tempTrial);
-						}
-			
-						for (int i=0; i<6; i++) {
-								trialContainer tempTrial = new trialContainer ("Easy-False");
-								easyBlock2.Add (tempTrial);
-						}
-						easyBlock2.Shuffle ();
-						trialList.AddRange (easyBlock2);
-						trialList.Add (blockTrial);
-			
-						List<trialContainer> hardBlock2 = new List<trialContainer> ();
-			
-						for (int i=0; i<24; i++) { //20
-								trialContainer tempTrial = new trialContainer ("Hard");
-								hardBlock2.Add (tempTrial);
-						}
-			
-						for (int i=0; i<6; i++) {
-								trialContainer tempTrial = new trialContainer ("Hard-False");
-								hardBlock2.Add (tempTrial);
-						}
-						hardBlock2.Shuffle (); // Shuffling function
-						trialList.AddRange (hardBlock2);
-						trialList.Add (endTrial);
-						
-		
-		
-				}
+				} 
+				
 		}
 	
 		public static void abortTrial ()
@@ -324,10 +239,7 @@ public class ManagerScript : MonoBehaviour
 		{  
 				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
 				Time.timeScale = 1;
-				
-	//	slowdownhelper.RestoreSpeed ();
-	//	slowdownhelper.RestoreAcceleration ();
-		
+
 		timetoPointingStage = 0.0f;
 				pointingTime = 0.0f;
 				//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
@@ -336,27 +248,24 @@ public class ManagerScript : MonoBehaviour
 
 			//accessng parameters values according to the current trial
 				spawnDistance = trialList [trialNumber].spawnDistance;
-				CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
-				;       // How long to hide
+				CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
+				// How long to hide
 				timer_red = trialList [trialNumber].timer_red; // timer, than needs to reach CoolDown
 				TimerForLooking = trialList [trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
 				moveDistance = trialList [trialNumber].moveDistance;
 				;   // How close can the character get
 				speed = trialList [trialNumber].speed;
-//		Camera.main.backgroundColor = trialList[trialNumber].bColor;
+			//		Camera.main.backgroundColor = trialList[trialNumber].bColor;
 				CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
 
 
 				//OVRDevice.HMD.RecenterPose ();
 
-
-				//O;	
 				//OVRCameraController.increase();
 				trialINprocess = true;
 				Time.timeScale = 0;
 
 
-//				((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).newTrial ();
 				if (trialList [trialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") {
 						Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
 						switchState (states.blockover);
@@ -431,19 +340,13 @@ public class ManagerScript : MonoBehaviour
 				ManagerScript.abortTrial ();
 		}
 		
-		// this function stuns the plyer as well as making him slower 
+		// this function stuns the player 
 		static void stun ()
 		{
 				GameObject pController = GameObject.Find ("OVRPlayerController");
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
 				controller.SetMoveScaleMultiplier (0.0f);
 
-		//slowdownhelper.SlowSpeed ();
-//		slowdownhelper.SlowAcceleration ();
-
-		//slowdownhelper.SlowSpeed ();
-		//slowdownhelper.SlowAcceleration ();
-		
 		}
 
 		static void unStun ()
@@ -457,8 +360,5 @@ public class ManagerScript : MonoBehaviour
 		{
 				return state;
 		}
-
-
-
-
+	
 }
