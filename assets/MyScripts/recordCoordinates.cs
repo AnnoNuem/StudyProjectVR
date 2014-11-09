@@ -16,6 +16,7 @@ public class recordCoordinates : MonoBehaviour {
 	//for degree measurment
 	public float angleBetween = 999.0F;
 	public float angleBetween2 = 999.0F;
+
 	public Transform target; // this will be the field in the inspector we will drag and drop our start point. 
 	
 	void Awake() {
@@ -23,7 +24,6 @@ public class recordCoordinates : MonoBehaviour {
 
 	//FixedUpdate is used for rigid bodies and is executed independently of the configuration of system i.e. runs on regular set of intervals
 	void FixedUpdate () {
-
 		//code will only execute when K is pressed
 		if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown("360controllerButtonA") ) && ManagerScript.getState ()==ManagerScript.states.pointing) {
 			//Debug.Log("K pressed");
@@ -34,17 +34,16 @@ public class recordCoordinates : MonoBehaviour {
 			Vector2 transformVector = new Vector2 (transform.position.x, transform.position.z);
 			Vector2 forwardVector = new Vector2 (transform.forward.x, transform.forward.z);
 
-			//Actual calculation
-			Vector2 targetDir = targetVector - transformVector;
-			//angleBetween2 = Mathf.Atan2(targetDir, forwardVector) * Mathf.Rad2Deg;
-			angleBetween = Vector2.Angle (targetDir, forwardVector);
 
-			angleBetween2 = angleBetween;
+
+			Vector2 targetDir = targetVector - transformVector;
+
+			//Old calculation which does not shows -ve pr +ve angles
+			//angleBetween = Vector2.Angle (targetDir, forwardVector);
+			angleBetween = Vector3.Angle(targetDir,forwardVector);
 			Vector3 cross =  Vector3.Cross(targetDir,forwardVector);
-			if (cross.z > 0)
-				angleBetween2 = 360 - angleBetween2;
-//			keyPressedK = true;
-			//Debug.Log("ManagerScript.trialINprocess value -->"+ManagerScript.trialINprocess);
+			if (cross.z < 0) angleBetween = -angleBetween;
+
 
 			//flag to enable new CSV for each trial
 			//if(ManagerScript.trialINprocess){
@@ -104,7 +103,6 @@ public class recordCoordinates : MonoBehaviour {
 					(Time.realtimeSinceStartup).ToString(),
 					//(Time.deltaTime).ToString(),
 					(angleBetween).ToString(),
-					(angleBetween2).ToString(),
 					conditionVal
 					//ManagerScript.CondtionTypeVariableInContainer
 				} 

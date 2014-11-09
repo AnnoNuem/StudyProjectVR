@@ -537,6 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleBetween: 999
+  angleBetween2: 999
   target: {fileID: 725266473}
 --- !u!1 &247557681
 GameObject:

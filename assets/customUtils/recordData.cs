@@ -62,7 +62,7 @@ public static class recordData
 						ManagerScript.timetoPointingStage.ToString(),
 						ManagerScript.pointingTime.ToString(),
 						conditionVal,
-				successString,
+						successString,
 				} 
 		};
 
@@ -84,21 +84,6 @@ public static class recordData
 				//Check if the file exists
 				if (!File.Exists (filePath)) {
 						File.Create (filePath).Close ();
-						
-						/*
-						//putting values for column in csv
-						string[][] output1 = new string[][]{
-							new string[]{"Time-startup","status"} 
-						};
-						
-						int length1 = output1.GetLength (0);
-						
-						StringBuilder sb1 = new StringBuilder ();
-						
-						for (int index = 0; index < length1; index++)
-							sb1.AppendLine (string.Join (delimiter, output1 [index]));
-						File.AppendAllText (filePath, sb1.ToString ());
-						*/
 				}
 
 				string statusVal = "";

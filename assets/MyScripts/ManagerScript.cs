@@ -208,7 +208,7 @@ public class ManagerScript : MonoBehaviour
 								switch (orderNumbers [u]) {
 
 								case 1:
-										Debug.Log ("E B 1");
+										//Debug.Log ("E B 1");
 										List<trialContainer> easyBlock1 = new List<trialContainer> ();
 
 										for (int i=0; i<24; i++) { //20
@@ -241,7 +241,7 @@ public class ManagerScript : MonoBehaviour
 										break;
 
 								case 2:
-										Debug.Log ("H B 1");
+										//Debug.Log ("H B 1");
 										List<trialContainer> hardBlock1 = new List<trialContainer> ();
 									
 										for (int i=0; i<24; i++) { //20
@@ -272,7 +272,7 @@ public class ManagerScript : MonoBehaviour
 										break;
 						
 								case 3:
-										Debug.Log ("E B 2");
+										//Debug.Log ("E B 2");
 										List<trialContainer> easyBlock2 = new List<trialContainer> ();
 								
 										for (int i=0; i<24; i++) { //20
@@ -303,7 +303,7 @@ public class ManagerScript : MonoBehaviour
 										break;
 
 								case 4:
-										Debug.Log ("H B 2");
+										//Debug.Log ("H B 2");
 										List<trialContainer> hardBlock2 = new List<trialContainer> ();
 								
 										for (int i=0; i<24; i++) { //20
