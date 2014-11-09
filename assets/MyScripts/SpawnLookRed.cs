@@ -31,6 +31,10 @@ public class SpawnLookRed : MonoBehaviour
 		float durationOfResponsePeriod ;
 		GameObject pController;
 		Transform cameraTransform = null;
+
+		GameObject pxController;
+		OVRPlayerController xcontroller;
+
 		enum yellowSphereStates
 		{
 				hidden,
@@ -48,9 +52,10 @@ public class SpawnLookRed : MonoBehaviour
 
 		void Start ()
 		{	
-				GameObject pController = GameObject.Find ("OVRPlayerController");
-				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
-				controller.GetMoveScaleMultiplier (ref moveScale);
+				pxController = GameObject.Find ("OVRPlayerController");
+				xcontroller = pxController.GetComponent<OVRPlayerController> ();
+				xcontroller.GetMoveScaleMultiplier (ref moveScale);
+
 				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);	
 				switchState (yellowSphereStates.hidden);
 		}
@@ -156,18 +161,21 @@ public class SpawnLookRed : MonoBehaviour
 
 		IEnumerator stunForSeconds (int sec)
 		{
-				pController = GameObject.Find ("OVRPlayerController");
-				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
-				controller.SetMoveScaleMultiplier (0.0f);
+				//pController = GameObject.Find ("OVRPlayerController");
+				//OVRPlayerController controller = pxController.GetComponent<OVRPlayerController> ();
+				xcontroller.SetMoveScaleMultiplier (0.0f);
 				yield return new WaitForSeconds (sec);
-				controller.SetMoveScaleMultiplier (moveScale*0.5f);
+				moveScale = moveScale * 0.5f;
+				xcontroller.SetMoveScaleMultiplier (moveScale);
 				float temp = 0.0f;
-				controller.GetMoveScaleMultiplier (ref temp);
+				xcontroller.GetMoveScaleMultiplier (ref temp);
 				Debug.Log ("move scale value -->" + temp);
 		}
 
 		public void newTrial ()
 		{
+		moveScale = 3.0f;
+				xcontroller.SetMoveScaleMultiplier (3.0f);
 				Debug.Log (ManagerScript.CondtionTypeVariableInContainer);
 				// set respawn time acording to condition
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {

@@ -78,7 +78,6 @@ public class ManagerScript : MonoBehaviour
 				GameObject pController = GameObject.Find ("OVRPlayerController");
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
 				controller.GetMoveScaleMultiplier (ref moveScale);
-		moveScale = moveScale * 0.2f;
 				Debug.Log ("Value--->"+moveScale);
 				ManagerScript.switchState (states.startScreen);
 				trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
@@ -482,6 +481,9 @@ public class ManagerScript : MonoBehaviour
 	
 		public static void newTrial ()
 		{  
+				//GameObject pController = GameObject.Find ("OVRPlayerController");
+				//OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+				//controller.SetMoveScaleMultiplier (3.0f);
 				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
 				Time.timeScale = 1;
 		
@@ -530,7 +532,7 @@ public class ManagerScript : MonoBehaviour
 		// the state machine
 		public static void switchState (states newState)
 		{				
-				unStun ();
+				//unStun ();
 				switch (newState) {
 				//start screen
 				case states.startScreen:
@@ -608,11 +610,10 @@ public class ManagerScript : MonoBehaviour
 				
 		}
 
-		static void unStun ()
+		static void unStun()
 		{
 				GameObject pController = GameObject.Find ("OVRPlayerController");
 				OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
-				
 				controller.SetMoveScaleMultiplier (3.0f);
 		}
 
