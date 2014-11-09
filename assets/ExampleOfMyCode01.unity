@@ -1130,6 +1130,7 @@ GameObject:
   - 114: {fileID: 845199638}
   - 114: {fileID: 845199641}
   - 114: {fileID: 845199642}
+  - 114: {fileID: 845199640}
   m_Layer: 0
   m_Name: helperObject
   m_TagString: Untagged
@@ -1160,6 +1161,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &845199640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 845199637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a72a61fae97e34a9ac551049421409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motor: {fileID: 0}
+  tempSpeed1: 0
+  tempAcceleration1: 0
 --- !u!114 &845199641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2684,7 +2699,7 @@ MonoBehaviour:
   canControl: 1
   useFixedUpdate: 1
   movement:
-    maxForwardSpeed: 9
+    maxForwardSpeed: 0
     maxSidewaysSpeed: 9
     maxBackwardsSpeed: 9
     slopeSpeedMultiplier:
