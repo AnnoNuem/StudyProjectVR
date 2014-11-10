@@ -61,6 +61,8 @@ public static class recordData
 						ManagerScript.generatedAngle.ToString (),
 						ManagerScript.timetoPointingStage.ToString(),
 						ManagerScript.pointingTime.ToString(),
+						ManagerScript.abortedTrials.ToString(),
+						recordCoordinates.avarageError.ToString(),
 						conditionVal,
 						successString,
 				} 
