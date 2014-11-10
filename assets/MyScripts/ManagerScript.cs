@@ -454,6 +454,8 @@ public class ManagerScript : MonoBehaviour
 						break;
 				case states.end:
 						ManagerScript.state = states.end;
+						Application.Quit();
+
 						break;
 				}
 
