@@ -15,27 +15,86 @@ public class Debugging : MonoBehaviour {
 	string temp222;
 	private UnityRandom urand;
 
-	string path = @"c:\temp\MyTestOfTrialRandamisation.txt";
+	string path1 = @"c:\temp\MyTestOfTrialRandamisationStandart.txt";
+	string path2 = @"c:\temp\MyTestOfTrialRandamisationDice.txt";
+	string path3 = @"c:\temp\MyTestOfTrialRandamisationSchuffleBag.txt";
+
 
 	
 	public string filePath2;
 	// Use this for initialization
 	void Start () {
 
-		urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
+				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
 
-		string createText = "start" + Environment.NewLine;
-	
-		File.AppendAllText (path,  createText);
+				string createText1 = "start" + Environment.NewLine;
+				string createText2 = "start" + Environment.NewLine;	
+				string createText3 = "start" + Environment.NewLine;
+
+				float[] shufflebag = {1,2,3,4,5,6,};
+		
+				ShuffleBagCollection<float> thebag = urand.ShuffleBag(shufflebag);
+		
+		float randvalue;
 
 		int myInt = 0;
 
-		while (myInt < 1000) {
-			string appendText = urand.Range (1, 6).ToString() + Environment.NewLine;
-			File.AppendAllText(path, appendText);
-		
+		while (myInt < 10000) {
+			randvalue = thebag.Next ();
+			string appendText3 = randvalue.ToString() + Environment.NewLine;
+
+			File.AppendAllText (path3, appendText3 );
+
 			myInt++;
+	
 		}
+		//		File.AppendAllText (path1, createText1);
+		//		File.AppendAllText (path2, createText2);
+				File.AppendAllText (path3, createText3);
+
+
+//
+//				int myInt = 0;
+//
+//				while (myInt < 10000) {
+//						string appendText1 = urand.Range (1, 6).ToString () + Environment.NewLine;
+//						File.AppendAllText (path1, appendText1);
+//		
+//						myInt++;
+//				}
+//
+//
+//
+//				int myInt2 = 0;
+//
+//			
+//			
+//				while (myInt2 < 10000) {
+//						string appendText2 = urand.RollDice (1, DiceRoll.DiceType.D6) + Environment.NewLine;
+//						File.AppendAllText (path2, appendText2);
+//						myInt2++;
+//				}
+//
+//				int myInt3 = 6;
+//
+//				float[]  shufflebag = {1,2,3,4,5,6};
+//
+//				ShuffleBagCollection<float> thebag = urand.ShuffleBag (shufflebag);
+//
+//		
+//				int myInt31 = 0;
+//
+//				while (myInt31 < 1667){
+//						myInt31	++;
+//						while (myInt3 > 6) {
+//			   			File.AppendAllText (path3, thebag.Next().ToString() );
+//						myInt3-- ;
+//
+//						}
+//				thebag=urand.ShuffleBag (shufflebag);
+//				}
+
+
 
 		
 	}
