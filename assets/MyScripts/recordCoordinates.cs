@@ -15,7 +15,10 @@ public class recordCoordinates : MonoBehaviour {
 
 	//for degree measurment
 	public float angleBetween = 999.0F;
-	public float angleBetween2 = 999.0F;
+
+	public static int numberOfPointings = 0 ;
+	public static float sumOfErrors = 0.0f ;
+	public static float avarageError = 0.0f ;
 
 	public Transform target; // this will be the field in the inspector we will drag and drop our start point. 
 	
@@ -118,6 +121,9 @@ public class recordCoordinates : MonoBehaviour {
 			//}
 
 			//HERE
+			numberOfPointings++ ;
+			sumOfErrors = sumOfErrors + angleBetween ;
+			avarageError = sumOfErrors / numberOfPointings ;
 			ManagerScript.newTrial();
 			//Debug.Log(angleBetween);
 

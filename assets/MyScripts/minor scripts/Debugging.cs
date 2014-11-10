@@ -12,15 +12,32 @@ using System.IO;
 public class Debugging : MonoBehaviour {
 
 	public string filePath; 
-	public new StreamWriter debugging;
-
 	string temp222;
+	private UnityRandom urand;
 
+	string path = @"c:\temp\MyTestOfTrialRandamisation.txt";
+
+	
 	public string filePath2;
 	// Use this for initialization
 	void Start () {
-	
 
+		urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
+
+		string createText = "start" + Environment.NewLine;
+	
+		File.AppendAllText (path,  createText);
+
+		int myInt = 0;
+
+		while (myInt < 1000) {
+			string appendText = urand.Range (1, 6).ToString() + Environment.NewLine;
+			File.AppendAllText(path, appendText);
+		
+			myInt++;
+		}
+
+		
 	}
 	
 	// Update is called once per frame
@@ -43,7 +60,6 @@ public class Debugging : MonoBehaviour {
 	void Blae(){
 
 		if (ManagerScript.getState () == ManagerScript.states.end){
-			debugging.Close ();
 			Application.Quit();
 		}
 		temp222 = ManagerScript.CondtionTypeVariableInContainer + "," + ManagerScript.trialNumber;

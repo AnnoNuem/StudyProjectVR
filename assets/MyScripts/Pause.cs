@@ -78,6 +78,9 @@ public class Pause : VRGUI
 						GUILayout.Label (NumberOfYellowSpaw + " " + "Number of Yellow Spawn");
 						GUILayout.Label (NumberOfYellowDefeted + " " + "Number of Yellow defeated ");
 						GUILayout.Label (NumberOfYellowMissed + " " + "Number of Yellow missed ");
+						GUILayout.Label (ManagerScript.trialNumber + " " + "you have done so many trials ");
+						GUILayout.Label (ManagerScript.abortedTrials + " " + "you have missed trials ");
+						GUILayout.Label (recordCoordinates.avarageError + " " + "your avarage error angle ");
 						GUILayout.EndVertical ();
 						GUILayout.EndArea ();
 				} else {

@@ -3,12 +3,11 @@ using System.Collections;
 
 public class PlayerLookingAt : MonoBehaviour
 {
-Transform cameraTransform = null;
+		Transform cameraTransform = null;
 		Vector3 pos_blue;
 		Vector3 pos_new;
 		Vector3 rayDirection;
-
-		int numberOfSpheres = 2;
+//		int numberOfSpheres = 2;
 		int numberOfReachedSpheres;
 	
 		// time a user has to reach the next blue sphere
@@ -22,7 +21,6 @@ Transform cameraTransform = null;
 		GameObject displaytext;
 		// variable to count how often the ball is looked at
 		int HowOftenIsLookedAt = 0 ;
-	
 		float spawnDistance = 40.0f; // How far away to spawn
 		double moveDistance = 15.0;   // How close can the character get
 		private bool hiding = false; // for inner logic
@@ -31,21 +29,20 @@ Transform cameraTransform = null;
 
 		bool left = false;
 		float DegreeOfSpawn;
-
 		int HowOftenTurnedLeft = 0;
 		int HowOftenTurnedRight = 0;
-
 		int	CounterForMissedTrials = 0;
-		
 		private Transform OVRCamD;
+
 		void Awake ()
 		{
 				cameraTransform = GameObject.FindWithTag ("OVRcam").transform;
-				displaytext = GameObject.Find("Displaytext");
+				displaytext = GameObject.Find ("Displaytext");
 		}
 
 		void Start ()
-		{
+		{		
+				
 				renderer.enabled = false;
 				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
 		}
@@ -61,22 +58,22 @@ Transform cameraTransform = null;
 
 				if (ManagerScript.getState () == ManagerScript.states.walking || ManagerScript.getState () == ManagerScript.states.pointing) {
 						
-								if (Physics.Raycast (rayStart, rayDirection, out hit, length)) {
-										if (hit.collider.tag == "blueball") {
-												//Debug.Log ("Gazed at");
-												timer += Time.deltaTime;  
+						if (Physics.Raycast (rayStart, rayDirection, out hit, length)) {
+								if (hit.collider.tag == "blueball") {
+										//Debug.Log ("Gazed at");
+										timer += Time.deltaTime;  
 										
-										} 
-								} else {
-										timer = 0.0f;
-								}
+								} 
+						} else {
+								timer = 0.0f;
+						}
 						
-								if (!hiding && Vector3.Distance (cameraTransform.position, transform.position) < moveDistance) {
-										if (timer > 0.5) {
-												HideAndMove ();	
+						if (!hiding && Vector3.Distance (cameraTransform.position, transform.position) < moveDistance) {
+								if (timer > 0.5) {
+										HideAndMove ();	
 							
-										}	
-								}
+								}	
+						}
 						
 				}
 
@@ -84,7 +81,7 @@ Transform cameraTransform = null;
 
 		public void newTrial ()
 		{
-				OVRDevice.ResetOrientation();
+				OVRDevice.ResetOrientation ();
 				numberOfReachedSpheres = 0;
 
 //				r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
@@ -119,13 +116,16 @@ Transform cameraTransform = null;
 						renderer.enabled = false;
 			
 						// if we reached the number of spheres point back
-						if (numberOfReachedSpheres == numberOfSpheres) {
-								point ();
-								return;
-						}
-			
+// THIS CODE IS NEVER EXECUDED
+					//	if (numberOfReachedSpheres == numberOfSpheres) {
+					//			point ();
+					//			return;
+						
+					//			Debug.Log ("I bet my ... dick this code is never being executed ?");
+					//	}
+// TILL HERE !!!	
 						// spanning random at 30 60 90 degrees left or right
-						switch ((int)(urand.Range(1,6))) {
+						switch ((int)(urand.Range (1, 6))) {
 						// the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
 						// lets try it with 10 degree in total
 						case 1:
@@ -157,32 +157,34 @@ Transform cameraTransform = null;
 								break;
 						}
 			
-						if((HowOftenTurnedLeft+10) > HowOftenTurnedRight )
-						{ left = false ; }
+						if ((HowOftenTurnedLeft - HowOftenTurnedRight) >= 10) {
+								left = false;
+						}
 
 						
-						if((HowOftenTurnedRight+10) > HowOftenTurnedLeft)
-						{ left = true ; }
+						if ((HowOftenTurnedRight - HowOftenTurnedLeft) <= 10) {
+								left = true;
+						}
 
 
 						// here depending on the conditon, we rotate the spehre and move it forward
 						if (left) {
 				
-							transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(360 - DegreeOfSpawn), transform.eulerAngles.z);
-							transform.localPosition += transform.forward * (float)spawnDistance;	
-							//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.left);
-							displaytext.GetComponent<TextMesh>().text = "<--" ;
-							Invoke("clearGUItext" , 0.5f) ;
-							HowOftenTurnedLeft++ ;
+								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(360 - DegreeOfSpawn), transform.eulerAngles.z);
+								transform.localPosition += transform.forward * (float)spawnDistance;	
+								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.left);
+								displaytext.GetComponent<TextMesh> ().text = "<--";
+								Invoke ("clearGUItext", 0.5f);
+								HowOftenTurnedLeft++;
 
 						} else {
 				
-							transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z);
-							transform.localPosition += transform.forward * (float)spawnDistance;
-							//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.right);
-							displaytext.GetComponent<TextMesh>().text = "-->" ;
-							Invoke("clearGUItext" , 0.5f) ;
-							HowOftenTurnedRight++;
+								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z);
+								transform.localPosition += transform.forward * (float)spawnDistance;
+								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.right);
+								displaytext.GetComponent<TextMesh> ().text = "-->";
+								Invoke ("clearGUItext", 0.5f);
+								HowOftenTurnedRight++;
 
 						}
 			
@@ -190,6 +192,7 @@ Transform cameraTransform = null;
 
 						// call function if user takes to long to get to blue sphere
 						Invoke ("toLong", timeToGetToBlueSphere);
+						
 						
 
 						hiding = false;
@@ -204,10 +207,10 @@ Transform cameraTransform = null;
 		void toLong ()
 		{
 				//Add parameters
-				recordData.recordDataParameters(0);
+				recordData.recordDataParameters (0);
 				ManagerScript.abortTrial ();
-				displaytext.GetComponent<TextMesh>().text = "Time's up for this trial!\nNew Trial";
-				Invoke("clearGUItext" , 1f) ;
+				displaytext.GetComponent<TextMesh> ().text = "Time's up for this trial!\nNew Trial";
+				Invoke ("clearGUItext", 1f);
 				// count how often we miss
 				CounterForMissedTrials++;
 
@@ -219,7 +222,8 @@ Transform cameraTransform = null;
 				ManagerScript.switchState (ManagerScript.states.pointing);
 		}
 
-		void clearGUItext(){ 		
-			displaytext.GetComponent<TextMesh>().text = "" ;
+		void clearGUItext ()
+		{ 		
+				displaytext.GetComponent<TextMesh> ().text = "";
 		}
 }

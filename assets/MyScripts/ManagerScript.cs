@@ -45,7 +45,6 @@ public class ManagerScript : MonoBehaviour
 
 		// session identifier, tree different sessions
 		public static int session;
-		int bla;
 		//public list of trials
 		public static List<trialContainer> trialList = new List<trialContainer> ();
 	
@@ -59,8 +58,8 @@ public class ManagerScript : MonoBehaviour
 		public static float pointingTime = 0.0f;
 		static bool duplicatePresent = true;
 		
-
-
+		public static int abortedTrials = 0;
+		
 	 	private GameObject helperObject ;
 	
 
@@ -354,6 +353,7 @@ public class ManagerScript : MonoBehaviour
 				new     WaitForSeconds (2);
 				Time.timeScale = 1;
 				switchState (states.walking);
+				abortedTrials++ ;
 		}
 	
 		public static void newTrial ()
