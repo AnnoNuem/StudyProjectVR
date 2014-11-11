@@ -122,7 +122,8 @@ public class recordCoordinates : MonoBehaviour {
 
 			//HERE
 			numberOfPointings++ ;
-			sumOfErrors = sumOfErrors + angleBetween ;
+			if (angleBetween >  0.1) {sumOfErrors = sumOfErrors + angleBetween ; }
+			if (angleBetween < -0.1) {float abc ; abc = angleBetween * -1 ; sumOfErrors = sumOfErrors + abc ; }
 			avarageError = sumOfErrors / numberOfPointings ;
 			ManagerScript.newTrial();
 			//Debug.Log(angleBetween);

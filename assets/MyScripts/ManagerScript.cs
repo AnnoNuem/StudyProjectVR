@@ -197,8 +197,20 @@ public class ManagerScript : MonoBehaviour
 								}
 						}
 
+
+
 						//hardBlock1.Shuffle (); // Shuffling function
 						trialList.AddRange (hardBlock1);
+
+
+			trialList.Add (blockTrial);							
+			for (int i=0; i<40; i++) {
+				trialContainer tempTrial = new trialContainer ("Training");
+				trialList.Add (tempTrial);
+			}
+
+
+
 						trialList.Add (endTrial);
 				} else if (session == 2 || session == 3) {
 				
@@ -335,7 +347,16 @@ public class ManagerScript : MonoBehaviour
 										break;
 								}
 						}
-						trialList.Add (endTrial);
+						
+
+
+			trialList.Add (blockTrial);							
+			for (int i=0; i<40; i++) {
+				trialContainer tempTrial = new trialContainer ("Training");
+				trialList.Add (tempTrial);
+			}
+
+			trialList.Add (endTrial);
 
 
 
@@ -346,6 +367,8 @@ public class ManagerScript : MonoBehaviour
 	
 		public static void abortTrial ()
 		{	
+				
+		stun ();
 				trialNumber++;
 				trialINprocess = false;
 				Time.timeScale = 0;
@@ -354,6 +377,8 @@ public class ManagerScript : MonoBehaviour
 				Time.timeScale = 1;
 				switchState (states.walking);
 				abortedTrials++ ;
+
+		unStun ();
 		}
 	
 		public static void newTrial ()
@@ -486,5 +511,13 @@ public class ManagerScript : MonoBehaviour
 		{
 				return state;
 		}
-	
+		
+	public static void PauseInTheBeginning () {
+
+
+		Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
+		switchState (states.pause);
+
+
+	}
 }

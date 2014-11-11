@@ -45,9 +45,10 @@ public class StartMenu3dGui : VRGUI
 
 
 								
-				Debug.Log ("chiffre -->"+ManagerScript.chiffre );
-				Debug.Log ("session -->"+ManagerScript.session );
-				enabled = !enabled;
+								Debug.Log ("chiffre -->"+ManagerScript.chiffre );
+								Debug.Log ("session -->"+ManagerScript.session );
+								ManagerScript.PauseInTheBeginning();
+								enabled = !enabled;
 						}
 				
 						GUILayout.EndVertical ();

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using URandom;
 
 public class PlayerLookingAt : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class PlayerLookingAt : MonoBehaviour
 		Vector3 pos_blue;
 		Vector3 pos_new;
 		Vector3 rayDirection;
-//		int numberOfSpheres = 2;
+	int numberOfSpheres = 2;
 		int numberOfReachedSpheres;
 	
 		// time a user has to reach the next blue sphere
@@ -34,6 +35,11 @@ public class PlayerLookingAt : MonoBehaviour
 		int	CounterForMissedTrials = 0;
 		private Transform OVRCamD;
 
+	// Single-dimensional array
+	public static int[] numbers = new int[1001];
+
+	float randvalue = 0;
+
 		void Awake ()
 		{
 				cameraTransform = GameObject.FindWithTag ("OVRcam").transform;
@@ -45,6 +51,26 @@ public class PlayerLookingAt : MonoBehaviour
 				
 				renderer.enabled = false;
 				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
+
+
+		urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
+		float[] shufflebag = {1,2,3,4,5,6,};
+		ShuffleBagCollection<float> thebag = urand.ShuffleBag (shufflebag);
+
+		int myInt = 0;
+		
+		while (myInt < 1000) {
+			myInt++;
+			
+			randvalue = thebag.Next ();
+			numbers[myInt] = (int)(randvalue);
+
+			// this works and generates proper numbers
+			//Debug.Log (numbers[myInt]);
+			
+		}
+
+
 		}
 	
 		void Update ()
@@ -105,6 +131,7 @@ public class PlayerLookingAt : MonoBehaviour
 		void HideAndMove ()
 		{
 				HowOftenIsLookedAt++;
+				
 		
 				if (HowOftenIsLookedAt != 2) {
 						numberOfReachedSpheres++;
@@ -116,17 +143,20 @@ public class PlayerLookingAt : MonoBehaviour
 						renderer.enabled = false;
 			
 						// if we reached the number of spheres point back
-// THIS CODE IS NEVER EXECUDED
-					//	if (numberOfReachedSpheres == numberOfSpheres) {
-					//			point ();
-					//			return;
-						
-					//			Debug.Log ("I bet my ... dick this code is never being executed ?");
-					//	}
-// TILL HERE !!!	
+
+						if (numberOfReachedSpheres == numberOfSpheres) {
+								point ();
+								return;
+								
+								//Debug.Log ("I bet my ... dick this code is never being executed ?");
+								// And i am dickless ... =(
+						}
+	
 						// spanning random at 30 60 90 degrees left or right
-						switch ((int)(urand.Range (1, 6))) {
-						// the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
+			switch ((numbers[ManagerScript.trialNumber])) {
+
+
+				// the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
 						// lets try it with 10 degree in total
 						case 1:
 								left = false;
@@ -156,23 +186,25 @@ public class PlayerLookingAt : MonoBehaviour
 								DegreeOfSpawn = urand.Range (25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
 								break;
 						}
-			
-						if ((HowOftenTurnedLeft - HowOftenTurnedRight) >= 10) {
-								left = false;
-						}
-
 						
-						if ((HowOftenTurnedRight - HowOftenTurnedLeft) <= 10) {
-								left = true;
-						}
+						// this seem to generate some problems ... arg 
+						
+//						if ((HowOftenTurnedLeft - HowOftenTurnedRight) >= 10) {
+//								left = false;
+//						}
+//
+//						
+//						if ((HowOftenTurnedRight - HowOftenTurnedLeft) <= 10) {
+//								left = true;
+//						}
 
-
+						Debug.Log ((numbers[ManagerScript.trialNumber]));
+						Debug.Log (left);
 						// here depending on the conditon, we rotate the spehre and move it forward
 						if (left) {
 				
 								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(360 - DegreeOfSpawn), transform.eulerAngles.z);
 								transform.localPosition += transform.forward * (float)spawnDistance;	
-								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.left);
 								displaytext.GetComponent<TextMesh> ().text = "<--";
 								Invoke ("clearGUItext", 0.5f);
 								HowOftenTurnedLeft++;
@@ -181,7 +213,6 @@ public class PlayerLookingAt : MonoBehaviour
 				
 								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z);
 								transform.localPosition += transform.forward * (float)spawnDistance;
-								//((ArrowPointingScript)(GameObject.Find ("Arrow").GetComponent ("ArrowPointingScript"))).Point (Direction.right);
 								displaytext.GetComponent<TextMesh> ().text = "-->";
 								Invoke ("clearGUItext", 0.5f);
 								HowOftenTurnedRight++;
@@ -201,6 +232,9 @@ public class PlayerLookingAt : MonoBehaviour
 		
 				if (numberOfReachedSpheres == 1) {
 						ManagerScript.generatedAngle = DegreeOfSpawn;
+
+
+
 				}
 		}
 	

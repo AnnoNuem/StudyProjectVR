@@ -113,10 +113,20 @@ public class Pause : VRGUI
 		public static void PauseBetweenStates (string NextBlockType)
 		{
 				paused = true;
-				if (NextBlockType.Contains ("Easy")) {
+				if (NextBlockType.Contains ("Easy") || NextBlockType.Contains ("Easy-False")) {
 						displayText = "Block Complted.\nNext block of Trials is Easy.\n";
-				} else {
-						displayText = "Block Complted.\nNext block of Trials is Hard.\n";
+				} 
+				
+				if (NextBlockType.Contains ("Hard") || NextBlockType.Contains ("Hard-False") ) {
+				displayText = "Block Complted.\nNext block of Trials is Easy.\n";
+				}
+
+				if ( NextBlockType.Contains ("Explain") ) {
+						displayText = "Next block of Trials is Explain.\n";
+				}
+
+				if ( NextBlockType.Contains ("Training") ) {
+				displayText = "Block Complted. Next block of Trials is Training.\n";
 				}
 
 				prevState = ManagerScript.getState ();
