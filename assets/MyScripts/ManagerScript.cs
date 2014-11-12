@@ -200,10 +200,11 @@ public class ManagerScript : MonoBehaviour
 
 
 						//hardBlock1.Shuffle (); // Shuffling function
-						trialList.AddRange (hardBlock1);
+			trialList.AddRange (hardBlock1);
 
 
-			trialList.Add (blockTrial);							
+			trialList.Add (blockTrial);	
+
 			for (int i=0; i<40; i++) {
 				trialContainer tempTrial = new trialContainer ("Training");
 				trialList.Add (tempTrial);
@@ -211,7 +212,7 @@ public class ManagerScript : MonoBehaviour
 
 
 
-						trialList.Add (endTrial);
+			trialList.Add (endTrial);
 				} else if (session == 2 || session == 3) {
 				
 						List<int> orderNumbers = new List<int> (){1,2,3,4};

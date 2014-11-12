@@ -45,6 +45,7 @@ public class recordCoordinates : MonoBehaviour {
 			//angleBetween = Vector2.Angle (targetDir, forwardVector);
 			angleBetween = Vector3.Angle(targetDir,forwardVector);
 			Vector3 cross =  Vector3.Cross(targetDir,forwardVector);
+			sumOfErrors = sumOfErrors + angleBetween ;
 			if (cross.z < 0) angleBetween = -angleBetween;
 
 
@@ -122,8 +123,6 @@ public class recordCoordinates : MonoBehaviour {
 
 			//HERE
 			numberOfPointings++ ;
-			if (angleBetween >  0.1) {sumOfErrors = sumOfErrors + angleBetween ; }
-			if (angleBetween < -0.1) {float abc ; abc = angleBetween * -1 ; sumOfErrors = sumOfErrors + abc ; }
 			avarageError = sumOfErrors / numberOfPointings ;
 			ManagerScript.newTrial();
 			//Debug.Log(angleBetween);
