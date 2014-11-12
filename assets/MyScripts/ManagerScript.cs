@@ -368,6 +368,8 @@ public class ManagerScript : MonoBehaviour
 		public static void abortTrial ()
 		{	
 				
+		// Without stun and unstun, the aboutTrial was repeating itself in the case, the move button was presssed. It is fixes like this
+
 		stun ();
 				trialNumber++;
 				trialINprocess = false;

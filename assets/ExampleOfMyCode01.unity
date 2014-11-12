@@ -337,6 +337,10 @@ Prefab:
       propertyPath: RotationAmount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400020, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
+      propertyPath: mirror
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
@@ -502,7 +506,7 @@ MonoBehaviour:
   EnablePosition: 1
   PredictionOn: 1
   timeWarp: 1
-  mirror: 0
+  mirror: 1
   FreezeTimeWarp: 0
   backgroundColor: {r: 0, g: 0, b: 0, a: 1}
   nearClipPlane: .150000006
