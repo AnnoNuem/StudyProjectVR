@@ -99,7 +99,7 @@ public class ManagerScript : MonoBehaviour
 								trialContainer tempTrial = new trialContainer ("Explain");
 								trialList.Add (tempTrial);
 						}						
-						trialList.Add (blockTrial);							
+					trialList.Add (blockTrial);							
 						for (int i=0; i<40; i++) {
 								trialContainer tempTrial = new trialContainer ("Training");
 								trialList.Add (tempTrial);
@@ -201,18 +201,18 @@ public class ManagerScript : MonoBehaviour
 
 						//hardBlock1.Shuffle (); // Shuffling function
 			trialList.AddRange (hardBlock1);
-
-
 			trialList.Add (blockTrial);	
+			duplicatePresent = true;
+
 
 			for (int i=0; i<40; i++) {
 				trialContainer tempTrial = new trialContainer ("Training");
 				trialList.Add (tempTrial);
 			}
-
-
+			trialList.Add (blockTrial);	
 
 			trialList.Add (endTrial);
+
 				} else if (session == 2 || session == 3) {
 				
 						List<int> orderNumbers = new List<int> (){1,2,3,4};
@@ -343,7 +343,11 @@ public class ManagerScript : MonoBehaviour
 										}
 								//hardBlock2.Shuffle (); // Shuffling function
 										trialList.AddRange (hardBlock2);
-										//trialList.Add (endTrial);
+
+					// this was missing, causing a bug
+					trialList.Add (blockTrial);
+
+					//trialList.Add (endTrial);
 										duplicatePresent = true;
 										break;
 								}
@@ -422,6 +426,10 @@ public class ManagerScript : MonoBehaviour
 						Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
 						switchState (states.blockover);
 				} else if (trialList [trialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") {
+						
+			string temp1 = "EXPOVER" ;
+			Pause.PauseBetweenStates (temp1);
+
 						switchState (states.end);				
 				} else {	
 						switchState (states.walking);
@@ -479,10 +487,13 @@ public class ManagerScript : MonoBehaviour
 				//blockover
 				case states.blockover:
 						ManagerScript.state = states.blockover;
+						Pause.SaveValues(trialList [trialNumber + 1].CondtionTypeVariableInContainer);
 						break;
 				case states.end:
 						ManagerScript.state = states.end;
-						Application.Quit();
+			Pause.SaveValues(trialList [trialNumber + 1].CondtionTypeVariableInContainer);
+
+			Application.Quit();
 
 						break;
 				}

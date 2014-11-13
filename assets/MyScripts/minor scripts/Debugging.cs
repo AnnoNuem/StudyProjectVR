@@ -39,15 +39,15 @@ public class Debugging : MonoBehaviour {
 
 		int myInt = 0;
 
-		while (myInt < 10000) {
-			randvalue = thebag.Next ();
-			string appendText3 = randvalue.ToString() + Environment.NewLine;
-
-			File.AppendAllText (path3, appendText3 );
-
-			myInt++;
-	
-		}
+//		while (myInt < 10000) {
+//			randvalue = thebag.Next ();
+//			string appendText3 = randvalue.ToString() + Environment.NewLine;
+//
+//			File.AppendAllText (path3, appendText3 );
+//
+//			myInt++;
+//	
+//		}
 		//		File.AppendAllText (path1, createText1);
 		//		File.AppendAllText (path2, createText2);
 				File.AppendAllText (path3, createText3);
@@ -105,7 +105,7 @@ public class Debugging : MonoBehaviour {
 
 
 		if (ManagerScript.getState () == ManagerScript.states.walking) {
-			InvokeRepeating ("Blae", 0, 2f);
+			InvokeRepeating ("Blae", 0, 1f);
 
 		}
 

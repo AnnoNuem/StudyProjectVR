@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using URandom;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
 
 public class Pause : VRGUI
 {
@@ -17,8 +23,14 @@ public class Pause : VRGUI
 		private static bool paused = false;
 	private static bool end = false;
 		private static string displayText = "" ;
-//		Transform cameraTransform = null;
+//		Transform cameraTransform = null;FVFV
 		public GUISkin skin;
+
+//	string path123 ;
+
+	
+	
+	public string filePath2;
 
 		void Awake ()
 		{
@@ -128,8 +140,55 @@ public class Pause : VRGUI
 				if ( NextBlockType.Contains ("Training") ) {
 				displayText = "Block Complted. Next block of Trials is Training.\n";
 				}
+		if ( NextBlockType.Contains ("ENDTRIAL") ) {
+		
+		displayText = "Experiment is over, pls take of the oculus rift and report to the exoerimenter.\n";
+		
+				
+		}
+
+		if ( NextBlockType.Contains ("EXPOVER") ) {
+			displayText = "Experiment is over, pls take of the oculus rift and report to the exoerimenter.\n";
+		
+
+		
+		}
+
+
 
 				prevState = ManagerScript.getState ();
 				//Debug.Log ("pause");
 		}
+
+	public static void SaveValues(string NextBlockType123){
+
+		string path123 = ManagerScript.trialFolder+ "/SubjectScores.csv";
+
+		string temp222;
+
+		temp222 = NextBlockType123;
+		File.AppendAllText (path123, temp222);
+
+
+		temp222 = NumberOfYellowSpaw + " " + "Number of Yellow Spawn" + Environment.NewLine;
+		File.AppendAllText (path123, temp222);
+		
+		temp222=NumberOfYellowDefeted + " " + "Number of Yellow defeated " + Environment.NewLine ;
+		File.AppendAllText (path123, temp222);
+		
+		temp222=NumberOfYellowMissed + " " + "Number of Yellow missed " + Environment.NewLine ;
+		File.AppendAllText (path123, temp222);
+		
+		temp222=ManagerScript.trialNumber + " " + "you have done so many trials " + Environment.NewLine ;
+		File.AppendAllText (path123, temp222);
+		
+		temp222=ManagerScript.abortedTrials + " " + "you have missed trials " + Environment.NewLine ;
+		File.AppendAllText (path123, temp222);
+		
+		temp222=recordCoordinates.avarageError + " " + "your avarage error angle ";
+		File.AppendAllText (path123, temp222);
+
+
+
+	}
 }
