@@ -54,10 +54,11 @@ public class ChangeCameraColor : MonoBehaviour
 
 						cr.switchNormal ();
 				} else if (CondtionTypeVariableInContainer == "ENDTRIAL") {
-			
+
+						// we need to show something in he end, so lets not disable the camera
 						//	Debug.Log("no camera");
-						cam1.SetActive (false);	
-			cam2.SetActive (true);	
+						cam1.SetActive (true);	
+						cam2.SetActive (true);	
 
 						cr.switchNormal ();
 				}

@@ -67,7 +67,9 @@ public class Pause : VRGUI
 						paused = true;
 						end = true;
 						displayText = "--Fine--\nAll trials completed.\n";
-						ManagerScript.switchState (ManagerScript.states.pause);
+					
+			// why should we switch to pause, relax and go into the pause mode later
+			//ManagerScript.switchState (ManagerScript.states.pause);
 				} 		
 		}
 	
@@ -138,7 +140,7 @@ public class Pause : VRGUI
 				}
 
 				if ( NextBlockType.Contains ("Training") ) {
-				displayText = "Block Complted. Next block of Trials is Training.\n";
+				displayText = "Block Completed. Next block of Trials is Training.\n";
 				}
 		if ( NextBlockType.Contains ("ENDTRIAL") ) {
 		

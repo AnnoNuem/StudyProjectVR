@@ -8,7 +8,7 @@ public class PlayerLookingAt : MonoBehaviour
 		Vector3 pos_blue;
 		Vector3 pos_new;
 		Vector3 rayDirection;
-	int numberOfSpheres = 2;
+		int numberOfSpheres = 2;
 		int numberOfReachedSpheres;
 	
 		// time a user has to reach the next blue sphere
@@ -60,15 +60,14 @@ public class PlayerLookingAt : MonoBehaviour
 		int myInt = 0;
 		
 		while (myInt < 1000) {
-			myInt++;
+						myInt++;
 			
-			randvalue = thebag.Next ();
-			numbers[myInt] = (int)(randvalue);
+						randvalue = thebag.Next ();
+						numbers [myInt] = (int)(randvalue);
 
-			// this works and generates proper numbers
-			//Debug.Log (numbers[myInt]);
-			
-		}
+						// this works and generates proper numbers
+						//Debug.Log (numbers[myInt]);
+				}
 
 
 		}

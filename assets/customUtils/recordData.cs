@@ -25,12 +25,19 @@ public static class recordData
 		//records the paramters
 		public static void recordDataParameters (int success)
 		{
-			string successString;
+			string successString = "-1";
+
 				if (success == 1) {
 						successString = "1";
-				} else {
+				}
+
+				if  ((success == 2)) {
 						successString = "0";
 				}
+
+			//	if ((success == 3)){
+			//	successString = "3";
+			//	}
 				string conditionVal = "";
 
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy") {
@@ -52,19 +59,19 @@ public static class recordData
 				//putting values for column in csv
 				string[][] output = new string[][]{
 			    new string[] {
-						System.DateTime.Now.ToString("o"),
+						System.DateTime.Now.ToString ("o"),
 						ManagerScript.trialNumber.ToString (),
 						ManagerScript.spawnDistance.ToString (),
 				//ManagerScript.CoolDown.ToString (),
 				//ManagerScript.timer_red.ToString (),
 				//ManagerScript.bColor.ToString (),
 						ManagerScript.generatedAngle.ToString (),
-						ManagerScript.timetoPointingStage.ToString(),
-						ManagerScript.pointingTime.ToString(),
-						ManagerScript.abortedTrials.ToString(),
-						recordCoordinates.avarageError.ToString(),
+						ManagerScript.timetoPointingStage.ToString (),
+						ManagerScript.pointingTime.ToString (),
+						ManagerScript.abortedTrials.ToString (),
+						recordCoordinates.avarageError.ToString (),
 						conditionVal,
-						successString,
+							successString.ToString()
 				} 
 		};
 
@@ -115,6 +122,8 @@ public static class recordData
 						sb.AppendLine (string.Join (delimiter, output [index]));
 				File.AppendAllText (filePath, sb.ToString ());
 		}
+
+}
 		/*
 		public static void recordDataFlow ()
 		{
@@ -150,4 +159,4 @@ public static class recordData
 
 		}
 		*/
-}
+

@@ -28,10 +28,16 @@ public class recordCoordinates : MonoBehaviour {
 	//FixedUpdate is used for rigid bodies and is executed independently of the configuration of system i.e. runs on regular set of intervals
 	void FixedUpdate () {
 		//code will only execute when K is pressed
-		if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown("360controllerButtonA") ) && ManagerScript.getState ()==ManagerScript.states.pointing) {
-			//Debug.Log("K pressed");
-			recordData.recordDataParameters(1);
+		if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown ("360controllerButtonA")) && ManagerScript.getState () == ManagerScript.states.pointing) {
+						//Debug.Log("K pressed");
 
+						if (ManagerScript.temp123) {
+								recordData.recordDataParameters (1);
+			}
+						else {
+								recordData.recordDataParameters (3);
+								ManagerScript.temp123 = true ;
+				}
 			//2d vector definations for angle calculation (we only take x and z coordinates)
 			Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
 			Vector2 transformVector = new Vector2 (transform.position.x, transform.position.z);

@@ -17,7 +17,7 @@ public class trialContainer
 		public Color bColor;
 		public string CondtionTypeVariableInContainer ;
 
-		Transform temp1 ;
+	//	Transform temp1 ;
 
 		public trialContainer ()
 		{

@@ -62,6 +62,8 @@ public class ManagerScript : MonoBehaviour
 		
 	 	private GameObject helperObject ;
 	
+	public static bool temp123 = false;
+
 
 		void Awake()
 		{
@@ -93,8 +95,14 @@ public class ManagerScript : MonoBehaviour
 		{
 				trialContainer blockTrial = new trialContainer ("BLOCKOVER");
 				trialContainer endTrial = new trialContainer ("ENDTRIAL");
+				trialContainer FirstScreenTrial = new trialContainer ("FIRSTSCREEN");
 
-				if (session == 1) {						
+				if (session == 1) {		
+
+						
+						//trialList.Add (FirstScreenTrial);							
+
+
 						for (int i=0; i<5; i++) { 
 								trialContainer tempTrial = new trialContainer ("Explain");
 								trialList.Add (tempTrial);
@@ -205,6 +213,7 @@ public class ManagerScript : MonoBehaviour
 			duplicatePresent = true;
 
 
+
 			for (int i=0; i<40; i++) {
 				trialContainer tempTrial = new trialContainer ("Training");
 				trialList.Add (tempTrial);
@@ -214,6 +223,16 @@ public class ManagerScript : MonoBehaviour
 			trialList.Add (endTrial);
 
 				} else if (session == 2 || session == 3) {
+
+
+
+			//			for (int i=0; i<40; i++) { 
+			//			trialContainer tempTrial = new trialContainer ("Training");
+			//				trialList.Add (tempTrial);
+			//			}
+
+			//			trialList.Add (blockTrial);	
+
 				
 						List<int> orderNumbers = new List<int> (){1,2,3,4};
 						orderNumbers.Shuffle ();
@@ -361,6 +380,10 @@ public class ManagerScript : MonoBehaviour
 				trialList.Add (tempTrial);
 			}
 
+
+			trialList.Add (blockTrial);	
+			duplicatePresent = true;
+
 			trialList.Add (endTrial);
 
 
@@ -375,68 +398,75 @@ public class ManagerScript : MonoBehaviour
 				
 		// Without stun and unstun, the aboutTrial was repeating itself in the case, the move button was presssed. It is fixes like this
 
-		stun ();
-				trialNumber++;
+				stun ();
+
+			//	trialNumber++;
 				trialINprocess = false;
 				Time.timeScale = 0;
 				CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 				new     WaitForSeconds (2);
 				Time.timeScale = 1;
-				switchState (states.walking);
+				newTrial ();
+			//	switchState (states.walking);
 				abortedTrials++ ;
 
-		unStun ();
+		temp123 = false;
+
+
+				unStun ();
 		}
 	
 		public static void newTrial ()
 		{  
-				//GameObject pController = GameObject.Find ("OVRPlayerController");
-				//OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
-				//controller.SetMoveScaleMultiplier (3.0f);
-				((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
-				Time.timeScale = 1;
+				if (ManagerScript.getState () != ManagerScript.states.end) {
+			
+						//GameObject pController = GameObject.Find ("OVRPlayerController");
+						//OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
+						//controller.SetMoveScaleMultiplier (3.0f);
+						((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
+						Time.timeScale = 1;
 
-		timetoPointingStage = 0.0f;
-				pointingTime = 0.0f;
-				//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
-				new    WaitForSeconds (2);
+						timetoPointingStage = 0.0f;
+						pointingTime = 0.0f;
+						//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
+						new    WaitForSeconds (2);
 				
 
-			//accessng parameters values according to the current trial
-				spawnDistance = trialList [trialNumber].spawnDistance;
-				CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
-				// How long to hide
-				timer_red = trialList [trialNumber].timer_red; // timer, than needs to reach CoolDown
-				TimerForLooking = trialList [trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
-				moveDistance = trialList [trialNumber].moveDistance;
-				;   // How close can the character get
-				speed = trialList [trialNumber].speed;
-			//		Camera.main.backgroundColor = trialList[trialNumber].bColor;
-				CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
+						//accessng parameters values according to the current trial
+						spawnDistance = trialList [trialNumber].spawnDistance;
+						CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
+						// How long to hide
+						timer_red = trialList [trialNumber].timer_red; // timer, than needs to reach CoolDown
+						TimerForLooking = trialList [trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
+						moveDistance = trialList [trialNumber].moveDistance;
+						;   // How close can the character get
+						speed = trialList [trialNumber].speed;
+						//		Camera.main.backgroundColor = trialList[trialNumber].bColor;
+						CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
 
 
-				//OVRDevice.HMD.RecenterPose ();
+						//OVRDevice.HMD.RecenterPose ();
 
-				//OVRCameraController.increase();
-				trialINprocess = true;
-				Time.timeScale = 0;
+						//OVRCameraController.increase();
+						trialINprocess = true;
+						Time.timeScale = 0;
 
-
-				if (trialList [trialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") {
-						Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
-						switchState (states.blockover);
-				} else if (trialList [trialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") {
-						
-			string temp1 = "EXPOVER" ;
-			Pause.PauseBetweenStates (temp1);
-
-						switchState (states.end);				
-				} else {	
-						switchState (states.walking);
 				}
-				trialNumber++;
+						if (trialList [trialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") {
+								Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
+								switchState (states.blockover);
+						} else if (trialList [trialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") {
+						
+								string temp1 = "EXPOVER";
+								Pause.PauseBetweenStates (temp1);
+
+								switchState (states.end);				
+						} else {	
+								switchState (states.walking);
+						}
+						trialNumber++;
+				
 		}
-	
 	
 		// the state machine
 		public static void switchState (states newState)
@@ -456,18 +486,22 @@ public class ManagerScript : MonoBehaviour
 				//walking
 				case states.walking:
 						
-						Time.timeScale = 1;
-			
+
 				// here goes the code for the subject position reset and rotation reset to the starting point 						
 						GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
 						GameObject.Find ("OVRPlayerController").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
 						GameObject.FindWithTag ("OVRcam").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
 						GameObject.FindWithTag ("OVRcam").transform.position = GameObject.Find ("StartPoint").transform.position;
 
+						Time.timeScale = 1;
+
 
 						ManagerScript.state = states.walking;
 						((PlayerLookingAt)(GameObject.Find ("BlueBallGLow").GetComponent ("PlayerLookingAt"))).newTrial ();
 						((SpawnLookRed)(GameObject.Find ("RedBallGlow").GetComponent ("SpawnLookRed"))).newTrial ();
+
+						
+
 						break;
 						
 				//pause
@@ -491,10 +525,7 @@ public class ManagerScript : MonoBehaviour
 						break;
 				case states.end:
 						ManagerScript.state = states.end;
-			Pause.SaveValues(trialList [trialNumber + 1].CondtionTypeVariableInContainer);
-
-			Application.Quit();
-
+						//Pause.SaveValues(trialList [trialNumber].CondtionTypeVariableInContainer);
 						break;
 				}
 
