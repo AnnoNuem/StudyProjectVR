@@ -25,19 +25,19 @@ public class Debugging : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
-
-				string createText1 = "start" + Environment.NewLine;
-				string createText2 = "start" + Environment.NewLine;	
-				string createText3 = "start" + Environment.NewLine;
-
-				float[] shufflebag = {1,2,3,4,5,6,};
-		
-				ShuffleBagCollection<float> thebag = urand.ShuffleBag(shufflebag);
-		
-		float randvalue;
-
-		int myInt = 0;
+//				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
+//
+//				string createText1 = "start" + Environment.NewLine;
+//				string createText2 = "start" + Environment.NewLine;	
+//				string createText3 = "start" + Environment.NewLine;
+//
+//				float[] shufflebag = {1,2,3,4,5,6,};
+//		
+//				ShuffleBagCollection<float> thebag = urand.ShuffleBag(shufflebag);
+//		
+//		float randvalue;
+//
+//		int myInt = 0;
 
 //		while (myInt < 10000) {
 //			randvalue = thebag.Next ();
@@ -50,7 +50,7 @@ public class Debugging : MonoBehaviour {
 //		}
 		//		File.AppendAllText (path1, createText1);
 		//		File.AppendAllText (path2, createText2);
-				File.AppendAllText (path3, createText3);
+		//		File.AppendAllText (path3, createText3);
 
 
 //
@@ -100,18 +100,36 @@ public class Debugging : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 
+//
+//		if (ManagerScript.getState () == ManagerScript.states.walking) {
+//			InvokeRepeating ("Blae", 0, 1f);
+//
+//		}
+//
+//		if (ManagerScript.getState () == ManagerScript.states.pause) {
+//						ManagerScript.newTrial ();
+//		}
 
-		if (ManagerScript.getState () == ManagerScript.states.walking) {
-			InvokeRepeating ("Blae", 0, 1f);
+		Transform target = GameObject.Find ("StartPoint").transform;
+		Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
+		Vector2 transformVector = new Vector2 (transform.position.x, transform.position.z);
+		Vector2 forwardVector = new Vector2 (transform.forward.x, transform.forward.z);
+		
+		float angleBetween;
+		
+		Vector2 targetDir = targetVector - transformVector;
+		
+		//Old calculation which does not shows -ve pr +ve angles
+		//angleBetween = Vector2.Angle (targetDir, forwardVector);
+		angleBetween = Vector3.Angle(targetDir,forwardVector);
+		Vector3 cross =  Vector3.Cross(targetDir,forwardVector);
+		if (cross.z < 0) angleBetween = -angleBetween;
 
-		}
+		Debug.Log(angleBetween);
 
-		if (ManagerScript.getState () == ManagerScript.states.pause) {
-						ManagerScript.newTrial ();
-		}
 
 	}
 

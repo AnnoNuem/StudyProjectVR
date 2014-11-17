@@ -132,7 +132,7 @@ public class Pause : VRGUI
 				} 
 				
 				if (NextBlockType.Contains ("Hard") || NextBlockType.Contains ("Hard-False") ) {
-				displayText = "Block Complted.\nNext block of Trials is Easy.\n";
+				displayText = "Block Complted.\nNext block of Trials is Hard.\n";
 				}
 
 				if ( NextBlockType.Contains ("Explain") ) {

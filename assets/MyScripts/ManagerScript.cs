@@ -103,11 +103,11 @@ public class ManagerScript : MonoBehaviour
 						//trialList.Add (FirstScreenTrial);							
 
 
-						for (int i=0; i<5; i++) { 
+						for (int i=0; i<10; i++) { 
 								trialContainer tempTrial = new trialContainer ("Explain");
 								trialList.Add (tempTrial);
 						}						
-					trialList.Add (blockTrial);							
+						trialList.Add (blockTrial);							
 						for (int i=0; i<40; i++) {
 								trialContainer tempTrial = new trialContainer ("Training");
 								trialList.Add (tempTrial);
@@ -129,14 +129,14 @@ public class ManagerScript : MonoBehaviour
 						
 						trialList.Add (blockTrial);
 
-						for (int i=0; i<30; i++) { 
+						for (int i=0; i<45; i++) { 
 								trialContainer tempTrial = new trialContainer ("Easy");
 								trialList.Add (tempTrial);
 						}
 						
 						trialList.Add (blockTrial);
 						
-						for (int i=0; i<30; i++) { //20
+						for (int i=0; i<45; i++) { //20
 								trialContainer tempTrial = new trialContainer ("Hard");
 								trialList.Add (tempTrial);
 						}
@@ -145,12 +145,12 @@ public class ManagerScript : MonoBehaviour
 
 						List<trialContainer> easyBlock1 = new List<trialContainer> ();
 						
-						for (int i=0; i<24; i++) { //20
+						for (int i=0; i<36; i++) { //20
 								trialContainer tempTrial = new trialContainer ("Easy");
 								easyBlock1.Add (tempTrial);
 						}
 						
-						for (int i=0; i<6; i++) {
+						for (int i=0; i<9; i++) {
 								trialContainer tempTrial = new trialContainer ("Easy-False");
 								easyBlock1.Add (tempTrial);
 						}
@@ -183,12 +183,12 @@ public class ManagerScript : MonoBehaviour
 
 						List<trialContainer> hardBlock1 = new List<trialContainer> ();
 						
-						for (int i=0; i<24; i++) { //20
+						for (int i=0; i<36; i++) { //20
 								trialContainer tempTrial = new trialContainer ("Hard");
 								hardBlock1.Add (tempTrial);
 						}
 						
-						for (int i=0; i<6; i++) {
+						for (int i=0; i<9; i++) {
 								trialContainer tempTrial = new trialContainer ("Hard-False");
 								hardBlock1.Add (tempTrial);
 						}
@@ -222,17 +222,20 @@ public class ManagerScript : MonoBehaviour
 
 			trialList.Add (endTrial);
 
-				} else if (session == 2 || session == 3) {
+			} else if (session == 2 ) { // || session == 3 right now gone, we will have 2 sessions
 
 
 
-			//			for (int i=0; i<40; i++) { 
-			//			trialContainer tempTrial = new trialContainer ("Training");
-			//				trialList.Add (tempTrial);
-			//			}
+						// TEST THIS !!!
 
-			//			trialList.Add (blockTrial);	
+						for (int i=0; i<40; i++) { 
+						trialContainer tempTrial = new trialContainer ("Training");
+							trialList.Add (tempTrial);
+						}
 
+						trialList.Add (blockTrial);	
+						
+						// MAKE THE SHUFFLE THE RIGHT WAY 0101 1010
 				
 						List<int> orderNumbers = new List<int> (){1,2,3,4};
 						orderNumbers.Shuffle ();
@@ -244,12 +247,12 @@ public class ManagerScript : MonoBehaviour
 										//Debug.Log ("E B 1");
 										List<trialContainer> easyBlock1 = new List<trialContainer> ();
 
-										for (int i=0; i<24; i++) { //20
+										for (int i=0; i<36; i++) { //20
 												trialContainer tempTrial = new trialContainer ("Easy");
 												easyBlock1.Add (tempTrial);
 										}
 								
-										for (int i=0; i<6; i++) {
+										for (int i=0; i<9; i++) {
 												trialContainer tempTrial = new trialContainer ("Easy-False");
 												easyBlock1.Add (tempTrial);
 										}
@@ -277,12 +280,12 @@ public class ManagerScript : MonoBehaviour
 										//Debug.Log ("H B 1");
 										List<trialContainer> hardBlock1 = new List<trialContainer> ();
 									
-										for (int i=0; i<24; i++) { //20
+										for (int i=0; i<36; i++) { //20
 												trialContainer tempTrial = new trialContainer ("Hard");
 												hardBlock1.Add (tempTrial);
 										}
 									
-										for (int i=0; i<6; i++) {
+										for (int i=0; i<9; i++) {
 												trialContainer tempTrial = new trialContainer ("Hard-False");
 												hardBlock1.Add (tempTrial);
 										}
@@ -308,12 +311,12 @@ public class ManagerScript : MonoBehaviour
 										//Debug.Log ("E B 2");
 										List<trialContainer> easyBlock2 = new List<trialContainer> ();
 								
-										for (int i=0; i<24; i++) { //20
+										for (int i=0; i<36; i++) { //20
 												trialContainer tempTrial = new trialContainer ("Easy");
 												easyBlock2.Add (tempTrial);
 										}
 								
-										for (int i=0; i<6; i++) {
+										for (int i=0; i<9; i++) {
 												trialContainer tempTrial = new trialContainer ("Easy-False");
 												easyBlock2.Add (tempTrial);
 										}
@@ -339,12 +342,12 @@ public class ManagerScript : MonoBehaviour
 										//Debug.Log ("H B 2");
 										List<trialContainer> hardBlock2 = new List<trialContainer> ();
 								
-										for (int i=0; i<24; i++) { //20
+										for (int i=0; i<36; i++) { //20
 												trialContainer tempTrial = new trialContainer ("Hard");
 												hardBlock2.Add (tempTrial);
 										}
 								
-										for (int i=0; i<6; i++) {
+										for (int i=0; i<9; i++) {
 												trialContainer tempTrial = new trialContainer ("Hard-False");
 												hardBlock2.Add (tempTrial);
 										}
@@ -389,7 +392,9 @@ public class ManagerScript : MonoBehaviour
 
 
 
-				} 
+				}
+		// DABATABLE TEST IT THINK ABOUT IT DISCUSS IT
+		else { Application.Quit() ;}
 				
 		}
 	

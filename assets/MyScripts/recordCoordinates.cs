@@ -52,7 +52,10 @@ public class recordCoordinates : MonoBehaviour {
 			angleBetween = Vector3.Angle(targetDir,forwardVector);
 			Vector3 cross =  Vector3.Cross(targetDir,forwardVector);
 			sumOfErrors = sumOfErrors + angleBetween ;
+			Debug.Log(angleBetween);
+			Debug.Log(cross);
 			if (cross.z < 0) angleBetween = -angleBetween;
+
 
 
 			//flag to enable new CSV for each trial
