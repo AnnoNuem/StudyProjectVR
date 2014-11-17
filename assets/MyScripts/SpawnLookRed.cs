@@ -153,7 +153,7 @@ public class SpawnLookRed : MonoBehaviour
 		}
 
 		IEnumerator vibrateController ()
-		{
+		{		
 				GamePad.SetVibration (0, 0.5f, 0.5f);
 				yield return new WaitForSeconds (1);
 				GamePad.SetVibration (0, 0.0f, 0.0f);

@@ -38,6 +38,8 @@ public class recordCoordinates : MonoBehaviour {
 								recordData.recordDataParameters (3);
 								ManagerScript.temp123 = true ;
 				}
+
+
 			//2d vector definations for angle calculation (we only take x and z coordinates)
 			Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
 			Vector2 transformVector = new Vector2 (transform.position.x, transform.position.z);
@@ -53,7 +55,7 @@ public class recordCoordinates : MonoBehaviour {
 			Vector3 cross =  Vector3.Cross(targetDir,forwardVector);
 			sumOfErrors = sumOfErrors + angleBetween ;
 			Debug.Log(angleBetween);
-			Debug.Log(cross);
+
 			if (cross.z < 0) angleBetween = -angleBetween;
 
 

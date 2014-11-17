@@ -144,13 +144,13 @@ public class Pause : VRGUI
 				}
 		if ( NextBlockType.Contains ("ENDTRIAL") ) {
 		
-		displayText = "Experiment is over, pls take of the oculus rift and report to the exoerimenter.\n";
+		displayText = "Experiment is over, please take of the oculus rift and report to the experimenter.\n";
 		
 				
 		}
 
 		if ( NextBlockType.Contains ("EXPOVER") ) {
-			displayText = "Experiment is over, pls take of the oculus rift and report to the exoerimenter.\n";
+			displayText = "Experiment is over, please take of the oculus rift and report to the exoerimenter.\n";
 		
 
 		
