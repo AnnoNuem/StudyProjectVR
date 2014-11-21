@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="15" version="2.0">
+<workbench progressCount="12" version="2.0">
 <workbenchAdvisor/>
-<window height="768" width="1024" x="146" y="56">
+<window height="768" maximized="true" width="1024" x="146" y="56">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -13,9 +13,11 @@
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="124" y="22"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="74" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="74" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="185" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -24,10 +26,21 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="1416562293967.log" partName="1416562293967.log" title="1416562293967.log" tooltip="C:\Users\lab-admin\StudyProjectVR\Datenauswertung Workspace\.metadata\.plugins\org.eclipse.pde.core\KNIME\1416562293967.log" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/lab-admin/StudyProjectVR/Datenauswertung%20Workspace/.metadata/.plugins/org.eclipse.pde.core/KNIME/1416562293967.log"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1004" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.ui.DefaultTextEditor" name="1416562386326.log" partName="1416562386326.log" title="1416562386326.log" tooltip="C:\Users\lab-admin\StudyProjectVR\Datenauswertung Workspace\.metadata\.plugins\org.eclipse.pde.core\KNIME\1416562386326.log" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/lab-admin/StudyProjectVR/Datenauswertung%20Workspace/.metadata/.plugins/org.eclipse.pde.core/KNIME/1416562386326.log"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
@@ -72,13 +85,16 @@
 </customFilters>
 </viewState>
 </view>
+<view id="org.eclipse.pde.runtime.LogView" partName="Error Log">
+<viewState activate="true" allSessions="true" column2="300" column3="150" column4="150" error="true" groupBy="0" info="true" limit="50" ok="true" orderType="2" orderValue="-1" show_filter_text="true" useLimit="true" warning="true"/>
+</view>
 <view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
 <viewState/>
 </view>
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.ui.DefaultTextEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -134,6 +150,7 @@
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.pde.runtime.LogView"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <fastViewBars/>
 <layout>
@@ -165,6 +182,7 @@
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
 <page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
@@ -173,6 +191,7 @@
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
+<part id="4"/>
 </presentation>
 </folder>
 </info>
@@ -191,7 +210,18 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" uri="file:/C:/Users/lab-admin/StudyProjectVR/Datenauswertung%20Workspace/.metadata/.plugins/org.eclipse.pde.core/KNIME/1416562293967.log"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" uri="file:/C:/Users/lab-admin/StudyProjectVR/Datenauswertung%20Workspace/.metadata/.plugins/org.eclipse.pde.core/KNIME/1416562386326.log"/>
+</editors>
+<item historyLabel="1416562293967.log" index="0">
+<position info="not_deleted" x="1004" y="0"/>
+</item>
+<item active="true" historyLabel="1416562386326.log" index="1">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -207,5 +237,12 @@
 </trimArea>
 </trimLayout>
 </window>
-<mruList/>
+<mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="1416562386326.log" tooltip="C:\Users\lab-admin\StudyProjectVR\Datenauswertung Workspace\.metadata\.plugins\org.eclipse.pde.core\KNIME\1416562386326.log">
+<persistable uri="file:/C:/Users/lab-admin/StudyProjectVR/Datenauswertung%20Workspace/.metadata/.plugins/org.eclipse.pde.core/KNIME/1416562386326.log"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="1416562293967.log" tooltip="C:\Users\lab-admin\StudyProjectVR\Datenauswertung Workspace\.metadata\.plugins\org.eclipse.pde.core\KNIME\1416562293967.log">
+<persistable uri="file:/C:/Users/lab-admin/StudyProjectVR/Datenauswertung%20Workspace/.metadata/.plugins/org.eclipse.pde.core/KNIME/1416562293967.log"/>
+</file>
+</mruList>
 </workbench>

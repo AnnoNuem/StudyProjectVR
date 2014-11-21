@@ -1,0 +1,32 @@
+!SESSION 2014-11-21 10:33:06.041 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_60
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=de_DE
+Framework arguments:  -product org.knime.product.KNIME_PRODUCT
+Command-line arguments:  -product org.knime.product.KNIME_PRODUCT -data C:\Users\lab-admin\StudyProjectVR\Datenauswertung Workspace/../runtime-KNIME -dev file:C:/Users/lab-admin/StudyProjectVR/Datenauswertung Workspace/.metadata/.plugins/org.eclipse.pde.core/KNIME/dev.properties -os win32 -ws win32 -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.osgi 4 0 2014-11-21 10:33:06.418
+!MESSAGE Startup error
+!STACK 1
+java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at org.eclipse.osgi.storagemanager.StorageManager.updateTable(StorageManager.java:512)
+	at org.eclipse.osgi.storagemanager.StorageManager.open(StorageManager.java:709)
+	at org.eclipse.osgi.internal.baseadaptor.BaseStorage.initFileManager(BaseStorage.java:220)
+	at org.eclipse.osgi.internal.baseadaptor.BaseStorage.initialize(BaseStorage.java:154)
+	at org.eclipse.osgi.baseadaptor.BaseAdaptor.initializeStorage(BaseAdaptor.java:123)
+	at org.eclipse.osgi.framework.internal.core.Framework.initialize(Framework.java:190)
+	at org.eclipse.osgi.framework.internal.core.Framework.<init>(Framework.java:162)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.startup(EclipseStarter.java:261)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:175)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)

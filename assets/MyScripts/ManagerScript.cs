@@ -208,29 +208,29 @@ public class ManagerScript : MonoBehaviour
 
 
 						//hardBlock1.Shuffle (); // Shuffling function
-			trialList.AddRange (hardBlock1);
-			trialList.Add (blockTrial);	
-			duplicatePresent = true;
+						trialList.AddRange (hardBlock1);
+						trialList.Add (blockTrial);	
+						duplicatePresent = true;
 
 
 
-			for (int i=0; i<40; i++) {
-				trialContainer tempTrial = new trialContainer ("Training");
-				trialList.Add (tempTrial);
-			}
-			trialList.Add (blockTrial);	
+						for (int i=0; i<40; i++) {
+								trialContainer tempTrial = new trialContainer ("Training");
+								trialList.Add (tempTrial);
+						}
+						trialList.Add (blockTrial);	
 
-			trialList.Add (endTrial);
+						trialList.Add (endTrial);
 
-			} else if (session == 2 ) { // || session == 3 right now gone, we will have 2 sessions
+				} else if (session == 2) { // || session == 3 right now gone, we will have 2 sessions
 
 
 
 						// TEST THIS !!!
 
 						for (int i=0; i<40; i++) { 
-						trialContainer tempTrial = new trialContainer ("Training");
-							trialList.Add (tempTrial);
+								trialContainer tempTrial = new trialContainer ("Training");
+								trialList.Add (tempTrial);
 						}
 
 						trialList.Add (blockTrial);	
@@ -367,7 +367,7 @@ public class ManagerScript : MonoBehaviour
 										trialList.AddRange (hardBlock2);
 
 					// this was missing, causing a bug
-					trialList.Add (blockTrial);
+										trialList.Add (blockTrial);
 
 					//trialList.Add (endTrial);
 										duplicatePresent = true;
@@ -377,22 +377,40 @@ public class ManagerScript : MonoBehaviour
 						
 
 
-			trialList.Add (blockTrial);							
-			for (int i=0; i<40; i++) {
-				trialContainer tempTrial = new trialContainer ("Training");
+						trialList.Add (blockTrial);							
+						for (int i=0; i<40; i++) {
+								trialContainer tempTrial = new trialContainer ("Training");
+								trialList.Add (tempTrial);
+						}
+
+
+						trialList.Add (blockTrial);	
+						duplicatePresent = true;
+
+						trialList.Add (endTrial);
+
+
+		// this is a secrete trial order, for screenshots, testing and so ever. can be overriden, even in master. not for experiment reasons
+
+		
+		} else if (session == 666) {
+				
+		
+			for (int i=0; i<2; i++) { 
+				trialContainer tempTrial = new trialContainer ("Easy");
 				trialList.Add (tempTrial);
 			}
-
-
+			
 			trialList.Add (blockTrial);	
-			duplicatePresent = true;
+			// Explanation trials
+			for (int i=0; i<2; i++) { //20
+				trialContainer tempTrial = new trialContainer ("Hard");
+				trialList.Add (tempTrial);
+			}
+		
+		
+		} 
 
-			trialList.Add (endTrial);
-
-
-
-
-				}
 		// DABATABLE TEST IT THINK ABOUT IT DISCUSS IT
 		else { Application.Quit() ;}
 				

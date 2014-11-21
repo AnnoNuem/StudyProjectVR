@@ -179,8 +179,8 @@ org.eclipse.update.core.win32.source,3.2.200.v20100512,file:/C:/Program%20Files/
 org.eclipse.update.scheduler.source,3.2.300.v20100512,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.eclipse.update.scheduler.source_3.2.300.v20100512.jar,-1,false
 org.eclipse.update.ui.source,3.2.300.v20100512,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.eclipse.update.ui.source_3.2.300.v20100512.jar,-1,false
 org.hamcrest.core.source,1.1.0.v20090501071000,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.hamcrest.core.source_1.1.0.v20090501071000.jar,-1,false
-org.junit.source,3.8.2.v3_8_2_v20100427-1100,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.junit.source_3.8.2.v3_8_2_v20100427-1100.jar,-1,false
 org.junit.source,4.8.2.v4_8_2_v20110321-1705,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.junit.source_4.8.2.v4_8_2_v20110321-1705.jar,-1,false
+org.junit.source,3.8.2.v3_8_2_v20100427-1100,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.junit.source_3.8.2.v3_8_2_v20100427-1100.jar,-1,false
 org.knime.base.source,2.10.3.0044467,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.knime.base.source_2.10.3.0044467.jar,-1,false
 org.knime.core.data.uritype.source,2.10.0.0042428,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.knime.core.data.uritype.source_2.10.0.0042428.jar,-1,false
 org.knime.core.pmml.source,2.10.0.0042428,file:/C:/Program%20Files/KNIME_SDK_2.10.3/plugins/org.knime.core.pmml.source_2.10.0.0042428.jar,-1,false
