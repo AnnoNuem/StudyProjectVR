@@ -240,7 +240,7 @@ public class PlayerLookingAt : MonoBehaviour
 		void toLong ()
 		{
 				//Add parameters
-				recordData.recordDataParameters (0);
+				recordData.recordDataParameters (0,"999");
 				ManagerScript.abortTrial ();
 				displaytext.GetComponent<TextMesh> ().text = "Time's up for this trial!\nNew Trial";
 				Invoke ("clearGUItext", 1f);

@@ -179,10 +179,14 @@ public class SpawnLookRed : MonoBehaviour
 				Debug.Log (ManagerScript.CondtionTypeVariableInContainer);
 				// set respawn time acording to condition
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {
-						durationOfResponsePeriod = 0.600f + (Random.Range (-100f, 100f)) / 1000;
-						rotationSpeed = rotationSpeedEasy;
+		
+			durationOfResponsePeriod = 0.600f + (Random.Range (-100f, 100f)) / 1000;
+			Debug.Log(durationOfResponsePeriod);
+			rotationSpeed = rotationSpeedEasy;
 				} else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False") {
-						durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f)) / 1000;
+			durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f)) / 1000;
+			Debug.Log(durationOfResponsePeriod);
+
 						rotationSpeed = rotationSpeedHard;
 				}
 				switchState (yellowSphereStates.hidden);

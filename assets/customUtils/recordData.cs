@@ -13,7 +13,7 @@ public static class recordData
 		//creates file for saving parameters
 		public static void recordDataParametersInit ()
 		{
-				string filePath = ManagerScript.trialFolder + "/Parameters.csv";
+				string filePath = ManagerScript.trialFolder +"/parameters_"+ManagerScript.chiffre+"_"+(ManagerScript.session).ToString()+".csv";
 				//Check if the file exists
 				if (!File.Exists (filePath)) {
 						File.Create (filePath).Close ();
@@ -23,7 +23,7 @@ public static class recordData
 		}
 		
 		//records the paramters
-		public static void recordDataParameters (int success)
+		public static void recordDataParameters (int success , string error)
 		{
 			string successString = "-1";
 
@@ -71,6 +71,7 @@ public static class recordData
 						ManagerScript.abortedTrials.ToString (),
 						recordCoordinates.avarageError.ToString (),
 						conditionVal,
+						error,
 							successString.ToString()
 				} 
 		};
@@ -89,7 +90,7 @@ public static class recordData
 		public static void recordDataStressors (string status)
 		{		
 				//string filePath = ManagerScript.trialFolder + "/Trial" + ManagerScript.trialNumber + "-Stressors.csv";
-				string filePath = ManagerScript.trialFolder + "/Trial-Stressors.csv";
+				string filePath = ManagerScript.trialFolder +"/stressors_"+ManagerScript.chiffre+"_"+(ManagerScript.session).ToString()+".csv";
 				//Check if the file exists
 				if (!File.Exists (filePath)) {
 						File.Create (filePath).Close ();
@@ -101,7 +102,10 @@ public static class recordData
 						statusVal = "0";
 				} else if (status == "M") {
 						statusVal = "1";
-				} else {
+				} else if (status == "P") {
+						statusVal = "3";
+				}
+				else {
 						statusVal = "2";
 				}
 

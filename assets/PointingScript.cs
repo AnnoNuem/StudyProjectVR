@@ -37,7 +37,7 @@ public class PointingScript : MonoBehaviour {
 
 	void toLongPoint(){
 		//Add parameters
-		recordData.recordDataParameters(0);
+		recordData.recordDataParameters(0,"999");
 		ManagerScript.abortTrial ();
 		Debug.Log ("To long for pointing");
 //		((GuiScript)(GameObject.Find ("GuiHelper").GetComponent ("GuiScript"))).toSlowPoint ();

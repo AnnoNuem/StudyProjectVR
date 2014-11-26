@@ -128,7 +128,7 @@ public class Debugging : MonoBehaviour {
 		Vector3 cross =  Vector3.Cross(targetDir,forwardVector);
 		if (cross.z < 0) angleBetween = -angleBetween;
 
-		Debug.Log(angleBetween);
+//		Debug.Log(angleBetween);
 
 
 	}
