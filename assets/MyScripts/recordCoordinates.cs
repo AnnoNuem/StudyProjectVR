@@ -29,6 +29,7 @@ public class recordCoordinates : MonoBehaviour
 		//FixedUpdate is used for rigid bodies and is executed independently of the configuration of system i.e. runs on regular set of intervals
 		void FixedUpdate ()
 		{
+		/*
 				float angleBetween12 = 999.0F;
 				//2d vector definations for angle calculation (we only take x and z coordinates)
 				Vector2 targetVector1 = new Vector2 (target.position.x, target.position.z); 
@@ -50,7 +51,7 @@ public class recordCoordinates : MonoBehaviour
 
 		Debug.Log ("Angle => "+angleBetween1+ "Abs Angle => "+angleBetween12 );
 
-				//code will only execute when K is pressed
+		*/		//code will only execute when K is pressed
 				if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown ("360controllerButtonA")) && ManagerScript.getState () == ManagerScript.states.pointing) {
 						
 						//2d vector definations for angle calculation (we only take x and z coordinates)

@@ -35,7 +35,6 @@ public class StartMenu3dGui : VRGUI
 								//ManagerScript.trialFolder = Application.dataPath + @"/Trial-Session-" + ManagerScript.session + "-" + ManagerScript.chiffre + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
 								ManagerScript.trialFolder = @"C:\Users\lab-admin\inlusio_data\"+ManagerScript.chiffre+"_"+ManagerScript.session;
 	
-
 								if (!Directory.Exists (ManagerScript.trialFolder)) {
 										Directory.CreateDirectory (ManagerScript.trialFolder);
 								}
@@ -45,8 +44,6 @@ public class StartMenu3dGui : VRGUI
 								ManagerScript.switchState (ManagerScript.states.walking);
 								ManagerScript.newTrial();
 
-
-								
 								Debug.Log ("chiffre -->"+ManagerScript.chiffre );
 								Debug.Log ("session -->"+ManagerScript.session );
 								ManagerScript.PauseInTheBeginning();
