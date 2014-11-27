@@ -16,6 +16,7 @@ public class recordCoordinates : MonoBehaviour
 
 		//for degree measurment
 		public float angleBetween = 999.0F;
+		public float angleBetween1 = 999.0F;
 		public static int numberOfPointings = 0 ;
 		public static float sumOfErrors = 0.0f ;
 		public static float avarageError = 0.0f ;
@@ -28,6 +29,27 @@ public class recordCoordinates : MonoBehaviour
 		//FixedUpdate is used for rigid bodies and is executed independently of the configuration of system i.e. runs on regular set of intervals
 		void FixedUpdate ()
 		{
+				float angleBetween12 = 999.0F;
+				//2d vector definations for angle calculation (we only take x and z coordinates)
+				Vector2 targetVector1 = new Vector2 (target.position.x, target.position.z); 
+				Vector2 transformVector1 = new Vector2 (transform.position.x, transform.position.z);
+				Vector2 forwardVector1 = new Vector2 (transform.forward.x, transform.forward.z);
+				
+				Vector2 targetDir1 = targetVector1 - transformVector1;
+				
+				//Old calculation which does not shows -ve pr +ve angles
+				//angleBetween = Vector2.Angle (targetDir, forwardVector);
+				angleBetween1 = Vector3.Angle (targetDir1, forwardVector1);
+				angleBetween12 = Vector3.Angle (targetDir1, forwardVector1);
+				Vector3 cross1 = Vector3.Cross (targetDir1, forwardVector1);
+				
+				//Debug.Log (angleBetween);
+				
+				if (cross1.z < 0)
+						angleBetween1 = -angleBetween1;
+
+		Debug.Log ("Angle => "+angleBetween1+ "Abs Angle => "+angleBetween12 );
+
 				//code will only execute when K is pressed
 				if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown ("360controllerButtonA")) && ManagerScript.getState () == ManagerScript.states.pointing) {
 						
@@ -43,7 +65,7 @@ public class recordCoordinates : MonoBehaviour
 						angleBetween = Vector3.Angle (targetDir, forwardVector);
 						Vector3 cross = Vector3.Cross (targetDir, forwardVector);
 						sumOfErrors = sumOfErrors + angleBetween;
-						Debug.Log (angleBetween);
+						//Debug.Log (angleBetween);
 						
 						if (cross.z < 0)
 								angleBetween = -angleBetween;

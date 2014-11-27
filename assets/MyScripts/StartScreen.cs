@@ -59,7 +59,8 @@ public class StartScreen : MonoBehaviour
 			//intializing data path for storing data
 			ManagerScript.trialINprocess = true;
 			//ManagerScript.trialFolder = Application.dataPath + @"/Trial-Session-"+ManagerScript.session+"-"+ManagerScript.chiffre + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
-			ManagerScript.trialFolder = @"~/inlusion_data/subject_"+ManagerScript.chiffre;
+			//ManagerScript.trialFolder = @"~/inlusion_data/subject_"+ManagerScript.chiffre;
+			ManagerScript.trialFolder = @"C:\Users\lab-admin\inlusio_data\subject_"+ManagerScript.chiffre;
 
 			if (!Directory.Exists (ManagerScript.trialFolder)) {
 				Directory.CreateDirectory (ManagerScript.trialFolder);
