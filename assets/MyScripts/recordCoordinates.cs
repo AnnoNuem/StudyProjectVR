@@ -12,7 +12,7 @@ public class recordCoordinates : MonoBehaviour
 		//Use to store file path
 		public static string filePath;
 		public static string filePath1;
-		string delimiter = ",";
+//		string delimiter = ",";
 
 		//for degree measurment
 		public float angleBetween = 999.0F;

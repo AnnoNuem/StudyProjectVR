@@ -21,6 +21,12 @@ public class SpawnLookRed : MonoBehaviour
 		float coolDown = 2.0f;       // How long to hide
 		float showSphereAtTime = 0.0f; // timer, than needs to reach CoolDown
 
+	//stuff for vibrating
+	bool playerIndexSet = false;
+	PlayerIndex playerIndex;
+	GamePadState state;
+	GamePadState prevState;
+
 		private UnityRandom urand;
 		private int timeTillExp = 1; // how long till explosion
 		float defeatableTillTime;
@@ -31,7 +37,6 @@ public class SpawnLookRed : MonoBehaviour
 		float durationOfResponsePeriod ;
 		GameObject pController;
 		Transform cameraTransform = null;
-
 		GameObject pxController;
 		OVRPlayerController xcontroller;
 
@@ -154,7 +159,22 @@ public class SpawnLookRed : MonoBehaviour
 
 		IEnumerator vibrateController ()
 		{		
-				GamePad.SetVibration (0, 0.5f, 0.5f);
+				if (!playerIndexSet || !prevState.IsConnected) {
+						for (int i = 0; i < 4; ++i) {
+								PlayerIndex testPlayerIndex = (PlayerIndex)i;
+								GamePadState testState = GamePad.GetState (testPlayerIndex);
+								if (testState.IsConnected) {
+										Debug.Log (string.Format ("GamePad found {0}", testPlayerIndex));
+										playerIndex = testPlayerIndex;
+										playerIndexSet = true;
+								}
+						}
+				}
+				prevState = state;
+				state = GamePad.GetState (playerIndex);
+		
+				// Set vibration according to triggers
+				GamePad.SetVibration (playerIndex, state.Triggers.Left, state.Triggers.Right);
 				yield return new WaitForSeconds (1);
 				GamePad.SetVibration (0, 0.0f, 0.0f);
 		}
@@ -174,18 +194,18 @@ public class SpawnLookRed : MonoBehaviour
 
 		public void newTrial ()
 		{
-		moveScale = 3.0f;
+				moveScale = 3.0f;
 				xcontroller.SetMoveScaleMultiplier (3.0f);
 				Debug.Log (ManagerScript.CondtionTypeVariableInContainer);
 				// set respawn time acording to condition
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {
 		
-			durationOfResponsePeriod = 0.600f + (Random.Range (-100f, 100f)) / 1000;
-			Debug.Log(durationOfResponsePeriod);
-			rotationSpeed = rotationSpeedEasy;
+						durationOfResponsePeriod = 0.600f + (Random.Range (-100f, 100f)) / 1000;
+						Debug.Log (durationOfResponsePeriod);
+						rotationSpeed = rotationSpeedEasy;
 				} else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False") {
-			durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f)) / 1000;
-			Debug.Log(durationOfResponsePeriod);
+						durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f)) / 1000;
+						Debug.Log (durationOfResponsePeriod);
 
 						rotationSpeed = rotationSpeedHard;
 				}

@@ -15,9 +15,9 @@ public class Debugging : MonoBehaviour {
 	string temp222;
 	private UnityRandom urand;
 
-	string path1 = @"c:\temp\MyTestOfTrialRandamisationStandart.txt";
-	string path2 = @"c:\temp\MyTestOfTrialRandamisationDice.txt";
-	string path3 = @"c:\temp\MyTestOfTrialRandamisationSchuffleBag.txt";
+//	string path1 = @"c:\temp\MyTestOfTrialRandamisationStandart.txt";
+//	string path2 = @"c:\temp\MyTestOfTrialRandamisationDice.txt";
+//	string path3 = @"c:\temp\MyTestOfTrialRandamisationSchuffleBag.txt";
 
 
 	

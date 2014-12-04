@@ -95,7 +95,7 @@ public class ManagerScript : MonoBehaviour
 		{
 				trialContainer blockTrial = new trialContainer ("BLOCKOVER");
 				trialContainer endTrial = new trialContainer ("ENDTRIAL");
-				trialContainer FirstScreenTrial = new trialContainer ("FIRSTSCREEN");
+//				trialContainer FirstScreenTrial = new trialContainer ("FIRSTSCREEN");
 
 				if (session == 1) {		
 
