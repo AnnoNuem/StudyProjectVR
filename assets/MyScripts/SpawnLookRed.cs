@@ -159,6 +159,7 @@ public class SpawnLookRed : MonoBehaviour
 
 		IEnumerator vibrateController ()
 		{		
+		Debug.Log ("vibrate controller");
 				if (!playerIndexSet || !prevState.IsConnected) {
 						for (int i = 0; i < 4; ++i) {
 								PlayerIndex testPlayerIndex = (PlayerIndex)i;
@@ -174,11 +175,20 @@ public class SpawnLookRed : MonoBehaviour
 				state = GamePad.GetState (playerIndex);
 		
 				// Set vibration according to triggers
-				GamePad.SetVibration (playerIndex, state.Triggers.Left, state.Triggers.Right);
-				yield return new WaitForSeconds (1);
+				//GamePad.SetVibration (playerIndex, state.Triggers.Left, state.Triggers.Right);
+				GamePad.SetVibration (0, 1.0f, 1.0f);
+				yield return new WaitForSeconds (0.2f);
 				GamePad.SetVibration (0, 0.0f, 0.0f);
-		}
-
+				yield return new WaitForSeconds (0.01f);
+				GamePad.SetVibration (0, 1.0f, 1.0f);
+				yield return new WaitForSeconds (0.2f);
+				GamePad.SetVibration (0, 0.0f, 0.0f);
+				yield return new WaitForSeconds (0.01f);
+				GamePad.SetVibration (0, 1.0f, 1.0f);		
+				yield return new WaitForSeconds (0.8f);
+				GamePad.SetVibration (0, 0.0f, 0.0f);
+	}
+	
 		IEnumerator stunForSeconds (int sec)
 		{
 				//pController = GameObject.Find ("OVRPlayerController");
