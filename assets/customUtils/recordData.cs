@@ -71,6 +71,7 @@ public static class recordData
 						ManagerScript.abortedTrials.ToString (),
 						recordCoordinates.avarageError.ToString (),
 						conditionVal,
+						ManagerScript.CurrentOrientation.ToString(),
 						error,
 							successString.ToString()
 				} 
@@ -87,8 +88,9 @@ public static class recordData
 		}
 		
 		// Updates the csv for stressors with marker of spawned , destroyed or missed
-		public static void recordDataStressors (string status)
+		public static void recordDataStressors (string status , string durationResponse)
 		{		
+				string dResponse = "-1"; 
 				//string filePath = ManagerScript.trialFolder + "/Trial" + ManagerScript.trialNumber + "-Stressors.csv";
 				string filePath = ManagerScript.trialFolder +"/stressors_"+ManagerScript.chiffre+"_"+(ManagerScript.session).ToString()+".csv";
 				//Check if the file exists
@@ -104,6 +106,11 @@ public static class recordData
 						statusVal = "1";
 				} else if (status == "P") {
 						statusVal = "3";
+				} else if (status == "PF") {
+						statusVal = "4";
+				} else if (status == "Onset") {
+						statusVal = "5";
+						dResponse = durationResponse;
 				}
 				else {
 						statusVal = "2";
@@ -114,6 +121,7 @@ public static class recordData
 					new string[]{
 					System.DateTime.UtcNow.ToString("o"),
 					ManagerScript.trialNumber.ToString (),
+					dResponse,
 					(Time.realtimeSinceStartup).ToString (),
 					statusVal} 
 				};

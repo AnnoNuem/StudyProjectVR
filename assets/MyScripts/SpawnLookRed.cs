@@ -77,7 +77,7 @@ public class SpawnLookRed : MonoBehaviour
 								move ();
 								if ((Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown ("360controllerButtonB")) && !keyPressedToEarly) {
 										switchState (yellowSphereStates.hidden);
-										recordData.recordDataStressors ("D");
+										recordData.recordDataStressors ("D","");
 										Pause.ChangeNumberOfYellowDefeted ();
 								}
 								break;
@@ -136,7 +136,7 @@ public class SpawnLookRed : MonoBehaviour
 				transform.position = pos;
 			
 				renderer.enabled = true;
-				recordData.recordDataStressors ("S");
+				recordData.recordDataStressors ("S","");
 				Pause.ChangeNumberOfYellowSpaw ();
 		}
 
@@ -150,7 +150,7 @@ public class SpawnLookRed : MonoBehaviour
 
 		void startExp ()
 		{
-				recordData.recordDataStressors ("M");
+				recordData.recordDataStressors ("M","");
 				StartCoroutine (stunForSeconds (2));
 				StartCoroutine (vibrateController ());
 				((Detonator)(this.GetComponent ("Detonator"))).Explode ();
@@ -239,9 +239,11 @@ public class SpawnLookRed : MonoBehaviour
 				Debug.Log (newState);
 				switch (newState) {
 				case yellowSphereStates.defeatable:
+						
 						displaytext.GetComponent<TextMesh> ().text = "SHOOT";
 						s = yellowSphereStates.defeatable;
 						defeatableTillTime = Time.time + durationOfResponsePeriod;
+						recordData.recordDataStressors("Onset",durationOfResponsePeriod.ToString());
 						Debug.Log ("DurationOfresponsePeriod:" + durationOfResponsePeriod);
 						break;
 				case yellowSphereStates.hidden:

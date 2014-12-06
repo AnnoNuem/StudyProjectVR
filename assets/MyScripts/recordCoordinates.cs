@@ -29,7 +29,7 @@ public class recordCoordinates : MonoBehaviour
 		//FixedUpdate is used for rigid bodies and is executed independently of the configuration of system i.e. runs on regular set of intervals
 		void FixedUpdate ()
 		{
-		/*
+
 				float angleBetween12 = 999.0F;
 				//2d vector definations for angle calculation (we only take x and z coordinates)
 				Vector2 targetVector1 = new Vector2 (target.position.x, target.position.z); 
@@ -39,19 +39,25 @@ public class recordCoordinates : MonoBehaviour
 				Vector2 targetDir1 = targetVector1 - transformVector1;
 				
 				//Old calculation which does not shows -ve pr +ve angles
-				//angleBetween = Vector2.Angle (targetDir, forwardVector);
+				//angleBetween12 = Vector2.Angle (targetDir1, forwardVector1);
 				angleBetween1 = Vector3.Angle (targetDir1, forwardVector1);
-				angleBetween12 = Vector3.Angle (targetDir1, forwardVector1);
+				//angleBetween12 = Mathf.Asin (Vector3.Cross(targetDir1, forwardVector1).magnitude);
+				//angleBetween12 = Vector3.Angle (targetDir1, forwardVector1);
 				Vector3 cross1 = Vector3.Cross (targetDir1, forwardVector1);
 				
 				//Debug.Log (angleBetween);
 				
-				if (cross1.z < 0)
-						angleBetween1 = -angleBetween1;
+						if (cross1.z < 0)
+								angleBetween1 = -angleBetween1;
+						
+					
+			angleBetween12 = Mathf.Atan2(targetDir1.y, forwardVector1.y)* Mathf.Rad2Deg;
+								
+				
 
 		Debug.Log ("Angle => "+angleBetween1+ "Abs Angle => "+angleBetween12 );
 
-		*/		//code will only execute when K is pressed
+			//code will only execute when K is pressed
 				if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown ("360controllerButtonA")) && ManagerScript.getState () == ManagerScript.states.pointing) {
 						
 						//2d vector definations for angle calculation (we only take x and z coordinates)

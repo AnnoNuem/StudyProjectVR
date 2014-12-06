@@ -61,6 +61,8 @@ public class ManagerScript : MonoBehaviour
 		public static int abortedTrials = 0;
 		
 	 	private GameObject helperObject ;
+	// 0 is for left , 1 is for right
+	public static int CurrentOrientation;
 	
 	public static bool temp123 = false;
 
@@ -590,7 +592,7 @@ public class ManagerScript : MonoBehaviour
 						break;
 				//walking
 				case states.walking:
-						
+						recordData.recordDataStressors("PF","");
 
 				// here goes the code for the subject position reset and rotation reset to the starting point 						
 						GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
@@ -611,7 +613,7 @@ public class ManagerScript : MonoBehaviour
 						
 				//pause
 				case states.pause:
-						recordData.recordDataStressors("P");
+						recordData.recordDataStressors("P","");
 						Time.timeScale = 0;
 						ManagerScript.state = states.pause;
 						break;
