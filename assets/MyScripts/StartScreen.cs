@@ -61,6 +61,7 @@ public class StartScreen : MonoBehaviour
 			//ManagerScript.trialFolder = Application.dataPath + @"/Trial-Session-"+ManagerScript.session+"-"+ManagerScript.chiffre + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
 			//ManagerScript.trialFolder = @"~/inlusion_data/subject_"+ManagerScript.chiffre;
 			ManagerScript.trialFolder = @"C:\Users\lab-admin\inlusio_data\subject_"+ManagerScript.chiffre;
+			Debug.Log("trial folder name --->"+ManagerScript.trialFolder);
 
 			if (!Directory.Exists (ManagerScript.trialFolder)) {
 				Directory.CreateDirectory (ManagerScript.trialFolder);

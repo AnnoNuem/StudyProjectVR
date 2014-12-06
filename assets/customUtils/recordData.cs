@@ -59,7 +59,7 @@ public static class recordData
 				//putting values for column in csv
 				string[][] output = new string[][]{
 			    new string[] {
-						System.DateTime.Now.ToString ("o"),
+						System.DateTime.UtcNow.ToString ("o"),
 						ManagerScript.trialNumber.ToString (),
 						ManagerScript.spawnDistance.ToString (),
 				//ManagerScript.CoolDown.ToString (),
@@ -112,7 +112,7 @@ public static class recordData
 				//putting values for column in csv
 				string[][] output = new string[][]{
 					new string[]{
-					System.DateTime.Now.ToString("o"),
+					System.DateTime.UtcNow.ToString("o"),
 					ManagerScript.trialNumber.ToString (),
 					(Time.realtimeSinceStartup).ToString (),
 					statusVal} 
