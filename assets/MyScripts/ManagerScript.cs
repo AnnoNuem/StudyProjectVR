@@ -562,6 +562,8 @@ public class ManagerScript : MonoBehaviour
 						if (trialList [trialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") {
 								Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
 								switchState (states.blockover);
+						((SpawnLookRed)(GameObject.Find ("RedBallGlow").GetComponent ("SpawnLookRed"))).ResetBallsCounterForDynamicDifficulty();
+
 						} else if (trialList [trialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") {
 						
 								string temp1 = "EXPOVER";

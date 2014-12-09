@@ -21,6 +21,14 @@ public class SpawnLookRed : MonoBehaviour
 		float coolDown = 2.0f;       // How long to hide
 		float showSphereAtTime = 0.0f; // timer, than needs to reach CoolDown
 
+
+	int missedHardBalls = 0 ;
+	int missedEasyBalls = 0 ;
+	int catchedHardBalls = 0 ;
+	int catchedEasyBalls = 0 ;
+	float EasyDelay = 0f;	
+	float HardDealy = 0f;
+
 	//stuff for vibrating
 	bool playerIndexSet = false;
 	PlayerIndex playerIndex;
@@ -79,6 +87,20 @@ public class SpawnLookRed : MonoBehaviour
 										switchState (yellowSphereStates.hidden);
 										recordData.recordDataStressors ("D","");
 										Pause.ChangeNumberOfYellowDefeted ();
+										
+									if (ManagerScript.CondtionTypeVariableInContainer == "Easy" ) {
+										catchedEasyBalls ++ ;
+									}
+									
+									else if (ManagerScript.CondtionTypeVariableInContainer == "Hard") {
+										
+										catchedHardBalls++ ;
+									}		
+
+								
+										GenerateTimeWindowForResponce(); // lets randomise the time window to respind every time the ball is  defeaded
+
+
 								}
 								break;
 						case yellowSphereStates.hidden:
@@ -147,6 +169,42 @@ public class SpawnLookRed : MonoBehaviour
 				onsetOfDefeatAtTime = (float)urand.Range (8, 25, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				onsetOfDefeatAtTime = onsetOfDefeatAtTime / 10 + Time.time;
 		}
+		void GenerateTimeWindowForResponce () {
+
+
+			
+		if (catchedEasyBalls > 15 ){
+				
+			EasyDelay = EasyDelay -35;
+		}
+
+		if (catchedHardBalls > 5) {
+			HardDealy = HardDealy - 35 ;
+		}
+
+		if (missedEasyBalls > 5) {
+			EasyDelay = EasyDelay + 40 ;
+		}
+
+		if (missedHardBalls > 6) {
+			HardDealy = HardDealy + 35 ;
+		}
+				
+
+
+
+			if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {
+				
+			durationOfResponsePeriod = 0.600f + EasyDelay + (Random.Range (-100f, 100f)  ) / 1000;
+				Debug.Log (durationOfResponsePeriod);
+				rotationSpeed = rotationSpeedEasy;
+			} else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False") {
+			durationOfResponsePeriod = 0.350f + HardDealy + (Random.Range (-50f, 50f) ) / 1000;
+				Debug.Log (durationOfResponsePeriod);
+				
+				rotationSpeed = rotationSpeedHard;
+			}
+		}
 
 		void startExp ()
 		{
@@ -208,17 +266,9 @@ public class SpawnLookRed : MonoBehaviour
 				xcontroller.SetMoveScaleMultiplier (3.0f);
 				Debug.Log (ManagerScript.CondtionTypeVariableInContainer);
 				// set respawn time acording to condition
-				if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {
-		
-						durationOfResponsePeriod = 0.600f + (Random.Range (-100f, 100f)) / 1000;
-						Debug.Log (durationOfResponsePeriod);
-						rotationSpeed = rotationSpeedEasy;
-				} else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False") {
-						durationOfResponsePeriod = 0.350f + (Random.Range (-50f, 50f)) / 1000;
-						Debug.Log (durationOfResponsePeriod);
+				
+				GenerateTimeWindowForResponce ();
 
-						rotationSpeed = rotationSpeedHard;
-				}
 				switchState (yellowSphereStates.hidden);
 		}
 
@@ -258,8 +308,32 @@ public class SpawnLookRed : MonoBehaviour
 						Pause.ChangeNumberOfYellowMissed ();
 						Invoke ("startExp", timeTillExp);
 						s = yellowSphereStates.notDefeatedInTime;
+					
+						if (ManagerScript.CondtionTypeVariableInContainer == "Easy" ) {
+						missedEasyBalls ++ ;
+						}
+					
+						else if (ManagerScript.CondtionTypeVariableInContainer == "Hard") {
+					
+						missedHardBalls++ ;
+						}		
+						GenerateTimeWindowForResponce(); // lets randomise the time window to respind every time the ball is not defeaded
+						
+
+
 						break;	
 				}
+		}
+		
+		// this schould happen every time we switch the blokcs
+		public void ResetBallsCounterForDynamicDifficulty () {
+
+		missedHardBalls = 0 ;
+		missedEasyBalls = 0 ;
+		catchedHardBalls = 0 ;
+		catchedEasyBalls = 0 ;
+
+	
 		}
 
 		public void onDestroy ()
@@ -268,3 +342,5 @@ public class SpawnLookRed : MonoBehaviour
 		}
 }
 
+
+	
