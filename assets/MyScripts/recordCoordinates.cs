@@ -13,7 +13,7 @@ public class recordCoordinates : MonoBehaviour
 		public static string filePath;
 		public static string filePath1;
 //		string delimiter = ",";
-
+		public bool PointFakeButton = false; 
 		//for degree measurment
 		public float angleBetween = 999.0F;
 		public float angleBetween1 = 999.0F;
@@ -55,10 +55,10 @@ public class recordCoordinates : MonoBehaviour
 								
 				
 
-		Debug.Log ("Angle => "+angleBetween1+ "Abs Angle => "+angleBetween12 );
+//		Debug.Log ("Angle => "+angleBetween1+ "Abs Angle => "+angleBetween12 );
 
 			//code will only execute when K is pressed
-				if ((Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown ("360controllerButtonA")) && ManagerScript.getState () == ManagerScript.states.pointing) {
+				if (( PointFakeButton || Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown ("360controllerButtonA")) && ManagerScript.getState () == ManagerScript.states.pointing) {
 						
 						//2d vector definations for angle calculation (we only take x and z coordinates)
 						Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
@@ -72,7 +72,7 @@ public class recordCoordinates : MonoBehaviour
 						angleBetween = Vector3.Angle (targetDir, forwardVector);
 						Vector3 cross = Vector3.Cross (targetDir, forwardVector);
 						sumOfErrors = sumOfErrors + angleBetween;
-						//Debug.Log (angleBetween);
+						Debug.Log ("Winkel" + " "  +  angleBetween);
 						
 						if (cross.z < 0)
 								angleBetween = -angleBetween;
@@ -145,7 +145,7 @@ public class recordCoordinates : MonoBehaviour
 						avarageError = sumOfErrors / numberOfPointings;
 						ManagerScript.newTrial ();
 						//Debug.Log(angleBetween);
-
+			PointFakeButton = false;
 				}
 
 

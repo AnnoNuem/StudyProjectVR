@@ -202,7 +202,9 @@ public class PlayerLookingAt : MonoBehaviour
 						// here depending on the conditon, we rotate the spehre and move it forward
 						if (left) {
 								ManagerScript.CurrentOrientation = 0;
-								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(360 - DegreeOfSpawn), transform.eulerAngles.z);
+				// BAAAD				//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(360 - DegreeOfSpawn), transform.eulerAngles.z); // NOOOT WORKING
+				transform.Rotate(0,360 - DegreeOfSpawn,0,Space.Self);
+
 								transform.localPosition += transform.forward * (float)spawnDistance;	
 								displaytext.GetComponent<TextMesh> ().text = "<--";
 								Invoke ("clearGUItext", 0.5f);
@@ -210,7 +212,9 @@ public class PlayerLookingAt : MonoBehaviour
 
 						} else {
 								ManagerScript.CurrentOrientation = 1;
-								transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z);
+			//BAAAAD					transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z); // NOOOT WORKING 
+								transform.Rotate(0, DegreeOfSpawn,0,Space.Self); 
+
 								transform.localPosition += transform.forward * (float)spawnDistance;
 								displaytext.GetComponent<TextMesh> ().text = "-->";
 								Invoke ("clearGUItext", 0.5f);
@@ -259,4 +263,5 @@ public class PlayerLookingAt : MonoBehaviour
 		{ 		
 				displaytext.GetComponent<TextMesh> ().text = "";
 		}
+	
 }

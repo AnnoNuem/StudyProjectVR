@@ -28,7 +28,7 @@ public class Pause : VRGUI
 
 //	string path123 ;
 
-	
+	public bool FakePauseButton = false ;
 	
 	public string filePath2;
 
@@ -48,7 +48,7 @@ public class Pause : VRGUI
 		
 		
 				// evalute if pause key is pressed if yes switch state to pause or to state before pause
-				if (Input.GetKeyDown (pausekey) || Input.GetButtonDown ("360controllerButtonStart")) {
+				if (FakePauseButton || Input.GetKeyDown (pausekey) || Input.GetButtonDown ("360controllerButtonStart")) {
 						if (paused && ManagerScript.getState () == ManagerScript.states.blockover) {
 								ManagerScript.newTrial ();
 								paused = false;
@@ -63,6 +63,10 @@ public class Pause : VRGUI
 						} else if (end) {
 								Application.Quit ();
 						}
+						
+			FakePauseButton = false;
+
+
 				} else if (!paused && ManagerScript.getState () == ManagerScript.states.end) {
 						paused = true;
 						end = true;

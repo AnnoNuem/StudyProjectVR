@@ -26,8 +26,8 @@ public class SpawnLookRed : MonoBehaviour
 	int missedEasyBalls = 0 ;
 	int catchedHardBalls = 0 ;
 	int catchedEasyBalls = 0 ;
-	float EasyDelay = 0f;	
-	float HardDealy = 0f;
+	float EasyDelay = 0.500f;	
+	float HardDealy = 0.300f;
 
 	//stuff for vibrating
 	bool playerIndexSet = false;
@@ -35,10 +35,12 @@ public class SpawnLookRed : MonoBehaviour
 	GamePadState state;
 	GamePadState prevState;
 
+	public bool FakePress = false ;
+
 		private UnityRandom urand;
 		private int timeTillExp = 1; // how long till explosion
 		float defeatableTillTime;
-		static float moveScale ;
+		public static float moveScale ;
 	
 		// the condition is saved here, comes from manager script
 		float onsetOfDefeatAtTime;
@@ -48,13 +50,14 @@ public class SpawnLookRed : MonoBehaviour
 		GameObject pxController;
 		OVRPlayerController xcontroller;
 
-		enum yellowSphereStates
+		public enum yellowSphereStates
 		{
 				hidden,
 				moving,
 				defeatable,
 				notDefeatedInTime,
 		}
+
 		yellowSphereStates s;
 
 		void Awake ()
@@ -83,10 +86,11 @@ public class SpawnLookRed : MonoBehaviour
 										break;
 								}
 								move ();
-								if ((Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown ("360controllerButtonB")) && !keyPressedToEarly) {
+								if (FakePress || (Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown ("360controllerButtonB")) && !keyPressedToEarly) {
 										switchState (yellowSphereStates.hidden);
 										recordData.recordDataStressors ("D","");
 										Pause.ChangeNumberOfYellowDefeted ();
+					FakePress = false;
 										
 									if (ManagerScript.CondtionTypeVariableInContainer == "Easy" ) {
 										catchedEasyBalls ++ ;
@@ -107,6 +111,7 @@ public class SpawnLookRed : MonoBehaviour
 								if (Input.GetKeyDown (KeyCode.G) || Input.GetButtonDown ("360controllerButtonB")) {
 										keyPressedToEarly = true;
 										Debug.Log ("shootkey pressed to early");
+										FakePress = false ;
 								}			
 								if (Time.time > showSphereAtTime) {
 										switchState (yellowSphereStates.moving);
@@ -172,22 +177,26 @@ public class SpawnLookRed : MonoBehaviour
 		void GenerateTimeWindowForResponce () {
 
 
-			
-		if (catchedEasyBalls > 15 ){
-				
-			EasyDelay = EasyDelay -35;
-		}
 
-		if (catchedHardBalls > 5) {
-			HardDealy = HardDealy - 35 ;
+		if (catchedEasyBalls > 10 && EasyDelay > 400 ){
+				
+			EasyDelay = EasyDelay -30;
+			ResetBallsCounterForDynamicDifficulty ();
+	 } 
+
+		if (catchedHardBalls > 5 && HardDealy > 179) {
+			HardDealy = HardDealy - 30 ;
+			ResetBallsCounterForDynamicDifficulty () ;
 		}
 
 		if (missedEasyBalls > 5) {
-			EasyDelay = EasyDelay + 40 ;
+			EasyDelay = EasyDelay + 30 ;
+			ResetBallsCounterForDynamicDifficulty () ;
 		}
 
-		if (missedHardBalls > 6) {
-			HardDealy = HardDealy + 35 ;
+		if (missedHardBalls > 5) {
+			HardDealy = HardDealy + 30 ;
+			ResetBallsCounterForDynamicDifficulty () ;
 		}
 				
 
@@ -195,11 +204,11 @@ public class SpawnLookRed : MonoBehaviour
 
 			if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False") {
 				
-			durationOfResponsePeriod = 0.600f + EasyDelay + (Random.Range (-100f, 100f)  ) / 1000;
+			durationOfResponsePeriod =  EasyDelay + (Random.Range (1f, 200)  ) / 1000;
 				Debug.Log (durationOfResponsePeriod);
 				rotationSpeed = rotationSpeedEasy;
 			} else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False") {
-			durationOfResponsePeriod = 0.350f + HardDealy + (Random.Range (-50f, 50f) ) / 1000;
+			durationOfResponsePeriod =  HardDealy + (Random.Range (1f, 100) ) / 1000;
 				Debug.Log (durationOfResponsePeriod);
 				
 				rotationSpeed = rotationSpeedHard;
@@ -295,6 +304,9 @@ public class SpawnLookRed : MonoBehaviour
 						defeatableTillTime = Time.time + durationOfResponsePeriod;
 						recordData.recordDataStressors("Onset",durationOfResponsePeriod.ToString());
 						Debug.Log ("DurationOfresponsePeriod:" + durationOfResponsePeriod);
+						
+
+
 						break;
 				case yellowSphereStates.hidden:
 						s = yellowSphereStates.hidden;
@@ -340,6 +352,18 @@ public class SpawnLookRed : MonoBehaviour
 		{
 				Debug.Log ("wtf");
 		}
+
+
+	public static float GetSpeedMoveScale () {
+
+		return moveScale;
+	}
+
+	public  yellowSphereStates GetYellowState () {
+
+		return s;
+	}
+
 }
 
 

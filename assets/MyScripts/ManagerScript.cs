@@ -537,8 +537,10 @@ public class ManagerScript : MonoBehaviour
 						pointingTime = 0.0f;
 						//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 						new    WaitForSeconds (2);
-				
+					
+						((recordCoordinates)(GameObject.Find ("OVRCameraController").GetComponent ("recordCoordinates"))).PointFakeButton = false ;
 
+					
 						//accessng parameters values according to the current trial
 						spawnDistance = trialList [trialNumber].spawnDistance;
 						CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
@@ -600,7 +602,11 @@ public class ManagerScript : MonoBehaviour
 						GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
 						GameObject.Find ("OVRPlayerController").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
 						GameObject.FindWithTag ("OVRcam").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
-						GameObject.FindWithTag ("OVRcam").transform.position = GameObject.Find ("StartPoint").transform.position;
+						GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
+					
+
+						GameObject.Find ("BlueBallGLow").transform.rotation = GameObject.Find ("StartPoint").transform.rotation;
+
 
 						Time.timeScale = 1;
 
