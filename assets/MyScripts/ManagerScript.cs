@@ -5,7 +5,7 @@ using System.IO;
 
 public class ManagerScript : MonoBehaviour
 {
-		//Public variables for stressors
+		//Public variables for Smallspread
 		public static int spawnDistance ;
 		public static double CoolDown ;       // How long to hide
 		public static float timer_red ; // timer, than needs to reach CoolDown
@@ -596,7 +596,7 @@ public class ManagerScript : MonoBehaviour
 						break;
 				//walking
 				case states.walking:
-						recordData.recordDataStressors("PF","");
+						recordData.recordDataSmallspread("PF","");
 
 				// here goes the code for the subject position reset and rotation reset to the starting point 						
 						GameObject.Find ("OVRPlayerController").transform.position = GameObject.Find ("StartPoint").transform.position;
@@ -621,7 +621,7 @@ public class ManagerScript : MonoBehaviour
 						
 				//pause
 				case states.pause:
-						recordData.recordDataStressors("P","");
+						recordData.recordDataSmallspread("P","");
 						Time.timeScale = 0;
 						ManagerScript.state = states.pause;
 						break;

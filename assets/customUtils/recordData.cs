@@ -87,12 +87,12 @@ public static class recordData
 	
 		}
 		
-		// Updates the csv for stressors with marker of spawned , destroyed or missed
-		public static void recordDataStressors (string status , string durationResponse)
+		// Updates the csv for Smallspread with marker of spawned , destroyed or missed
+		public static void recordDataSmallspread (string status , string durationResponse)
 		{		
 				string dResponse = "-1"; 
-				//string filePath = ManagerScript.trialFolder + "/Trial" + ManagerScript.trialNumber + "-Stressors.csv";
-				string filePath = ManagerScript.trialFolder +"/stressors_"+ManagerScript.chiffre+"_"+(ManagerScript.session).ToString()+".csv";
+				//string filePath = ManagerScript.trialFolder + "/Trial" + ManagerScript.trialNumber + "-Smallspread.csv";
+				string filePath = ManagerScript.trialFolder +"/Smallspread_"+ManagerScript.chiffre+"_"+(ManagerScript.session).ToString()+".csv";
 				//Check if the file exists
 				if (!File.Exists (filePath)) {
 						File.Create (filePath).Close ();
