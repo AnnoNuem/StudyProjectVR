@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Bla
+{
+
+
 public class Crosshairtesting2 : MonoBehaviour {
 	
 	public bool drawCrosshairSmall = true;
@@ -112,6 +116,8 @@ public class Crosshairtesting2 : MonoBehaviour {
 		drawCrosshairBig = true;
 
 	}
+
+}
 
 }
 

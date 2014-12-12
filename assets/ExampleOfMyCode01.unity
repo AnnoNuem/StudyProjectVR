@@ -2628,6 +2628,8 @@ GameObject:
   - 114: {fileID: 1500412472}
   - 114: {fileID: 1500412471}
   - 114: {fileID: 1500412475}
+  - 114: {fileID: 1500412474}
+  - 114: {fileID: 1500412470}
   m_Layer: 0
   m_Name: OVRPlayerController
   m_TagString: Untagged
@@ -2650,6 +2652,17 @@ Transform:
   - {fileID: 157215720}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &1500412470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1500412468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f959fbe07ad876d4db291fa7bb457c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1500412471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2696,6 +2709,19 @@ CharacterController:
   m_SkinWidth: .0500000007
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1500412474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1500412468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d16dace90403f418fb52541eeb8f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DebugMode: 0
+  mCreateNewTable: 0
 --- !u!114 &1500412475
 MonoBehaviour:
   m_ObjectHideFlags: 0

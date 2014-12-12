@@ -2,6 +2,10 @@
 using System.Collections;
 using URandom;
 
+namespace Bla
+{
+
+
 public class PlayerLookingAt : MonoBehaviour
 {
 		Transform cameraTransform = null;
@@ -264,4 +268,6 @@ public class PlayerLookingAt : MonoBehaviour
 				displaytext.GetComponent<TextMesh> ().text = "";
 		}
 	
+}
+
 }

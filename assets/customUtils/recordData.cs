@@ -6,6 +6,10 @@ using System.Collections;
 using System.IO;
 using System.Text;
 
+namespace Bla
+{
+
+
 public static class recordData
 {
 		static string delimiter = ",";
@@ -19,6 +23,9 @@ public static class recordData
 						File.Create (filePath).Close ();
 						ManagerScript.parameterFile = filePath;
 				}
+
+			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartSavingSQL();
+
 				
 		}
 		
@@ -170,3 +177,4 @@ public static class recordData
 		}
 		*/
 
+}

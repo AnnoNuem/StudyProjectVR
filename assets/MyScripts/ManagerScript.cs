@@ -3,6 +3,20 @@ using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 
+using System.Collections.Generic;
+using Action = System.Action;
+
+
+using System.Data;
+using Mono.Data.SqliteClient;
+using System.IO;
+using System.Text;
+
+
+namespace Bla
+{
+
+
 public class ManagerScript : MonoBehaviour
 {
 		//Public variables for Smallspread
@@ -22,6 +36,7 @@ public class ManagerScript : MonoBehaviour
 		public static double blue_spawnDistance; // How far away to spawn
 		public static double blue_moveDistance;   // How close can the character get
 		static float moveScale ;
+		public static ManagerScript Instance = null;
 
 
 		//public static List<float> generatedAngles = new List<float> ();
@@ -58,10 +73,18 @@ public class ManagerScript : MonoBehaviour
 		public static float pointingTime = 0.0f;
 		static bool duplicatePresent = true;
 		public static int abortedTrials = 0;
-		private GameObject helperObject ;
+
+	 	private GameObject helperObject ;
 		// 0 is for left , 1 is for right
 		public static int CurrentOrientation;
-		public static bool TrialMissed = true;
+		public bool	TrialMissed = true ;
+		public static bool temp123 = false;
+
+
+		void Awake()
+		{
+			Instance = this;
+		}
 
 		
 		void Start ()
@@ -72,6 +95,8 @@ public class ManagerScript : MonoBehaviour
 				Debug.Log ("Value--->" + moveScale);
 				ManagerScript.switchState (states.startScreen);
 				trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+
+
 		}
 
 		void Update ()
@@ -174,7 +199,7 @@ public class ManagerScript : MonoBehaviour
 				switch (newState) {
 				//start screen
 				case states.startScreen:
-						Time.timeScale = 0;
+						Time.timeScale = 1;
 						ManagerScript.state = states.startScreen;
 				break;
 				//questionaire
@@ -677,3 +702,4 @@ public class ManagerScript : MonoBehaviour
 
 
 }
+

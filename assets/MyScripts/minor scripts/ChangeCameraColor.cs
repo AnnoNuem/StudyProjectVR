@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Bla
+{
+
+
 public class ChangeCameraColor : MonoBehaviour
 {
 
@@ -63,4 +67,6 @@ public class ChangeCameraColor : MonoBehaviour
 						cr.switchNormal ();
 				}
 		}
+}
+
 }

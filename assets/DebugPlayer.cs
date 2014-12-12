@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
+namespace Bla
+{
+
+
 public class DebugPlayer : MonoBehaviour
 {
 
@@ -149,5 +153,7 @@ public class DebugPlayer : MonoBehaviour
 		}
 
 	 
+
+}
 
 }
