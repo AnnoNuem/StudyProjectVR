@@ -2,6 +2,10 @@
 using System.Collections;
 using System.IO;
 
+namespace Bla
+{
+
+
 public class StartScreen : MonoBehaviour
 {	
 	private Rect windowRect = new Rect (Screen.width / 2 - 320, Screen.height / 2 - 240, 640, 480);
@@ -70,7 +74,11 @@ public class StartScreen : MonoBehaviour
 			recordData.recordDataParametersInit();
 			ManagerScript.generateTrials();
 			ManagerScript.switchState(ManagerScript.states.walking);
+
+				((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartSavingSQL();
+				Debug.Log("Here is should");
 		}
 	}
 	
+}
 }

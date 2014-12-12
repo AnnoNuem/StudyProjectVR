@@ -5,6 +5,8 @@ using System.Text;
 
 // This script is responsable for recording coordinates. 
 // it is nice example axample , so proof of concept
+namespace Bla
+{
 
 public class recordCoordinates : MonoBehaviour
 {
@@ -151,4 +153,5 @@ public class recordCoordinates : MonoBehaviour
 
 		}
 	
+}
 }

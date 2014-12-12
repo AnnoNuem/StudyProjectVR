@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Bla
+{
+
+
 public class PointingScript : MonoBehaviour {
 
 
@@ -48,3 +52,5 @@ public class PointingScript : MonoBehaviour {
 	}
 
 }	
+
+}

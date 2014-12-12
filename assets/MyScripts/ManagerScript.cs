@@ -3,6 +3,20 @@ using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 
+using System.Collections.Generic;
+using Action = System.Action;
+
+
+using System.Data;
+using Mono.Data.SqliteClient;
+using System.IO;
+using System.Text;
+
+
+namespace Bla
+{
+
+
 public class ManagerScript : MonoBehaviour
 {
 		//Public variables for Smallspread
@@ -22,6 +36,7 @@ public class ManagerScript : MonoBehaviour
 		public static double blue_spawnDistance; // How far away to spawn
 		public static double blue_moveDistance;   // How close can the character get
 		static float moveScale ;
+		public static ManagerScript Instance = null;
 
 
 		//public static List<float> generatedAngles = new List<float> ();
@@ -69,6 +84,7 @@ public class ManagerScript : MonoBehaviour
 
 		void Awake()
 		{
+			Instance = this;
 
 		}
 		//
@@ -80,6 +96,8 @@ public class ManagerScript : MonoBehaviour
 				Debug.Log ("Value--->"+moveScale);
 				ManagerScript.switchState (states.startScreen);
 				trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+
+
 		}
 
 		// Update is called once per frame
@@ -586,7 +604,7 @@ public class ManagerScript : MonoBehaviour
 				switch (newState) {
 				//start screen
 				case states.startScreen:
-						Time.timeScale = 0;
+						Time.timeScale = 1;
 						ManagerScript.state = states.startScreen;
 						break;
 				//questionaire
@@ -681,4 +699,5 @@ public class ManagerScript : MonoBehaviour
 
 
 	}
+}
 }

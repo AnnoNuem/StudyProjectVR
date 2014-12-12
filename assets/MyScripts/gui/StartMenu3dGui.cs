@@ -2,6 +2,10 @@
 using System.Collections;
 using System.IO;
 
+namespace Bla
+{
+
+
 public class StartMenu3dGui : VRGUI
 {
 		public GUISkin skin;
@@ -59,3 +63,4 @@ public class StartMenu3dGui : VRGUI
 		
 }
 
+}
