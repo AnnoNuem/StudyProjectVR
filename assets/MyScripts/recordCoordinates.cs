@@ -15,7 +15,7 @@ public class recordCoordinates : MonoBehaviour
 //		string delimiter = ",";
 		public bool PointFakeButton = false; 
 		//for degree measurment
-		public float angleBetween = 999.0F;
+		public float angleBetween = 0;
 		public float angleBetween1 = 999.0F;
 		public static int numberOfPointings = 0 ;
 		public static float sumOfErrors = 0.0f ;
@@ -71,7 +71,6 @@ public class recordCoordinates : MonoBehaviour
 						//angleBetween = Vector2.Angle (targetDir, forwardVector);
 						angleBetween = Vector3.Angle (targetDir, forwardVector);
 						Vector3 cross = Vector3.Cross (targetDir, forwardVector);
-						sumOfErrors = sumOfErrors + angleBetween;
 						Debug.Log ("Winkel" + " "  +  angleBetween);
 						
 						if (cross.z < 0)
@@ -84,6 +83,7 @@ public class recordCoordinates : MonoBehaviour
 								recordData.recordDataParameters (3, (angleBetween).ToString());
 								ManagerScript.temp123 = true;
 						}
+			sumOfErrors = sumOfErrors + Mathf.Abs(angleBetween);
 
 
 						/*
