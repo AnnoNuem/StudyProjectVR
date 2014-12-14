@@ -34,10 +34,7 @@ public static class recordData
 				if  ((success == 2)) {
 						successString = "0";
 				}
-
-			//	if ((success == 3)){
-			//	successString = "3";
-			//	}
+		
 				string conditionVal = "";
 
 				if (ManagerScript.CondtionTypeVariableInContainer == "Easy") {
@@ -62,9 +59,6 @@ public static class recordData
 						System.DateTime.UtcNow.ToString ("o"),
 						ManagerScript.trialNumber.ToString (),
 						ManagerScript.spawnDistance.ToString (),
-				//ManagerScript.CoolDown.ToString (),
-				//ManagerScript.timer_red.ToString (),
-				//ManagerScript.bColor.ToString (),
 						ManagerScript.generatedAngle.ToString (),
 						ManagerScript.timetoPointingStage.ToString (),
 						ManagerScript.pointingTime.ToString (),
@@ -136,6 +130,10 @@ public static class recordData
 		}
 
 }
+
+
+
+
 		/*
 		public static void recordDataFlow ()
 		{
