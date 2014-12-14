@@ -8,7 +8,8 @@ public class StartMenu3dGui : VRGUI
 //		int count = 0;
 		public string SessionId;
 		public string SessionNumber;
-		public string ComPort ;
+		public string debuggField ;
+		public int debugg = 0 ;
 	
 		public override void OnVRGUI ()
 		{
@@ -25,8 +26,12 @@ public class StartMenu3dGui : VRGUI
 						GUILayout.Label ("<color=lime> Enter here the session number </color>");
 						SessionNumber = GUILayout.TextField (SessionNumber, 25);
 						int.TryParse (SessionNumber, out ManagerScript.session);
-						GUILayout.Label ("<color=lime> If feelspace, than comport ? </color>");
-						ComPort = GUILayout.TextField (ComPort, 25);
+						//GUILayout.Label ("<color=lime> If feelspace, than comport ? </color>");
+						//ComPort = GUILayout.TextField (ComPort, 25);
+						GUILayout.Label ("<color=lime> If Debugg, enter 1 ? </color>");
+						debuggField = GUILayout.TextField (debuggField, 25);
+						int.TryParse (debuggField, out debugg);
+
 						
 
 						if (GUILayout.Button ("ok", GUILayout.ExpandHeight (true))) {
@@ -47,6 +52,19 @@ public class StartMenu3dGui : VRGUI
 								Debug.Log ("chiffre -->"+ManagerScript.chiffre );
 								Debug.Log ("session -->"+ManagerScript.session );
 								ManagerScript.PauseInTheBeginning();
+							
+								// lets activate debugging here, bad style but i am unedr time pressure
+								if ( debugg == 1) 
+								{
+								// the rotation needs to be shut down
+								GameObject.Find("OVRCameraController").GetComponent<OVRCameraController>().TrackerRotatesY = false ;
+								// we need to enable the debugger
+								GameObject.Find("OVRCameraController").GetComponent<DebugPlayer>().enabled = true ;
+
+								}
+
+
+
 								enabled = !enabled;
 						}
 				

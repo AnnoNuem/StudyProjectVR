@@ -481,14 +481,14 @@ public class ManagerScript : MonoBehaviour
 				
 		
 						
-						for (int i=0; i<5; i++) { 
+						for (int i=0; i<2; i++) { 
 								trialContainer tempTrial = new trialContainer ("Easy");
 								trialList.Add (tempTrial);
 						}
 						
 						trialList.Add (blockTrial);
 						
-						for (int i=0; i<5; i++) { //20
+						for (int i=0; i<15; i++) { //20
 								trialContainer tempTrial = new trialContainer ("Hard");
 								trialList.Add (tempTrial);
 						}

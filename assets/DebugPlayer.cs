@@ -55,7 +55,7 @@ public class DebugPlayer : MonoBehaviour
 			
 										temp1 = SpawnLookRed.GetSpeedMoveScale ();
 
-										transform.position = Vector3.MoveTowards (transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 1.2f));
+										transform.position = Vector3.MoveTowards (transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 1f));
 										transform.LookAt (BlueBallPosition); // lets allways face the blue ball 
 
 
@@ -139,7 +139,8 @@ public class DebugPlayer : MonoBehaviour
 		{
 
 				//generate here the time
-				responceTime = (float)urand.Range (25, 58, UnityRandom.Normalization.STDNORMAL, 1.0f);
+				responceTime = (float)urand.Range (10, 60, UnityRandom.Normalization.STDNORMAL, 10.0f);
+
 				responceTime = responceTime / 100;
 				counter = true;
 				reactAfter = Time.time + responceTime;

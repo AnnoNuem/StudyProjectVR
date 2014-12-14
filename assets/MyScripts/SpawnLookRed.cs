@@ -99,6 +99,7 @@ public class SpawnLookRed : MonoBehaviour
 									else if (ManagerScript.CondtionTypeVariableInContainer == "Hard") {
 										
 										catchedHardBalls++ ;
+
 									}		
 
 								
@@ -176,26 +177,34 @@ public class SpawnLookRed : MonoBehaviour
 		}
 		void GenerateTimeWindowForResponce () {
 
+		Debug.Log ("catchedEasyBalls" + catchedEasyBalls + "catchedHardBalls" + catchedHardBalls + "missedEasyBalls" + missedEasyBalls + "missedHardBalls" + missedHardBalls);
 
 
-		if (catchedEasyBalls > 10 && EasyDelay > 400 ){
+		if (catchedEasyBalls > 10 && EasyDelay > 0.400f ){
 				
-			EasyDelay = EasyDelay -30;
+			EasyDelay = EasyDelay -0.030f;
 			ResetBallsCounterForDynamicDifficulty ();
 	 } 
 
-		if (catchedHardBalls > 5 && HardDealy > 179) {
-			HardDealy = HardDealy - 30 ;
+		Debug.Log("HardDealy" + HardDealy);
+
+
+		if (catchedHardBalls > 5 && HardDealy > 0.179f) {
+			HardDealy = HardDealy - 0.030f ;
+			Debug.Log(HardDealy);
+			Debug.Log("Penis");
+			Debug.Log(catchedHardBalls);
+
 			ResetBallsCounterForDynamicDifficulty () ;
 		}
 
 		if (missedEasyBalls > 5) {
-			EasyDelay = EasyDelay + 30 ;
+			EasyDelay = EasyDelay + 0.030f ;
 			ResetBallsCounterForDynamicDifficulty () ;
 		}
 
 		if (missedHardBalls > 5) {
-			HardDealy = HardDealy + 30 ;
+			HardDealy = HardDealy + 0.030f ;
 			ResetBallsCounterForDynamicDifficulty () ;
 		}
 				
