@@ -19,6 +19,11 @@ public class DebugPlayer : MonoBehaviour
 		Transform BlueBallPosition;
 		bool defetablemassage = true ; 
 		// Use this for initialization
+
+	// real rinnning or just quick jumst to end
+		public	bool RealPlayerOrNot = false ;
+
+
 		void Start ()
 		{
 
@@ -35,6 +40,7 @@ public class DebugPlayer : MonoBehaviour
 
 				if (ManagerScript.getState () != ManagerScript.states.startScreen && ManagerScript.getState () != ManagerScript.states.end) {
 				
+
 						// We need to unpause the game
 						if (ManagerScript.getState () == ManagerScript.states.pause || ManagerScript.getState () == ManagerScript.states.blockover) {
 								((Pause)(GameObject.Find ("OVRCameraController").GetComponent ("Pause"))).FakePauseButton = true;
@@ -49,7 +55,7 @@ public class DebugPlayer : MonoBehaviour
 			
 										temp1 = SpawnLookRed.GetSpeedMoveScale ();
 
-										transform.position = Vector3.MoveTowards (transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 2));
+										transform.position = Vector3.MoveTowards (transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 1.2f));
 										transform.LookAt (BlueBallPosition); // lets allways face the blue ball 
 
 
@@ -133,10 +139,11 @@ public class DebugPlayer : MonoBehaviour
 		{
 
 				//generate here the time
-				responceTime = (float)urand.Range (20, 55, UnityRandom.Normalization.STDNORMAL, 1.0f);
+				responceTime = (float)urand.Range (25, 58, UnityRandom.Normalization.STDNORMAL, 1.0f);
 				responceTime = responceTime / 100;
 				counter = true;
 				reactAfter = Time.time + responceTime;
+				Debug.Log (responceTime);
 
 		}
 

@@ -76,12 +76,12 @@ public class recordCoordinates : MonoBehaviour
 						if (cross.z < 0)
 								angleBetween = -angleBetween;
 
-						if (ManagerScript.temp123) {
+						if (ManagerScript.TrialMissed) {
 
 								recordData.recordDataParameters (1, (angleBetween).ToString());
 						} else {
-								recordData.recordDataParameters (3, (angleBetween).ToString());
-								ManagerScript.temp123 = true;
+								recordData.recordDataParameters (2, (angleBetween).ToString());
+							ManagerScript.TrialMissed = true;
 						}
 			sumOfErrors = sumOfErrors + Mathf.Abs(angleBetween);
 
