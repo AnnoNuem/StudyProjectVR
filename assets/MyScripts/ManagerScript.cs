@@ -64,7 +64,6 @@ public class ManagerScript : MonoBehaviour
 		public static List<trialContainer> trialList = new List<trialContainer> ();
 	
 		//static variable tracks what trial is in process
-		public static int trialNumber = 0 ;
 		public static string trialFolder;
 		public static string parameterFile = "";
 		public static bool trialINprocess = false;
@@ -77,9 +76,11 @@ public class ManagerScript : MonoBehaviour
 	 	private GameObject helperObject ;
 		// 0 is for left , 1 is for right
 		public static int CurrentOrientation;
-		public bool	TrialMissed = true ;
+		public static bool	TrialMissed = true ;
 		public static bool temp123 = false;
 
+		public static int realTrialNumber  = 0;// can repeat !!! (increeases with every succesfull trial ... )
+		public static int NumberofTrialsStartet = 0 ;// this increase with every start of a trial. so this number will represent the current database number of the trial
 
 		void Awake()
 		{
@@ -95,6 +96,7 @@ public class ManagerScript : MonoBehaviour
 				Debug.Log ("Value--->" + moveScale);
 				ManagerScript.switchState (states.startScreen);
 				trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
+				((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).SQLiteInit();
 
 
 		}
@@ -117,7 +119,6 @@ public class ManagerScript : MonoBehaviour
 				// Without stun and unstun, the aboutTrial was repeating itself in the case, the move button was presssed. It is fixes like this
 				stun ();
 
-				//	trialNumber++;
 				trialINprocess = false;
 				Time.timeScale = 0;
 				CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
@@ -133,34 +134,38 @@ public class ManagerScript : MonoBehaviour
 		}
 	
 		public static void newTrial ()
+
 		{  
 				if (ManagerScript.getState () != ManagerScript.states.end) {
+
+				if (TrialMissed && NumberofTrialsStartet !=0 ) {			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).FinishedTrialSQL(NumberofTrialsStartet);
+					 } ;
+
+				NumberofTrialsStartet++;
+
+				if (TrialMissed) {  realTrialNumber ++ ; } ;
 			
-						//GameObject pController = GameObject.Find ("OVRPlayerController");
-						//OVRPlayerController controller = pController.GetComponent<OVRPlayerController> ();
-						//controller.SetMoveScaleMultiplier (3.0f);
+
 						((PointingScript)(GameObject.Find ("helperObject").GetComponent ("PointingScript"))).CancelInvoke ("toLongPoint");
 						Time.timeScale = 1;
 
 						timetoPointingStage = 0.0f;
 						pointingTime = 0.0f;
-						//CameraFade.StartAlphaFade (Color.black, false, 2f, 0f);
 						new    WaitForSeconds (2);
 					
 						((recordCoordinates)(GameObject.Find ("OVRCameraController").GetComponent ("recordCoordinates"))).PointFakeButton = false;
 
 					
 						//accessng parameters values according to the current trial
-						spawnDistance = trialList [trialNumber].spawnDistance;
-						CoolDown = trialList [trialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
+				spawnDistance = trialList [realTrialNumber].spawnDistance;
+				CoolDown = trialList [realTrialNumber].CoolDown; //LEARN TO COPYPASTE YOU FUCKTARD!!!!!!!!!!!! there was .spwanDistance here and not CoolDown
 						// How long to hide
-						timer_red = trialList [trialNumber].timer_red; // timer, than needs to reach CoolDown
-						TimerForLooking = trialList [trialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
-						moveDistance = trialList [trialNumber].moveDistance;
+				timer_red = trialList [realTrialNumber].timer_red; // timer, than needs to reach CoolDown
+				TimerForLooking = trialList [realTrialNumber].TimerForLooking;  // timer, than needs to reach CoolDownValue
+				moveDistance = trialList [realTrialNumber].moveDistance;
 						;   // How close can the character get
-						speed = trialList [trialNumber].speed;
-						//		Camera.main.backgroundColor = trialList[trialNumber].bColor;
-						CondtionTypeVariableInContainer = trialList [trialNumber].CondtionTypeVariableInContainer;
+				speed = trialList [realTrialNumber].speed;
+				CondtionTypeVariableInContainer = trialList [realTrialNumber].CondtionTypeVariableInContainer;
 
 
 						//OVRDevice.HMD.RecenterPose ();
@@ -170,12 +175,12 @@ public class ManagerScript : MonoBehaviour
 						Time.timeScale = 0;
 
 				}
-				if (trialList [trialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") {
-						Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
+			if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") {
+				Pause.PauseBetweenStates (trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
 						switchState (states.blockover);
 						((SpawnLookRed)(GameObject.Find ("RedBallGlow").GetComponent ("SpawnLookRed"))).ResetBallsCounterForDynamicDifficulty ();
 
-				} else if (trialList [trialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") {
+			} else if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") {
 						
 						string temp1 = "EXPOVER";
 						Pause.PauseBetweenStates (temp1);
@@ -184,11 +189,10 @@ public class ManagerScript : MonoBehaviour
 				} else {	
 						switchState (states.walking);
 				}
+			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartNewTrialSQL();
 
 
-		if (TrialMissed) {
-						trialNumber++;
-		} ;
+
 				
 		}
 	
@@ -237,7 +241,7 @@ public class ManagerScript : MonoBehaviour
 				
 				case states.blockover:
 						ManagerScript.state = states.blockover;
-						Pause.SaveValues (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
+				Pause.SaveValues (trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
 				break;
 
 				case states.end:
@@ -247,10 +251,7 @@ public class ManagerScript : MonoBehaviour
 
 		}
 	
-		void toLongPoint ()
-		{
-				ManagerScript.abortTrial ();
-		}
+
 		
 		static void stun ()
 		{
@@ -273,10 +274,11 @@ public class ManagerScript : MonoBehaviour
 		
 		public static void PauseInTheBeginning ()
 		{
-				Pause.PauseBetweenStates (trialList [trialNumber + 1].CondtionTypeVariableInContainer);
+			Pause.PauseBetweenStates (trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
 				switchState (states.pause);
 		}
 
+		// The trials have been generated, lets put them in the sql database
 
 	public static void generateTrials ()
 	{
@@ -527,9 +529,6 @@ public class ManagerScript : MonoBehaviour
 				trialList.AddRange (hardBlock2);
 				trialList.Add (blockTrial);
 				duplicatePresent = true;
-				
-				
-				
 				break;
 				
 			case 2:
@@ -697,9 +696,12 @@ public class ManagerScript : MonoBehaviour
 		else {
 			Application.Quit ();
 		}
+
+
 		
 	}
 
 
+}
 }
 

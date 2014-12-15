@@ -50,6 +50,10 @@ public class StartMenu3dGui : VRGUI
 				
 								recordData.recordDataParametersInit ();
 								ManagerScript.generateTrials ();
+
+					// LETS MOVE THIS TO A NEW THREAD !!!
+
+
 								ManagerScript.switchState (ManagerScript.states.walking);
 								ManagerScript.newTrial();
 
@@ -67,7 +71,8 @@ public class StartMenu3dGui : VRGUI
 
 								}
 
-
+						((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).SaveTrialListtoDatabaseSQL();
+						
 
 								enabled = !enabled;
 						}

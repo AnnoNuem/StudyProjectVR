@@ -84,6 +84,7 @@ GameObject:
   - 4: {fileID: 548636643}
   - 114: {fileID: 548636644}
   - 114: {fileID: 548636645}
+  - 114: {fileID: 548636646}
   m_Layer: 0
   m_Name: DictionaryTest
   m_TagString: Untagged
@@ -114,10 +115,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbce8543c51d8f94ea4c8438e18c8da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugMode: 1
-  mSQLString: 
-  mCreateNewTable: 1
 --- !u!114 &548636645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 548636642}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3284a91abf723574faad4c73b4ee4b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &548636646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -125,11 +134,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 548636642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3284a91abf723574faad4c73b4ee4b16, type: 3}
+  m_Script: {fileID: 11500000, guid: 5217e4c902bc13147a99cd3722bf9be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugMode: 0
-  mCreateNewTable: 0
 --- !u!1 &729095396
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +159,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 729095396}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f959fbe07ad876d4db291fa7bb457c92, type: 3}
   m_Name: 
@@ -196,7 +203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1790ca923c41914580eb59b44328ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugMode: 0
 --- !u!4 &750734274
 Transform:
   m_ObjectHideFlags: 0

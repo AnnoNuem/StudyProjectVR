@@ -156,7 +156,7 @@ public class PlayerLookingAt : MonoBehaviour
 						}
 	
 						// spanning random at 30 60 90 degrees left or right
-			switch ((numbers[ManagerScript.trialNumber])) {
+				switch ((numbers[ManagerScript.realTrialNumber])) {
 
 
 				// the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
@@ -190,19 +190,7 @@ public class PlayerLookingAt : MonoBehaviour
 								break;
 						}
 						
-						// this seem to generate some problems ... arg 
-						
-//						if ((HowOftenTurnedLeft - HowOftenTurnedRight) >= 10) {
-//								left = false;
-//						}
-//
-//						
-//						if ((HowOftenTurnedRight - HowOftenTurnedLeft) <= 10) {
-//								left = true;
-//						}
 
-						Debug.Log ((numbers[ManagerScript.trialNumber]));
-						Debug.Log (left);
 						// here depending on the conditon, we rotate the spehre and move it forward
 						if (left) {
 								ManagerScript.CurrentOrientation = 0;

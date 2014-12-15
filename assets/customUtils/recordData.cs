@@ -24,9 +24,9 @@ public static class recordData
 						ManagerScript.parameterFile = filePath;
 				}
 
+
 			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartSavingSQL();
 
-				
 		}
 		
 		//records the paramters
@@ -64,7 +64,7 @@ public static class recordData
 				string[][] output = new string[][]{
 			    new string[] {
 						System.DateTime.UtcNow.ToString ("o"),
-						ManagerScript.trialNumber.ToString (),
+					ManagerScript.realTrialNumber.ToString (),
 						ManagerScript.spawnDistance.ToString (),
 						ManagerScript.generatedAngle.ToString (),
 						ManagerScript.timetoPointingStage.ToString (),
@@ -121,7 +121,7 @@ public static class recordData
 				string[][] output = new string[][]{
 					new string[]{
 					System.DateTime.UtcNow.ToString("o"),
-					ManagerScript.trialNumber.ToString (),
+					ManagerScript.realTrialNumber.ToString (),
 					dResponse,
 					(Time.realtimeSinceStartup).ToString (),
 					statusVal} 
