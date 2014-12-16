@@ -76,13 +76,11 @@ namespace Bla
 						mReader = mCommand.ExecuteReader ();
 			
 			
-						// more speed increases
+						// more speed increases , this is ok for us
 						mCommand.CommandText = "PRAGMA synchronous = OFF";
 						mCommand.ExecuteNonQuery ();
 			
-						// and some more
-						mCommand.CommandText = "PRAGMA synchronous";
-						mReader = mCommand.ExecuteReader ();
+
 
 			
 						mSQLString = 	"CREATE TABLE \"Session\" ( "
@@ -198,25 +196,31 @@ namespace Bla
 								});                        
 				}
 
+		// BEGINN AND COMMIT SPEEDS UP EVERYTHING UP TO 1000 percent ... especialy if we have to make 200 inserts, only 50 per second can be done due to the hardware limitation
+
 					public void SaveTrialListtoDatabaseSQL ()
 					{
 						LoomManager.Loom.QueueOnMainThread (() =>
 						                                    {
-							mConnection.Open ();
 
+				mSQLString = "BEGIN; " ;			
 							for (int i=0; i < ManagerScript.trialList.Count-1; i++) {
-							
+								
 
 
-								mSQLString = 	" INSERT INTO Blocklist (Type, Done, session) VALUES (" 
-												+ "'" + ManagerScript.trialList [i].CondtionTypeVariableInContainer +"','"
-												+ "0" +"','"
-												+ ManagerScript.session+"'" + ");" ;
-												mCommand.CommandText = mSQLString;
-												mCommand.ExecuteNonQuery ();
-									
+							mSQLString = mSQLString + 	" INSERT INTO Blocklist (Type, Done, session) VALUES (" 
+													+ "'" + ManagerScript.trialList [i].CondtionTypeVariableInContainer +"','"
+													+ "0" +"','"
+													+ ManagerScript.session+"'" + ");" ;
+													mCommand.CommandText = mSQLString;
+										
 							}
-							mConnection.Close ();
+
+				mCommand.CommandText = mSQLString + " COMMIT;" ;
+						
+								mConnection.Open ();
+								mCommand.ExecuteNonQuery ();
+								mConnection.Close ();
 
 
 
