@@ -13,9 +13,6 @@ using System.IO;
 using System.Text;
 
 
-namespace Bla
-{
-
 
 public class ManagerScript : MonoBehaviour
 {
@@ -702,6 +699,5 @@ public class ManagerScript : MonoBehaviour
 	}
 
 
-}
 }
 

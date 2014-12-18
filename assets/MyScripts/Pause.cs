@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Bla
-{
 
 
 public class Pause : VRGUI
@@ -201,6 +199,4 @@ public class Pause : VRGUI
 
 
 	}
-}
-
 }

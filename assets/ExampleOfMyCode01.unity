@@ -529,14 +529,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11930d139c219ac4f8faa6f71a13ba73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guiPosition: {x: 0, y: 5, z: 10}
-  guiSize: 5
-  useCurvedSurface: 0
-  acceptMouse: 0
+  guiPosition: {x: 0, y: 0, z: 1}
+  guiSize: 1
+  useCurvedSurface: 1
+  acceptMouse: 1
   acceptKeyboard: 1
   cursorSize: 32
   customCursor: {fileID: 0}
-  skin: {fileID: 11400000, guid: ef969272c6f9bbd4c8215db5096d648d, type: 2}
+  skin: {fileID: 0}
   FakePauseButton: 0
   filePath2: 
 --- !u!114 &232248650
@@ -545,15 +545,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 232248645}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3b4a0ac6b29a6f479e37cfe907955e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PointFakeButton: 0
-  angleBetween: 999
+  angleBetween: 0
   angleBetween1: 999
-  target: {fileID: 725266473}
+  target: {fileID: 0}
 --- !u!114 &232248651
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections;
 using XInputDotNetPure;
 
-namespace Bla
-{
 
 
 public class SpawnLookRed : MonoBehaviour
@@ -379,5 +377,5 @@ public class SpawnLookRed : MonoBehaviour
 
 }
 
-}
+
 	

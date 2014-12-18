@@ -6,8 +6,7 @@ using System.Collections;
 using System.IO;
 using System.Text;
 
-namespace Bla
-{
+
 
 
 public static class recordData
@@ -177,4 +176,4 @@ public static class recordData
 		}
 		*/
 
-}
+

@@ -11,8 +11,7 @@ using System;
 using System.Linq;
 using System.Threading;
 
-namespace Bla
-{
+
 		public class testofsql : MonoBehaviour
 		{
 				public static testofsql Instance = null;
@@ -49,7 +48,9 @@ namespace Bla
 
 			void OnDestroy ()
 			{
+			if(t.IsAlive){
 					t.Abort ();
+			}
 			}
 		
 			/// <summary>
@@ -286,4 +287,4 @@ namespace Bla
 		
 	}
 	
-}
+

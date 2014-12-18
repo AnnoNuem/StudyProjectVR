@@ -2,8 +2,7 @@
 using System.Collections;
 using URandom;
 
-namespace Bla
-{
+
 
 
 public class PlayerLookingAt : MonoBehaviour
@@ -258,4 +257,3 @@ public class PlayerLookingAt : MonoBehaviour
 	
 }
 
-}
