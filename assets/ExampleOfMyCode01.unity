@@ -575,7 +575,8 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: ef969272c6f9bbd4c8215db5096d648d, type: 2}
   SessionId: 
   SessionNumber: 
-  ComPort: 
+  debuggField: 
+  debugg: 0
 --- !u!114 &232248652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,8 +588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed85de4ac2cbf643bc4bdf177cf599c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: 
-  filePath2: 
 --- !u!114 &232248653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,6 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058a4f1ab187a2b4ea1429cca0d6eb41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RealPlayerOrNot: 0
 --- !u!1 &247557681
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +610,7 @@ GameObject:
   - 4: {fileID: 247557682}
   - 23: {fileID: 247557684}
   - 102: {fileID: 247557683}
+  - 114: {fileID: 247557685}
   m_Layer: 0
   m_Name: Displaytext
   m_TagString: Untagged
@@ -670,6 +671,18 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!114 &247557685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 247557681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b946a8721d02a624ba2b0d174f737b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateInterval: .5
 --- !u!1 &505860563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2658,7 +2671,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1500412468}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f959fbe07ad876d4db291fa7bb457c92, type: 3}
   m_Name: 
@@ -2715,12 +2728,11 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1500412468}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57d16dace90403f418fb52541eeb8f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugMode: 0
   mCreateNewTable: 0
 --- !u!114 &1500412475
 MonoBehaviour:

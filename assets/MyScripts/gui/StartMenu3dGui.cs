@@ -71,7 +71,7 @@ public class StartMenu3dGui : VRGUI
 
 								}
 
-						((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).SaveTrialListtoDatabaseSQL();
+//						((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).SaveTrialListtoDatabaseSQL();
 						
 
 								enabled = !enabled;

@@ -79,7 +79,7 @@ public class ManagerScript : MonoBehaviour
 		public static bool	TrialMissed = true ;
 		public static bool temp123 = false;
 
-		public static int realTrialNumber  = 0;// can repeat !!! (increeases with every succesfull trial ... )
+		public static int realTrialNumber  = 1;// can repeat !!! (increeases with every succesfull trial ... )
 		public static int NumberofTrialsStartet = 0 ;// this increase with every start of a trial. so this number will represent the current database number of the trial
 
 		void Awake()
@@ -138,8 +138,8 @@ public class ManagerScript : MonoBehaviour
 		{  
 				if (ManagerScript.getState () != ManagerScript.states.end) {
 
-				if (TrialMissed && NumberofTrialsStartet !=0 ) {			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).FinishedTrialSQL(NumberofTrialsStartet);
-					 } ;
+//				if (TrialMissed && NumberofTrialsStartet !=0 ) {			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).FinishedTrialSQL(NumberofTrialsStartet);
+//					 } ;
 
 				NumberofTrialsStartet++;
 
@@ -189,7 +189,7 @@ public class ManagerScript : MonoBehaviour
 				} else {	
 						switchState (states.walking);
 				}
-			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartNewTrialSQL();
+//			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartNewTrialSQL();
 
 
 

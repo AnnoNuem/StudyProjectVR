@@ -25,7 +25,7 @@ public static class recordData
 				}
 
 
-			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartSavingSQL();
+//			((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartSavingSQL();
 
 		}
 		
