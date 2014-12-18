@@ -1,0 +1,9 @@
+Time.unscaledTime
+
+The timeScale-independant time at the beginning of this frame (Read Only). This is the time in seconds since the start of the game.
+Returns the same value if called multiple times in a single frame. Unlike time this value is not affected by timeScale.
+
+During Data saving we will use Time.unscaledTime as we want to have the real seconds. So all the entries in the Database, based on seconds will be unscaled! 
+
+
+ Application.streamingAssetsPath , here will be the Database lol 
