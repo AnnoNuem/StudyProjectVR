@@ -37,7 +37,7 @@ namespace Bla
 			void Awake ()
 			{
 					// what does this do, i do not knew. Still this was suggested by the internet ... 
-					Instance = this;
+					Instance = this; 
 			}
 
 			void Start ()

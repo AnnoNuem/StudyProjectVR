@@ -18,3 +18,4 @@ public class TestOculusRotation : MonoBehaviour {
 		displaytext.GetComponent<TextMesh> ().text = test.ToString();
 	}
 }
+
