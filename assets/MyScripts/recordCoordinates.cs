@@ -31,7 +31,7 @@ public class recordCoordinates : MonoBehaviour
 		void FixedUpdate ()
 		{
 
-				float angleBetween12 = 999.0F;
+				//			float angleBetween12 = 999.0F;
 				//2d vector definations for angle calculation (we only take x and z coordinates)
 				Vector2 targetVector1 = new Vector2 (target.position.x, target.position.z); 
 				Vector2 transformVector1 = new Vector2 (transform.position.x, transform.position.z);
@@ -48,18 +48,18 @@ public class recordCoordinates : MonoBehaviour
 				
 				//Debug.Log (angleBetween);
 				
-						if (cross1.z < 0)
-								angleBetween1 = -angleBetween1;
+				if (cross1.z < 0)
+						angleBetween1 = -angleBetween1;
 						
 					
-			angleBetween12 = Mathf.Atan2(targetDir1.y, forwardVector1.y)* Mathf.Rad2Deg;
+				//angleBetween12 = Mathf.Atan2 (targetDir1.y, forwardVector1.y) * Mathf.Rad2Deg;
 								
 				
 
 //		Debug.Log ("Angle => "+angleBetween1+ "Abs Angle => "+angleBetween12 );
 
-			//code will only execute when K is pressed
-				if (( PointFakeButton || Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown ("360controllerButtonA")) && ManagerScript.getState () == ManagerScript.states.pointing) {
+				//code will only execute when K is pressed
+				if ((PointFakeButton || Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown ("360controllerButtonA")) && ManagerScript.getState () == ManagerScript.states.pointing) {
 						
 						//2d vector definations for angle calculation (we only take x and z coordinates)
 						Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
@@ -72,19 +72,19 @@ public class recordCoordinates : MonoBehaviour
 						//angleBetween = Vector2.Angle (targetDir, forwardVector);
 						angleBetween = Vector3.Angle (targetDir, forwardVector);
 						Vector3 cross = Vector3.Cross (targetDir, forwardVector);
-						Debug.Log ("Winkel" + " "  +  angleBetween);
+						Debug.Log ("Winkel" + " " + angleBetween);
 						
 						if (cross.z < 0)
 								angleBetween = -angleBetween;
 
 						if (ManagerScript.TrialMissed) {
 
-								recordData.recordDataParameters (1, (angleBetween).ToString());
+								recordData.recordDataParameters (1, (angleBetween).ToString ());
 						} else {
-								recordData.recordDataParameters (2, (angleBetween).ToString());
-							ManagerScript.TrialMissed = true;
+								recordData.recordDataParameters (2, (angleBetween).ToString ());
+								ManagerScript.TrialMissed = true;
 						}
-			sumOfErrors = sumOfErrors + Mathf.Abs(angleBetween);
+						sumOfErrors = sumOfErrors + Mathf.Abs (angleBetween);
 
 
 						/*
@@ -146,7 +146,7 @@ public class recordCoordinates : MonoBehaviour
 						avarageError = sumOfErrors / numberOfPointings;
 						ManagerScript.newTrial ();
 						//Debug.Log(angleBetween);
-			PointFakeButton = false;
+						PointFakeButton = false;
 				}
 
 
