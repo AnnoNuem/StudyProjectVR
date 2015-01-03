@@ -3,10 +3,10 @@ using System.Collections;
 
 
 
+
 public class ChangeCameraColor : MonoBehaviour
 {
-
-
+    
 		public static string CondtionTypeVariableInContainer;
 		public static string CondtionTypeVariableInContainerOld;
 		GameObject cam1;
@@ -16,9 +16,10 @@ public class ChangeCameraColor : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-	
-				cam1 = GameObject.Find ("CameraLeft");
-				cam2 = GameObject.Find ("CameraRight");                                            
+
+				
+                cam1 = GameObject.Find("RightEyeAnchor");
+                cam2 = GameObject.Find("LeftEyeAnchor");                           
 				
 
 				cr = (ChangeRenderSettings)GameObject.Find ("helperObject").GetComponent ("ChangeRenderSettings");
@@ -32,7 +33,7 @@ public class ChangeCameraColor : MonoBehaviour
 						ChangeSettings ();
 						CondtionTypeVariableInContainerOld = CondtionTypeVariableInContainer;
 				}
-
+            
 
 		}
 
@@ -52,7 +53,7 @@ public class ChangeCameraColor : MonoBehaviour
 				} else if (CondtionTypeVariableInContainer == "Training" || CondtionTypeVariableInContainer == "Explain") {
 						//	Debug.Log("no cond camera");	
 						cam1.SetActive (true);	
-			cam2.SetActive (true);	
+			            cam2.SetActive (true);	
 
 						cr.switchNormal ();
 				} else if (CondtionTypeVariableInContainer == "ENDTRIAL") {

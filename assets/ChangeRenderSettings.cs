@@ -17,8 +17,8 @@ public class ChangeRenderSettings : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-		cam1 = GameObject.Find("CameraRight").camera;    
-		cam2 = GameObject.Find("CameraLeft").camera;
+        cam1 = GameObject.Find("RightEyeAnchor").camera;
+        cam2 = GameObject.Find("LeftEyeAnchor").camera;
 		}
 	
 		// Update is called once per frame

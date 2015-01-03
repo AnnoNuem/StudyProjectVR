@@ -65,7 +65,7 @@ public class StartMenu3dGui : VRGUI
 								if ( debugg == 1) 
 								{
 								// the rotation needs to be shut down
-								GameObject.Find("OVRCameraController").GetComponent<OVRCameraController>().TrackerRotatesY = false ;
+                                    GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = false;
 								// we need to enable the debugger
 								GameObject.Find("OVRCameraController").GetComponent<DebugPlayer>().enabled = true ;
 

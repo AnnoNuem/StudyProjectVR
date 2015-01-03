@@ -1,10 +1,10 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 using XInputDotNetPure;
 
 public class SpawnLookRed : MonoBehaviour
 {
-    GameObject displaytext ;
+    GameObject displaytext;
     float random;
     Vector3 v, pos;
     Vector3 rayDirection;
@@ -14,42 +14,35 @@ public class SpawnLookRed : MonoBehaviour
     float rotationSpeedHard = 500f;
     float transformationSpeed = 15f;
     float distanceToGoal = 10;
-    float spawnDistance = 40f ;
+    float spawnDistance = 40f;
     float spawnheight = 20f;
     float coolDown = 2.0f;       // How long to hide
-    float showSphereAtTime = 0.0f; // timer, than needs to reach CoolDown
-
-    string SpawnTime ;
+    string SpawnTime;
     string StartDefeatTime;
-    string DefeatedAtTime ;
-
-
-    int missedHardBalls = 0 ;
-    int missedEasyBalls = 0 ;
-    int catchedHardBalls = 0 ;
-    int catchedEasyBalls = 0 ;
+    string DefeatedAtTime;
+    int missedHardBalls = 0;
+    int missedEasyBalls = 0;
+    int catchedHardBalls = 0;
+    int catchedEasyBalls = 0;
     float EasyDelay = 0.500f;
     float HardDealy = 0.300f;
-
     //stuff for vibrating
     bool playerIndexSet = false;
     PlayerIndex playerIndex;
     GamePadState state;
     GamePadState prevState;
-    public bool FakePress = false ;
+    public bool FakePress = false; // this is needed for the debug player
     private UnityRandom urand;
     private int timeTillExp = 1; // how long till explosion
     float defeatableTillTime;
-    public static float moveScale ;
-    
-    // the condition is saved here, comes from manager script
+    public static float moveScale;
     float onsetOfDefeatAtTime;
-    float durationOfResponsePeriod ;
+    float durationOfResponsePeriod;
     GameObject pController;
     Transform cameraTransform = null;
     GameObject pxController;
     OVRPlayerController xcontroller;
-    string ExplosionTime;
+    static string ExplosionTime;
 
     public enum yellowSphereStates
     {
@@ -57,9 +50,15 @@ public class SpawnLookRed : MonoBehaviour
         moving,
         defeatable,
         notDefeatedInTime,
+        start,
+        end,
+        defeatedInTime,
     }
 
     yellowSphereStates s;
+    private  float StartDefeatTimeFloat;
+    private  float TimeOfDefeat;
+    private  float ReactionTime;
 
     void Awake ()
     {
@@ -68,119 +67,112 @@ public class SpawnLookRed : MonoBehaviour
     }
 
     void Start ()
-    {   
+    {
         pxController = GameObject.Find("OVRPlayerController");
         xcontroller = pxController.GetComponent<OVRPlayerController>();
         xcontroller.GetMoveScaleMultiplier(ref moveScale);
-
-        urand = new UnityRandom((int)System.DateTime.Now.Ticks);    
+        urand = new UnityRandom((int)System.DateTime.Now.Ticks);
         switchState(yellowSphereStates.hidden);
     }
 
     void Update ()
-    {   
-        if (ManagerScript.getState() == ManagerScript.states.walking && ManagerScript.CondtionTypeVariableInContainer != "Explain" && ManagerScript.CondtionTypeVariableInContainer != "Dummy" && ManagerScript.CondtionTypeVariableInContainer != "Training")
+    {
+        if (ManagerScript.getState() == ManagerScript.states.walking)
         {
             switch (s)
             {
-                case yellowSphereStates.defeatable:
-                    if (Time.time > defeatableTillTime)
+                case yellowSphereStates.moving:
+
+                    move();
+                    if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB"))
                     {
-                        switchState(yellowSphereStates.notDefeatedInTime);
-                        break;
+                        keyPressedToEarly = true;
                     }
+                    break;
+                case yellowSphereStates.defeatable:
+
                     move();
                     if (FakePress || (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB")) && !keyPressedToEarly)
                     {
-                        switchState(yellowSphereStates.hidden);
-                        recordData.recordDataSmallspread("D", "");
-                        DefeatedAtTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                        switchState(yellowSphereStates.defeatedInTime);
                         Pause.ChangeNumberOfYellowDefeted();
                         FakePress = false;
-                                        
+
                         if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                         {
-                            catchedEasyBalls ++;
-                        } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                            catchedEasyBalls++;
+                        }
+                        else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
                         {
-                                        
                             catchedHardBalls++;
+                        }
 
-                        }       
-
-                        // THE SQL COMAND FOR SUCCESS GOES HERE
-                    
-                        //durationOfResponsePeriod
-                        //rotationSpeed
-                        //Success will be one
-                        //defeatableTillTime 
-                        //DefeatedAtTime
-                        //ManagerScript.CondtionTypeVariableInContainer
-                        // 
-                    
-                        testofsql.CreateStressor("defeated");
-                    
-                    
                         
                     
-                    
-                        GenerateTimeWindowForResponce(); // lets randomise the time window to respind every time the ball is  defeaded
+                        
+                    }
+                    break;
 
-
-                    }
-                    break;
-                case yellowSphereStates.hidden:
-                    if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB"))
-                    {
-                        keyPressedToEarly = true;
-                        Debug.Log("shootkey pressed to early");
-                        FakePress = false;
-                    }           
-                    if (Time.time > showSphereAtTime)
-                    {
-                        switchState(yellowSphereStates.moving);
-                    }
-                    break;
-                case yellowSphereStates.moving:
-                    if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB"))
-                    {
-                        keyPressedToEarly = true;
-                        Debug.Log("shootkey pressed to early");
-                    }   
-                    if (Time.time > onsetOfDefeatAtTime)
-                    {
-                        switchState(yellowSphereStates.defeatable);
-                        StartDefeatTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
-                    }
-                    move();
-                    break;
                 case yellowSphereStates.notDefeatedInTime:
+                    if (FakePress || (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB")) && !keyPressedToEarly) {
+                        ReactionTime = Time.time;
+
+                    }
+
                     move();
-                    break;  
-            }   
-        } else
+                    break;
+            }
+        }
+        else
         {
             renderer.enabled = false;
             displaytext.GetComponent<TextMesh>().text = "";
             CancelInvoke("startExp");
-        }       
+        }
+    }
+
+    private void StressorDefeatable ()
+    {
+        switchState(yellowSphereStates.defeatable);
+        StartDefeatTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        StartDefeatTimeFloat = Time.time;
+        DefeatableTimeWindow =Time.time + durationOfResponsePeriod;
+    }
+
+    private void NotDefeatedInTime ()
+    {
+        switchState(yellowSphereStates.notDefeatedInTime);
     }
 
     void reset ()
     {
         renderer.enabled = false;
-        CancelInvoke("startExp"); 
-        showSphereAtTime = Time.time + coolDown;
+        CancelInvoke("startExp");
         keyPressedToEarly = false;
+        //Invoke this shit after the coolDown time, basicaly after the coolDown
+        Invoke("StartMoving", coolDown);
+
     }
 
-    
+    void StartMoving ()
+    {
+        switchState(yellowSphereStates.moving);
+    }
+
+    public void EndStressor ()
+    {
+        switchState(yellowSphereStates.end);
+    }
+
+    public void StartStressor ()
+    {
+        switchState(yellowSphereStates.start);
+
+    }
+
     // this is the function that respawns the yellow sphere
     void MoveAndShow ()
-    {   
-
-        // here we get a rondom value for the jidder of the onset
-        GenerateTimeOnsetOfDefeatTime();
+    {
 
         //position yellow sphere
         random = urand.Range(-10, 10, UnityRandom.Normalization.STDNORMAL, 0.1f);
@@ -189,7 +181,7 @@ public class SpawnLookRed : MonoBehaviour
         pos.z = (cameraTransform.position.z + rayDirection.z * spawnDistance) - random;
         pos.y = spawnheight;
         transform.position = pos;
-            
+
         renderer.enabled = true;
         recordData.recordDataSmallspread("S", "");
         Pause.ChangeNumberOfYellowSpaw();
@@ -200,80 +192,103 @@ public class SpawnLookRed : MonoBehaviour
     void GenerateTimeOnsetOfDefeatTime ()
     {
         onsetOfDefeatAtTime = urand.Range(8, 25, UnityRandom.Normalization.STDNORMAL, 1.0f);
-        onsetOfDefeatAtTime = onsetOfDefeatAtTime / 10 + Time.time;
+        onsetOfDefeatAtTime = onsetOfDefeatAtTime / 10;
     }
 
     void GenerateTimeWindowForResponce ()
     {
 
-        Debug.Log("catchedEasyBalls" + catchedEasyBalls + "catchedHardBalls" + catchedHardBalls + "missedEasyBalls" + missedEasyBalls + "missedHardBalls" + missedHardBalls);
-
-
         if (catchedEasyBalls > 10 && EasyDelay > 0.400f)
         {
-                
+
             EasyDelay = EasyDelay - 0.030f;
-            ResetBallsCounterForDynamicDifficulty();
-        } 
-
-        Debug.Log("HardDealy" + HardDealy);
-
+        }
 
         if (catchedHardBalls > 5 && HardDealy > 0.179f)
         {
             HardDealy = HardDealy - 0.030f;
-            Debug.Log(HardDealy);
-            Debug.Log("Penis");
-            Debug.Log(catchedHardBalls);
-
-            ResetBallsCounterForDynamicDifficulty();
         }
 
         if (missedEasyBalls > 5)
         {
             EasyDelay = EasyDelay + 0.030f;
-            ResetBallsCounterForDynamicDifficulty();
         }
 
         if (missedHardBalls > 5)
         {
             HardDealy = HardDealy + 0.030f;
-            ResetBallsCounterForDynamicDifficulty();
         }
-                
 
-
+        ResetBallsCounterForDynamicDifficulty();
 
         if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False")
         {
-                
+
             durationOfResponsePeriod = EasyDelay + (Random.Range(1f, 200)) / 1000;
-            Debug.Log(durationOfResponsePeriod);
             rotationSpeed = rotationSpeedEasy;
-        } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False")
+        }
+        else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False")
         {
             durationOfResponsePeriod = HardDealy + (Random.Range(1f, 100)) / 1000;
-            Debug.Log(durationOfResponsePeriod);
-                
             rotationSpeed = rotationSpeedHard;
         }
     }
 
-    static void ExplosionDataSaving ()
+    void DataSavingAfterExplosion ()
     {
         recordData.recordDataSmallspread("M", "");
         ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
-        // if missed we need to save the time, when the ball exploded ... 
 
-        // Button to early pushed or stupid ?
-        testofsql.CreateStressor("exploded");
+        string bla =
+       " INSERT INTO 'Stressors' 'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime') VALUES"
+  + "(" + "NULL" + ","
+  + "'" + SpawnTime + "',"
+  + "'" + StartDefeatTime + "',"
+  + "'" + durationOfResponsePeriod + "',"
+  + "NULL" + ","
+  + "'" + 0 + "',"
+  + "'" + rotationSpeed + "',"
+  + "'" + keyPressedToEarly + "',"
+  + "'" + ManagerScript.CondtionTypeVariableInContainer + "',"
+  + "'" + DefeatableTimeWindow + "',"
+  + "'" + ReactionTime + "',"
+  + "'" + testofsql.CURRENT_TRIAL_ID + "',"
+  + "'" + ExplosionTime+ "'" + ");" ;
 
+        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).ExecuteQuerry(bla);
+        
+
+    }
+
+    void DataSavingAfterDefeate ()
+    {
+        recordData.recordDataSmallspread("D", "");
+        DefeatedAtTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        TimeOfDefeat = Time.time;
+        ReactionTime = StartDefeatTimeFloat - TimeOfDefeat;
+
+        string bla =  " INSERT INTO 'Stressors' 'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime') VALUES"
+          + "(" + "NULL" + ","
+          + "'" + SpawnTime + "',"
+          + "'" + StartDefeatTime + "',"
+          + "'" + durationOfResponsePeriod + "',"
+          + "'" + DefeatedAtTime + "',"
+          + "'" + 1 + "',"
+          + "'" + rotationSpeed + "',"
+          + "'" + keyPressedToEarly + "',"
+          + "'" + ManagerScript.CondtionTypeVariableInContainer + "',"
+          + "'" + DefeatableTimeWindow + "',"
+          + "'" + ReactionTime + "',"
+          + "'" + testofsql.CURRENT_TRIAL_ID + "',"
+                    + "NULL" + ");" ;
+
+        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).ExecuteQuerry(bla);
 
     }
 
     void startExp ()
     {
-        ExplosionDataSaving();
+        DataSavingAfterExplosion();
         StartCoroutine(stunForSeconds(2));
         StartCoroutine(vibrateController());
         ((Detonator)(GetComponent("Detonator"))).Explode();
@@ -281,7 +296,7 @@ public class SpawnLookRed : MonoBehaviour
     }
 
     IEnumerator vibrateController ()
-    {       
+    {
         Debug.Log("vibrate controller");
         if (!playerIndexSet || !prevState.IsConnected)
         {
@@ -299,7 +314,7 @@ public class SpawnLookRed : MonoBehaviour
         }
         prevState = state;
         state = GamePad.GetState(playerIndex);
-        
+
         // Set vibration according to triggers
         //GamePad.SetVibration (playerIndex, state.Triggers.Left, state.Triggers.Right);
         GamePad.SetVibration(0, 1.0f, 1.0f);
@@ -310,34 +325,25 @@ public class SpawnLookRed : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         GamePad.SetVibration(0, 0.0f, 0.0f);
         yield return new WaitForSeconds(0.01f);
-        GamePad.SetVibration(0, 1.0f, 1.0f);        
+        GamePad.SetVibration(0, 1.0f, 1.0f);
         yield return new WaitForSeconds(0.8f);
         GamePad.SetVibration(0, 0.0f, 0.0f);
     }
-    
-    IEnumerator stunForSeconds (int sec)
+
+    IEnumerator stunForSeconds ( int sec )
     {
-        //pController = GameObject.Find ("OVRPlayerController");
-        //OVRPlayerController controller = pxController.GetComponent<OVRPlayerController> ();
+
         xcontroller.SetMoveScaleMultiplier(0.0f);
         yield return new WaitForSeconds(sec);
         moveScale = moveScale * 0.5f;
         xcontroller.SetMoveScaleMultiplier(moveScale);
         float temp = 0.0f;
         xcontroller.GetMoveScaleMultiplier(ref temp);
-        Debug.Log("move scale value -->" + temp);
     }
 
-    public void newTrial ()
+    public void NewTrial ()
     {
-        moveScale = 3.0f;
-        xcontroller.SetMoveScaleMultiplier(3.0f);
-        Debug.Log(ManagerScript.CondtionTypeVariableInContainer);
-        // set respawn time acording to condition
-                
-        GenerateTimeWindowForResponce();
-
-        switchState(yellowSphereStates.hidden);
+        switchState(yellowSphereStates.start);
     }
 
     void move ()
@@ -346,86 +352,94 @@ public class SpawnLookRed : MonoBehaviour
         rayDirection = cameraTransform.TransformDirection(Vector3.forward);
         v.x = v.x + rayDirection.x * distanceToGoal + Mathf.Sin(Time.time) * 2;
         v.z = v.z + rayDirection.z * distanceToGoal + Mathf.Sin(Time.time) * 2;
-        v.y = 7 + Mathf.Sin(Time.time) * 2;         
+        v.y = 7 + Mathf.Sin(Time.time) * 2;
         transform.position = Vector3.MoveTowards(transform.position, v, (transformationSpeed * Time.deltaTime));
         transform.Rotate(Vector3.right * Time.deltaTime * rotationSpeed);
     }
 
-    void switchState (yellowSphereStates newState)
+    void switchState ( yellowSphereStates newState )
     {
         displaytext.GetComponent<TextMesh>().text = "";
         Debug.Log(newState);
         switch (newState)
         {
             case yellowSphereStates.defeatable:
-                        
+
                 displaytext.GetComponent<TextMesh>().text = "SHOOT";
                 s = yellowSphereStates.defeatable;
-                defeatableTillTime = Time.time + durationOfResponsePeriod;
                 recordData.recordDataSmallspread("Onset", durationOfResponsePeriod.ToString());
-                Debug.Log("DurationOfresponsePeriod:" + durationOfResponsePeriod);
-                        
-
-
+                Invoke("NotDefeatedInTime", durationOfResponsePeriod);
                 break;
             case yellowSphereStates.hidden:
                 s = yellowSphereStates.hidden;
+                CancelInvoke("NotDefeatedInTime"); // if 
+                GenerateTimeWindowForResponce(); // we randomize the ball parapeters lol 
                 reset();
                 break;
             case yellowSphereStates.moving:
-                s = yellowSphereStates.moving;
+                // here we get a rondom value for the jidder of the onset
+                GenerateTimeOnsetOfDefeatTime();
                 MoveAndShow();
+                s = yellowSphereStates.moving;
+                Invoke("StressorDefeatable", onsetOfDefeatAtTime); // after some time we can defeat the stressor
+
                 break;
             case yellowSphereStates.notDefeatedInTime:
                 Pause.ChangeNumberOfYellowMissed();
-                Invoke("startExp", timeTillExp);
+                Invoke("startExp", timeTillExp); // this activates the data saving
                 s = yellowSphereStates.notDefeatedInTime;
-                    
                 if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                 {
-                    missedEasyBalls ++;
-                } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                    missedEasyBalls++;
+                }
+                else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
                 {
-                    
                     missedHardBalls++;
-                }       
-                GenerateTimeWindowForResponce(); // lets randomise the time window to respind every time the ball is not defeaded
-                        
+                }
 
 
-                break;  
+                break;
+            case yellowSphereStates.defeatedInTime:
+                s = yellowSphereStates.defeatedInTime;
+                DataSavingAfterDefeate();
+                switchState(yellowSphereStates.hidden);
+                break;
+
+            case yellowSphereStates.start: // if the stressor should spawn, we set it to the start state
+                s = yellowSphereStates.start;
+                moveScale = 3.0f;
+                xcontroller.SetMoveScaleMultiplier(3.0f);
+                switchState(yellowSphereStates.hidden);
+                break;
+            case yellowSphereStates.end: // if we want the stressor to stop, we set it to the end state
+                s = yellowSphereStates.end;
+                renderer.enabled = false;
+                break;
         }
     }
-        
-    // this schould happen every time we switch the blokcs
+
+    // this schould happen every time we switch the blocks
     public void ResetBallsCounterForDynamicDifficulty ()
     {
-
         missedHardBalls = 0;
         missedEasyBalls = 0;
         catchedHardBalls = 0;
         catchedEasyBalls = 0;
 
-    
-    }
-
-    public void onDestroy ()
-    {
-        Debug.Log("wtf");
     }
 
     public static float GetSpeedMoveScale ()
     {
-
         return moveScale;
     }
 
-    public  yellowSphereStates GetYellowState ()
+    public yellowSphereStates GetYellowState ()
     {
-
         return s;
     }
 
+
+    public float DefeatableTimeWindow { get; set; }
 }
 
 
