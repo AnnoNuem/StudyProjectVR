@@ -18,6 +18,7 @@ public class PointingScript : MonoBehaviour
     void Start ()
     {
         displaytext = GameObject.Find("Displaytext");
+        target = GameObject.Find("StartPoint").transform;
     }
 
     void Update ()
@@ -79,8 +80,7 @@ public class PointingScript : MonoBehaviour
         {
 
             recordData.recordDataParameters(1, (angleBetween).ToString());
-        }
-        else
+        } else
         {
             recordData.recordDataParameters(2, (angleBetween).ToString());
         }
