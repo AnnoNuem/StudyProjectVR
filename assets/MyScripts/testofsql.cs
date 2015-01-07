@@ -36,6 +36,8 @@ public class testofsql : MonoBehaviour
         // we connect to the data base
         mConnection = new SqliteConnection(SQL_DB_LOCATION);
         mCommand = mConnection.CreateCommand();
+        mConnection.Open();
+        //mConnection.Close();
     }
 
     public static void InitialSavingsToDB ()
@@ -50,8 +52,7 @@ public class testofsql : MonoBehaviour
             ExecuteQuerry("INSERT INTO 'Subject'('Subject_id','Subject_Number','EasyDifficultyLevel','HardDifficultyLevel') VALUES (NULL,'" + ManagerScript.chiffre + "','" + SpawnLookRed.EasyDelay.ToString() + "','" + SpawnLookRed.HardDealy.ToString() + "');");
             // Here we get his number
             // alternative code would be
-            //SUBJECT_ID = QueryInt ("SELECT Subject_id FROM Subject WHERE SUbject_Number = '" + ManagerScript.chiffre +  "'" )
-            SUBJECT_ID = QueryInt("SELECT last_insert_rowid()");
+            SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE SUbject_Number = '" + ManagerScript.chiffre + "'");
 
 
 
@@ -75,7 +76,7 @@ public class testofsql : MonoBehaviour
         if (QueryInt("SELECT EXISTS(SELECT * FROM Session WHERE Subject_id='" + SUBJECT_ID + "' AND SessionNumber='" + ManagerScript.session + "'  LIMIT 1);") == 0)
         {
 
-            ExecuteQuerry(" INSERT INTO Session (Subject_ID, DataTime, SessionNumber) VALUES ("
+            ExecuteQuerry(" INSERT INTO Session (Subject_ID, Timestamp, SessionNumber) VALUES ("
                 + "'" + SUBJECT_ID + "','"
                 + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;") + "','"
                 + ManagerScript.session + "'" + ");");
@@ -85,8 +86,7 @@ public class testofsql : MonoBehaviour
 
             // TODO stuff 
 
-        }
-        else
+        } else
         {
 
 
@@ -107,38 +107,40 @@ public class testofsql : MonoBehaviour
 
         for (int i=0; i < ManagerScript.trialList.Count - 1; i++)
         {
-            SqlComands = SqlComands + "INSERT INTO Blocklist (Session_id,Type) VALUES ("
+            SqlComands = SqlComands + "INSERT INTO Trialist (Session_id,Type) VALUES ("
                 + "'" + SESSION_ID + "','"
-                + ManagerScript.trialList[i].CondtionTypeVariableInContainer + "');";
+                + ManagerScript.trialList [i].CondtionTypeVariableInContainer + "');";
         }
-
         ExecuteBigQuerry(SqlComands);
+
         LAST_INSERTED_Triallist_ID = QueryInt("SELECT last_insert_rowid()");
         FIRST_INSERTED_Triallist_ID = LAST_INSERTED_Triallist_ID - ManagerScript.trialList.Count;
 
     }
 
-    public static void ExecuteBigQuerry ( string sqlcomands )
+    public static void ExecuteBigQuerry (string sqlcomands)
     {
         string mSQLString2 = "BEGIN; " + sqlcomands + " COMMIT;";
         mCommand.CommandText = mSQLString2;
         mConnection.Open();
+        //   Debug.Log(mSQLString2);
         mCommand.ExecuteNonQuery();
-        mConnection.Close();
+        //mConnection.Close();
     }
 
-    public static void ExecuteQuerry ( string sqlcomand )
+    public static void ExecuteQuerry (string sqlcomand)
     {
         string mSQLString2 = sqlcomand;
         mCommand.CommandText = mSQLString2;
         mConnection.Open();
+        Debug.Log(mSQLString2);
         mCommand.ExecuteNonQuery();
-        mConnection.Close();
+        //mConnection.Close();
     }
 
     // yellow spheres and blue spheres do call this function to add the proper querry
     // 
-    public void SumTheIncomingQuerriesUp ( string incomingString )
+    public void SumTheIncomingQuerriesUp (string incomingString)
     {
 
         comandSumToBeExecudedInTheEndOfEachTrial = comandSumToBeExecudedInTheEndOfEachTrial + incomingString;
@@ -147,35 +149,38 @@ public class testofsql : MonoBehaviour
     // at the end of the trial we will write the SumQurry of blue and yellow spheres 
     // still not sure how to update but maybe i can use last insert as an argument ???
     // CHECK IF YOU CAN DO THIS
-    public void ExecuteSumQuerry ( string SumQuerry )
+    public void ExecuteSumQuerry (string SumQuerry)
     {
         string mSQLString2 = "BEGIN; " + SumQuerry + " COMMIT;"; // build our new command
 
         mCommand.CommandText = mSQLString2;// assing the comand
         mConnection.Open();
         mCommand.ExecuteNonQuery();
-        mConnection.Close();
+        //mConnection.Close();
         comandSumToBeExecudedInTheEndOfEachTrial = ""; // reset the sum of commands
 
     }
 
-    public static int QueryInt ( string command )
+    public static int QueryInt (string command)
     {
         int number = 0;
 
         mCommand.CommandText = command;
+        Debug.Log(command);
         mConnection.Open();
         mReader = mCommand.ExecuteReader();
         if (mReader.Read())
             number = mReader.GetInt32(0);
         else
             Debug.Log("QueryInt - nothing to read...");
+
+
         mReader.Close();
-        mConnection.Close();
+        // mConnection.Close();
         return number;
     }
 
-    public static float QueryFloat ( string command )
+    public static float QueryFloat (string command)
     {
         float number = 0;
 
@@ -187,13 +192,13 @@ public class testofsql : MonoBehaviour
         else
             Debug.Log("QueryInt - nothing to read...");
         mReader.Close();
-        mConnection.Close();
+        //  mConnection.Close();
         return number;
     }
 
     // here we will have a function for creating trials. each time we create a trial we get its trial id and set the triallist id
 
-    public static void CreateTrial ( string StartTimeTrial, string TrialNumber, string RealTrialNumber, string Type )
+    public static void CreateTrial (string StartTimeTrial, string TrialNumber, string RealTrialNumber, string Type)
     {
         Current_Triallist_ID = FIRST_INSERTED_Triallist_ID + ManagerScript.realTrialNumber;
         ExecuteQuerry(" INSERT INTO Trial (Session_id,StartTimeTrial,Triallist_id,TrialNumber,RealTrialNumber,Type) VALUES ( "
@@ -204,11 +209,11 @@ public class testofsql : MonoBehaviour
             + RealTrialNumber + "','"
             + Type + "');");
 
-            // after we create a trial, we need to knew about it
-             CURRENT_TRIAL_ID = QueryInt("SELECT last_insert_rowid()");
+        // after we create a trial, we need to knew about it
+        CURRENT_TRIAL_ID = QueryInt("SELECT last_insert_rowid()");
     }
 
-    public void UpdateTrial ( string argument , string AbsoluteErrorAngle , string ErrorAngle , string OverShoot , string StartTimePointing , string EndTimePoining , string DurationOfPointing , string DurationOfWalking , string EndTimeTrial  )
+    public void UpdateTrial (string argument, string AbsoluteErrorAngle, string ErrorAngle, string OverShoot, string StartTimePointing, string EndTimePoining, string DurationOfPointing, string DurationOfWalking, string EndTimeTrial)
     {
         if (argument == "abort")
         {
@@ -230,74 +235,111 @@ public class testofsql : MonoBehaviour
         mConnection.Open();
 
         mCommand.ExecuteNonQuery();
-        mConnection.Close();
+        //mConnection.Close();
 
 
     }
 
-    public void CreateStressor ( string Stressors_id, string SpawnTime, string StartDefeatTime, string HowLongDefeatable, string DefeatedAtTime, string Defeated, string RotationSpeed, string ButtonToEarlyPushed, string Type, string DefeatableTimeWindow, string ReactionTime, string Trial_id, string ExplosionTime )
+    public void CreateStressor (string Stressors_id, string SpawnTime, string StartDefeatTime, string HowLongDefeatable, string DefeatedAtTime, string Defeated, string RotationSpeed, string ButtonToEarlyPushed, string Type, string DefeatableTimeWindow, string ReactionTime, string Trial_id, string ExplosionTime)
     {
         string bla = 
-                   " INSERT INTO 'Stressors' 'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime') VALUES"
-                      + "(" + "NULL" + ","
-                      + "'" + SpawnTime + "',"
-                      + "'" + StartDefeatTime + "',"
-                      + "'" + HowLongDefeatable + "',"
-                      + "'" + DefeatedAtTime + "',"
-                      + "'" + Defeated + "',"
-                      + "'" + RotationSpeed + "',"
-                      + "'" + ButtonToEarlyPushed + "',"
-                      + "'" + Type + "',"
-                      + "'" + DefeatableTimeWindow + "',"
-                      + "'" + ReactionTime + "',"
-                      + "'" + Trial_id + "',"
-                      + "'" + ExplosionTime + "');";
+                   " INSERT INTO 'Stressors' ('Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime') VALUES"
+            + "(" + "NULL" + ","
+            + "'" + SpawnTime + "',"
+            + "'" + StartDefeatTime + "',"
+            + "'" + HowLongDefeatable + "',"
+            + "'" + DefeatedAtTime + "',"
+            + "'" + Defeated + "',"
+            + "'" + RotationSpeed + "',"
+            + "'" + ButtonToEarlyPushed + "',"
+            + "'" + Type + "',"
+            + "'" + DefeatableTimeWindow + "',"
+            + "'" + ReactionTime + "',"
+            + "'" + Trial_id + "',"
+            + "'" + ExplosionTime + "');";
         ExecuteQuerry(bla);
     }
-    public void CreateWaypoint ( string Waypoints_id, string DegreeOfRespawn, string TimeWhenRespawned, string GlobalCoordinats, string TransformRotation, string NumberInTrial, string Trial_id, string reached, string TimeWhenReached )
+    public void CreateWaypoint (string Waypoints_id, string DegreeOfRespawn, string TimeWhenRespawned, string GlobalCoordinats, string TransformRotation, string NumberInTrial, string Trial_id, string reached, string TimeWhenReached)
     {
 
 
-        string bla = "INSERT INTO 'Waypoints'('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached') VALUES"
-          + "('" + Waypoints_id + "','"
-          + DegreeOfRespawn + "','"
-          + TimeWhenRespawned + "','"
-          + GlobalCoordinats + "','"
-          + TransformRotation + "','"
-          + NumberInTrial + "','"
-          + Trial_id + "','"
-          + reached + "','"
-          + TimeWhenReached + "');";
+        string bla = "INSERT INTO 'Waypoints'('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached','TimeWhenReached') VALUES"
+            + "(" + Waypoints_id + ",'"
+            + DegreeOfRespawn + "','"
+            + TimeWhenRespawned + "','"
+            + GlobalCoordinats + "','"
+            + TransformRotation + "','"
+            + NumberInTrial + "','"
+            + Trial_id + "','"
+            + reached + "','"
+            + TimeWhenReached + "');";
         ExecuteQuerry(bla);
 
 
     }
 
-    public void UpdateSession() { }
-
-    public void UpdateTriallist (){ }
-
-    public static void CreatePause (string StartTimePause, string EndTimePause ){ 
-    
-    string  mSQLString1 =   "INSERT INTO 'Pause'('trial','StartTimePause','EndTimePause') VALUES" +
-             "('" + CURRENT_TRIAL_ID + "','" 
-            +    StartTimePause + "','"     
-            +    EndTimePause + "')"  ;
-    ExecuteQuerry(mSQLString1);
+    public void UpdateSession ()
+    {
     }
 
-    public static void SetDynamicDifficulty() // each block we should update the difficulty of the subject in the data base lol 
+    public void UpdateTriallist ()
+    {
+    }
+
+    public static void CreatePause (string StartTimePause, string EndTimePause)
+    { 
+    
+        string mSQLString1 = "INSERT INTO 'Pause'('trial','StartTimePause','EndTimePause') VALUES" +
+            "('" + CURRENT_TRIAL_ID + "','" 
+            + StartTimePause + "','"     
+            + EndTimePause + "')";
+        ExecuteQuerry(mSQLString1);
+    }
+
+    public static void SetDynamicDifficulty () // each block we should update the difficulty of the subject in the data base lol
     {
         string mSQLString1 = 
-            " UPDATE 'Subject' SET 'EasyDifficultyLevel'=" + SpawnLookRed.EasyDelay.ToString() + " WHERE SUbject_Number = '" + ManagerScript.chiffre + "';" + 
+            " UPDATE 'Subject' SET 'EasyDifficultyLevel'=" + SpawnLookRed.EasyDelay.ToString() + " WHERE SUbject_Number = '" + ManagerScript.chiffre + "';";
+        string mSQLString2 = 
             " UPDATE 'Subject' SET 'HardDifficultyLevel'=" + SpawnLookRed.HardDealy.ToString() + " WHERE SUbject_Number = '" + ManagerScript.chiffre + "';";
+        ExecuteQuerry(mSQLString1);
+        ExecuteQuerry(mSQLString2);
 
-        ExecuteBigQuerry(mSQLString1);
     }
 
-    public void DynamicDifficultyEvent() {
+    public void DynamicDifficultyEvent ()
+    {
     
     
+    }
+
+
+    void OnDestroy ()
+    {
+        SQLiteClose();
+    }
+
+    void OnApplicationQuit ()
+    {
+        mConnection.Close();
+    }
+
+    /// <summary>
+    /// Clean up everything for SQLite
+    /// </summary>
+    private void SQLiteClose ()
+    {
+        if (mReader != null && !mReader.IsClosed)
+            mReader.Close();
+        mReader = null;
+    
+        if (mCommand != null)
+            mCommand.Dispose();
+        mCommand = null;
+    
+        if (mConnection != null && mConnection.State != ConnectionState.Closed)
+            mConnection.Close();
+        mConnection = null;
     }
 
    

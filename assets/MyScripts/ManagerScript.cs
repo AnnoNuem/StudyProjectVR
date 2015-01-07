@@ -57,8 +57,8 @@ public class ManagerScript : MonoBehaviour
         ManagerScript.switchState(states.startScreen);
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
-         testofsql.SQLiteInit(); // initialisation of the Data Base
-         GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor(); // dissable the stressor in the beginning
+        testofsql.SQLiteInit(); // initialisation of the Data Base
+        GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor(); // dissable the stressor in the beginning
 
     }
 
@@ -94,7 +94,7 @@ public class ManagerScript : MonoBehaviour
 
 
     // the state machine
-    public static void switchState ( states newState )
+    public static void switchState (states newState)
     {
         switch (newState)
         {
@@ -110,7 +110,7 @@ public class ManagerScript : MonoBehaviour
 
                 ManagerScript.trialINprocess = true;
 
-                trialFolder = @"C:\temp\inlusio_data\subject_" + ManagerScript.chiffre;
+                trialFolder = @"C:/temp/inlusio_data/subject_" + ManagerScript.chiffre;
 
                 if (!Directory.Exists(trialFolder))
                 {
@@ -130,7 +130,7 @@ public class ManagerScript : MonoBehaviour
 
                 }
                 testofsql.InitialSavingsToDB(); // lets create the initial savings
-                Pause.PauseBetweenBlocks(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
+                Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 switchState(states.pause);
 
                 break;
@@ -149,12 +149,11 @@ public class ManagerScript : MonoBehaviour
 
                 //Activate or deactivate the Stressor according to the current CondtionTypeVariableInContainer
                 if (ManagerScript.CondtionTypeVariableInContainer != "Explain"
-                     && ManagerScript.CondtionTypeVariableInContainer != "Dummy"
-                     && ManagerScript.CondtionTypeVariableInContainer != "Training")
+                    && ManagerScript.CondtionTypeVariableInContainer != "Dummy"
+                    && ManagerScript.CondtionTypeVariableInContainer != "Training")
                 {
                     GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().StartStressor();
-                }
-                else
+                } else
                 {
                     GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor();
                 }
@@ -180,8 +179,10 @@ public class ManagerScript : MonoBehaviour
 
                 NumberofTrialsStartet++;
 
-                if (!TrialMissed) realTrialNumber++;
-                else TrialMissed = false;
+                if (!TrialMissed)
+                    realTrialNumber++;
+                else
+                    TrialMissed = false;
 
                 //   Time.timeScale = 1;
 
@@ -190,24 +191,27 @@ public class ManagerScript : MonoBehaviour
                 //    new WaitForSeconds(2)
 
                 ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).PointFakeButton = false;
-                CondtionTypeVariableInContainer = trialList[realTrialNumber].CondtionTypeVariableInContainer;
+                CondtionTypeVariableInContainer = trialList [realTrialNumber].CondtionTypeVariableInContainer;
 
                 trialINprocess = true;
                 Time.timeScale = 0;
 
-                 testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
+                testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
 
 
-                if (trialList[realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") switchState(states.blockover);
-                else if (trialList[realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") switchState(states.end);
-                else switchState(states.walking);
+                if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER")
+                    switchState(states.blockover);
+                else if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL")
+                    switchState(states.end);
+                else
+                    switchState(states.walking);
 
                 break;
             case states.blockover:
                 ManagerScript.state = states.blockover;
-                Pause.SaveValues(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
-                 testofsql.SetDynamicDifficulty();
-                Pause.PauseBetweenBlocks(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
+                Pause.SaveValues(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
+                testofsql.SetDynamicDifficulty();
+                Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 ((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).ResetBallsCounterForDynamicDifficulty();
 
                 break;
@@ -324,7 +328,7 @@ public class ManagerScript : MonoBehaviour
                 easyBlock1.Shuffle();
                 for (int i=0; i < easyBlock1.Count - 1; i++)
                 {
-                    if (easyBlock1[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1[i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                    if (easyBlock1 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
                     {
                         duplicatePresent = true;
                         break;
@@ -358,7 +362,7 @@ public class ManagerScript : MonoBehaviour
                 hardBlock1.Shuffle();
                 for (int i=0; i < easyBlock1.Count - 1; i++)
                 {
-                    if (hardBlock1[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1[i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                    if (hardBlock1 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
                     {
                         duplicatePresent = true;
                         break;
@@ -383,8 +387,7 @@ public class ManagerScript : MonoBehaviour
 
             trialList.Add(endTrial);
 
-        }
-        else if (session == 2)
+        } else if (session == 2)
         {
 
 
@@ -400,7 +403,7 @@ public class ManagerScript : MonoBehaviour
             List<int> orderNumbers = new List<int> { 1, 2 };
             orderNumbers.Shuffle();
 
-            switch (orderNumbers[1])
+            switch (orderNumbers [1])
             {
 
                 case 1:
@@ -424,7 +427,7 @@ public class ManagerScript : MonoBehaviour
                         easyBlock1.Shuffle();
                         for (int i=0; i < easyBlock1.Count - 1; i++)
                         {
-                            if (easyBlock1[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1[i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                            if (easyBlock1 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -457,7 +460,7 @@ public class ManagerScript : MonoBehaviour
                         hardBlock1.Shuffle();
                         for (int i=0; i < hardBlock1.Count - 1; i++)
                         {
-                            if (hardBlock1[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1[i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                            if (hardBlock1 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -489,7 +492,7 @@ public class ManagerScript : MonoBehaviour
                         easyBlock2.Shuffle();
                         for (int i=0; i < easyBlock2.Count - 1; i++)
                         {
-                            if (easyBlock2[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock2[i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                            if (easyBlock2 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock2 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -523,7 +526,7 @@ public class ManagerScript : MonoBehaviour
                         hardBlock2.Shuffle();
                         for (int i=0; i < hardBlock2.Count - 1; i++)
                         {
-                            if (hardBlock2[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock2[i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                            if (hardBlock2 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock2 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -559,7 +562,7 @@ public class ManagerScript : MonoBehaviour
                         hardBlock3.Shuffle();
                         for (int i=0; i < hardBlock3.Count - 1; i++)
                         {
-                            if (hardBlock3[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock3[i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                            if (hardBlock3 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock3 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -592,7 +595,7 @@ public class ManagerScript : MonoBehaviour
                         easyBlock3.Shuffle();
                         for (int i=0; i < easyBlock3.Count - 1; i++)
                         {
-                            if (easyBlock3[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock3[i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                            if (easyBlock3 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock3 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -625,7 +628,7 @@ public class ManagerScript : MonoBehaviour
                         hardBlock4.Shuffle();
                         for (int i=0; i < hardBlock4.Count - 1; i++)
                         {
-                            if (hardBlock4[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock4[i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                            if (hardBlock4 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock4 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -657,7 +660,7 @@ public class ManagerScript : MonoBehaviour
                         easyBlock4.Shuffle();
                         for (int i=0; i < easyBlock4.Count - 1; i++)
                         {
-                            if (easyBlock4[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock4[i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                            if (easyBlock4 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock4 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -692,8 +695,7 @@ public class ManagerScript : MonoBehaviour
 
 
 
-        }
-        else if (session == 666)
+        } else if (session == 666)
         {
 
 
@@ -718,8 +720,7 @@ public class ManagerScript : MonoBehaviour
             trialList.Add(endTrial);
 
 
-        }
-        else
+        } else
             Application.Quit();
 
 
