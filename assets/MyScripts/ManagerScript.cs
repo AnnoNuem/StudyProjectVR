@@ -173,11 +173,13 @@ public class ManagerScript : MonoBehaviour
         OVRPlayerController controller = pController.GetComponent<OVRPlayerController>();
         controller.GetMoveScaleMultiplier(ref moveScale);
         Debug.Log("Value--->" + moveScale);
-        ManagerScript.switchState(states.startScreen);
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
         testofsql.SQLiteInit(); // initialisation of the Data Base
         GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor(); // dissable the stressor in the beginning
+        Debug.Log("lol");
+        ManagerScript.switchState(states.startScreen);
+        Debug.Log("lol2");
 
     }
 
@@ -225,6 +227,8 @@ public class ManagerScript : MonoBehaviour
     /// <param name="newState">The new state.</param>
     public static void switchState (states newState)
     {
+        Debug.Log(newState);
+
         switch (newState)
         {
 

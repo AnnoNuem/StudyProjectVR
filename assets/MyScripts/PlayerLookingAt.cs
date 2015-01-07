@@ -13,7 +13,6 @@
 // ***********************************************************************
 using UnityEngine;
 using URandom;
-using System.Collections;
 
 /// <summary>
 /// Class PlayerLookingAt.
@@ -125,11 +124,11 @@ public class PlayerLookingAt : MonoBehaviour
     /// <summary>
     /// The time when respawned
     /// </summary>
-private  string TimeWhenRespawned;
+    private  string TimeWhenRespawned;
 /// <summary>
 /// The time when reached
 /// </summary>
-private  string TimeWhenReached;
+    private  string TimeWhenReached;
 
 
 /// <summary>
@@ -191,10 +190,8 @@ private  string TimeWhenReached;
                 HideAndMove();
             }
 
-        } //else
-        //{
-        //    renderer.enabled = false;
-        //}
+        } else
+
 
     }
 
@@ -247,85 +244,84 @@ private  string TimeWhenReached;
             {
                 point();
 
-            }
-            else { 
+            } else
+            { 
 
-            // spanning random at 30 60 90 degrees left or right
-            switch ((numbers [ManagerScript.realTrialNumber]))
-            {
+                // spanning random at 30 60 90 degrees left or right
+                switch ((numbers [ManagerScript.realTrialNumber]))
+                {
 
-            // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
-            // lets try it with 10 degree in total
-                case 1:
-                    left = false;
+                // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
+                // lets try it with 10 degree in total
+                    case 1:
+                        left = false;
                     //DegreeOfSpawn = 90;
-                    DegreeOfSpawn = urand.Range(85, 95, UnityRandom.Normalization.STDNORMAL, 1.0f);
-                    break;
-                case 2:
-                    left = false;
+                        DegreeOfSpawn = urand.Range(85, 95, UnityRandom.Normalization.STDNORMAL, 1.0f);
+                        break;
+                    case 2:
+                        left = false;
                     //DegreeOfSpawn = 60 ;
-                    DegreeOfSpawn = urand.Range(55, 65, UnityRandom.Normalization.STDNORMAL, 1.0f);
-                    break;
-                case 3:
-                    left = false;
+                        DegreeOfSpawn = urand.Range(55, 65, UnityRandom.Normalization.STDNORMAL, 1.0f);
+                        break;
+                    case 3:
+                        left = false;
                     //DegreeOfSpawn = 30 ;
-                    DegreeOfSpawn = urand.Range(25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
-                    break;
-                case 4:
-                    left = true;
-                    DegreeOfSpawn = urand.Range(85, 95, UnityRandom.Normalization.STDNORMAL, 1.0f);
-                    break;
-                case 5:
-                    left = true;
-                    DegreeOfSpawn = urand.Range(55, 65, UnityRandom.Normalization.STDNORMAL, 1.0f);
-                    break;
-                case 6:
-                    left = true;
-                    DegreeOfSpawn = urand.Range(25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
-                    break;
-            }
+                        DegreeOfSpawn = urand.Range(25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
+                        break;
+                    case 4:
+                        left = true;
+                        DegreeOfSpawn = urand.Range(85, 95, UnityRandom.Normalization.STDNORMAL, 1.0f);
+                        break;
+                    case 5:
+                        left = true;
+                        DegreeOfSpawn = urand.Range(55, 65, UnityRandom.Normalization.STDNORMAL, 1.0f);
+                        break;
+                    case 6:
+                        left = true;
+                        DegreeOfSpawn = urand.Range(25, 35, UnityRandom.Normalization.STDNORMAL, 1.0f);
+                        break;
+                }
 
-            // here depending on the conditon, we rotate the spehre and move it forward
-            if (left)
-            {
-                ManagerScript.CurrentOrientation = 0;
+                // here depending on the conditon, we rotate the spehre and move it forward
+                if (left)
+                {
+                    ManagerScript.CurrentOrientation = 0;
   
-                transform.Rotate(0, 360 - DegreeOfSpawn, 0, Space.Self);
+                    transform.Rotate(0, 360 - DegreeOfSpawn, 0, Space.Self);
 
-                transform.localPosition += transform.forward * (float)spawnDistance;
-                displaytext.GetComponent<TextMesh>().text = "<--";
-                Invoke("clearGUItext", 0.5f);
-                HowOftenTurnedLeft++;
+                    transform.localPosition += transform.forward * (float)spawnDistance;
+                    displaytext.GetComponent<TextMesh>().text = "<--";
+                    Invoke("clearGUItext", 0.5f);
+                    HowOftenTurnedLeft++;
 
-            } else //right
-            {
-                ManagerScript.CurrentOrientation = 1;
-                //BAAAAD	transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z); // NOOOT WORKING 
-                transform.Rotate(0, DegreeOfSpawn, 0, Space.Self);
+                } else //right
+                {
+                    ManagerScript.CurrentOrientation = 1;
+                    //BAAAAD	transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z); // NOOOT WORKING 
+                    transform.Rotate(0, DegreeOfSpawn, 0, Space.Self);
 
-                transform.localPosition += transform.forward * (float)spawnDistance;
-                displaytext.GetComponent<TextMesh>().text = "-->";
-                Invoke("clearGUItext", 0.5f);
-                HowOftenTurnedRight++;
-            }
+                    transform.localPosition += transform.forward * (float)spawnDistance;
+                    displaytext.GetComponent<TextMesh>().text = "-->";
+                    Invoke("clearGUItext", 0.5f);
+                    HowOftenTurnedRight++;
+                }
 
-            renderer.enabled = true;
+                renderer.enabled = true;
 
-            // call function if user takes to long to get to blue sphere
-            Invoke("toLong", timeToGetToBlueSphere);
+                // call function if user takes to long to get to blue sphere
+                Invoke("toLong", timeToGetToBlueSphere);
 
-            hiding = false;
+                hiding = false;
    
-            ManagerScript.generatedAngle = DegreeOfSpawn;
+                ManagerScript.generatedAngle = DegreeOfSpawn;
 
-            TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
-            ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "1", TimeWhenReached);
+                ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "1", TimeWhenReached);
 
-            TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
             }
-        }
-        else
+        } else
         {
             hiding = true;
             renderer.enabled = false;
@@ -345,7 +341,6 @@ private  string TimeWhenReached;
         // count how often we miss
         CounterForMissedTrials++;
 
-        //('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached')
         ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", "999", "0", transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0", "NULL");
 
         ManagerScript.abortTrial();

@@ -283,8 +283,7 @@ public class SpawnLookRed : MonoBehaviour
                     move();
                     break;
             }
-        }
-        else
+        } else
         {
             renderer.enabled = false;
             displaytext.GetComponent<TextMesh>().text = "";
@@ -414,8 +413,7 @@ public class SpawnLookRed : MonoBehaviour
 
             durationOfResponsePeriod = EasyDelay + (Random.Range(1f, 200)) / 1000;
             rotationSpeed = rotationSpeedEasy;
-        }
-        else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False")
+        } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False")
         {
             durationOfResponsePeriod = HardDealy + (Random.Range(1f, 100)) / 1000;
             rotationSpeed = rotationSpeedHard;
@@ -508,7 +506,7 @@ public class SpawnLookRed : MonoBehaviour
     /// </summary>
     /// <param name="sec">The sec.</param>
     /// <returns>IEnumerator.</returns>
-    IEnumerator stunForSeconds ( int sec )
+    IEnumerator stunForSeconds (int sec)
     {
 
         xcontroller.SetMoveScaleMultiplier(0.0f);
@@ -545,7 +543,7 @@ public class SpawnLookRed : MonoBehaviour
     /// Switches the state.
     /// </summary>
     /// <param name="newState">The new state.</param>
-    void switchState ( yellowSphereStates newState )
+    void switchState (yellowSphereStates newState)
     {
         displaytext.GetComponent<TextMesh>().text = "";
         Debug.Log(newState);
@@ -579,8 +577,7 @@ public class SpawnLookRed : MonoBehaviour
                 if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                 {
                     missedEasyBalls++;
-                }
-                else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
                 {
                     missedHardBalls++;
                 }
@@ -593,8 +590,7 @@ public class SpawnLookRed : MonoBehaviour
                 if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                 {
                     catchedEasyBalls++;
-                }
-                else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
                 {
                     catchedHardBalls++;
                 }
@@ -664,9 +660,9 @@ public class SpawnLookRed : MonoBehaviour
     /// </summary>
     /// <param name="EasyDifficultyLevel">The easy difficulty level.</param>
     /// <param name="HardDifficultyLevel">The hard difficulty level.</param>
-    internal static void SetDinamicDifficultyFromLastSession ( float EasyDifficultyLevel, float HardDifficultyLevel )
+    internal static void SetDinamicDifficultyFromLastSession (float EasyDifficultyLevel, float HardDifficultyLevel)
     {
-        HardDealy = HardDifficultyLevel ;
+        HardDealy = HardDifficultyLevel;
         EasyDelay = EasyDifficultyLevel;
     }
 }

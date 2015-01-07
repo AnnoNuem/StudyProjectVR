@@ -12,12 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 using UnityEngine;
-using System.Collections;
-using URandom;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.IO;
 
 
@@ -106,7 +103,7 @@ public class Pause : VRGUI
         // evalute if pause key is pressed if yes switch state to pause or to state before pause
         if (FakePauseButton || Input.GetKeyDown(pausekey) || Input.GetButtonDown("360controllerButtonStart"))
         {
-            if (paused )
+            if (paused)
             { 
                 ManagerScript.TrialMissed = true; // the trial is not saved as succeded. later you can see wich trial got paused lol
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
@@ -120,9 +117,7 @@ public class Pause : VRGUI
 
                 }
 
-            }
-
-            else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
+            } else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
             {
                 paused = true;
                 ManagerScript.switchState(ManagerScript.states.pause);
@@ -162,8 +157,7 @@ public class Pause : VRGUI
             GUILayout.Label(PointingScript.avarageError + " " + "your avarage error angle ");
             GUILayout.EndVertical();
             GUILayout.EndArea();
-        }
-        else
+        } else
         {
             GUI.enabled = false;
         }
@@ -203,7 +197,7 @@ public class Pause : VRGUI
     /// Pauses the between blocks.
     /// </summary>
     /// <param name="NextBlockType">Type of the next block.</param>
-    public static void PauseBetweenBlocks ( string NextBlockType )
+    public static void PauseBetweenBlocks (string NextBlockType)
     {
         paused = true;
         if (NextBlockType.Contains("Easy") || NextBlockType.Contains("Easy-False"))
@@ -245,7 +239,7 @@ public class Pause : VRGUI
     /// Saves the values.
     /// </summary>
     /// <param name="NextBlockType123">The next block type123.</param>
-    public static void SaveValues ( string NextBlockType123 )
+    public static void SaveValues (string NextBlockType123)
     {
 
         string path123 = ManagerScript.trialFolder + "/SubjectScores.csv";

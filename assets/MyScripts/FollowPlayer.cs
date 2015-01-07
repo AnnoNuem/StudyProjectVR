@@ -12,7 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// Class FollowPlayer. Intended for the Stars
@@ -20,25 +19,28 @@ using System.Collections;
 /// Without this, one could just attach the stars to the player. But than they rotate with him, which is unwanted. 
 /// 
 /// </summary>
-public class FollowPlayer : MonoBehaviour {
+public class FollowPlayer : MonoBehaviour
+{
 
     /// <summary>
     /// The character
     /// </summary>
-	private Transform character;
-	// Use this for initialization
+    private Transform character;
+    // Use this for initialization
     /// <summary>
     /// Starts this instance.
     /// </summary>
-	void Start () {
-		character = GameObject.Find ("OVRPlayerController").transform;
-	}
+    void Start ()
+    {
+        character = GameObject.Find("OVRPlayerController").transform;
+    }
 	
-	// Update is called once per frame
+    // Update is called once per frame
     /// <summary>
     /// Updates this instance.
     /// </summary>
-	void Update () {
-		this.transform.position = character.position;	
-	}
+    void Update ()
+    {
+        this.transform.position = character.position;	
+    }
 }
