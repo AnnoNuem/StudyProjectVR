@@ -78,6 +78,7 @@ public class PlayerLookingAt : MonoBehaviour
             if (Physics.Raycast(rayStart, rayDirection, out hit, length) && hit.collider.tag == "blueball")
             {
                 timer += Time.deltaTime;
+                Debug.Log("option 1");
             } else
             {
                 timer = 0.0f;
@@ -85,14 +86,14 @@ public class PlayerLookingAt : MonoBehaviour
 
             if (!hiding && Vector3.Distance(cameraTransform.position, transform.position) < moveDistance && timer > 0.5)
             {
-              
+                Debug.Log("option 3");
                 HideAndMove();
             }
 
-        } else
-        {
-            renderer.enabled = false;
-        }
+        } //else
+        //{
+        //    renderer.enabled = false;
+        //}
 
     }
 
