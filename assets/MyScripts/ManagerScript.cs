@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // ***********************************************************************
 // Assembly         : Assembly-CSharp
 // Author           : razial
@@ -11,6 +12,15 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+=======
+/* 
+ * This script manages and keeps global values and other scripts
+ * relie on this for different variables and functions.
+ * Also has a state machine defining the state of the trial
+ */
+
+
+>>>>>>> origin/MySqlImplimentation2
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -38,6 +48,7 @@ public class ManagerScript : MonoBehaviour
     /// The generated angle
     /// </summary>
     public static float generatedAngle;
+
     // states for state machine to describe in which experiment state we are
     /// <summary>
     /// Enum states
@@ -264,7 +275,6 @@ public class ManagerScript : MonoBehaviour
                 ManagerScript.state = states.walking;
 
                 ((PlayerLookingAt)(GameObject.Find("BlueBallGLow").GetComponent("PlayerLookingAt"))).newTrial();
-                ((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).NewTrial();
 
                 //Activate or deactivate the Stressor according to the current CondtionTypeVariableInContainer
                 if (ManagerScript.CondtionTypeVariableInContainer != "Explain"

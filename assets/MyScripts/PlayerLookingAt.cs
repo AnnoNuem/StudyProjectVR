@@ -14,7 +14,6 @@
 using UnityEngine;
 using URandom;
 using System.Collections;
-using UnityEngine;
 
 /// <summary>
 /// Class PlayerLookingAt.
@@ -123,6 +122,7 @@ public class PlayerLookingAt : MonoBehaviour
     /// The randvalue
     /// </summary>
     float randvalue = 0;
+<<<<<<< HEAD
     /// <summary>
     /// The time when respawned
     /// </summary>
@@ -131,6 +131,10 @@ private  string TimeWhenRespawned;
 /// The time when reached
 /// </summary>
 private  string TimeWhenReached;
+=======
+    private  string TimeWhenRespawned;
+    private  string TimeWhenReached;
+>>>>>>> origin/MySqlImplimentation2
 
 /// <summary>
 /// Awakes this instance.
@@ -158,7 +162,7 @@ private  string TimeWhenReached;
         {
             myInt++;
             randvalue = thebag.Next();
-            numbers[myInt] = (int)(randvalue);
+            numbers [myInt] = (int)(randvalue);
         }
     }
 
@@ -178,24 +182,23 @@ private  string TimeWhenReached;
 
             if (Physics.Raycast(rayStart, rayDirection, out hit, length) && hit.collider.tag == "blueball")
             {
-                    timer += Time.deltaTime;
-            }
-            else
+                timer += Time.deltaTime;
+                Debug.Log("option 1");
+            } else
             {
                 timer = 0.0f;
             }
 
             if (!hiding && Vector3.Distance(cameraTransform.position, transform.position) < moveDistance && timer > 0.5)
             {
-              
-                    HideAndMove();
+                Debug.Log("option 3");
+                HideAndMove();
             }
 
-        }
-        else
-        {
-            renderer.enabled = false;
-        }
+        } //else
+        //{
+        //    renderer.enabled = false;
+        //}
 
     }
 
@@ -207,7 +210,7 @@ private  string TimeWhenReached;
 
         OVRManager.display.RecenterPose();
         DegreeOfSpawn = 0;
-       // r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
+        // r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
         rayDirection = cameraTransform.TransformDirection(Vector3.forward);
         pos_blue.x = cameraTransform.position.x + spawnDistance * rayDirection.x;
         pos_blue.y = (float)HowHighObjectRespawns;
@@ -254,12 +257,12 @@ private  string TimeWhenReached;
             }
 
             // spanning random at 30 60 90 degrees left or right
-            switch ((numbers[ManagerScript.realTrialNumber]))
+            switch ((numbers [ManagerScript.realTrialNumber]))
             {
 
 
-                // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
-                // lets try it with 10 degree in total
+            // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
+            // lets try it with 10 degree in total
                 case 1:
                     left = false;
                     //DegreeOfSpawn = 90;
@@ -302,8 +305,7 @@ private  string TimeWhenReached;
                 Invoke("clearGUItext", 0.5f);
                 HowOftenTurnedLeft++;
 
-            }
-            else //right
+            } else //right
             {
                 ManagerScript.CurrentOrientation = 1;
                 //BAAAAD	transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z); // NOOOT WORKING 
@@ -333,9 +335,9 @@ private  string TimeWhenReached;
 
             ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "1", TimeWhenReached);
 
-        //    ('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached')
+            //    ('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached')
        
-       TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+            TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
         }
     }
@@ -353,7 +355,7 @@ private  string TimeWhenReached;
         CounterForMissedTrials++;
 
         //('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached')
-        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", "999", "0", transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0" , "NULL");
+        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", "999", "0", transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0", "NULL");
 
         ManagerScript.abortTrial();
 
