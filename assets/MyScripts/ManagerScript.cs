@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+
 
 public class ManagerScript : MonoBehaviour
 {
@@ -16,7 +18,9 @@ public class ManagerScript : MonoBehaviour
         pointing,
         blockover,
         pause,
-        end
+        end,
+        start,
+        NewTrial
     }
 
     // chiffre for identification, can be changed in start screen
@@ -38,7 +42,7 @@ public class ManagerScript : MonoBehaviour
     static bool duplicatePresent = true;
     public static int abortedTrials = 0;
     public static int CurrentOrientation; // 0 is for left , 1 is for right
-    public static bool  TrialMissed = true;
+    public static bool  TrialMissed = false;
     public static bool temp123 = false;
     public static int realTrialNumber = 1;// can repeat !!! (increeases with every succesfull trial ... )
     public static int NumberofTrialsStartet = 0;// this increase with every start of a trial. so this number will represent the current database number of the trial
@@ -53,6 +57,8 @@ public class ManagerScript : MonoBehaviour
         ManagerScript.switchState(states.startScreen);
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
+         testofsql.SQLiteInit(); // initialisation of the Data Base
+         GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor(); // dissable the stressor in the beginning
 
     }
 
@@ -78,104 +84,84 @@ public class ManagerScript : MonoBehaviour
         CameraFade.StartAlphaFade(Color.black, false, 2f, 0f); // why we need this again ?
         new WaitForSeconds(2);
         Time.timeScale = 1;
-        TrialMissed = false;
-        newTrial();
+        TrialMissed = true;
+        ManagerScript.switchState(states.NewTrial);
+
         abortedTrials++;
         unStun();
     }
 
-    public static void newTrial ()
-    {
-        if (ManagerScript.getState() != ManagerScript.states.end)
-        {
 
-            NumberofTrialsStartet++;
-
-            if (TrialMissed)
-            {
-                realTrialNumber++;
-            }
-
-
-            ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).CancelInvoke("toLongPoint");
-            Time.timeScale = 1;
-
-            timetoPointingStage = 0.0f;
-            pointingTime = 0.0f;
-            new WaitForSeconds(2);
-
-            ((recordCoordinates)(GameObject.Find("OVRCameraRig").GetComponent("recordCoordinates"))).PointFakeButton = false;
-
-            // this is highly used
-            CondtionTypeVariableInContainer = trialList[realTrialNumber].CondtionTypeVariableInContainer;
-
-            trialINprocess = true;
-            Time.timeScale = 0;
-
-        }
-        if (trialList[realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER")
-        {
-            Pause.PauseBetweenStates(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
-            switchState(states.blockover);
-            // so the previous balls do not affect anything !!!
-            // TODO check if it is working 
-            ((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).ResetBallsCounterForDynamicDifficulty();
-
-        }
-        else if (trialList[realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL")
-        {
-
-            string temp1 = "EXPOVER";
-            Pause.PauseBetweenStates(temp1);
-            switchState(states.end);
-        }
-        else
-        {
-            switchState(states.walking);
-            //Activate or deactivate the Stressor according to the current CondtionTypeVariableInContainer
-            if (ManagerScript.CondtionTypeVariableInContainer != "Explain"
-                 && ManagerScript.CondtionTypeVariableInContainer != "Dummy"
-                 && ManagerScript.CondtionTypeVariableInContainer != "Training")
-            {
-                GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().StartStressor();
-                // we switch the state of the Stressor to start
-            }
-            else
-            {
-                GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor();
-                // we switch the state of the Stressor to stop
-            }
-        }
-        //          ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartNewTrialSQL();
-
-    }
 
     // the state machine
     public static void switchState ( states newState )
     {
         switch (newState)
         {
-            //start screen
+
             case states.startScreen:
                 Time.timeScale = 1;
                 ManagerScript.state = states.startScreen;
                 break;
-            //walkig
+
+            case states.start:
+                ManagerScript.state = states.start;
+
+
+                ManagerScript.trialINprocess = true;
+
+                trialFolder = @"C:\temp\inlusio_data\subject_" + ManagerScript.chiffre;
+
+                if (!Directory.Exists(trialFolder))
+                {
+                    Directory.CreateDirectory(trialFolder);
+                }
+
+                recordData.recordDataParametersInit();
+                generateTrials();
+
+                // lets activate debugging here, bad style but i am unedr time pressure
+                if (StartMenu3dGui.debugg == 1)
+                {
+                    // the rotation needs to be shut down
+                    GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = false;
+                    // we need to enable the debugger
+                    GameObject.Find("OVRCameraController").GetComponent<DebugPlayer>().enabled = true;
+
+                }
+                testofsql.InitialSavingsToDB(); // lets create the initial savings
+                Pause.PauseBetweenBlocks(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
+                switchState(states.pause);
+
+                break;
             case states.walking:
+                Debug.Log("in switch state new walking");
+
                 recordData.recordDataSmallspread("PF", "");
-                // here goes the code for the subject position reset and rotation reset to the starting point
-                GameObject.Find("OVRPlayerController").transform.position = GameObject.Find("StartPoint").transform.position;
-                GameObject.Find("OVRPlayerController").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
-                GameObject.FindWithTag("OVRcam").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
-                GameObject.Find("OVRPlayerController").transform.position = GameObject.Find("StartPoint").transform.position;
-                GameObject.Find("BlueBallGLow").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
+                
+                ResetPositionRorationPlayerWaypoint();
+                
                 Time.timeScale = 1;
                 ManagerScript.state = states.walking;
+
                 ((PlayerLookingAt)(GameObject.Find("BlueBallGLow").GetComponent("PlayerLookingAt"))).newTrial();
                 ((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).NewTrial();
+
+                //Activate or deactivate the Stressor according to the current CondtionTypeVariableInContainer
+                if (ManagerScript.CondtionTypeVariableInContainer != "Explain"
+                     && ManagerScript.CondtionTypeVariableInContainer != "Dummy"
+                     && ManagerScript.CondtionTypeVariableInContainer != "Training")
+                {
+                    GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().StartStressor();
+                }
+                else
+                {
+                    GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor();
+                }
                 break;
 
             case states.pause:
+
                 recordData.recordDataSmallspread("P", "");
                 Time.timeScale = 0;
                 ManagerScript.state = states.pause;
@@ -188,16 +174,61 @@ public class ManagerScript : MonoBehaviour
                 ManagerScript.state = states.pointing;
                 break;
 
+            case states.NewTrial:
+                ManagerScript.state = states.NewTrial;
+
+
+                NumberofTrialsStartet++;
+
+                if (!TrialMissed) realTrialNumber++;
+                else TrialMissed = false;
+
+                //   Time.timeScale = 1;
+
+                timetoPointingStage = 0.0f;
+                pointingTime = 0.0f;
+                //    new WaitForSeconds(2)
+
+                ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).PointFakeButton = false;
+                CondtionTypeVariableInContainer = trialList[realTrialNumber].CondtionTypeVariableInContainer;
+
+                trialINprocess = true;
+                Time.timeScale = 0;
+
+                 testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
+
+
+                if (trialList[realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER") switchState(states.blockover);
+                else if (trialList[realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL") switchState(states.end);
+                else switchState(states.walking);
+
+                break;
             case states.blockover:
                 ManagerScript.state = states.blockover;
                 Pause.SaveValues(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
+                 testofsql.SetDynamicDifficulty();
+                Pause.PauseBetweenBlocks(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
+                ((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).ResetBallsCounterForDynamicDifficulty();
+
                 break;
 
             case states.end:
                 ManagerScript.state = states.end;
+                Pause.PauseBetweenBlocks("EXPOVER");
+                Pause.displayText = "--Fine--\nAll trials completed.\n";
+                Time.timeScale = 0;
                 break;
         }
 
+    }
+
+    private static void ResetPositionRorationPlayerWaypoint ()
+    {
+        GameObject.Find("OVRPlayerController").transform.position = GameObject.Find("StartPoint").transform.position;
+        GameObject.Find("OVRPlayerController").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
+        GameObject.FindWithTag("OVRcam").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
+        GameObject.Find("OVRPlayerController").transform.position = GameObject.Find("StartPoint").transform.position;
+        GameObject.Find("BlueBallGLow").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
     }
 
     static void stun ()
@@ -217,12 +248,6 @@ public class ManagerScript : MonoBehaviour
     public static states getState ()
     {
         return state;
-    }
-
-    public static void PauseInTheBeginning ()
-    {
-        Pause.PauseBetweenStates(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
-        switchState(states.pause);
     }
 
     public static void generateTrials ()

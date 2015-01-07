@@ -21,9 +21,6 @@ public static class recordData
             ManagerScript.parameterFile = filePath;
         }
 
-
-//          ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).StartSavingSQL();
-
     }
         
     //records the paramters
@@ -76,7 +73,7 @@ public static class recordData
                         ManagerScript.timetoPointingStage.ToString(),
                         ManagerScript.pointingTime.ToString(),
                         ManagerScript.abortedTrials.ToString(),
-                        recordCoordinates.avarageError.ToString(),
+                        PointingScript.avarageError.ToString(),
                         conditionVal,
                         ManagerScript.CurrentOrientation.ToString(),
                         error,
@@ -128,7 +125,7 @@ public static class recordData
         {
             statusVal = "2";
         }
-
+        
         //putting values for column in csv
         string[][] output = new string[][]{
                     new string[]{

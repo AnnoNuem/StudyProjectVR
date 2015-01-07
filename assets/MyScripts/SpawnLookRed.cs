@@ -24,8 +24,8 @@ public class SpawnLookRed : MonoBehaviour
     int missedEasyBalls = 0;
     int catchedHardBalls = 0;
     int catchedEasyBalls = 0;
-    float EasyDelay = 0.500f;
-    float HardDealy = 0.300f;
+    public static float EasyDelay = 0.500f;
+    public static float HardDealy = 0.300f;
     //stuff for vibrating
     bool playerIndexSet = false;
     PlayerIndex playerIndex;
@@ -72,7 +72,7 @@ public class SpawnLookRed : MonoBehaviour
         xcontroller = pxController.GetComponent<OVRPlayerController>();
         xcontroller.GetMoveScaleMultiplier(ref moveScale);
         urand = new UnityRandom((int)System.DateTime.Now.Ticks);
-        switchState(yellowSphereStates.hidden);
+        renderer.enabled = false;
     }
 
     void Update ()
@@ -95,28 +95,14 @@ public class SpawnLookRed : MonoBehaviour
                     if (FakePress || (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB")) && !keyPressedToEarly)
                     {
                         switchState(yellowSphereStates.defeatedInTime);
-                        Pause.ChangeNumberOfYellowDefeted();
-                        FakePress = false;
-
-                        if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
-                        {
-                            catchedEasyBalls++;
-                        }
-                        else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
-                        {
-                            catchedHardBalls++;
-                        }
-
-                        
-                    
                         
                     }
                     break;
 
                 case yellowSphereStates.notDefeatedInTime:
-                    if (FakePress || (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB")) && !keyPressedToEarly) {
+                    if (FakePress || (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB")) && !keyPressedToEarly)
+                    {
                         ReactionTime = Time.time;
-
                     }
 
                     move();
@@ -136,7 +122,7 @@ public class SpawnLookRed : MonoBehaviour
         switchState(yellowSphereStates.defeatable);
         StartDefeatTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
         StartDefeatTimeFloat = Time.time;
-        DefeatableTimeWindow =Time.time + durationOfResponsePeriod;
+        DefeatableTimeWindow = Time.time + durationOfResponsePeriod;
     }
 
     private void NotDefeatedInTime ()
@@ -239,24 +225,10 @@ public class SpawnLookRed : MonoBehaviour
         recordData.recordDataSmallspread("M", "");
         ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
-        string bla =
-       " INSERT INTO 'Stressors' 'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime') VALUES"
-  + "(" + "NULL" + ","
-  + "'" + SpawnTime + "',"
-  + "'" + StartDefeatTime + "',"
-  + "'" + durationOfResponsePeriod + "',"
-  + "NULL" + ","
-  + "'" + 0 + "',"
-  + "'" + rotationSpeed + "',"
-  + "'" + keyPressedToEarly + "',"
-  + "'" + ManagerScript.CondtionTypeVariableInContainer + "',"
-  + "'" + DefeatableTimeWindow + "',"
-  + "'" + ReactionTime + "',"
-  + "'" + testofsql.CURRENT_TRIAL_ID + "',"
-  + "'" + ExplosionTime+ "'" + ");" ;
 
-        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).ExecuteQuerry(bla);
-        
+        //'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime')
+        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateStressor("NULL", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "NULL", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer.ToString(), DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime.ToString());
+
 
     }
 
@@ -267,23 +239,9 @@ public class SpawnLookRed : MonoBehaviour
         TimeOfDefeat = Time.time;
         ReactionTime = StartDefeatTimeFloat - TimeOfDefeat;
 
-        string bla =  " INSERT INTO 'Stressors' 'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime') VALUES"
-          + "(" + "NULL" + ","
-          + "'" + SpawnTime + "',"
-          + "'" + StartDefeatTime + "',"
-          + "'" + durationOfResponsePeriod + "',"
-          + "'" + DefeatedAtTime + "',"
-          + "'" + 1 + "',"
-          + "'" + rotationSpeed + "',"
-          + "'" + keyPressedToEarly + "',"
-          + "'" + ManagerScript.CondtionTypeVariableInContainer + "',"
-          + "'" + DefeatableTimeWindow + "',"
-          + "'" + ReactionTime + "',"
-          + "'" + testofsql.CURRENT_TRIAL_ID + "',"
-                    + "NULL" + ");" ;
 
-        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).ExecuteQuerry(bla);
-
+        //'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime')
+        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateStressor("NULL", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), DefeatedAtTime.ToString(), "1", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer.ToString(), DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "NULL");
     }
 
     void startExp ()
@@ -401,6 +359,19 @@ public class SpawnLookRed : MonoBehaviour
                 break;
             case yellowSphereStates.defeatedInTime:
                 s = yellowSphereStates.defeatedInTime;
+
+                if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
+                {
+                    catchedEasyBalls++;
+                }
+                else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                {
+                    catchedHardBalls++;
+                }
+
+                Pause.ChangeNumberOfYellowDefeted();
+                FakePress = false;
+
                 DataSavingAfterDefeate();
                 switchState(yellowSphereStates.hidden);
                 break;
@@ -440,6 +411,14 @@ public class SpawnLookRed : MonoBehaviour
 
 
     public float DefeatableTimeWindow { get; set; }
+
+
+    // this function is executed by the testofsql stuff, in case we need to revive the old stats from the previos session of the sama player
+    internal static void SetDinamicDifficultyFromLastSession ( float EasyDifficultyLevel, float HardDifficultyLevel )
+    {
+        HardDealy = HardDifficultyLevel ;
+        EasyDelay = EasyDifficultyLevel;
+    }
 }
 
 

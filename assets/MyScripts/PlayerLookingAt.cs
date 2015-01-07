@@ -14,15 +14,13 @@ public class PlayerLookingAt : MonoBehaviour
 
     // time a user has to reach the next blue sphere
     int timeToGetToBlueSphere = 8; // was 20, fixed it =(
-
+    
     // for looking at check
     private Rect centerRect;
 
     // lets force playber to look 1 second at the blue light
     private float timer = 0.0f;
     GameObject displaytext;
-    // variable to count how often the ball is looked at
-    int HowOftenIsLookedAt = 0;
     float spawnDistance = 40.0f; // How far away to spawn
     double moveDistance = 15.0;   // How close can the character get
     private bool hiding = false; // for inner logic
@@ -41,12 +39,15 @@ public class PlayerLookingAt : MonoBehaviour
 
     float randvalue = 0;
 private  string TimeWhenRespawned;
+private  string TimeWhenReached;
 
     void Awake ()
     {
         cameraTransform = GameObject.FindWithTag("OVRcam").transform;
         displaytext = GameObject.Find("Displaytext");
     }
+
+  
 
     void Start ()
     {
@@ -55,9 +56,7 @@ private  string TimeWhenRespawned;
         urand = new UnityRandom((int)System.DateTime.Now.Ticks);
         float[] shufflebag = { 1, 2, 3, 4, 5, 6, };
         ShuffleBagCollection<float> thebag = urand.ShuffleBag(shufflebag);
-
         int myInt = 0;
-
         while (myInt < 9000)
         {
             myInt++;
@@ -72,46 +71,40 @@ private  string TimeWhenRespawned;
         RaycastHit hit;
         rayDirection = cameraTransform.TransformDirection(Vector3.forward);
         Vector3 rayStart = cameraTransform.position + rayDirection;      // Start the ray away from the player to avoid hitting itself
-
         Debug.DrawRay(rayStart, rayDirection * length, Color.green);
 
-        if (ManagerScript.getState() == ManagerScript.states.walking || ManagerScript.getState() == ManagerScript.states.pointing)
+        if (ManagerScript.getState() == ManagerScript.states.walking)
         {
 
-            if (Physics.Raycast(rayStart, rayDirection, out hit, length))
+            if (Physics.Raycast(rayStart, rayDirection, out hit, length) && hit.collider.tag == "blueball")
             {
-                if (hit.collider.tag == "blueball")
-                {
-                    //Debug.Log ("Gazed at");
                     timer += Time.deltaTime;
-
-                }
             }
             else
             {
                 timer = 0.0f;
             }
 
-            if (!hiding && Vector3.Distance(cameraTransform.position, transform.position) < moveDistance)
+            if (!hiding && Vector3.Distance(cameraTransform.position, transform.position) < moveDistance && timer > 0.5)
             {
-                if (timer > 0.5)
-                {
+              
                     HideAndMove();
-
-                }
             }
 
+        }
+        else
+        {
+            renderer.enabled = false;
         }
 
     }
 
     public void newTrial ()
     {
-        //this did not work anymore
-        //OVRDevice.ResetOrientation ();
+
         OVRManager.display.RecenterPose();
         DegreeOfSpawn = 0;
-        //				r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
+       // r = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
         rayDirection = cameraTransform.TransformDirection(Vector3.forward);
         pos_blue.x = cameraTransform.position.x + spawnDistance * rayDirection.x;
         pos_blue.y = (float)HowHighObjectRespawns;
@@ -204,7 +197,7 @@ private  string TimeWhenRespawned;
                 HowOftenTurnedLeft++;
 
             }
-            else
+            else //right
             {
                 ManagerScript.CurrentOrientation = 1;
                 //BAAAAD	transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(DegreeOfSpawn), transform.eulerAngles.z); // NOOOT WORKING 
@@ -229,10 +222,12 @@ private  string TimeWhenRespawned;
        
             ManagerScript.generatedAngle = DegreeOfSpawn;
 
+            TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
-        //  // SQL for the respawned speheres
-        string bla = "INSERT INTO 'Waypoints'('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached') VALUES" + "(NULL,'" +DegreeOfSpawn +"','" + TimeWhenRespawned +  "','" + transform.position.ToString() +"','"+ transform.rotation.ToString() + "','"+numberOfSpheresReached+"','"+testofsql.CURRENT_TRIAL_ID+"','"+"1"+"');";
-       ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).ExecuteQuerry(bla);
+
+            ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "1", TimeWhenReached);
+
+        //    ('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached')
        
        TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
@@ -248,9 +243,9 @@ private  string TimeWhenRespawned;
         // count how often we miss
         CounterForMissedTrials++;
 
-        //  // SQL for the respawned speheres
-        string bla = "INSERT INTO 'Waypoints'('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached') VALUES" + "(NULL,'" + 999 + "','" + 0 + "','" + transform.position.ToString() + "','" + transform.rotation.ToString() + "','" + numberOfSpheresReached + "','" + testofsql.CURRENT_TRIAL_ID + "','" + "0" + "');";
-        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).ExecuteQuerry(bla);
+        //('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached')
+        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", "999", "0", transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0" , "NULL");
+
         ManagerScript.abortTrial();
 
     }

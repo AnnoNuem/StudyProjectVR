@@ -189,6 +189,10 @@ Prefab:
       propertyPath: m_TagString
       value: MainCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
+      propertyPath: useProfileHeight
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
@@ -262,7 +266,6 @@ GameObject:
   - 114: {fileID: 232248648}
   - 114: {fileID: 232248654}
   - 114: {fileID: 232248649}
-  - 114: {fileID: 232248650}
   - 114: {fileID: 232248651}
   - 114: {fileID: 232248653}
   m_Layer: 0
@@ -338,21 +341,6 @@ MonoBehaviour:
   skin: {fileID: 0}
   FakePauseButton: 0
   filePath2: 
---- !u!114 &232248650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 232248645}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3b4a0ac6b29a6f479e37cfe907955e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PointFakeButton: 0
-  angleBetween: 0
-  angleBetween1: 999
-  target: {fileID: 0}
 --- !u!114 &232248651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +363,6 @@ MonoBehaviour:
   SessionId: 
   SessionNumber: 
   debuggField: 
-  debugg: 0
 --- !u!114 &232248653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,6 +903,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1eb89c2bcb88d8418ec4202bb21cb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PointFakeButton: 0
+  angleBetween: 0
+  target: {fileID: 0}
 --- !u!114 &845199642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2348,7 +2338,7 @@ MonoBehaviour:
   RotationRatchet: 45
   HmdRotatesY: 1
   GravityModifier: 1
-  useProfileHeight: 1
+  useProfileHeight: 0
 --- !u!114 &1500412472
 MonoBehaviour:
   m_ObjectHideFlags: 0

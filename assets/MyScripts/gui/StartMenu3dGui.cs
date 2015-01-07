@@ -2,8 +2,6 @@
 using System.Collections;
 using System.IO;
 
-namespace Bla
-{
 
 
 public class StartMenu3dGui : VRGUI
@@ -13,7 +11,7 @@ public class StartMenu3dGui : VRGUI
 		public string SessionId;
 		public string SessionNumber;
 		public string debuggField ;
-		public int debugg = 0 ;
+		public static  int debugg = 0 ;
 	
 		public override void OnVRGUI ()
 		{
@@ -40,39 +38,9 @@ public class StartMenu3dGui : VRGUI
 
 						if (GUILayout.Button ("ok", GUILayout.ExpandHeight (true))) {
 
-								ManagerScript.trialINprocess = true;
-								//ManagerScript.trialFolder = Application.dataPath + @"/Trial-Session-" + ManagerScript.session + "-" + ManagerScript.chiffre + (System.DateTime.Now).ToString ("MMM-ddd-d-HH-mm-ss-yyyy");
-								ManagerScript.trialFolder = @"C:\temp\inlusio_data\subject_"+ManagerScript.chiffre;
-	
-								if (!Directory.Exists (ManagerScript.trialFolder)) {
-										Directory.CreateDirectory (ManagerScript.trialFolder);
-								}
-				
-								recordData.recordDataParametersInit ();
-								ManagerScript.generateTrials ();
-
-					// LETS MOVE THIS TO A NEW THREAD !!!
-
-
-								ManagerScript.switchState (ManagerScript.states.walking);
-								ManagerScript.newTrial();
-
-								Debug.Log ("chiffre -->"+ManagerScript.chiffre );
-								Debug.Log ("session -->"+ManagerScript.session );
-								ManagerScript.PauseInTheBeginning();
+                                ManagerScript.switchState(ManagerScript.states.start);
+                                           
 							
-								// lets activate debugging here, bad style but i am unedr time pressure
-								if ( debugg == 1) 
-								{
-								// the rotation needs to be shut down
-                                    GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = false;
-								// we need to enable the debugger
-								GameObject.Find("OVRCameraController").GetComponent<DebugPlayer>().enabled = true ;
-
-								}
-
-//						((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).SaveTrialListtoDatabaseSQL();
-						
 
 								enabled = !enabled;
 						}
@@ -86,4 +54,4 @@ public class StartMenu3dGui : VRGUI
 		
 }
 
-}
+
