@@ -1,52 +1,161 @@
+// ***********************************************************************
+// Assembly         : Assembly-CSharp
+// Author           : razial
+// Created          : 01-07-2015
+//
+// Last Modified By : razial
+// Last Modified On : 01-07-2015
+// ***********************************************************************
+// <copyright file="ManagerScript.cs" company="INLUSIO">
+//     Copyright (c) INLUSIO. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 
+/// <summary>
+/// Class ManagerScript.
+/// </summary>
 public class ManagerScript : MonoBehaviour
 {
+    /// <summary>
+    /// The condtion type variable in container
+    /// </summary>
     public static string CondtionTypeVariableInContainer;
+    /// <summary>
+    /// The move scale
+    /// </summary>
     static float moveScale;
+    /// <summary>
+    /// The instance
+    /// </summary>
     public static ManagerScript Instance = null;
     //public static List<float> generatedAngles = new List<float> ();
+    /// <summary>
+    /// The generated angle
+    /// </summary>
     public static float generatedAngle;
     // states for state machine to describe in which experiment state we are
+    /// <summary>
+    /// Enum states
+    /// </summary>
     public enum states
     {
+        /// <summary>
+        /// The start screen
+        /// </summary>
         startScreen,
+        /// <summary>
+        /// The walking
+        /// </summary>
         walking,
+        /// <summary>
+        /// The pointing
+        /// </summary>
         pointing,
+        /// <summary>
+        /// The blockover
+        /// </summary>
         blockover,
+        /// <summary>
+        /// The pause
+        /// </summary>
         pause,
+        /// <summary>
+        /// The end
+        /// </summary>
         end,
+        /// <summary>
+        /// The start
+        /// </summary>
         start,
+        /// <summary>
+        /// The new trial
+        /// </summary>
         NewTrial
     }
 
     // chiffre for identification, can be changed in start screen
+    /// <summary>
+    /// The chiffre
+    /// </summary>
     public static string chiffre = "";
+    /// <summary>
+    /// The state
+    /// </summary>
     static states state;
 
     // session identifier, tree different sessions
+    /// <summary>
+    /// The session
+    /// </summary>
     public static int session;
     //public list of trials
+    /// <summary>
+    /// The trial list
+    /// </summary>
     public static List<trialContainer> trialList = new List<trialContainer>();
 
     //static variable tracks what trial is in process
+    /// <summary>
+    /// The trial folder
+    /// </summary>
     public static string trialFolder;
+    /// <summary>
+    /// The parameter file
+    /// </summary>
     public static string parameterFile = "";
+    /// <summary>
+    /// The trial i nprocess
+    /// </summary>
     public static bool trialINprocess = false;
+    /// <summary>
+    /// The point task i nprocess
+    /// </summary>
     public static bool pointTaskINprocess = false;
+    /// <summary>
+    /// The timeto pointing stage
+    /// </summary>
     public static float timetoPointingStage = 0.0f;
+    /// <summary>
+    /// The pointing time
+    /// </summary>
     public static float pointingTime = 0.0f;
+    /// <summary>
+    /// The duplicate present
+    /// </summary>
     static bool duplicatePresent = true;
+    /// <summary>
+    /// The aborted trials
+    /// </summary>
     public static int abortedTrials = 0;
+    /// <summary>
+    /// The current orientation
+    /// </summary>
     public static int CurrentOrientation; // 0 is for left , 1 is for right
+    /// <summary>
+    /// The trial missed
+    /// </summary>
     public static bool  TrialMissed = false;
+    /// <summary>
+    /// The temp123
+    /// </summary>
     public static bool temp123 = false;
+    /// <summary>
+    /// The real trial number
+    /// </summary>
     public static int realTrialNumber = 1;// can repeat !!! (increeases with every succesfull trial ... )
+    /// <summary>
+    /// The numberof trials startet
+    /// </summary>
     public static int NumberofTrialsStartet = 0;// this increase with every start of a trial. so this number will represent the current database number of the trial
 
+    /// <summary>
+    /// Starts this instance.
+    /// </summary>
     void Start ()
     {
         // first we do grab the controller and assign the moveScale in a tricky way
@@ -62,6 +171,9 @@ public class ManagerScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Updates this instance.
+    /// </summary>
     void Update ()
     {
         if (state == states.walking)
@@ -74,6 +186,9 @@ public class ManagerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Aborts the trial.
+    /// </summary>
     public static void abortTrial ()
     {
 
@@ -94,6 +209,10 @@ public class ManagerScript : MonoBehaviour
 
 
     // the state machine
+    /// <summary>
+    /// Switches the state.
+    /// </summary>
+    /// <param name="newState">The new state.</param>
     public static void switchState (states newState)
     {
         switch (newState)
@@ -226,6 +345,9 @@ public class ManagerScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Resets the position roration player waypoint.
+    /// </summary>
     private static void ResetPositionRorationPlayerWaypoint ()
     {
         GameObject.Find("OVRPlayerController").transform.position = GameObject.Find("StartPoint").transform.position;
@@ -235,6 +357,9 @@ public class ManagerScript : MonoBehaviour
         GameObject.Find("BlueBallGLow").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
     }
 
+    /// <summary>
+    /// Stuns this instance.
+    /// </summary>
     static void stun ()
     {
         GameObject pController = GameObject.Find("OVRPlayerController");
@@ -242,6 +367,9 @@ public class ManagerScript : MonoBehaviour
         controller.SetMoveScaleMultiplier(0.0f);
     }
 
+    /// <summary>
+    /// Uns the stun.
+    /// </summary>
     static void unStun ()
     {
         GameObject pController = GameObject.Find("OVRPlayerController");
@@ -249,11 +377,18 @@ public class ManagerScript : MonoBehaviour
         controller.SetMoveScaleMultiplier(3.0f);
     }
 
+    /// <summary>
+    /// Gets the state.
+    /// </summary>
+    /// <returns>states.</returns>
     public static states getState ()
     {
         return state;
     }
 
+    /// <summary>
+    /// Generates the trials.
+    /// </summary>
     public static void generateTrials ()
     {
         trialContainer blockTrial = new trialContainer("BLOCKOVER");

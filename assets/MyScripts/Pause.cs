@@ -1,4 +1,17 @@
-﻿using UnityEngine;
+﻿// ***********************************************************************
+// Assembly         : Assembly-CSharp
+// Author           : razial
+// Created          : 12-29-2014
+//
+// Last Modified By : razial
+// Last Modified On : 01-07-2015
+// ***********************************************************************
+// <copyright file="Pause.cs" company="INLUSIO">
+//     Copyright (c) INLUSIO. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using UnityEngine;
 using System.Collections;
 using URandom;
 using System;
@@ -9,33 +22,84 @@ using System.IO;
 
 
 
+/// <summary>
+/// Class Pause.
+/// </summary>
 public class Pause : VRGUI
 {
 
+    /// <summary>
+    /// The pausekey
+    /// </summary>
     private static KeyCode pausekey = KeyCode.P;
+    /// <summary>
+    /// The previous state
+    /// </summary>
     private static ManagerScript.states prevState;
+    /// <summary>
+    /// The number of yellow spaw
+    /// </summary>
     private static int NumberOfYellowSpaw = 0;
+    /// <summary>
+    /// The number of yellow defeted
+    /// </summary>
     private static int NumberOfYellowDefeted = 0;
+    /// <summary>
+    /// The number of yellow missed
+    /// </summary>
     private static int NumberOfYellowMissed = 0;
+    /// <summary>
+    /// The condtion type variable in container
+    /// </summary>
     private static string CondtionTypeVariableInContainer;
+    /// <summary>
+    /// The temporary variable for condition
+    /// </summary>
     private static string tempVarForCondition;
+    /// <summary>
+    /// The paused
+    /// </summary>
     private static bool paused = false;
+    /// <summary>
+    /// The display text
+    /// </summary>
     public static string displayText = "";
+    /// <summary>
+    /// The skin
+    /// </summary>
     public GUISkin skin;
 
 
+    /// <summary>
+    /// The fake pause button
+    /// </summary>
     public bool FakePauseButton = false;
 
+    /// <summary>
+    /// The file path2
+    /// </summary>
     public string filePath2;
+    /// <summary>
+    /// The end time paused
+    /// </summary>
     private  string EndTimePaused;
+    /// <summary>
+    /// The start time paused
+    /// </summary>
     private  string StartTimePaused;
 
 
+    /// <summary>
+    /// Starts this instance.
+    /// </summary>
     void Start ()
     {
         GUI.enabled = false;
     }
 
+    /// <summary>
+    /// Updates this instance.
+    /// </summary>
     void Update ()
     {
 
@@ -73,6 +137,9 @@ public class Pause : VRGUI
 
     }
 
+    /// <summary>
+    /// Called when [vrgui].
+    /// </summary>
     public override void OnVRGUI ()
     {
         GUI.skin = skin;
@@ -105,24 +172,37 @@ public class Pause : VRGUI
 
 
 
+    /// <summary>
+    /// Changes the number of yellow spaw.
+    /// </summary>
     public static void ChangeNumberOfYellowSpaw ()
     {
 
         NumberOfYellowSpaw++;
     }
 
+    /// <summary>
+    /// Changes the number of yellow defeted.
+    /// </summary>
     public static void ChangeNumberOfYellowDefeted ()
     {
 
         NumberOfYellowDefeted++;
     }
 
+    /// <summary>
+    /// Changes the number of yellow missed.
+    /// </summary>
     public static void ChangeNumberOfYellowMissed ()
     {
 
         NumberOfYellowMissed++;
     }
 
+    /// <summary>
+    /// Pauses the between blocks.
+    /// </summary>
+    /// <param name="NextBlockType">Type of the next block.</param>
     public static void PauseBetweenBlocks ( string NextBlockType )
     {
         paused = true;
@@ -161,6 +241,10 @@ public class Pause : VRGUI
 
     }
 
+    /// <summary>
+    /// Saves the values.
+    /// </summary>
+    /// <param name="NextBlockType123">The next block type123.</param>
     public static void SaveValues ( string NextBlockType123 )
     {
 

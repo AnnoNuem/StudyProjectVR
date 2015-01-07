@@ -1,54 +1,151 @@
-﻿using UnityEngine;
+﻿// ***********************************************************************
+// Assembly         : Assembly-CSharp
+// Author           : razial
+// Created          : 12-29-2014
+//
+// Last Modified By : razial
+// Last Modified On : 01-07-2015
+// ***********************************************************************
+// <copyright file="PlayerLookingAt.cs" company="INLUSIO">
+//     Copyright (c) INLUSIO. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using UnityEngine;
 using URandom;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Class PlayerLookingAt.
+/// </summary>
 public class PlayerLookingAt : MonoBehaviour
 {
+    /// <summary>
+    /// The camera transform
+    /// </summary>
     Transform cameraTransform = null;
+    /// <summary>
+    /// The pos_blue
+    /// </summary>
     Vector3 pos_blue;
+    /// <summary>
+    /// The pos_new
+    /// </summary>
     Vector3 pos_new;
+    /// <summary>
+    /// The ray direction
+    /// </summary>
     Vector3 rayDirection;
+    /// <summary>
+    /// The number of spheres to reach
+    /// </summary>
     int numberOfSpheresToReach = 2;
+    /// <summary>
+    /// The number of spheres reached
+    /// </summary>
     int numberOfSpheresReached = 0;
 
     // time a user has to reach the next blue sphere
+    /// <summary>
+    /// The time to get to blue sphere
+    /// </summary>
     int timeToGetToBlueSphere = 8; // was 20, fixed it =(
     
     // for looking at check
+    /// <summary>
+    /// The center rect
+    /// </summary>
     private Rect centerRect;
 
     // lets force playber to look 1 second at the blue light
+    /// <summary>
+    /// The timer
+    /// </summary>
     private float timer = 0.0f;
+    /// <summary>
+    /// The displaytext
+    /// </summary>
     GameObject displaytext;
+    /// <summary>
+    /// The spawn distance
+    /// </summary>
     float spawnDistance = 40.0f; // How far away to spawn
+    /// <summary>
+    /// The move distance
+    /// </summary>
     double moveDistance = 15.0;   // How close can the character get
+    /// <summary>
+    /// The hiding
+    /// </summary>
     private bool hiding = false; // for inner logic
+    /// <summary>
+    /// The urand
+    /// </summary>
     private UnityRandom urand;
+    /// <summary>
+    /// The how high object respawns
+    /// </summary>
     int HowHighObjectRespawns = 4;  // so the object will respawn on the same hight
 
+    /// <summary>
+    /// The left
+    /// </summary>
     bool left = false;
+    /// <summary>
+    /// The degree of spawn
+    /// </summary>
     float DegreeOfSpawn = 0 ;
+    /// <summary>
+    /// The how often turned left
+    /// </summary>
     int HowOftenTurnedLeft = 0;
+    /// <summary>
+    /// The how often turned right
+    /// </summary>
     int HowOftenTurnedRight = 0;
+    /// <summary>
+    /// The counter for missed trials
+    /// </summary>
     int	CounterForMissedTrials = 0;
+    /// <summary>
+    /// The ovr cam d
+    /// </summary>
     private Transform OVRCamD;
 
     // Single-dimensional array
+    /// <summary>
+    /// The numbers
+    /// </summary>
     public static int[] numbers = new int[9001];
 
+    /// <summary>
+    /// The randvalue
+    /// </summary>
     float randvalue = 0;
+    /// <summary>
+    /// The time when respawned
+    /// </summary>
 private  string TimeWhenRespawned;
+/// <summary>
+/// The time when reached
+/// </summary>
 private  string TimeWhenReached;
 
+/// <summary>
+/// Awakes this instance.
+/// </summary>
     void Awake ()
     {
         cameraTransform = GameObject.FindWithTag("OVRcam").transform;
         displaytext = GameObject.Find("Displaytext");
     }
 
-  
 
+
+    /// <summary>
+    /// Starts this instance.
+    /// </summary>
     void Start ()
     {
 
@@ -65,6 +162,9 @@ private  string TimeWhenReached;
         }
     }
 
+    /// <summary>
+    /// Updates this instance.
+    /// </summary>
     void Update ()
     {
         float length = 10.0f;
@@ -99,6 +199,9 @@ private  string TimeWhenReached;
 
     }
 
+    /// <summary>
+    /// News the trial.
+    /// </summary>
     public void newTrial ()
     {
 
@@ -122,6 +225,9 @@ private  string TimeWhenReached;
 
     }
 
+    /// <summary>
+    /// Hides the and move.
+    /// </summary>
     void HideAndMove ()
     {
 
@@ -234,6 +340,9 @@ private  string TimeWhenReached;
         }
     }
 
+    /// <summary>
+    /// To the long.
+    /// </summary>
     void toLong ()
     {
         //Add parameters
@@ -250,12 +359,18 @@ private  string TimeWhenReached;
 
     }
 
+    /// <summary>
+    /// Points this instance.
+    /// </summary>
     void point ()
     {
         CancelInvoke("toLong");
         ManagerScript.switchState(ManagerScript.states.pointing);
     }
 
+    /// <summary>
+    /// Clears the gu itext.
+    /// </summary>
     void clearGUItext ()
     {
         displaytext.GetComponent<TextMesh>().text = "";
