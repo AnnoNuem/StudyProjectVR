@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // ***********************************************************************
 // Assembly         : Assembly-CSharp
 // Author           : razial
@@ -12,7 +12,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-=======
+
 /* 
  * This script manages and keeps global values and other scripts
  * relie on this for different variables and functions.
@@ -20,7 +20,6 @@
  */
 
 
->>>>>>> origin/MySqlImplimentation2
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;

@@ -122,7 +122,6 @@ public class PlayerLookingAt : MonoBehaviour
     /// The randvalue
     /// </summary>
     float randvalue = 0;
-<<<<<<< HEAD
     /// <summary>
     /// The time when respawned
     /// </summary>
@@ -131,10 +130,7 @@ private  string TimeWhenRespawned;
 /// The time when reached
 /// </summary>
 private  string TimeWhenReached;
-=======
-    private  string TimeWhenRespawned;
-    private  string TimeWhenReached;
->>>>>>> origin/MySqlImplimentation2
+
 
 /// <summary>
 /// Awakes this instance.
@@ -234,13 +230,11 @@ private  string TimeWhenReached;
     void HideAndMove ()
     {
 
-
         if (numberOfSpheresReached != numberOfSpheresToReach)
         {
 
             numberOfSpheresReached++; // first time it gets 1
 
-     
             // user reached blue sphere in time
             CancelInvoke("toLong");
 
@@ -252,14 +246,13 @@ private  string TimeWhenReached;
             if (numberOfSpheresReached == numberOfSpheresToReach)
             {
                 point();
-                return;
 
             }
+            else { 
 
             // spanning random at 30 60 90 degrees left or right
             switch ((numbers [ManagerScript.realTrialNumber]))
             {
-
 
             // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
             // lets try it with 10 degree in total
@@ -292,12 +285,11 @@ private  string TimeWhenReached;
                     break;
             }
 
-
             // here depending on the conditon, we rotate the spehre and move it forward
             if (left)
             {
                 ManagerScript.CurrentOrientation = 0;
-                // BAAAD				//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, (float)(360 - DegreeOfSpawn), transform.eulerAngles.z); // NOOOT WORKING
+  
                 transform.Rotate(0, 360 - DegreeOfSpawn, 0, Space.Self);
 
                 transform.localPosition += transform.forward * (float)spawnDistance;
@@ -315,7 +307,6 @@ private  string TimeWhenReached;
                 displaytext.GetComponent<TextMesh>().text = "-->";
                 Invoke("clearGUItext", 0.5f);
                 HowOftenTurnedRight++;
-
             }
 
             renderer.enabled = true;
@@ -323,21 +314,21 @@ private  string TimeWhenReached;
             // call function if user takes to long to get to blue sphere
             Invoke("toLong", timeToGetToBlueSphere);
 
-
-
             hiding = false;
-            
-       
+   
             ManagerScript.generatedAngle = DegreeOfSpawn;
 
             TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
-
             ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "1", TimeWhenReached);
 
-            //    ('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached')
-       
             TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+            }
+        }
+        else
+        {
+            hiding = true;
+            renderer.enabled = false;
 
         }
     }
