@@ -245,6 +245,7 @@ public class Stressor : MonoBehaviour
         xcontroller.GetMoveScaleMultiplier(ref moveScale);
         urand = new UnityRandom((int)System.DateTime.Now.Ticks);
         renderer.enabled = false;
+        switchState(yellowSphereStates.start);
     }
 
     /// <summary>
@@ -364,7 +365,7 @@ public class Stressor : MonoBehaviour
         transform.position = pos;
 
         renderer.enabled = true;
-        recordData.recordDataSmallspread("S", "");
+//        recordData.recordDataSmallspread("S", "");
         Pause.ChangeNumberOfYellowSpaw();
         SpawnTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
     }
@@ -425,7 +426,7 @@ public class Stressor : MonoBehaviour
     /// </summary>
     void DataSavingAfterExplosion ()
     {
-        recordData.recordDataSmallspread("M", "");
+//        recordData.recordDataSmallspread("M", "");
         ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
 
@@ -440,7 +441,7 @@ public class Stressor : MonoBehaviour
     /// </summary>
     void DataSavingAfterDefeate ()
     {
-        recordData.recordDataSmallspread("D", "");
+//        recordData.recordDataSmallspread("D", "");
         DefeatedAtTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
         TimeOfDefeat = Time.time;
         ReactionTime = StartDefeatTimeFloat - TimeOfDefeat;
@@ -550,19 +551,20 @@ public class Stressor : MonoBehaviour
         switch (newState)
         {
             case yellowSphereStates.defeatable:
-
                 displaytext.GetComponent<TextMesh>().text = "SHOOT";
                 s = yellowSphereStates.defeatable;
-                recordData.recordDataSmallspread("Onset", durationOfResponsePeriod.ToString());
+//                recordData.recordDataSmallspread("Onset", durationOfResponsePeriod.ToString());
                 Invoke("NotDefeatedInTime", durationOfResponsePeriod);
                 break;
             case yellowSphereStates.hidden:
+
                 s = yellowSphereStates.hidden;
                 CancelInvoke("NotDefeatedInTime"); // if 
                 GenerateTimeWindowForResponce(); // we randomize the ball parapeters lol 
                 reset();
                 break;
             case yellowSphereStates.moving:
+
                 // here we get a rondom value for the jidder of the onset
                 GenerateTimeOnsetOfDefeatTime();
                 MoveAndShow();
@@ -604,8 +606,9 @@ public class Stressor : MonoBehaviour
 
             case yellowSphereStates.start: // if the stressor should spawn, we set it to the start state
                 s = yellowSphereStates.start;
-                moveScale = 3.0f;
-                xcontroller.SetMoveScaleMultiplier(3.0f);
+                moveScale = 1.5f;
+                Debug.Log(moveScale.ToString());
+                xcontroller.SetMoveScaleMultiplier(moveScale);
                 switchState(yellowSphereStates.hidden);
                 break;
             case yellowSphereStates.end: // if we want the stressor to stop, we set it to the end state

@@ -184,20 +184,24 @@ public class Waypoint : MonoBehaviour
     /// </summary>
     void Update ()
     {
+
+        float length = 10.0f;
+        RaycastHit hit;
+        rayDirection = cameraTransform.TransformDirection(Vector3.forward);
+        Vector3 rayStart = cameraTransform.position + rayDirection;      // Start the ray away from the player to avoid hitting itself
+        Debug.DrawRay(rayStart, rayDirection * length, Color.blue);
+
+
         if (WayPointState == WayPointStates.walking)
         {
 
-            float length = 10.0f;
-            RaycastHit hit;
-            rayDirection = cameraTransform.TransformDirection(Vector3.forward);
-            Vector3 rayStart = cameraTransform.position + rayDirection;      // Start the ray away from the player to avoid hitting itself
-            Debug.DrawRay(rayStart, rayDirection * length, Color.green);
 
             if (Physics.Raycast(rayStart, rayDirection, out hit, length) && hit.collider.tag == "blueball")
             {
+                Debug.Log("I am being looked at" + Time.time.ToString());
+
                 HowLongLookedAtTimer += Time.deltaTime;
-            }
-            else
+            } else
             {
                 HowLongLookedAtTimer = 0.0f;
             }
@@ -214,11 +218,12 @@ public class Waypoint : MonoBehaviour
     /// Switches the states.
     /// </summary>
     /// <param name="newState">The new state.</param>
-    public void switchState ( WayPointStates newState )
+    public void switchState (WayPointStates newState)
     {
         switch (newState)
         {
             case WayPointStates.start:
+                Waypoint.WayPointState = WayPointStates.start;
 
                 renderer.enabled = false;
                 hiding = true;
@@ -234,13 +239,16 @@ public class Waypoint : MonoBehaviour
                 {
                     myInt++;
                     randvalue = thebag.Next();
-                    numbers[myInt] = (int)(randvalue);
+                    numbers [myInt] = (int)(randvalue);
                 }
 
                 break;
 
             case WayPointStates.NewTrial:
+                Waypoint.WayPointState = WayPointStates.NewTrial;
 
+
+                Debug.Log("Blue sphere now in new trial state");
 
                 OVRManager.display.RecenterPose();
                 DegreeOfSpawn = 0;
@@ -263,6 +271,8 @@ public class Waypoint : MonoBehaviour
                 break;
 
             case WayPointStates.respawn:
+                Waypoint.WayPointState = WayPointStates.respawn;
+
 
                 CancelInvoke("toLong");
                 hiding = true;
@@ -271,11 +281,10 @@ public class Waypoint : MonoBehaviour
                 numberOfSpheresReached++; // first time it gets 1
 
 
-                if (numberOfSpheresReached == numberOfSpheresToReach + 1)
+                if (numberOfSpheresReached == numberOfSpheresToReach)
                 {
                     switchState(WayPointStates.pointing);
-                }
-                else
+                } else
                 {
                     // we generate the degree of respawn
                     DegreeOfSpawn = GenerateDegreeOfSpawn();
@@ -301,15 +310,21 @@ public class Waypoint : MonoBehaviour
                 break;
 
             case WayPointStates.walking:
+                Debug.Log("Blue sphere now in new trial state");
+                Waypoint.WayPointState = WayPointStates.walking;
 
                 break;
 
             case WayPointStates.pointing:
                 ManagerScript.switchState(ManagerScript.states.pointing);
+                Waypoint.WayPointState = WayPointStates.pointing;
+
                 switchState(WayPointStates.end);
                 break;
 
             case WayPointStates.end:
+                Waypoint.WayPointState = WayPointStates.end;
+
                 renderer.enabled = false;
                 hiding = true;
                 break;
@@ -332,8 +347,7 @@ public class Waypoint : MonoBehaviour
             Invoke("clearGUItext", 0.5f);
             HowOftenTurnedLeft++;
 
-        }
-        else //right
+        } else //right
         {
             ManagerScript.CurrentOrientation = 1;
             transform.Rotate(0, DegreeOfSpawn, 0, Space.Self);
@@ -352,11 +366,11 @@ public class Waypoint : MonoBehaviour
     private float GenerateDegreeOfSpawn ()
     {
         // spanning random at 30 60 90 degrees left or right
-        switch ((numbers[ManagerScript.realTrialNumber]))
+        switch ((numbers [ManagerScript.realTrialNumber]))
         {
 
-            // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
-            // lets try it with 10 degree in total
+        // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
+        // lets try it with 10 degree in total
             case 1:
                 left = false;
                 //DegreeOfSpawn = 90;
@@ -397,7 +411,7 @@ public class Waypoint : MonoBehaviour
     void toLong ()
     {
         //Add parameters
-        recordData.recordDataParameters(0, "999");
+//        recordData.recordDataParameters(0, "999");
         displaytext.GetComponent<TextMesh>().text = "Time's up for this trial!\nNew Trial";
         Invoke("clearGUItext", 1f);
         // count how often we miss

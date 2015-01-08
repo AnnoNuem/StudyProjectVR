@@ -131,7 +131,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_TagString
-      value: OVRcam
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_Enabled
@@ -276,7 +276,7 @@ GameObject:
   - 114: {fileID: 232248650}
   m_Layer: 0
   m_Name: OVRCameraRig
-  m_TagString: OVRcam
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 232248645}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11d99b9204b54594285e72a1a0a7bd34, type: 3}
   m_Name: 
@@ -509,7 +509,7 @@ MonoBehaviour:
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInternal: {fileID: 1125326959}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 505860569}
@@ -529,8 +529,9 @@ GameObject:
 --- !u!135 &505860564
 SphereCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 13500002, guid: c94ceaa261978f84b89fa8e7d152bcda,
+    type: 2}
+  m_PrefabInternal: {fileID: 1125326959}
   m_GameObject: {fileID: 505860563}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -543,7 +544,7 @@ Rigidbody:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 5400000, guid: c94ceaa261978f84b89fa8e7d152bcda,
     type: 2}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInternal: {fileID: 1125326959}
   m_GameObject: {fileID: 505860563}
   serializedVersion: 2
   m_Mass: 1
@@ -559,7 +560,7 @@ Renderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 2300000, guid: c94ceaa261978f84b89fa8e7d152bcda,
     type: 2}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInternal: {fileID: 1125326959}
   m_GameObject: {fileID: 505860563}
   m_Enabled: 1
   m_CastShadows: 1
@@ -580,10 +581,10 @@ SphereCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 13500000, guid: c94ceaa261978f84b89fa8e7d152bcda,
     type: 2}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInternal: {fileID: 1125326959}
   m_GameObject: {fileID: 505860563}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
@@ -593,14 +594,14 @@ MeshFilter:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 3300000, guid: c94ceaa261978f84b89fa8e7d152bcda,
     type: 2}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInternal: {fileID: 1125326959}
   m_GameObject: {fileID: 505860563}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &505860569
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInternal: {fileID: 1125326959}
   m_GameObject: {fileID: 505860563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1025.15112, y: 15, z: 0}
@@ -611,8 +612,9 @@ Transform:
 --- !u!114 &505860570
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400000, guid: c94ceaa261978f84b89fa8e7d152bcda,
+    type: 2}
+  m_PrefabInternal: {fileID: 1125326959}
   m_GameObject: {fileID: 505860563}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -979,6 +981,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092973226d4e3ed449d1d6f7ce328318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1125326959
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1025.15112
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_RootMapOrder
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+      propertyPath: m_Name
+      value: WaypointBlue
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c94ceaa261978f84b89fa8e7d152bcda, type: 2}
+  m_RootGameObject: {fileID: 505860563}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1001 &1129608850
 Prefab:
   m_ObjectHideFlags: 0
@@ -1247,7 +1301,6 @@ MonoBehaviour:
   m_LightmapIndex: -1
   m_LightmapSize: 1024
   m_DrawTreesAndFoliage: 1
-  m_CollectDetailPatches: 1
   m_MaterialTemplate: {fileID: 0}
 --- !u!4 &1139026901
 Transform:

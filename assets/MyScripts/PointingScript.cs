@@ -112,7 +112,7 @@ public class PointingScript : MonoBehaviour
     /// </summary>
     void toLongPoint ()
     {
-        recordData.recordDataParameters(0, "999");
+        //       recordData.recordDataParameters(0, "999");
         ManagerScript.abortTrial();
     }
 
@@ -143,10 +143,10 @@ public class PointingScript : MonoBehaviour
         if (!ManagerScript.TrialMissed)
         {
 
-            recordData.recordDataParameters(1, (angleBetween).ToString());
+//            recordData.recordDataParameters(1, (angleBetween).ToString());
         } else
         {
-            recordData.recordDataParameters(2, (angleBetween).ToString());
+            //           recordData.recordDataParameters(2, (angleBetween).ToString());
         }
     }
 

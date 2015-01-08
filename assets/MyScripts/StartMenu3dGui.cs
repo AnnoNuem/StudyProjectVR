@@ -35,7 +35,8 @@ public class StartMenu3dGui : VRGUI
             debuggField = GUILayout.TextField(debuggField, 25);
             int.TryParse(debuggField, out debugg);
 
-						
+			
+            ManagerScript.debugg = debugg;
 
             if (GUILayout.Button("ok", GUILayout.ExpandHeight(true)))
             {

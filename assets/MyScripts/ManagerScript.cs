@@ -163,6 +163,8 @@ public class ManagerScript : MonoBehaviour
     /// </summary>
     public static int NumberofTrialsStartet = 0;// this increase with every start of a trial. so this number will represent the current database number of the trial
 
+    public static int debugg ;
+
     /// <summary>
     /// Starts this instance.
     /// </summary>
@@ -250,29 +252,35 @@ public class ManagerScript : MonoBehaviour
                     Directory.CreateDirectory(trialFolder);
                 }
 
-                recordData.recordDataParametersInit();
+//                recordData.recordDataParametersInit();
                 generateTrials();
 
-                // lets activate debugging here, bad style but i am unedr time pressure
-                if (StartMenu3dGui.debugg == 1)
+                if (debugg == 1)
                 {
-                    // the rotation needs to be shut down
                     GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = false;
-                    // we need to enable the debugger
-                    GameObject.Find("OVRCameraController").GetComponent<DebugPlayer>().enabled = true;
+                    GameObject.Find("OVRCameraRig").GetComponent<DebugPlayer>().enabled = true;
+
+                } else
+                {
+                    GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = true;
+                    GameObject.Find("OVRCameraRig").GetComponent<DebugPlayer>().enabled = false;
+
 
                 }
+
+
+
                 testofsql.InitialSavingsToDB(); // lets create the initial savings
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 switchState(states.pause);
 
                 break;
             case states.walking:
-                Debug.Log("in switch state new walking");
 
-                recordData.recordDataSmallspread("PF", "");
+//                recordData.recordDataSmallspread("PF", "");
                 
                 ResetPositionRorationPlayerWaypoint();
+                unStun();
                 
                 Time.timeScale = 1;
                 ManagerScript.state = states.walking;
@@ -294,7 +302,7 @@ public class ManagerScript : MonoBehaviour
 
             case states.pause:
 
-                recordData.recordDataSmallspread("P", "");
+//                recordData.recordDataSmallspread("P", "");
                 Time.timeScale = 0;
                 ManagerScript.state = states.pause;
                 break;
@@ -388,7 +396,7 @@ public class ManagerScript : MonoBehaviour
     {
         GameObject pController = GameObject.Find("OVRPlayerController");
         OVRPlayerController controller = pController.GetComponent<OVRPlayerController>();
-        controller.SetMoveScaleMultiplier(3.0f);
+        controller.SetMoveScaleMultiplier(1.5f);
     }
 
     /// <summary>
