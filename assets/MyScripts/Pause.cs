@@ -239,36 +239,12 @@ public class Pause : VRGUI
     /// Saves the values.
     /// </summary>
     /// <param name="NextBlockType123">The next block type123.</param>
+    /// 
+
     public static void SaveValues (string NextBlockType123)
     {
 
-        string path123 = ManagerScript.trialFolder + "/SubjectScores.csv";
-
-        string temp222;
-
-        temp222 = NextBlockType123;
-        File.AppendAllText(path123, temp222);
-
-
-        temp222 = NumberOfYellowSpaw + " " + "Number of Yellow Spawn" + Environment.NewLine;
-        File.AppendAllText(path123, temp222);
-
-        temp222 = NumberOfYellowDefeted + " " + "Number of Yellow defeated " + Environment.NewLine;
-        File.AppendAllText(path123, temp222);
-
-        temp222 = NumberOfYellowMissed + " " + "Number of Yellow missed " + Environment.NewLine;
-        File.AppendAllText(path123, temp222);
-
-        temp222 = ManagerScript.realTrialNumber + " " + "you have done so many trials " + Environment.NewLine;
-        File.AppendAllText(path123, temp222);
-
-        temp222 = ManagerScript.abortedTrials + " " + "you have missed trials " + Environment.NewLine;
-        File.AppendAllText(path123, temp222);
-
-        temp222 = PointingScript.avarageError + " " + "your avarage error angle ";
-        File.AppendAllText(path123, temp222);
-
-
+        testofsql.SaveStatisicsToDataBase(NumberOfYellowSpaw.ToString(), NumberOfYellowDefeted.ToString(), NumberOfYellowMissed.ToString(), ManagerScript.abortedTrials.ToString(), PointingScript.avarageError.ToString());
 
     }
 }

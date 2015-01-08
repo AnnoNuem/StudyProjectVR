@@ -260,9 +260,11 @@ public class ManagerScript : MonoBehaviour
                     GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = false;
                     // we need to enable the debugger
                     GameObject.Find("OVRCameraController").GetComponent<DebugPlayer>().enabled = true;
-
+                    
                 }
-                testofsql.InitialSavingsToDB(); // lets create the initial savings
+                 // lets create the initial savings
+                testofsql.InitialSavingsToDB(chiffre.ToString(), Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString(), trialList);
+
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 switchState(states.pause);
 
@@ -343,7 +345,8 @@ public class ManagerScript : MonoBehaviour
             case states.blockover:
                 ManagerScript.state = states.blockover;
                 Pause.SaveValues(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
-                testofsql.SetDynamicDifficulty();
+                testofsql.SetDynamicDifficulty(Stressor.EasyDelay.ToString(),Stressor.HardDealy.ToString());
+                
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).ResetBallsCounterForDynamicDifficulty();
 

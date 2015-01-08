@@ -11,7 +11,7 @@
 //
 //public class Debugging : MonoBehaviour {
 //
-//	public string filePath; 
+//	public string filePath;
 //	string temp222;
 //	private UnityRandom urand;
 //
@@ -20,7 +20,7 @@
 ////	string path3 = @"c:\temp\MyTestOfTrialRandamisationSchuffleBag.txt";
 //
 //
-//	
+//
 //	public string filePath2;
 //	// Use this for initialization
 //	void Start () {
@@ -28,13 +28,13 @@
 ////				urand = new UnityRandom ((int)System.DateTime.Now.Ticks);
 ////
 ////				string createText1 = "start" + Environment.NewLine;
-////				string createText2 = "start" + Environment.NewLine;	
+////				string createText2 = "start" + Environment.NewLine;
 ////				string createText3 = "start" + Environment.NewLine;
 ////
 ////				float[] shufflebag = {1,2,3,4,5,6,};
-////		
+////
 ////				ShuffleBagCollection<float> thebag = urand.ShuffleBag(shufflebag);
-////		
+////
 ////		float randvalue;
 ////
 ////		int myInt = 0;
@@ -46,7 +46,7 @@
 ////			File.AppendAllText (path3, appendText3 );
 ////
 ////			myInt++;
-////	
+////
 ////		}
 //		//		File.AppendAllText (path1, createText1);
 //		//		File.AppendAllText (path2, createText2);
@@ -59,7 +59,7 @@
 ////				while (myInt < 10000) {
 ////						string appendText1 = urand.Range (1, 6).ToString () + Environment.NewLine;
 ////						File.AppendAllText (path1, appendText1);
-////		
+////
 ////						myInt++;
 ////				}
 ////
@@ -67,8 +67,8 @@
 ////
 ////				int myInt2 = 0;
 ////
-////			
-////			
+////
+////
 ////				while (myInt2 < 10000) {
 ////						string appendText2 = urand.RollDice (1, DiceRoll.DiceType.D6) + Environment.NewLine;
 ////						File.AppendAllText (path2, appendText2);
@@ -81,7 +81,7 @@
 ////
 ////				ShuffleBagCollection<float> thebag = urand.ShuffleBag (shufflebag);
 ////
-////		
+////
 ////				int myInt31 = 0;
 ////
 ////				while (myInt31 < 1667){
@@ -96,9 +96,9 @@
 //
 //
 //
-//		
+//
 //	}
-//	
+//
 //	// Update is called once per frame
 //	void FixedUpdate () {
 //
@@ -114,14 +114,14 @@
 ////		}
 //
 //		Transform target = GameObject.Find ("StartPoint").transform;
-//		Vector2 targetVector = new Vector2 (target.position.x, target.position.z); 
+//		Vector2 targetVector = new Vector2 (target.position.x, target.position.z);
 //		Vector2 transformVector = new Vector2 (transform.position.x, transform.position.z);
 //		Vector2 forwardVector = new Vector2 (transform.forward.x, transform.forward.z);
-//		
+//
 //		float angleBetween;
-//		
+//
 //		Vector2 targetDir = targetVector - transformVector;
-//		
+//
 //		//Old calculation which does not shows -ve pr +ve angles
 //		//angleBetween = Vector2.Angle (targetDir, forwardVector);
 //		angleBetween = Vector3.Angle(targetDir,forwardVector);
@@ -147,7 +147,7 @@
 //
 //
 ////	void OnApplicationQuit() {
-////		
+////
 ////		debugging.Close ();
 ////	}
 //
