@@ -20,6 +20,7 @@
  */
 
 
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -30,6 +31,8 @@ using UnityEngine;
 /// </summary>
 public class ManagerScript : MonoBehaviour
 {
+
+
     /// <summary>
     /// The condtion type variable in container
     /// </summary>
@@ -165,23 +168,26 @@ public class ManagerScript : MonoBehaviour
 
     public static int debugg ;
 
+    //public PauseCoroutine pClass;
+
     /// <summary>
     /// Starts this instance.
     /// </summary>
     void Start ()
     {
+        //pClass = new PauseCoroutine();
         // first we do grab the controller and assign the moveScale in a tricky way
         GameObject pController = GameObject.Find("OVRPlayerController");
         OVRPlayerController controller = pController.GetComponent<OVRPlayerController>();
         controller.GetMoveScaleMultiplier(ref moveScale);
-        Debug.Log("Value--->" + moveScale);
+        //Debug.Log("Value--->" + moveScale);
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
         testofsql.SQLiteInit(); // initialisation of the Data Base
         GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); // dissable the stressor in the beginning
-        Debug.Log("lol");
+        //Debug.Log("lol");
         ManagerScript.switchState(states.startScreen);
-        Debug.Log("lol2");
+        //Debug.Log("lol2");
 
     }
 
@@ -309,14 +315,20 @@ public class ManagerScript : MonoBehaviour
 
             case states.pointing:
                 Time.timeScale = 1;
+                ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
                 ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).NewPointing();
                 stun();
                 ManagerScript.state = states.pointing;
                 break;
 
+               
             case states.NewTrial:
-                ManagerScript.state = states.NewTrial;
 
+               
+                //pClass.DoCoroutine();
+
+                ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
+                ManagerScript.state = states.NewTrial;
 
                 NumberofTrialsStartet++;
 
@@ -347,10 +359,13 @@ public class ManagerScript : MonoBehaviour
                 else
                     switchState(states.walking);
 
+                Debug.Log("trial type" + ManagerScript.CondtionTypeVariableInContainer);
                 break;
+
             case states.blockover:
+                realTrialNumber++;
                 ManagerScript.state = states.blockover;
-                Pause.SaveValues(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
+                //Pause.SaveValues(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 testofsql.SetDynamicDifficulty();
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).ResetBallsCounterForDynamicDifficulty();
@@ -366,6 +381,8 @@ public class ManagerScript : MonoBehaviour
         }
 
     }
+
+
 
     /// <summary>
     /// Resets the position and roration of player and the waypoint.
@@ -547,8 +564,8 @@ public class ManagerScript : MonoBehaviour
         } else if (session == 2)
         {
 
-
-            for (int i=0; i < 40; i++)
+            //CHANGE!!!
+            for (int i=0; i < 2; i++)
             {
                 trialContainer tempTrial = new trialContainer("Training");
                 trialList.Add(tempTrial);

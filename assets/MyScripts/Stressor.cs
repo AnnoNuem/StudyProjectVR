@@ -23,7 +23,7 @@ public class Stressor : MonoBehaviour
     /// <summary>
     /// The displaytext
     /// </summary>
-    GameObject displaytext;
+    static GameObject displaytext;
     /// <summary>
     /// The random
     /// </summary>
@@ -212,7 +212,7 @@ public class Stressor : MonoBehaviour
     /// <summary>
     /// The s
     /// </summary>
-    yellowSphereStates s;
+    static   yellowSphereStates s;
     /// <summary>
     /// The start defeat time float
     /// </summary>
@@ -320,6 +320,7 @@ public class Stressor : MonoBehaviour
         CancelInvoke("startExp");
         keyPressedToEarly = false;
         //Invoke this shit after the coolDown time, basicaly after the coolDown
+        Debug.Log("xxx---xxx");
         Invoke("StartMoving", coolDown);
 
     }
@@ -512,7 +513,7 @@ public class Stressor : MonoBehaviour
 
         xcontroller.SetMoveScaleMultiplier(0.0f);
         yield return new WaitForSeconds(sec);
-        moveScale = moveScale * 0.5f;
+        moveScale = moveScale * 0.7f;
         xcontroller.SetMoveScaleMultiplier(moveScale);
         float temp = 0.0f;
         xcontroller.GetMoveScaleMultiplier(ref temp);
@@ -544,7 +545,7 @@ public class Stressor : MonoBehaviour
     /// Switches the state.
     /// </summary>
     /// <param name="newState">The new state.</param>
-    void switchState (yellowSphereStates newState)
+    public  void switchState (yellowSphereStates newState)
     {
         displaytext.GetComponent<TextMesh>().text = "";
         Debug.Log(newState);
@@ -613,6 +614,11 @@ public class Stressor : MonoBehaviour
                 break;
             case yellowSphereStates.end: // if we want the stressor to stop, we set it to the end state
                 s = yellowSphereStates.end;
+                CancelInvoke("startExp"); // if 
+                CancelInvoke("StartMoving");
+                CancelInvoke("NotDefeatedInTime");
+                CancelInvoke("StressorDefeatable");
+                displaytext.GetComponent<TextMesh>().text = "";
                 renderer.enabled = false;
                 break;
         }

@@ -175,15 +175,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100014, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_TagString
@@ -269,10 +269,8 @@ GameObject:
   - 4: {fileID: 232248646}
   - 114: {fileID: 232248648}
   - 114: {fileID: 232248654}
-  - 114: {fileID: 232248649}
   - 114: {fileID: 232248651}
   - 114: {fileID: 232248653}
-  - 114: {fileID: 232248652}
   - 114: {fileID: 232248650}
   m_Layer: 0
   m_Name: OVRCameraRig
@@ -291,8 +289,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 247557682}
-  - {fileID: 2032429182}
   - {fileID: 1818292237}
   - {fileID: 705957272}
   - {fileID: 2115074544}
@@ -325,27 +321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9f338034892c44ebb62d97894772f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &232248649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 232248645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11930d139c219ac4f8faa6f71a13ba73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guiPosition: {x: 0, y: 5, z: 10}
-  guiSize: 5
-  useCurvedSurface: 0
-  acceptMouse: 0
-  acceptKeyboard: 1
-  cursorSize: 32
-  customCursor: {fileID: 0}
-  skin: {fileID: 11400000, guid: 621b3f5c7055f8e4e8b5a5513b4067b6, type: 2}
-  FakePauseButton: 0
-  filePath2: 
 --- !u!114 &232248650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,28 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0ec7b656e74384d8bac1ea9d832213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &232248652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 232248645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 677a286afa99c41419a5f5d76a59dc20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guiPosition: {x: 0, y: 0, z: 10}
-  guiSize: 5
-  useCurvedSurface: 0
-  acceptMouse: 1
-  acceptKeyboard: 1
-  cursorSize: 32
-  customCursor: {fileID: 0}
-  skin: {fileID: 11400000, guid: ef969272c6f9bbd4c8215db5096d648d, type: 2}
-  SessionId: 
-  SessionNumber: 
-  debuggField: 
 --- !u!114 &232248653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +404,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 5, z: 17.7514038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 232248646}
+  m_Father: {fileID: 705957272}
   m_RootOrder: 0
 --- !u!102 &247557683
 TextMesh:
@@ -833,6 +786,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 705957272}
   - 81: {fileID: 131900012}
+  - 114: {fileID: 705957274}
+  - 114: {fileID: 705957273}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: Untagged
@@ -849,9 +804,54 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 247557682}
+  - {fileID: 2032429182}
   m_Father: {fileID: 232248646}
-  m_RootOrder: 3
+  m_RootOrder: 1
+--- !u!114 &705957273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 705957271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11930d139c219ac4f8faa6f71a13ba73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiPosition: {x: 0, y: 5, z: 10}
+  guiSize: 5
+  useCurvedSurface: 0
+  acceptMouse: 0
+  acceptKeyboard: 1
+  cursorSize: 32
+  customCursor: {fileID: 0}
+  skin: {fileID: 11400000, guid: 621b3f5c7055f8e4e8b5a5513b4067b6, type: 2}
+  FakePauseButton: 0
+  filePath2: 
+--- !u!114 &705957274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 705957271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 677a286afa99c41419a5f5d76a59dc20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiPosition: {x: 0, y: 0, z: 10}
+  guiSize: 5
+  useCurvedSurface: 0
+  acceptMouse: 1
+  acceptKeyboard: 1
+  cursorSize: 32
+  customCursor: {fileID: 0}
+  skin: {fileID: 11400000, guid: ef969272c6f9bbd4c8215db5096d648d, type: 2}
+  SessionId: 
+  SessionNumber: 
+  debuggField: 
 --- !u!1 &725266472
 GameObject:
   m_ObjectHideFlags: 0
@@ -3620,7 +3620,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 232248646}
-  m_RootOrder: 2
+  m_RootOrder: 0
 --- !u!1 &1825982287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3780,10 +3780,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2032429181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 17.3999996}
+  m_LocalPosition: {x: 0, y: 2, z: 17.4000244}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 232248646}
+  m_Father: {fileID: 705957272}
   m_RootOrder: 1
 --- !u!102 &2032429183
 TextMesh:
@@ -3927,7 +3927,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 232248646}
-  m_RootOrder: 4
+  m_RootOrder: 2
 --- !u!20 &2115074545
 Camera:
   m_ObjectHideFlags: 0
