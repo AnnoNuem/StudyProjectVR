@@ -9,7 +9,7 @@ public class DetonatorFireball : DetonatorComponent
     private Color _baseColor = new Color(1f, .423f, 0f, .5f);
     private Vector3 _baseVelocity = new Vector3(60f, 60f, 60f);
 
-    //	private float _baseDamping = 0.1300004f;
+    // private float _baseDamping = 0.1300004f; 
     private float _scaledDuration;
 
     private GameObject _fireballA;

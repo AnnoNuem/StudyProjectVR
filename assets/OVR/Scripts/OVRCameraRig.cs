@@ -24,33 +24,33 @@ limitations under the License.
 using UnityEngine;
 
 /// <summary>
-/// A head-tracked stereoscopic virtual reality camera rig.
+/// A head-tracked stereoscopic virtual reality camera rig. 
 /// </summary>
 [ExecuteInEditMode]
 public class OVRCameraRig : MonoBehaviour
 {
     /// <summary>
-    /// The left eye camera.
+    /// The left eye camera. 
     /// </summary>
     private Camera leftEyeCamera;
 
     /// <summary>
-    /// The right eye camera.
+    /// The right eye camera. 
     /// </summary>
     private Camera rightEyeCamera;
 
     /// <summary>
-    /// Always coincides with the pose of the left eye.
+    /// Always coincides with the pose of the left eye. 
     /// </summary>
     public Transform leftEyeAnchor { get; private set; }
 
     /// <summary>
-    /// Always coincides with average of the left and right eye poses.
+    /// Always coincides with average of the left and right eye poses. 
     /// </summary>
     public Transform centerEyeAnchor { get; private set; }
 
     /// <summary>
-    /// Always coincides with the pose of the right eye.
+    /// Always coincides with the pose of the right eye. 
     /// </summary>
     public Transform rightEyeAnchor { get; private set; }
 
@@ -193,7 +193,7 @@ public class OVRCameraRig : MonoBehaviour
         cam.rect = new Rect(0f, 0f, OVRManager.instance.virtualTextureScale, OVRManager.instance.virtualTextureScale);
         cam.targetTexture = OVRManager.display.GetEyeTexture(eye);
 
-        // AA is documented to have no effect in deferred, but it causes black screens.
+        // AA is documented to have no effect in deferred, but it causes black screens. 
         if (cam.actualRenderingPath == RenderingPath.DeferredLighting)
             QualitySettings.antiAliasing = 0;
 

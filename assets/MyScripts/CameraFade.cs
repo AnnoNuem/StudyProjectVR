@@ -42,23 +42,24 @@ public class CameraFade : MonoBehaviour
     public float m_FadeDelay = 0;
     public Action m_OnFadeFinish = null;
 
-    // Initialize the texture, background-style and initial color:
+    // Initialize the texture, background-style and initial color: 
     public void init ()
     {
         instance.m_FadeTexture = new Texture2D(1, 1);
         instance.m_BackgroundStyle.normal.background = instance.m_FadeTexture;
     }
 
-    // Draw the texture and perform the fade:
+    // Draw the texture and perform the fade: 
     private void OnGUI ()
     {
-        // If delay is over...
+        // If delay is over... 
         if (Time.time > instance.m_FadeDelay)
         {
-            // If the current color of the screen is not equal to the desired color: keep fading!
+            // If the current color of the screen is not equal to the desired color: keep fading! 
             if (instance.m_CurrentScreenOverlayColor != instance.m_TargetScreenOverlayColor)
             {
-                // If the difference between the current alpha and the desired alpha is smaller than delta-alpha * deltaTime, then we're pretty much done fading:
+                // If the difference between the current alpha and the desired alpha is smaller than
+                // delta-alpha * deltaTime, then we're pretty much done fading:
                 if (Mathf.Abs(instance.m_CurrentScreenOverlayColor.a - instance.m_TargetScreenOverlayColor.a) < Mathf.Abs(instance.m_DeltaColor.a) * Time.deltaTime)
                 {
                     instance.m_CurrentScreenOverlayColor = instance.m_TargetScreenOverlayColor;
@@ -72,12 +73,12 @@ public class CameraFade : MonoBehaviour
                 }
                 else
                 {
-                    // Fade!
+                    // Fade! 
                     SetScreenOverlayColor(instance.m_CurrentScreenOverlayColor + instance.m_DeltaColor * Time.deltaTime);
                 }
             }
         }
-        // Only draw the texture when the alpha value is greater than 0:
+        // Only draw the texture when the alpha value is greater than 0: 
         if (m_CurrentScreenOverlayColor.a > 0)
         {
             GUI.depth = instance.m_FadeGUIDepth;
@@ -86,11 +87,9 @@ public class CameraFade : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the color of the screen overlay instantly.  Useful to start a fade.
+    /// Sets the color of the screen overlay instantly. Useful to start a fade. 
     /// </summary>
-    /// <param name='newScreenOverlayColor'>
-    /// New screen overlay color.
-    /// </param>
+    /// <param name="newScreenOverlayColor"> New screen overlay color. </param>
     private static void SetScreenOverlayColor ( Color newScreenOverlayColor )
     {
         instance.m_CurrentScreenOverlayColor = newScreenOverlayColor;
@@ -99,14 +98,11 @@ public class CameraFade : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the fade from color newScreenOverlayColor. If isFadeIn, start fully opaque, else start transparent.
+    /// Starts the fade from color newScreenOverlayColor. If isFadeIn, start fully opaque, else
+    /// start transparent.
     /// </summary>
-    /// <param name='newScreenOverlayColor'>
-    /// Target screen overlay Color.
-    /// </param>
-    /// <param name='fadeDuration'>
-    /// Fade duration.
-    /// </param>
+    /// <param name="newScreenOverlayColor"> Target screen overlay Color. </param>
+    /// <param name="fadeDuration">          Fade duration. </param>
     public static void StartAlphaFade ( Color newScreenOverlayColor, bool isFadeIn, float fadeDuration )
     {
         if (fadeDuration <= 0.0f)
@@ -131,17 +127,12 @@ public class CameraFade : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the fade from color newScreenOverlayColor. If isFadeIn, start fully opaque, else start transparent, after a delay.
+    /// Starts the fade from color newScreenOverlayColor. If isFadeIn, start fully opaque, else
+    /// start transparent, after a delay.
     /// </summary>
-    /// <param name='newScreenOverlayColor'>
-    /// New screen overlay color.
-    /// </param>
-    /// <param name='fadeDuration'>
-    /// Fade duration.
-    /// </param>
-    /// <param name='fadeDelay'>
-    /// Fade delay.
-    /// </param>
+    /// <param name="newScreenOverlayColor"> New screen overlay color. </param>
+    /// <param name="fadeDuration">          Fade duration. </param>
+    /// <param name="fadeDelay">             Fade delay. </param>
     public static void StartAlphaFade ( Color newScreenOverlayColor, bool isFadeIn, float fadeDuration, float fadeDelay )
     {
         if (fadeDuration <= 0.0f)
@@ -168,20 +159,13 @@ public class CameraFade : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the fade from color newScreenOverlayColor. If isFadeIn, start fully opaque, else start transparent, after a delay, with Action OnFadeFinish.
+    /// Starts the fade from color newScreenOverlayColor. If isFadeIn, start fully opaque, else
+    /// start transparent, after a delay, with Action OnFadeFinish.
     /// </summary>
-    /// <param name='newScreenOverlayColor'>
-    /// New screen overlay color.
-    /// </param>
-    /// <param name='fadeDuration'>
-    /// Fade duration.
-    /// </param>
-    /// <param name='fadeDelay'>
-    /// Fade delay.
-    /// </param>
-    /// <param name='OnFadeFinish'>
-    /// On fade finish, doWork().
-    /// </param>
+    /// <param name="newScreenOverlayColor"> New screen overlay color. </param>
+    /// <param name="fadeDuration">          Fade duration. </param>
+    /// <param name="fadeDelay">             Fade delay. </param>
+    /// <param name="OnFadeFinish">          On fade finish, doWork(). </param>
     public static void StartAlphaFade ( Color newScreenOverlayColor, bool isFadeIn, float fadeDuration, float fadeDelay, Action OnFadeFinish )
     {
         if (fadeDuration <= 0.0f)

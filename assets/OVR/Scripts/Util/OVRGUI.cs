@@ -22,8 +22,7 @@ limitations under the License.
 using UnityEngine;
 
 /// <summary>
-/// OVRGUI is a GUI help class that provides functions for drawing text and other elements
-/// to the screen
+/// OVRGUI is a GUI help class that provides functions for drawing text and other elements to the screen 
 /// </summary>
 public class OVRGUI
 {
@@ -32,7 +31,7 @@ public class OVRGUI
     private float PixelWidth     = 1280.0f;
     private float PixelHeight    =  800.0f;
 
-    // DK1 resolution of W: (1280 / 2) H: 800
+    // DK1 resolution of W: (1280 / 2) H: 800 
     private float DisplayWidth   = 1280.0f;
 
     private float DisplayHeight  =  800.0f;
@@ -40,28 +39,28 @@ public class OVRGUI
     private Rect  DrawRect;
 
     /// <summary>
-    /// Gets the replacement font.
+    /// Gets the replacement font. 
     /// </summary>
-    /// <param name="fontReplace">Font replace.</param>
+    /// <param name="fontReplace"> Font replace. </param>
     public void GetFontReplace ( ref Font fontReplace )
     {
         fontReplace = FontReplace;
     }
 
     /// <summary>
-    /// Sets the font replace.
+    /// Sets the font replace. 
     /// </summary>
-    /// <param name="fontReplace">Font replace.</param>
+    /// <param name="fontReplace"> Font replace. </param>
     public void SetFontReplace ( Font fontReplace )
     {
         FontReplace = fontReplace;
     }
 
     /// <summary>
-    /// Gets the pixel resolution.
+    /// Gets the pixel resolution. 
     /// </summary>
-    /// <param name="pixelWidth">Pixel width.</param>
-    /// <param name="pixelHeight">Pixel height.</param>
+    /// <param name="pixelWidth">  Pixel width. </param>
+    /// <param name="pixelHeight"> Pixel height. </param>
     public void GetPixelResolution ( ref float pixelWidth, ref float pixelHeight )
     {
         pixelWidth = PixelWidth;
@@ -69,10 +68,10 @@ public class OVRGUI
     }
 
     /// <summary>
-    /// Sets the pixel resolution.
+    /// Sets the pixel resolution. 
     /// </summary>
-    /// <param name="pixelWidth">Pixel width.</param>
-    /// <param name="pixelHeight">Pixel height.</param>
+    /// <param name="pixelWidth">  Pixel width. </param>
+    /// <param name="pixelHeight"> Pixel height. </param>
     public void SetPixelResolution ( float pixelWidth, float pixelHeight )
     {
         PixelWidth = pixelWidth;
@@ -80,10 +79,10 @@ public class OVRGUI
     }
 
     /// <summary>
-    /// Gets the display resolution.
+    /// Gets the display resolution. 
     /// </summary>
-    /// <param name="Width">Width.</param>
-    /// <param name="Height">Height.</param>
+    /// <param name="Width">  Width. </param>
+    /// <param name="Height"> Height. </param>
     public void GetDisplayResolution ( ref float Width, ref float Height )
     {
         Width = DisplayWidth;
@@ -91,10 +90,10 @@ public class OVRGUI
     }
 
     /// <summary>
-    /// Sets the display resolution.
+    /// Sets the display resolution. 
     /// </summary>
-    /// <param name="Width">Width.</param>
-    /// <param name="Height">Height.</param>
+    /// <param name="Width">  Width. </param>
+    /// <param name="Height"> Height. </param>
     public void SetDisplayResolution ( float Width, float Height )
     {
         DisplayWidth = Width;
@@ -102,20 +101,19 @@ public class OVRGUI
     }
 
     /// <summary>
-    /// StereoBox
-    /// Values go from 0 - PixelSizeX/Y
+    /// StereoBox Values go from 0 - PixelSizeX/Y 
     /// </summary>
-    /// <param name="X">X.</param>
-    /// <param name="Y">Y.</param>
-    /// <param name="wX">W x.</param>
-    /// <param name="hY">H y.</param>
-    /// <param name="text">Text.</param>
-    /// <param name="color">Color.</param>
+    /// <param name="X">     X. </param>
+    /// <param name="Y">     Y. </param>
+    /// <param name="wX">    W x. </param>
+    /// <param name="hY">    H y. </param>
+    /// <param name="text">  Text. </param>
+    /// <param name="color"> Color. </param>
     public void StereoBox ( int X, int Y, int wX, int hY, ref string text, Color color )
     {
         Font prevFont = GUI.skin.font;
         GUI.color = color;
-        // Make sure to change font if it needs replacement
+        // Make sure to change font if it needs replacement 
         if (GUI.skin.font != FontReplace) GUI.skin.font = FontReplace;
 
         float s = PixelWidth / DisplayWidth;
@@ -128,15 +126,14 @@ public class OVRGUI
     }
 
     /// <summary>
-    /// Stereos the box.
-    /// Values go from 0.0 - 1.0f; normalized approach to rendering GUI objects
+    /// Stereos the box. Values go from 0.0 - 1.0f; normalized approach to rendering GUI objects 
     /// </summary>
-    /// <param name="X">X.</param>
-    /// <param name="Y">Y.</param>
-    /// <param name="wX">W x.</param>
-    /// <param name="hY">H y.</param>
-    /// <param name="text">Text.</param>
-    /// <param name="color">Color.</param>
+    /// <param name="X">     X. </param>
+    /// <param name="Y">     Y. </param>
+    /// <param name="wX">    W x. </param>
+    /// <param name="hY">    H y. </param>
+    /// <param name="text">  Text. </param>
+    /// <param name="color"> Color. </param>
     public void StereoBox ( float X, float Y, float wX, float hY, ref string text, Color color )
     {
         StereoBox((int)(X * PixelWidth),
@@ -147,18 +144,18 @@ public class OVRGUI
     }
 
     /// <summary>
-    /// Draw a stereo texture.
+    /// Draw a stereo texture. 
     /// </summary>
-    /// <param name="X">X.</param>
-    /// <param name="Y">Y.</param>
-    /// <param name="wX">W x.</param>
-    /// <param name="hY">H y.</param>
-    /// <param name="image">Image.</param>
-    /// <param name="color">Color.</param>
+    /// <param name="X">     X. </param>
+    /// <param name="Y">     Y. </param>
+    /// <param name="wX">    W x. </param>
+    /// <param name="hY">    H y. </param>
+    /// <param name="image"> Image. </param>
+    /// <param name="color"> Color. </param>
     public void StereoDrawTexture ( int X, int Y, int wX, int hY, ref Texture image, Color color )
     {
         GUI.color = color;
-        // Make sure to change font if it needs replacement
+        // Make sure to change font if it needs replacement 
         if (GUI.skin.font != FontReplace) GUI.skin.font = FontReplace;
 
         float s = PixelWidth / DisplayWidth;
@@ -169,14 +166,14 @@ public class OVRGUI
     }
 
     /// <summary>
-    /// Draw a stereo texture.
+    /// Draw a stereo texture. 
     /// </summary>
-    /// <param name="X">X.</param>
-    /// <param name="Y">Y.</param>
-    /// <param name="wX">W x.</param>
-    /// <param name="hY">H y.</param>
-    /// <param name="image">Image.</param>
-    /// <param name="color">Color.</param>
+    /// <param name="X">     X. </param>
+    /// <param name="Y">     Y. </param>
+    /// <param name="wX">    W x. </param>
+    /// <param name="hY">    H y. </param>
+    /// <param name="image"> Image. </param>
+    /// <param name="color"> Color. </param>
     public void StereoDrawTexture ( float X, float Y, float wX, float hY, ref Texture image, Color color )
     {
         StereoDrawTexture((int)(X * PixelWidth),
@@ -187,13 +184,13 @@ public class OVRGUI
     }
 
     /// <summary>
-    /// Calculates the size of the position.
+    /// Calculates the size of the position. 
     /// </summary>
-    /// <param name="X">X.</param>
-    /// <param name="Y">Y.</param>
-    /// <param name="wX">W x.</param>
-    /// <param name="hY">H y.</param>
-    /// <param name="calcPosSize">Calculate position size.</param>
+    /// <param name="X">           X. </param>
+    /// <param name="Y">           Y. </param>
+    /// <param name="wX">          W x. </param>
+    /// <param name="hY">          H y. </param>
+    /// <param name="calcPosSize"> Calculate position size. </param>
     private void CalcPositionAndSize ( float X, float Y, float wX, float hY,
                                      ref Rect calcPosSize )
     {

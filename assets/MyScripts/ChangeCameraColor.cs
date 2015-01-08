@@ -8,7 +8,7 @@ public class ChangeCameraColor : MonoBehaviour
     private GameObject cam2;
     private ChangeRenderSettings cr;
 
-    // Use this for initialization
+    // Use this for initialization 
     private void Start ()
     {
         cam1 = GameObject.Find("RightEyeAnchor");
@@ -17,7 +17,7 @@ public class ChangeCameraColor : MonoBehaviour
         cr = (ChangeRenderSettings)GameObject.Find("helperObject").GetComponent("ChangeRenderSettings");
     }
 
-    // Update is called once per frame
+    // Update is called once per frame 
     private void Update ()
     {
         CondtionTypeVariableInContainer = ManagerScript.CondtionTypeVariableInContainer;
@@ -32,7 +32,7 @@ public class ChangeCameraColor : MonoBehaviour
     {
         if (CondtionTypeVariableInContainer == "Easy" || CondtionTypeVariableInContainer == "Easy-False")
         {
-            //	Debug.Log("easy camera");
+            // Debug.Log("easy camera"); 
             cam1.SetActive(true);
             cam2.SetActive(true);
             cr.switchEasy();
@@ -47,7 +47,7 @@ public class ChangeCameraColor : MonoBehaviour
         }
         else if (CondtionTypeVariableInContainer == "Training" || CondtionTypeVariableInContainer == "Explain")
         {
-            //	Debug.Log("no cond camera");
+            // Debug.Log("no cond camera"); 
             cam1.SetActive(true);
             cam2.SetActive(true);
 
@@ -55,8 +55,7 @@ public class ChangeCameraColor : MonoBehaviour
         }
         else if (CondtionTypeVariableInContainer == "ENDTRIAL")
         {
-            // we need to show something in he end, so lets not disable the camera
-            //	Debug.Log("no camera");
+            // we need to show something in he end, so lets not disable the camera Debug.Log("no camera"); 
             cam1.SetActive(true);
             cam2.SetActive(true);
 

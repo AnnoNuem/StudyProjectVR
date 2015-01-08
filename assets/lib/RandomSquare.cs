@@ -6,7 +6,7 @@ namespace URandom
     {
         public static Vector2 Area ( ref NPack.MersenneTwister _rand )
         {
-            // Move to -1, 1 space as for CIRCLE and SPHERE
+            // Move to -1, 1 space as for CIRCLE and SPHERE 
             return new Vector2((2 * _rand.NextSingle(true) - 1), (2 * _rand.NextSingle(true) - 1));
         }
 
@@ -32,7 +32,7 @@ namespace URandom
                     break;
             }
 
-            // Move to -1, 1 space as for CIRCLE and SPHERE
+            // Move to -1, 1 space as for CIRCLE and SPHERE 
             return new Vector2((2 * x - 1), (2 * y - 1));
         }
     }

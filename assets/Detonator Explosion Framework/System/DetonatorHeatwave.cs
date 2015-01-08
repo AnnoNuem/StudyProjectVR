@@ -41,7 +41,8 @@ public class DetonatorHeatwave : DetonatorComponent
         //_heatwave doesn't get defined unless SystemInfo.supportsImageEffects is true, checked in Explode()
         if (_heatwave)
         {
-            // billboard it so it always faces the camera - can't use regular lookat because the built in Unity plane is lame
+            // billboard it so it always faces the camera - can't use regular lookat because the
+            // built in Unity plane is lame
             _heatwave.transform.rotation = Quaternion.FromToRotation(Vector3.up, Camera.main.transform.position - _heatwave.transform.position);
             _heatwave.transform.localPosition = localPosition + (Vector3.forward * zOffset);
 

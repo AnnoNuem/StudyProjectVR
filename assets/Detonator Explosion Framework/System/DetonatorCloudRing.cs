@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// This one isn't ready for prime time and is not in the menu. Feel free to modify or complete. :)
+// This one isn't ready for prime time and is not in the menu. Feel free to modify or complete. :) 
 [RequireComponent(typeof(Detonator))]
 public class DetonatorCloudRing : DetonatorComponent
 {

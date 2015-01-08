@@ -9,7 +9,7 @@ public class DetonatorSparks : DetonatorComponent
     private Vector3 _baseVelocity = new Vector3(400f, 400f, 400f);
     private Color _baseColor = Color.white;
 
-    //	private float _baseDamping = 0.185f;
+    // private float _baseDamping = 0.185f; 
     private Vector3 _baseForce = Physics.gravity;
 
     private float _scaledDuration;

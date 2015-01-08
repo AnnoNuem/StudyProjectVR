@@ -22,10 +22,9 @@ namespace URandom
 			0.1208650973866179e-2,
 			-0.5395239384953e-5};
 
-        // 6.1 Gamma Function, Beta Function, Factorials, Binomial Coefficients
-        // http://www.nrbook.com/a/bookcpdf/c6-1.pdf
-        // Return the natural log of a gamma function for xx > 0
-        // Internal arithmetic in double precision.
+        // 6. 1 Gamma Function, Beta Function, Factorials, Binomial Coefficients
+        // http: //www.nrbook.com/a/bookcpdf/c6-1.pdf Return the natural log of a gamma function for
+        // xx > 0 Internal arithmetic in double precision.
         public static double gammln ( double xx )
         {
             double x,y,tmp,ser;
@@ -45,7 +44,7 @@ namespace URandom
             return -tmp + Math.Log(2.5066282746310005 * ser / x);
         }
 
-        // Scale range old to any range
+        // Scale range old to any range 
         public static float ScaleFloatToRange ( float x, float newMin, float newMax, float oldMin, float oldMax )
         {
             return (x / ((oldMax - oldMin) / (newMax - newMin))) + newMin;

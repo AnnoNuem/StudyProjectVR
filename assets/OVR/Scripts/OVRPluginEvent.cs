@@ -23,18 +23,18 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// Matches the events in the native plugin.
+/// Matches the events in the native plugin. 
 /// </summary>
 public enum RenderEventType
 {
-    // PC
+    // PC 
     BeginFrame = 0,
 
     EndFrame = 1,
     Initialize = 2,
     Destroy = 3,
 
-    // Android
+    // Android 
     InitRenderThread = 0,
 
     Pause = 1,
@@ -47,12 +47,12 @@ public enum RenderEventType
 }
 
 /// <summary>
-/// Communicates with native plugin functions that run on the rendering thread.
+/// Communicates with native plugin functions that run on the rendering thread. 
 /// </summary>
 public static class OVRPluginEvent
 {
     /// <summary>
-    /// Immediately issues the given event.
+    /// Immediately issues the given event. 
     /// </summary>
     public static void Issue ( RenderEventType eventType )
     {
@@ -60,20 +60,19 @@ public static class OVRPluginEvent
     }
 
     /// <summary>
-    /// Create a data channel through the single 32-bit integer we are given to
-    /// communicate with the plugin.
-    /// Split the 32-bit integer event data into two separate "send-two-bytes"
-    /// plugin events. Then issue the explicit event that makes use of the data.
+    /// Create a data channel through the single 32-bit integer we are given to communicate with the
+    /// plugin. Split the 32-bit integer event data into two separate "send-two-bytes" plugin
+    /// events. Then issue the explicit event that makes use of the data.
     /// </summary>
     public static void IssueWithData ( RenderEventType eventType, int eventData )
     {
-        // Encode and send-two-bytes of data
+        // Encode and send-two-bytes of data 
         GL.IssuePluginEvent(EncodeData((int)eventType, eventData, 0));
 
-        // Encode and send remaining two-bytes of data
+        // Encode and send remaining two-bytes of data 
         GL.IssuePluginEvent(EncodeData((int)eventType, eventData, 1));
 
-        // Explicit event that uses the data
+        // Explicit event that uses the data 
         GL.IssuePluginEvent(EncodeType((int)eventType));
     }
 
@@ -115,9 +114,9 @@ public static class OVRPluginEvent
 
     private static int DecodeData ( int eventData )
     {
-        //		bool hasData   = (((UInt32)eventData & IS_DATA_FLAG) != 0);
+        // bool hasData = (((UInt32)eventData & IS_DATA_FLAG) != 0); 
         UInt32 pos     = (((UInt32)eventData & DATA_POS_MASK) >> DATA_POS_SHIFT);
-        //		UInt32 eventId = (((UInt32)eventData & EVENT_TYPE_MASK) >> EVENT_TYPE_SHIFT);
+        // UInt32 eventId = (((UInt32)eventData & EVENT_TYPE_MASK) >> EVENT_TYPE_SHIFT); 
         UInt32 payload = (((UInt32)eventData & PAYLOAD_MASK) << (PAYLOAD_SHIFT * (int)pos));
 
         return (int)payload;

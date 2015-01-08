@@ -6,7 +6,7 @@ namespace URandom
     {
         public static Vector3 Surface ( ref NPack.MersenneTwister _rand )
         {
-            // Move to -1, 1 space as for CIRCLE and SPHERE
+            // Move to -1, 1 space as for CIRCLE and SPHERE 
             Vector3 pos = GetPointOnCubeSurface(_rand.NextSingle(true), _rand.NextSingle(true), _rand.Next(5));
             return new Vector3((2 * pos.x) - 1, (2 * pos.y) - 1, (2 * pos.z) - 1);
         }
@@ -35,17 +35,17 @@ namespace URandom
                     break;
             }
 
-            // Move to -1, 1 space as for CIRCLE and SPHERE
+            // Move to -1, 1 space as for CIRCLE and SPHERE 
             return new Vector3((2 * pos.x) - 1, (2 * pos.y) - 1, (2 * pos.z) - 1);
         }
 
-        // This should work: FIXME?
-        // take 3 random numbers, use 2 for coordinates, the last one to select which face.
+        // This should work: FIXME? take 3 random numbers, use 2 for coordinates, the last one to
+        // select which face.
         private static Vector3 GetPointOnCubeSurface ( float xx, float yy, int side )
         {
             float x,y,z;
 
-            // SIDES MAP
+            // SIDES MAP 
             switch (side)
             {
                 case 0: z = 0; x = xx; y = yy; break;
@@ -63,7 +63,7 @@ namespace URandom
         public static Vector3 Volume ( ref NPack.MersenneTwister _rand )
         {
             Vector3 pos = new Vector3(_rand.NextSingle(true), _rand.NextSingle(true), _rand.NextSingle(true));
-            // Move to -1, 1 space as for CIRCLE and SPHERE
+            // Move to -1, 1 space as for CIRCLE and SPHERE 
             return new Vector3((2 * pos.x) - 1, (2 * pos.y) - 1, (2 * pos.z) - 1);
         }
 
@@ -91,7 +91,7 @@ namespace URandom
                     z = _rand.NextSingle(true);
                     break;
             }
-            // Move to -1, 1 space as for CIRCLE and SPHERE
+            // Move to -1, 1 space as for CIRCLE and SPHERE 
             return new Vector3((2 * x) - 1, (2 * y) - 1, (2 * z) - 1);
         }
     }

@@ -24,51 +24,51 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 
 /// <summary>
-/// Manages an Oculus Rift head-mounted display (HMD).
+/// Manages an Oculus Rift head-mounted display (HMD). 
 /// </summary>
 public class OVRDisplay
 {
     /// <summary>
-    /// Specifies the size and field-of-view for one eye texture.
+    /// Specifies the size and field-of-view for one eye texture. 
     /// </summary>
     public struct EyeRenderDesc
     {
         /// <summary>
-        /// The horizontal and vertical size of the texture.
+        /// The horizontal and vertical size of the texture. 
         /// </summary>
         public Vector2 resolution;
 
         /// <summary>
-        /// The angle of the horizontal and vertical field of view in degrees.
+        /// The angle of the horizontal and vertical field of view in degrees. 
         /// </summary>
         public Vector2 fov;
     }
 
     /// <summary>
-    /// Contains latency measurements for a single frame of rendering.
+    /// Contains latency measurements for a single frame of rendering. 
     /// </summary>
     public struct LatencyData
     {
         /// <summary>
-        /// The time it took to render both eyes in seconds.
+        /// The time it took to render both eyes in seconds. 
         /// </summary>
         public float render;
 
         /// <summary>
-        /// The time it took to perform TimeWarp in seconds.
+        /// The time it took to perform TimeWarp in seconds. 
         /// </summary>
         public float timeWarp;
 
         /// <summary>
-        /// The time between the end of TimeWarp and scan-out in seconds.
+        /// The time between the end of TimeWarp and scan-out in seconds. 
         /// </summary>
         public float postPresent;
     }
 
     /// <summary>
-    /// If true, a physical HMD is attached to the system.
+    /// If true, a physical HMD is attached to the system. 
     /// </summary>
-    /// <value><c>true</c> if is present; otherwise, <c>false</c>.</value>
+    /// <value> <c> true </c> if is present; otherwise, <c> false </c>. </value>
     public bool isPresent
     {
         get
@@ -108,7 +108,7 @@ public class OVRDisplay
 #endif
 
     /// <summary>
-    /// Creates an instance of OVRDisplay. Called by OVRManager.
+    /// Creates an instance of OVRDisplay. Called by OVRManager. 
     /// </summary>
     public OVRDisplay ()
     {
@@ -131,11 +131,11 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Updates the internal state of the OVRDisplay. Called by OVRManager.
+    /// Updates the internal state of the OVRDisplay. Called by OVRManager. 
     /// </summary>
     public void Update ()
     {
-        // HACK - needed to force DX11 into low persistence mode, remove after Unity patch release
+        // HACK - needed to force DX11 into low persistence mode, remove after Unity patch release 
         if (frameCount < 2)
         {
             uint caps = OVRManager.capiHmd.GetEnabledCaps();
@@ -148,7 +148,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Marks the beginning of all rendering.
+    /// Marks the beginning of all rendering. 
     /// </summary>
     public void BeginFrame ()
     {
@@ -162,7 +162,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Marks the end of all rendering.
+    /// Marks the end of all rendering. 
     /// </summary>
     public void EndFrame ()
     {
@@ -170,7 +170,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Gets the head pose at the current time or predicted at the given time.
+    /// Gets the head pose at the current time or predicted at the given time. 
     /// </summary>
     public OVRPose GetHeadPose ( double predictionTime = 0d )
     {
@@ -200,7 +200,7 @@ public class OVRDisplay
 #endif
 
     /// <summary>
-    /// Gets the pose of the given eye, predicted for the time when the current frame will scan out.
+    /// Gets the pose of the given eye, predicted for the time when the current frame will scan out. 
     /// </summary>
     public OVRPose GetEyePose ( OVREye eye )
     {
@@ -238,11 +238,11 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Gets the given eye's projection matrix.
+    /// Gets the given eye's projection matrix. 
     /// </summary>
-    /// <param name="eyeId">Specifies the eye.</param>
-    /// <param name="nearClip">The distance to the near clipping plane.</param>
-    /// <param name="farClip">The distance to the far clipping plane.</param>
+    /// <param name="eyeId">    Specifies the eye. </param>
+    /// <param name="nearClip"> The distance to the near clipping plane. </param>
+    /// <param name="farClip">  The distance to the far clipping plane. </param>
     public Matrix4x4 GetProjection ( int eyeId, float nearClip, float farClip )
     {
 #if !UNITY_ANDROID || UNITY_EDITOR
@@ -255,12 +255,12 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Occurs when the head pose is reset.
+    /// Occurs when the head pose is reset. 
     /// </summary>
     public event System.Action RecenteredPose;
 
     /// <summary>
-    /// Recenters the head pose.
+    /// Recenters the head pose. 
     /// </summary>
     public void RecenterPose ()
     {
@@ -277,7 +277,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Gets the current acceleration of the head.
+    /// Gets the current acceleration of the head. 
     /// </summary>
     public Vector3 acceleration
     {
@@ -294,7 +294,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Gets the current angular velocity of the head.
+    /// Gets the current angular velocity of the head. 
     /// </summary>
     public Vector3 angularVelocity
     {
@@ -311,7 +311,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Gets the resolution and field of view for the given eye.
+    /// Gets the resolution and field of view for the given eye. 
     /// </summary>
     public EyeRenderDesc GetEyeRenderDesc ( OVREye eye )
     {
@@ -319,7 +319,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Gets the currently active render texture for the given eye.
+    /// Gets the currently active render texture for the given eye. 
     /// </summary>
     public RenderTexture GetEyeTexture ( OVREye eye )
     {
@@ -327,7 +327,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Gets the currently active render texture's native ID for the given eye.
+    /// Gets the currently active render texture's native ID for the given eye. 
     /// </summary>
     public int GetEyeTextureId ( OVREye eye )
     {
@@ -335,7 +335,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// True if the direct mode display driver is active.
+    /// True if the direct mode display driver is active. 
     /// </summary>
     public bool isDirectMode
     {
@@ -352,7 +352,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// If true, direct mode rendering will also show output in the main window.
+    /// If true, direct mode rendering will also show output in the main window. 
     /// </summary>
     public bool mirrorMode
     {
@@ -385,11 +385,12 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// If true, TimeWarp will be used to correct the output of each OVRCameraRig for rotational latency.
+    /// If true, TimeWarp will be used to correct the output of each OVRCameraRig for rotational latency. 
     /// </summary>
     internal bool timeWarp
     {
         get { return (distortionCaps & (int)DistortionCaps.TimeWarp) != 0; }
+
         set
         {
             if (value != timeWarp)
@@ -398,11 +399,12 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// If true, VR output will be rendered upside-down.
+    /// If true, VR output will be rendered upside-down. 
     /// </summary>
     internal bool flipInput
     {
         get { return (distortionCaps & (int)DistortionCaps.FlipInput) != 0; }
+
         set
         {
             if (value != flipInput)
@@ -411,7 +413,7 @@ public class OVRDisplay
     }
 
     /// <summary>
-    /// Enables and disables distortion rendering capabilities from the Ovr.DistortionCaps enum.
+    /// Enables and disables distortion rendering capabilities from the Ovr.DistortionCaps enum. 
     /// </summary>
     public uint distortionCaps
     {
@@ -442,7 +444,7 @@ public class OVRDisplay
         (uint)DistortionCaps.Overdrive;
 
     /// <summary>
-    /// Gets the current measured latency values.
+    /// Gets the current measured latency values. 
     /// </summary>
     public LatencyData latency
     {
@@ -539,7 +541,7 @@ public class OVRDisplay
         fov.LeftTan = fov.RightTan = Mathf.Max(fov.LeftTan, fov.RightTan);
         fov.UpTan = fov.DownTan = Mathf.Max(fov.UpTan, fov.DownTan);
 
-        // Configure Stereo settings. Default pixel density is one texel per pixel.
+        // Configure Stereo settings. Default pixel density is one texel per pixel. 
         float desiredPixelDensity = 1f;
         Sizei texSize = OVRManager.capiHmd.GetFovTextureSize((Ovr.Eye)eye, fov, desiredPixelDensity);
 

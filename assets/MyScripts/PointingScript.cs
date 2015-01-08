@@ -1,76 +1,78 @@
-﻿// ***********************************************************************
-// Assembly         : Assembly-CSharp
-// Author           : razial
-// Created          : 12-29-2014
-//
-// Last Modified By : razial
-// Last Modified On : 01-07-2015
-// ***********************************************************************
+﻿// *********************************************************************** Assembly :
+// Assembly-CSharp Author : razial Created : 12-29-2014
+// 
+// Last Modified By : razial Last Modified On : 01-07-2015 ***********************************************************************
 // <copyright file="PointingScript.cs" company="INLUSIO">
-//     Copyright (c) INLUSIO. All rights reserved.
+//     Copyright (c) INLUSIO. All rights reserved. 
 // </copyright>
-// <summary></summary>
-// ***********************************************************************
+// <summary>
+// </summary>
+// *********************************************************************** 
 using UnityEngine;
-using System.Collections;
-using System.IO;
-using System.Text;
 
 /// <summary>
-/// Class PointingScript.
+/// Class PointingScript. 
 /// </summary>
 public class PointingScript : MonoBehaviour
 {
     /// <summary>
-    /// The time for pointing
+    /// The time for pointing 
     /// </summary>
-    int timeForPointing = 8;
+    private int timeForPointing = 8;
+
     /// <summary>
-    /// The displaytext
+    /// The displaytext 
     /// </summary>
-    GameObject displaytext;
+    private GameObject displaytext;
+
     /// <summary>
-    /// The file path
+    /// The file path 
     /// </summary>
     public static string filePath;
+
     /// <summary>
-    /// The point fake button
+    /// The point fake button 
     /// </summary>
     public bool PointFakeButton = false;
+
     /// <summary>
-    /// The angle between
+    /// The angle between 
     /// </summary>
     public float angleBetween = 0;
+
     /// <summary>
-    /// The number of pointings
+    /// The number of pointings 
     /// </summary>
     public static int numberOfPointings = 0;
+
     /// <summary>
-    /// The sum of errors
+    /// The sum of errors 
     /// </summary>
     public static float sumOfErrors = 0.0f;
+
     /// <summary>
-    /// The avarage error
+    /// The avarage error 
     /// </summary>
     public static float avarageError = 0.0f;
+
     /// <summary>
-    /// The target
+    /// The target 
     /// </summary>
     public Transform target;
 
     /// <summary>
-    /// Starts this instance.
+    /// Starts this instance. 
     /// </summary>
-    void Start ()
+    private void Start ()
     {
         displaytext = GameObject.Find("Displaytext");
         target = GameObject.Find("StartPoint").transform;
     }
 
     /// <summary>
-    /// Updates this instance.
+    /// Updates this instance. 
     /// </summary>
-    void Update ()
+    private void Update ()
     {
         if (ManagerScript.getState() == ManagerScript.states.pointing)
         {
@@ -94,11 +96,10 @@ public class PointingScript : MonoBehaviour
                 PointFakeButton = false;
             }
         }
-
     }
 
     /// <summary>
-    /// News the pointing.
+    /// News the pointing. 
     /// </summary>
     public void NewPointing ()
     {
@@ -108,24 +109,24 @@ public class PointingScript : MonoBehaviour
     }
 
     /// <summary>
-    /// To the long point.
+    /// To the long point. 
     /// </summary>
-    void toLongPoint ()
+    private void toLongPoint ()
     {
-        //       recordData.recordDataParameters(0, "999");
+        // recordData.recordDataParameters(0, "999"); 
         ManagerScript.abortTrial();
     }
 
     /// <summary>
-    /// Clears the gu itext.
+    /// Clears the gu itext. 
     /// </summary>
-    void clearGUItext ()
+    private void clearGUItext ()
     {
         displaytext.GetComponent<TextMesh>().text = "";
     }
 
     /// <summary>
-    /// Updates the error angle statistics.
+    /// Updates the error angle statistics. 
     /// </summary>
     private void UpdateErrorAngleStatistics ()
     {
@@ -135,21 +136,17 @@ public class PointingScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Saves the angle between old way.
+    /// Saves the angle between old way. 
     /// </summary>
     private void SaveAngleBetweenOldWay ()
     {
-
         if (!ManagerScript.TrialMissed)
         {
-
-//            recordData.recordDataParameters(1, (angleBetween).ToString());
-        } else
+            // recordData.recordDataParameters(1, (angleBetween).ToString()); 
+        }
+        else
         {
-            //           recordData.recordDataParameters(2, (angleBetween).ToString());
+            // recordData.recordDataParameters(2, (angleBetween).ToString()); 
         }
     }
-
 }
-
-

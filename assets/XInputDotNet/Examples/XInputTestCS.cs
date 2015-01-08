@@ -3,22 +3,22 @@ using XInputDotNetPure; // Required in C#
 
 public class XInputTestCS : MonoBehaviour
 {
-    bool playerIndexSet = false;
-    PlayerIndex playerIndex;
-    GamePadState state;
-    GamePadState prevState;
+    private bool playerIndexSet = false;
+    private PlayerIndex playerIndex;
+    private GamePadState state;
+    private GamePadState prevState;
 
-    // Use this for initialization
-    void Start()
+    // Use this for initialization 
+    private void Start ()
     {
-        // No need to initialize anything for the plugin
+        // No need to initialize anything for the plugin 
     }
 
-    // Update is called once per frame
-    void Update()
+    // Update is called once per frame 
+    private void Update ()
     {
-        // Find a PlayerIndex, for a single player game
-        // Will find the first controller that is connected ans use it
+        // Find a PlayerIndex, for a single player game Will find the first controller that is
+        // connected ans use it
         if (!playerIndexSet || !prevState.IsConnected)
         {
             for (int i = 0; i < 4; ++i)
@@ -37,25 +37,25 @@ public class XInputTestCS : MonoBehaviour
         prevState = state;
         state = GamePad.GetState(playerIndex);
 
-        // Detect if a button was pressed this frame
+        // Detect if a button was pressed this frame 
         if (prevState.Buttons.A == ButtonState.Released && state.Buttons.A == ButtonState.Pressed)
         {
             renderer.material.color = new Color(Random.value, Random.value, Random.value, 1.0f);
         }
-        // Detect if a button was released this frame
+        // Detect if a button was released this frame 
         if (prevState.Buttons.A == ButtonState.Pressed && state.Buttons.A == ButtonState.Released)
         {
             renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         }
 
-        // Set vibration according to triggers
+        // Set vibration according to triggers 
         GamePad.SetVibration(playerIndex, state.Triggers.Left, state.Triggers.Right);
 
-        // Make the current object turn
+        // Make the current object turn 
         transform.localRotation *= Quaternion.Euler(0.0f, state.ThumbSticks.Left.X * 25.0f * Time.deltaTime, 0.0f);
     }
 
-    void OnGUI()
+    private void OnGUI ()
     {
         string text = "Use left stick to turn the cube, hold A to change color\n";
         text += string.Format("IsConnected {0} Packet #{1}\n", state.IsConnected, state.PacketNumber);

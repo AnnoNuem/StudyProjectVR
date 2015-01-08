@@ -1,11 +1,8 @@
 using System;
 
-//
 // FROM HERE:
-//
-// http://stackoverflow.com/questions/918736/random-number-generator-that-produces-a-power-law-distribution
-//
-//
+// 
+// http: //stackoverflow.com/questions/918736/random-number-generator-that-produces-a-power-law-distribution
 
 namespace URandom
 {

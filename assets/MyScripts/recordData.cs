@@ -1,14 +1,14 @@
-// * This file will serve as a utility class to help write down the values into CSVs
+// * This file will serve as a utility internal class to private help write private down the private values into CSVs
 //*/
 //using UnityEngine;
 //using System.Collections;
 //using System.IO;
 //using System.Text;
-//
+
 //public static class recordData
 //{
-//    static string delimiter = ",";
-//        
+//    private static string delimiter = ",";
+
 //    //creates file for saving parameters
 //    public static void recordDataParametersInit ()
 //    {
@@ -20,26 +20,25 @@
 //            ManagerScript.parameterFile = filePath;
 //            Debug.Log(filePath);
 //        }
-//
 //    }
-//        
+
 //    //records the paramters
 //    public static void recordDataParameters (int success, string error)
 //    {
 //        string successString = "-1";
-//
+
 //        if (success == 1)
 //        {
 //            successString = "1";
 //        }
-//
+
 //        if ((success == 2))
 //        {
 //            successString = "0";
 //        }
-//        
+
 //        string conditionVal = "";
-//
+
 //        if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
 //        {
 //            conditionVal = "1";
@@ -62,7 +61,7 @@
 //        {
 //            conditionVal = "0";
 //        }
-//
+
 //        //putting values for column in csv
 //        string[][] output = new string[][]{
 //                new string[] {
@@ -78,23 +77,22 @@
 //                        ManagerScript.CurrentOrientation.ToString(),
 //                        error,
 //                            successString.ToString()
-//                } 
+//                }
 //        };
-//
+
 //        int length = output.GetLength(0);
-//        
+
 //        StringBuilder sb = new StringBuilder();
-//        
+
 //        for (int index = 0; index < length; index++)
 //            sb.AppendLine(string.Join(delimiter, output [index]));
 //        File.AppendAllText(ManagerScript.parameterFile, sb.ToString());
-//    
 //    }
-//        
-//    // Updates the csv for Smallspread with marker of spawned , destroyed or missed
+
+//    // Updates the csv for Smallspread with marker of spawned , destroyed or missed 
 //    public static void recordDataSmallspread (string status, string durationResponse)
-//    {       
-//        string dResponse = "-1"; 
+//    {
+//        string dResponse = "-1";
 //        //string filePath = ManagerScript.trialFolder + "/Trial" + ManagerScript.trialNumber + "-Smallspread.csv";
 //        string filePath = ManagerScript.trialFolder + "/Smallspread_" + ManagerScript.chiffre + "_" + (ManagerScript.session).ToString() + ".csv";
 //        //Check if the file exists
@@ -102,9 +100,9 @@
 //        {
 //            File.Create(filePath).Close();
 //        }
-//
+
 //        string statusVal = "";
-//
+
 //        if (status == "S")
 //        {
 //            statusVal = "0";
@@ -125,7 +123,7 @@
 //        {
 //            statusVal = "2";
 //        }
-//        
+
 //        //putting values for column in csv
 //        string[][] output = new string[][]{
 //                    new string[]{
@@ -133,32 +131,27 @@
 //                    ManagerScript.realTrialNumber.ToString(),
 //                    dResponse,
 //                    (Time.realtimeSinceStartup).ToString(),
-//                    statusVal} 
+//                    statusVal}
 //                };
-//        
+
 //        int length = output.GetLength(0);
-//        
+
 //        StringBuilder sb = new StringBuilder();
-//        
+
 //        for (int index = 0; index < length; index++)
 //            sb.AppendLine(string.Join(delimiter, output [index]));
 //        File.AppendAllText(filePath, sb.ToString());
 //    }
-//
 //}
-//
-//
-//
-//
+
 ///*
 //        public static void recordDataFlow ()
 //        {
-//                
 //                string filePath = ManagerScript.trialFolder + "/Trial-" + ManagerScript.trialNumber + "-Flow.csv";
 //                if (!File.Exists (filePath)) {
 //                        File.Create (filePath).Close ();
 //                }
-//
+
 //                //putting values for column in csv
 //                string[][] output = new string[][]{
 //            new string[]{
@@ -172,18 +165,15 @@
 //                //(angleBetween).ToString (),
 //                //conditionVal
 //                //ManagerScript.CondtionTypeVariableInContainer
-//            } 
+//            }
 //        };
-//        
+
 //                int length = output.GetLength (0);
-//        
+
 //                StringBuilder sb = new StringBuilder ();
-//        
+
 //                for (int index = 0; index < length; index++)
 //                        sb.AppendLine (string.Join (delimiter, output [index]));
 //                File.AppendAllText (filePath, sb.ToString ());
-//
 //        }
 //        */
-//
-//

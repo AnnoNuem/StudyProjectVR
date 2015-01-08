@@ -10,17 +10,21 @@ using System;
 namespace URandom
 {
     /// <summary>
-    /// Convert a Uniform Distribution to a Normal Distribution
+    /// Convert a Uniform Distribution to a Normal Distribution 
     /// </summary>
     /// <remarks>
-    /// See <a href="http://stackoverflow.com/questions/75677/converting-a-uniform-distribution-to-a-normal-distribution">http://stackoverflow.com/questions/75677/converting-a-uniform-distribution-to-a-normal-distribution</a> for details
+    /// See
+    /// <a href="http://stackoverflow.com/questions/75677/converting-a-uniform-distribution-to-a-normal-distribution">
+    /// http:
+    /// //stackoverflow.com/questions/75677/converting-a-uniform-distribution-to-a-normal-distribution
+    /// </a> for details
     /// </remarks>
     public static class NormalDistribution
     {
         /// <summary>
-        ///  Standard Normal CDF
+        /// Standard Normal CDF 
         /// </summary>
-        /// <param name="u">The random value</param>
+        /// <param name="u"> The random value </param>
         public static double StdNormalCDF ( double u )
         {
             const double m_1_sqrtpi = 0.564189583547756286948;
@@ -128,9 +132,9 @@ namespace URandom
         }
 
         /// <summary>
-        ///  Standard Normal INV
+        /// Standard Normal INV 
         /// </summary>
-        /// <param name="u">The random value</param>
+        /// <param name="u"> The random value </param>
         public static double StdNormalINV ( double p )
         {
             const double m_sqrt2pi 	= 2.50662827463100;
@@ -202,21 +206,23 @@ namespace URandom
         }
 
         /// <summary>
-        ///  Normalize
+        /// Normalize 
         /// </summary>
-        /// <param name="rn">The random value</param>
-        /// <param name="temperature">Distribution Temperature</param>
+        /// <param name="rn">          The random value </param>
+        /// <param name="temperature"> Distribution Temperature </param>
         public static double Normalize ( double rn, float temperature )
         {
-            // Trasformiamo questo numero in una distribuzione normale (CDF inversa, nota anche come Gaussiana, vedi http://en.wikipedia.org/wiki/Normal_distribution)
-            // facendo l'inversa della cumulative density function su una distribuzione uniforme [0,1] otteniamo una distribuzione normale (-inf,+inf) centrata a zero
-            // e con deviazione standard 1
+            // Trasformiamo questo numero in una distribuzione normale (CDF inversa, nota anche come
+            // Gaussiana, vedi http://en.wikipedia.org/wiki/Normal_distribution) facendo l'inversa
+            // della cumulative density function su una distribuzione uniforme [0,1] otteniamo una
+            // distribuzione normale (-inf,+inf) centrata a zero e con deviazione standard 1
             double localVal = StdNormalINV(rn);
 
-            // A questo punto passiamo attraverso una funzione sigmoide (o curva logistica) con Lateratura 5
-            // Questo ci riporta a un campo (0,1), il valore 5 fa si che circa il 90% dei valori restituiti sia tra 0.45 e 0.55, aumentandolo
-            // la distribuzione si stringe (piu' valori vicini a 0.5), abbassandolo si allarga, ma a differenza di una gaussiana in ogni caso
-            // il valore restituito e' tra zero e uno.
+            // A questo punto passiamo attraverso una funzione sigmoide (o curva logistica) con
+            // Lateratura 5 Questo ci riporta a un campo (0,1), il valore 5 fa si che circa il 90%
+            // dei valori restituiti sia tra 0.45 e 0.55, aumentandolo la distribuzione si stringe
+            // (piu' valori vicini a 0.5), abbassandolo si allarga, ma a differenza di una gaussiana
+            // in ogni caso il valore restituito e' tra zero e uno.
             localVal = localVal / temperature;
             localVal = 1.0 / (1.0 + Math.Exp(-localVal));
             return (localVal);

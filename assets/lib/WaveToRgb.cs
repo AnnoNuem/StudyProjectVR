@@ -4,28 +4,28 @@ namespace URandom
 {
     public class WaveToRgb
     {
-        // CONSTS
+        // CONSTS 
         public const float MinVisibleWaveLength = 350.0f;
 
         public const float MaxVisibleWaveLength = 650.0f;
         public const float Gamma = 0.80f;
         public const int IntesityMax = 255;
 
-        // CORE
+        // CORE 
         public static Color LinearToRgb ( float linearvalue )
         {
             return WaveLengthToRgb(GetWaveLengthFromDataPoint(linearvalue, 0.0f, 1.0f));
         }
 
-        // WAVE LENGTH ALGORITHM
+        // WAVE LENGTH ALGORITHM 
         private static float GetWaveLengthFromDataPoint ( float x, float min, float max )
         {
-            // convert data in the range min - max to wavelength
+            // convert data in the range min - max to wavelength 
             float result = (x - min) / (max - min) * (MaxVisibleWaveLength - MinVisibleWaveLength) + MinVisibleWaveLength;
             return result;
         }
 
-        // ADJUST ALGORITHM
+        // ADJUST ALGORITHM 
         private static int Adjust ( float color, float factor )
         {
             if (color == 0.0f)
@@ -38,7 +38,7 @@ namespace URandom
             }
         }
 
-        // WAVELENGTH TO RGB
+        // WAVELENGTH TO RGB 
         private static Color WaveLengthToRgb ( float wave )
         {
             wave = Mathf.Floor(wave);
@@ -91,7 +91,7 @@ namespace URandom
                 b = 0.0f;
             }
 
-            // Let the intensity fall off near the vision limits
+            // Let the intensity fall off near the vision limits 
             if (wave >= 380 && wave < 420)
             {
                 factor = 0.3f + 0.7f * (wave - 380) / (420 - 380);
@@ -113,7 +113,7 @@ namespace URandom
             g = Adjust(g, factor);
             b = Adjust(b, factor);
 
-            // come back to 0.0 - 1.0
+            // come back to 0.0 - 1.0 
             r = r / 255;
             g = g / 255;
             b = b / 255;

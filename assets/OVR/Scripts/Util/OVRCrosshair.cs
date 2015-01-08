@@ -22,7 +22,7 @@ limitations under the License.
 using UnityEngine;
 
 /// <summary>
-/// OVRCrosshair is a component that adds a stereoscoppic cross-hair into a scene.
+/// OVRCrosshair is a component that adds a stereoscoppic cross-hair into a scene. 
 /// </summary>
 public class OVRCrosshair
 {
@@ -61,18 +61,18 @@ public class OVRCrosshair
     #region Public Functions
 
     /// <summary>
-    /// Sets the crosshair texture.
+    /// Sets the crosshair texture. 
     /// </summary>
-    /// <param name="image">Image.</param>
+    /// <param name="image"> Image. </param>
     public void SetCrosshairTexture ( ref Texture image )
     {
         ImageCrosshair = image;
     }
 
     /// <summary>
-    /// Sets the OVR camera controller.
+    /// Sets the OVR camera controller. 
     /// </summary>
-    /// <param name="cameraController">Camera controller.</param>
+    /// <param name="cameraController"> Camera controller. </param>
     public void SetOVRCameraController ( ref OVRCameraRig cameraController )
     {
         CameraController = cameraController;
@@ -80,18 +80,20 @@ public class OVRCrosshair
     }
 
     /// <summary>
-    /// Sets the OVR player controller.
+    /// Sets the OVR player controller. 
     /// </summary>
-    /// <param name="playerController">Player controller.</param>
+    /// <param name="playerController"> Player controller. </param>
     public void SetOVRPlayerController ( ref OVRPlayerController playerController )
     {
         PlayerController = playerController;
     }
 
     /// <summary>
-    /// Determines whether the crosshair is visible.
+    /// Determines whether the crosshair is visible. 
     /// </summary>
-    /// <returns><c>true</c> if this instance is crosshair visible; otherwise, <c>false</c>.</returns>
+    /// <returns>
+    /// <c> true </c> if this instance is crosshair visible; otherwise, <c> false </c>.
+    /// </returns>
     public bool IsCrosshairVisible ()
     {
         if (FadeVal > 0.0f)
@@ -101,7 +103,7 @@ public class OVRCrosshair
     }
 
     /// <summary>
-    /// Init this instance.
+    /// Init this instance. 
     /// </summary>
     public void Init ()
     {
@@ -112,25 +114,25 @@ public class OVRCrosshair
         ScreenWidth = Screen.width;
         ScreenHeight = Screen.height;
 
-        // Initialize screen location of cursor
+        // Initialize screen location of cursor 
         XL = ScreenWidth * 0.5f;
         YL = ScreenHeight * 0.5f;
     }
 
     /// <summary>
-    /// Updates the crosshair.
+    /// Updates the crosshair. 
     /// </summary>
     public void UpdateCrosshair ()
     {
         if (ShouldDisplayCrosshair())
         {
-            // Do not do these tests within OnGUI since they will be called twice
+            // Do not do these tests within OnGUI since they will be called twice 
             CollisionWithGeometryCheck();
         }
     }
 
     /// <summary>
-    /// The GUI crosshair event.
+    /// The GUI crosshair event. 
     /// </summary>
     public void OnGUICrosshair ()
     {
@@ -141,21 +143,20 @@ public class OVRCrosshair
 
         FadeVal = Mathf.Clamp(FadeVal, 0.0f, 1.0f);
 
-        // Check to see if crosshair influences mouse rotation
+        // Check to see if crosshair influences mouse rotation 
         if (PlayerController != null)
             PlayerController.SetSkipMouseRotation(false);
 
         if ((ImageCrosshair != null) && (FadeVal != 0.0f))
         {
-            // Assume cursor is on-screen (unless it goes into the dead-zone)
-            // Other systems will check this to see if it is false for example
-            // allowing rotation to take place
+            // Assume cursor is on-screen (unless it goes into the dead-zone) Other systems will
+            // check this to see if it is false for example allowing rotation to take place
             if (PlayerController != null)
                 PlayerController.SetSkipMouseRotation(true);
 
             GUI.color = new Color(1, 1, 1, FadeVal * FadeScale);
 
-            // Calculate X
+            // Calculate X 
             XL += Input.GetAxis("Mouse X") * ScaleSpeedX;
             if (XL < DeadZoneX)
             {
@@ -172,7 +173,7 @@ public class OVRCrosshair
                 XL = ScreenWidth - DeadZoneX + 0.001f;
             }
 
-            // Calculate Y
+            // Calculate Y 
             YL -= Input.GetAxis("Mouse Y") * ScaleSpeedY;
             if (YL < DeadZoneY)
             {
@@ -185,14 +186,14 @@ public class OVRCrosshair
                 if (YL > ScreenHeight) YL = ScreenHeight;
             }
 
-            // Finally draw cursor
+            // Finally draw cursor 
             bool skipMouseRotation = true;
             if (PlayerController != null)
                 PlayerController.GetSkipMouseRotation(ref skipMouseRotation);
 
             if (skipMouseRotation == true)
             {
-                // Left
+                // Left 
                 GUI.DrawTexture(new Rect(XL - (ImageCrosshair.width * 0.5f),
                                             YL - (ImageCrosshair.height * 0.5f),
                                             ImageCrosshair.width,
@@ -209,9 +210,9 @@ public class OVRCrosshair
     #region Private Functions
 
     /// <summary>
-    /// Shoulds the crosshair be displayed.
+    /// Shoulds the crosshair be displayed. 
     /// </summary>
-    /// <returns><c>true</c>, if display crosshair was shoulded, <c>false</c> otherwise.</returns>
+    /// <returns> <c> true </c>, if display crosshair was shoulded, <c> false </c> otherwise. </returns>
     private bool ShouldDisplayCrosshair ()
     {
         if (Input.GetKeyDown(CrosshairKey))
@@ -220,7 +221,7 @@ public class OVRCrosshair
             {
                 DisplayCrosshair = true;
 
-                // Always initialize screen location of cursor to center
+                // Always initialize screen location of cursor to center 
                 XL = ScreenWidth * 0.5f;
                 YL = ScreenHeight * 0.5f;
             }
@@ -232,9 +233,9 @@ public class OVRCrosshair
     }
 
     /// <summary>
-    /// Do a collision raycast on geometry for crosshair.
+    /// Do a collision raycast on geometry for crosshair. 
     /// </summary>
-    /// <returns><c>true</c>, if with geometry check was collisioned, <c>false</c> otherwise.</returns>
+    /// <returns> <c> true </c>, if with geometry check was collisioned, <c> false </c> otherwise. </returns>
     private bool CollisionWithGeometryCheck ()
     {
         CollisionWithGeometry = false;

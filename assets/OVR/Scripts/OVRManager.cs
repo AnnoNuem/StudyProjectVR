@@ -28,12 +28,12 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 
 /// <summary>
-/// Configuration data for Oculus virtual reality.
+/// Configuration data for Oculus virtual reality. 
 /// </summary>
 public class OVRManager : MonoBehaviour
 {
     /// <summary>
-    /// Contains information about the user's preferences and body dimensions.
+    /// Contains information about the user's preferences and body dimensions. 
     /// </summary>
     public struct Profile
     {
@@ -44,12 +44,12 @@ public class OVRManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets the singleton instance.
+    /// Gets the singleton instance. 
     /// </summary>
     public static OVRManager instance { get; private set; }
 
     /// <summary>
-    /// Gets a reference to the low-level C API Hmd Wrapper
+    /// Gets a reference to the low-level C API Hmd Wrapper 
     /// </summary>
     private static Hmd _capiHmd;
 
@@ -72,17 +72,17 @@ public class OVRManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets a reference to the active OVRDisplay
+    /// Gets a reference to the active OVRDisplay 
     /// </summary>
     public static OVRDisplay display { get; private set; }
 
     /// <summary>
-    /// Gets a reference to the active OVRTracker
+    /// Gets a reference to the active OVRTracker 
     /// </summary>
     public static OVRTracker tracker { get; private set; }
 
     /// <summary>
-    /// Gets the current profile, which contains information about the user's settings and body dimensions.
+    /// Gets the current profile, which contains information about the user's settings and body dimensions. 
     /// </summary>
     private static bool _profileIsCached = false;
 
@@ -131,32 +131,32 @@ public class OVRManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Occurs when an HMD attached.
+    /// Occurs when an HMD attached. 
     /// </summary>
     public static event Action HMDAcquired;
 
     /// <summary>
-    /// Occurs when an HMD detached.
+    /// Occurs when an HMD detached. 
     /// </summary>
     public static event Action HMDLost;
 
     /// <summary>
-    /// Occurs when the tracker gained tracking.
+    /// Occurs when the tracker gained tracking. 
     /// </summary>
     public static event Action TrackingAcquired;
 
     /// <summary>
-    /// Occurs when the tracker lost tracking.
+    /// Occurs when the tracker lost tracking. 
     /// </summary>
     public static event Action TrackingLost;
 
     /// <summary>
-    /// Occurs when HSW dismissed.
+    /// Occurs when HSW dismissed. 
     /// </summary>
     public static event Action HSWDismissed;
 
     /// <summary>
-    /// If true, then the Oculus health and safety warning (HSW) is currently visible.
+    /// If true, then the Oculus health and safety warning (HSW) is currently visible. 
     /// </summary>
     public static bool isHSWDisplayed
     {
@@ -171,7 +171,7 @@ public class OVRManager : MonoBehaviour
     }
 
     /// <summary>
-    /// If the HSW has been visible for the necessary amount of time, this will make it disappear.
+    /// If the HSW has been visible for the necessary amount of time, this will make it disappear. 
     /// </summary>
     public static void DismissHSWDisplay ()
     {
@@ -180,11 +180,8 @@ public class OVRManager : MonoBehaviour
 #endif
     }
 
-    /// <summary>
-    /// Gets the current battery level.
-    /// </summary>
-    /// <returns><c>battery level in the range [0.0,1.0]</c>
-    /// <param name="batteryLevel">Battery level.</param>
+    /// <summary> Gets the current battery level. </summary> <returns><c>battery level in the range
+    /// [0.0,1.0]</c> <param name="batteryLevel">Battery level.</param>
     public static float batteryLevel
     {
         get
@@ -197,11 +194,8 @@ public class OVRManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Gets the current battery temperature.
-    /// </summary>
-    /// <returns><c>battery temperature in Celsius</c>
-    /// <param name="batteryTemperature">Battery temperature.</param>
+    /// <summary> Gets the current battery temperature. </summary> <returns><c>battery temperature
+    /// in Celsius</c> <param name="batteryTemperature">Battery temperature.</param>
     public static float batteryTemperature
     {
         get
@@ -214,11 +208,8 @@ public class OVRManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Gets the current battery status.
-    /// </summary>
-    /// <returns><c>battery status</c>
-    /// <param name="batteryStatus">Battery status.</param>
+    /// <summary> Gets the current battery status. </summary> <returns><c>battery status</c> <param
+    /// name="batteryStatus">Battery status.</param>
     public static int batteryStatus
     {
         get
@@ -232,57 +223,55 @@ public class OVRManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Controls the size of the eye textures.
-    /// Values must be above 0.
-    /// Values below 1 permit sub-sampling for improved performance.
-    /// Values above 1 permit super-sampling for improved sharpness.
+    /// Controls the size of the eye textures. Values must be above 0. Values below 1 permit
+    /// sub-sampling for improved performance. Values above 1 permit super-sampling for improved sharpness.
     /// </summary>
     public float nativeTextureScale = 1.0f;
 
     /// <summary>
-    /// Controls the size of the rendering viewport.
-    /// Values must be between 0 and 1.
-    /// Values below 1 permit dynamic sub-sampling for improved performance.
+    /// Controls the size of the rendering viewport. Values must be between 0 and 1. Values below 1
+    /// permit dynamic sub-sampling for improved performance.
     /// </summary>
     public float virtualTextureScale = 1.0f;
 
     /// <summary>
-    /// If true, head tracking will affect the orientation of each OVRCameraRig's cameras.
+    /// If true, head tracking will affect the orientation of each OVRCameraRig's cameras. 
     /// </summary>
     public bool usePositionTracking = true;
 
     /// <summary>
-    /// The format of each eye texture.
+    /// The format of each eye texture. 
     /// </summary>
     public RenderTextureFormat eyeTextureFormat = RenderTextureFormat.Default;
 
     /// <summary>
-    /// The depth of each eye texture in bits.
+    /// The depth of each eye texture in bits. 
     /// </summary>
     public int eyeTextureDepth = 24;
 
     /// <summary>
-    /// If true, TimeWarp will be used to correct the output of each OVRCameraRig for rotational latency.
+    /// If true, TimeWarp will be used to correct the output of each OVRCameraRig for rotational latency. 
     /// </summary>
     public bool timeWarp = true;
 
     /// <summary>
-    /// If this is true and TimeWarp is true, each OVRCameraRig will stop tracking and only TimeWarp will respond to head motion.
+    /// If this is true and TimeWarp is true, each OVRCameraRig will stop tracking and only TimeWarp
+    /// will respond to head motion.
     /// </summary>
     public bool freezeTimeWarp = false;
 
     /// <summary>
-    /// If true, each scene load will cause the head pose to reset.
+    /// If true, each scene load will cause the head pose to reset. 
     /// </summary>
     public bool resetTrackerOnLoad = true;
 
     /// <summary>
-    /// If true, the eyes see the same image, which is rendered only by the left camera.
+    /// If true, the eyes see the same image, which is rendered only by the left camera. 
     /// </summary>
     public bool monoscopic = false;
 
     /// <summary>
-    /// True if the current platform supports virtual reality.
+    /// True if the current platform supports virtual reality. 
     /// </summary>
     public bool isSupportedPlatform { get; private set; }
 
@@ -292,7 +281,7 @@ public class OVRManager : MonoBehaviour
     private static WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-	// Get this from Unity on startup so we can call Activity java functions
+	// Get this from Unity on startup so we can call Activity java functions 
 	private static bool androidJavaInit = false;
 	private static AndroidJavaObject activity;
 	private static AndroidJavaClass javaVrActivityClass;
@@ -306,6 +295,7 @@ public class OVRManager : MonoBehaviour
     public static bool isPaused
     {
         get { return _isPaused; }
+
         set
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -322,7 +312,7 @@ public class OVRManager : MonoBehaviour
 
     private void Awake ()
     {
-        // Only allow one instance at runtime.
+        // Only allow one instance at runtime. 
         if (instance != null)
         {
             enabled = false;
@@ -347,7 +337,7 @@ public class OVRManager : MonoBehaviour
             Debug.LogWarning("Using an older version of LibOVR.");
 #endif
 
-        // Detect whether this platform is a supported platform
+        // Detect whether this platform is a supported platform 
         RuntimePlatform currPlatform = Application.platform;
         isSupportedPlatform |= currPlatform == RuntimePlatform.Android;
         isSupportedPlatform |= currPlatform == RuntimePlatform.LinuxPlayer;
@@ -363,9 +353,9 @@ public class OVRManager : MonoBehaviour
 
 #if UNITY_ANDROID && !UNITY_EDITOR
 		Application.targetFrameRate = 60;
-		// don't allow the app to run in the background
+		// don't allow the app to run in the background 
 		Application.runInBackground = false;
-		// Disable screen dimming
+		// Disable screen dimming 
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 		if (!androidJavaInit)
@@ -373,15 +363,15 @@ public class OVRManager : MonoBehaviour
 			AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 			activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 			javaVrActivityClass = new AndroidJavaClass("com.oculusvr.vrlib.VrActivity");
-			// Prepare for the RenderThreadInit()
+			// Prepare for the RenderThreadInit() 
 			SetInitVariables(activity.GetRawObject(), javaVrActivityClass.GetRawClass());
 
 			androidJavaInit = true;
 		}
 
-		// We want to set up our touchpad messaging system
+		// We want to set up our touchpad messaging system 
 		OVRTouchpad.Create();
-		// This will trigger the init on the render thread
+		// This will trigger the init on the render thread 
 		InitRenderThread();
 #else
         SetEditorPlay(Application.isEditor);
@@ -395,7 +385,7 @@ public class OVRManager : MonoBehaviour
         if (resetTrackerOnLoad)
             display.RecenterPose();
 
-        // Except for D3D9, SDK rendering forces vsync unless you pass ovrHmdCap_NoVSync to Hmd.SetEnabledCaps().
+        // Except for D3D9, SDK rendering forces vsync unless you pass ovrHmdCap_NoVSync to Hmd.SetEnabledCaps(). 
         if (timeWarp)
         {
             bool useUnityVSync = SystemInfo.graphicsDeviceVersion.Contains("Direct3D 9");
@@ -421,7 +411,7 @@ public class OVRManager : MonoBehaviour
 		unity_4_5_5 = true;
 #endif
 
-        // Detect correct Unity releases which contain the fix for D3D11 exclusive mode.
+        // Detect correct Unity releases which contain the fix for D3D11 exclusive mode. 
         string version = Application.unityVersion;
         int releaseNumber;
         bool releaseNumberFound = Int32.TryParse(Regex.Match(version, @"\d+$").Value, out releaseNumber);
@@ -432,7 +422,7 @@ public class OVRManager : MonoBehaviour
             || (unity_4_5_3)
             || (unity_4_5_4);
 
-        // Exclusive mode was broken for D3D11 in Unity 4.5.2p2 - 4.5.5p2 and 4.6 builds prior to f1
+        // Exclusive mode was broken for D3D11 in Unity 4.5.2p2 - 4.5.5p2 and 4.6 builds prior to f1 
         bool unsupportedExclusiveModeD3D11 = (unity_4_6 && version.Last(char.IsLetter) == 'b')
             || (unity_4_5_2 && version.Last(char.IsLetter) == 'p' && releaseNumberFound && releaseNumber >= 2)
             || (unity_4_5_3)
@@ -513,7 +503,7 @@ public class OVRManager : MonoBehaviour
             usingPositionTracking = usePositionTracking;
         }
 
-        // Dispatch any events.
+        // Dispatch any events. 
         if (HMDLost != null && wasHmdPresent && !display.isPresent)
             HMDLost();
 
@@ -603,17 +593,17 @@ public class OVRManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Leaves the application/game and returns to the launcher/dashboard
+	/// Leaves the application/game and returns to the launcher/dashboard 
 	/// </summary>
 	public void ReturnToLauncher()
 	{
-		// show the platform UI quit prompt
+		// show the platform UI quit prompt 
 		OVRManager.PlatformUIConfirmQuit();
 	}
 
 	private void OnPostRender()
 	{
-		// Allow custom code to render before we kick off the plugin
+		// Allow custom code to render before we kick off the plugin 
 		if (OnCustomPostRender != null)
 		{
 			OnCustomPostRender();

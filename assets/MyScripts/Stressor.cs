@@ -1,244 +1,287 @@
-// ***********************************************************************
-// Assembly         : Assembly-CSharp
-// Author           : razial
-// Created          : 12-29-2014
-//
-// Last Modified By : razial
-// Last Modified On : 01-07-2015
-// ***********************************************************************
+// *********************************************************************** Assembly :
+// Assembly-CSharp Author : razial Created : 12-29-2014
+// 
+// Last Modified By : razial Last Modified On : 01-07-2015 ***********************************************************************
 // <copyright file="Stressor.cs" company="INLUSIO">
-//     Copyright (c) INLUSIO. All rights reserved.
+//     Copyright (c) INLUSIO. All rights reserved. 
 // </copyright>
-// <summary></summary>
-// ***********************************************************************
+// <summary>
+// </summary>
+// *********************************************************************** 
 using System.Collections;
 using UnityEngine;
 using XInputDotNetPure;
 
 /// <summary>
-/// Class Stressor.
+/// Class Stressor. 
 /// </summary>
 public class Stressor : MonoBehaviour
 {
     /// <summary>
-    /// The displaytext
+    /// The displaytext 
     /// </summary>
-    static GameObject displaytext;
+    private static GameObject displaytext;
+
     /// <summary>
-    /// The random
+    /// The random 
     /// </summary>
-    float random;
+    private float random;
+
     /// <summary>
-    /// The v
+    /// The v 
     /// </summary>
-    Vector3 v, pos;
+    private Vector3 v, pos;
+
     /// <summary>
-    /// The ray direction
+    /// The ray direction 
     /// </summary>
-    Vector3 rayDirection;
+    private Vector3 rayDirection;
+
     /// <summary>
-    /// The key pressed to early
+    /// The key pressed to early 
     /// </summary>
-    bool keyPressedToEarly = false;
+    private bool keyPressedToEarly = false;
+
     /// <summary>
-    /// The rotation speed
+    /// The rotation speed 
     /// </summary>
-    float rotationSpeed = 100f;
+    private float rotationSpeed = 100f;
+
     /// <summary>
-    /// The rotation speed easy
+    /// The rotation speed easy 
     /// </summary>
-    float rotationSpeedEasy = 50f;
+    private float rotationSpeedEasy = 50f;
+
     /// <summary>
-    /// The rotation speed hard
+    /// The rotation speed hard 
     /// </summary>
-    float rotationSpeedHard = 500f;
+    private float rotationSpeedHard = 500f;
+
     /// <summary>
-    /// The transformation speed
+    /// The transformation speed 
     /// </summary>
-    float transformationSpeed = 15f;
+    private float transformationSpeed = 15f;
+
     /// <summary>
-    /// The distance to goal
+    /// The distance to goal 
     /// </summary>
-    float distanceToGoal = 10;
+    private float distanceToGoal = 10;
+
     /// <summary>
-    /// The spawn distance
+    /// The spawn distance 
     /// </summary>
-    float spawnDistance = 40f;
+    private float spawnDistance = 40f;
+
     /// <summary>
-    /// The spawnheight
+    /// The spawnheight 
     /// </summary>
-    float spawnheight = 20f;
+    private float spawnheight = 20f;
+
     /// <summary>
-    /// The cool down
+    /// The cool down 
     /// </summary>
-    float coolDown = 2.0f;       // How long to hide
+    private float coolDown = 2.0f;       // How long to hide
+
     /// <summary>
-    /// The spawn time
+    /// The spawn time 
     /// </summary>
-    string SpawnTime;
+    private string SpawnTime;
+
     /// <summary>
-    /// The start defeat time
+    /// The start defeat time 
     /// </summary>
-    string StartDefeatTime;
+    private string StartDefeatTime;
+
     /// <summary>
-    /// The defeated at time
+    /// The defeated at time 
     /// </summary>
-    string DefeatedAtTime;
+    private string DefeatedAtTime;
+
     /// <summary>
-    /// The missed hard balls
+    /// The missed hard balls 
     /// </summary>
-    int missedHardBalls = 0;
+    private int missedHardBalls = 0;
+
     /// <summary>
-    /// The missed easy balls
+    /// The missed easy balls 
     /// </summary>
-    int missedEasyBalls = 0;
+    private int missedEasyBalls = 0;
+
     /// <summary>
-    /// The catched hard balls
+    /// The catched hard balls 
     /// </summary>
-    int catchedHardBalls = 0;
+    private int catchedHardBalls = 0;
+
     /// <summary>
-    /// The catched easy balls
+    /// The catched easy balls 
     /// </summary>
-    int catchedEasyBalls = 0;
+    private int catchedEasyBalls = 0;
+
     /// <summary>
-    /// The easy delay
+    /// The easy delay 
     /// </summary>
     public static float EasyDelay = 0.500f;
+
     /// <summary>
-    /// The hard dealy
+    /// The hard dealy 
     /// </summary>
     public static float HardDealy = 0.300f;
+
     //stuff for vibrating
     /// <summary>
     /// The player index set
     /// </summary>
-    bool playerIndexSet = false;
-    /// <summary>
-    /// The player index
-    /// </summary>
-    PlayerIndex playerIndex;
-    /// <summary>
-    /// The state
-    /// </summary>
-    GamePadState state;
-    /// <summary>
-    /// The previous state
-    /// </summary>
-    GamePadState prevState;
-    /// <summary>
-    /// The fake press
-    /// </summary>
-    public bool FakePress = false; // this is needed for the debug player
-    /// <summary>
-    /// The urand
-    /// </summary>
-    private UnityRandom urand;
-    /// <summary>
-    /// The time till exp
-    /// </summary>
-    private int timeTillExp = 1; // how long till explosion
-    /// <summary>
-    /// The defeatable till time
-    /// </summary>
-    float defeatableTillTime;
-    /// <summary>
-    /// The move scale
-    /// </summary>
-    public static float moveScale;
-    /// <summary>
-    /// The onset of defeat at time
-    /// </summary>
-    float onsetOfDefeatAtTime;
-    /// <summary>
-    /// The duration of response period
-    /// </summary>
-    float durationOfResponsePeriod;
-    /// <summary>
-    /// The p controller
-    /// </summary>
-    GameObject pController;
-    /// <summary>
-    /// The camera transform
-    /// </summary>
-    Transform cameraTransform = null;
-    /// <summary>
-    /// The px controller
-    /// </summary>
-    GameObject pxController;
-    /// <summary>
-    /// The xcontroller
-    /// </summary>
-    OVRPlayerController xcontroller;
-    /// <summary>
-    /// The explosion time
-    /// </summary>
-    static string ExplosionTime;
+    private bool playerIndexSet = false;
 
     /// <summary>
-    /// Enum yellowSphereStates
+    /// The player index 
+    /// </summary>
+    private PlayerIndex playerIndex;
+
+    /// <summary>
+    /// The state 
+    /// </summary>
+    private GamePadState state;
+
+    /// <summary>
+    /// The previous state 
+    /// </summary>
+    private GamePadState prevState;
+
+    /// <summary>
+    /// The fake press 
+    /// </summary>
+    public bool FakePress = false; // this is needed for the debug player
+
+    /// <summary>
+    /// The urand 
+    /// </summary>
+    private UnityRandom urand;
+
+    /// <summary>
+    /// The time till exp 
+    /// </summary>
+    private int timeTillExp = 1; // how long till explosion
+
+    /// <summary>
+    /// The defeatable till time 
+    /// </summary>
+    private float defeatableTillTime;
+
+    /// <summary>
+    /// The move scale 
+    /// </summary>
+    public static float moveScale;
+
+    /// <summary>
+    /// The onset of defeat at time 
+    /// </summary>
+    private float onsetOfDefeatAtTime;
+
+    /// <summary>
+    /// The duration of response period 
+    /// </summary>
+    private float durationOfResponsePeriod;
+
+    /// <summary>
+    /// The p controller 
+    /// </summary>
+    private GameObject pController;
+
+    /// <summary>
+    /// The camera transform 
+    /// </summary>
+    private Transform cameraTransform = null;
+
+    /// <summary>
+    /// The px controller 
+    /// </summary>
+    private GameObject pxController;
+
+    /// <summary>
+    /// The xcontroller 
+    /// </summary>
+    private OVRPlayerController xcontroller;
+
+    /// <summary>
+    /// The explosion time 
+    /// </summary>
+    private static string ExplosionTime;
+
+    /// <summary>
+    /// Enum yellowSphereStates 
     /// </summary>
     public enum yellowSphereStates
     {
         /// <summary>
-        /// The hidden
+        /// The hidden 
         /// </summary>
         hidden,
+
         /// <summary>
-        /// The moving
+        /// The moving 
         /// </summary>
         moving,
+
         /// <summary>
-        /// The defeatable
+        /// The defeatable 
         /// </summary>
         defeatable,
+
         /// <summary>
-        /// The not defeated in time
+        /// The not defeated in time 
         /// </summary>
         notDefeatedInTime,
+
         /// <summary>
-        /// The start
+        /// The start 
         /// </summary>
         start,
+
         /// <summary>
-        /// The end
+        /// The end 
         /// </summary>
         end,
+
         /// <summary>
-        /// The defeated in time
+        /// The defeated in time 
         /// </summary>
         defeatedInTime,
     }
 
     /// <summary>
-    /// The s
+    /// The s 
     /// </summary>
-    static   yellowSphereStates s;
+    private static yellowSphereStates s;
+
     /// <summary>
-    /// The start defeat time float
+    /// The start defeat time float 
     /// </summary>
     private  float StartDefeatTimeFloat;
+
     /// <summary>
-    /// The time of defeat
+    /// The time of defeat 
     /// </summary>
     private  float TimeOfDefeat;
+
     /// <summary>
-    /// The reaction time
+    /// The reaction time 
     /// </summary>
     private  float ReactionTime;
 
     /// <summary>
-    /// Awakes this instance.
+    /// Awakes this instance. 
     /// </summary>
-    void Awake ()
+    private void Awake ()
     {
         cameraTransform = GameObject.FindWithTag("OVRcam").transform;
         displaytext = GameObject.Find("Displaytext2");
     }
 
     /// <summary>
-    /// Starts this instance.
+    /// Starts this instance. 
     /// </summary>
-    void Start ()
+    private void Start ()
     {
         pxController = GameObject.Find("OVRPlayerController");
         xcontroller = pxController.GetComponent<OVRPlayerController>();
@@ -249,9 +292,9 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates this instance.
+    /// Updates this instance. 
     /// </summary>
-    void Update ()
+    private void Update ()
     {
         if (ManagerScript.getState() == ManagerScript.states.walking)
         {
@@ -265,13 +308,13 @@ public class Stressor : MonoBehaviour
                         keyPressedToEarly = true;
                     }
                     break;
+
                 case yellowSphereStates.defeatable:
 
                     move();
                     if (FakePress || (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB")) && !keyPressedToEarly)
                     {
                         switchState(yellowSphereStates.defeatedInTime);
-                        
                     }
                     break;
 
@@ -284,7 +327,8 @@ public class Stressor : MonoBehaviour
                     move();
                     break;
             }
-        } else
+        }
+        else
         {
             renderer.enabled = false;
             displaytext.GetComponent<TextMesh>().text = "";
@@ -293,7 +337,7 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Stressors the defeatable.
+    /// Stressors the defeatable. 
     /// </summary>
     private void StressorDefeatable ()
     {
@@ -304,7 +348,7 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Nots the defeated in time.
+    /// Nots the defeated in time. 
     /// </summary>
     private void NotDefeatedInTime ()
     {
@@ -312,9 +356,9 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets this instance.
+    /// Resets this instance. 
     /// </summary>
-    void reset ()
+    private void reset ()
     {
         renderer.enabled = false;
         CancelInvoke("startExp");
@@ -322,19 +366,18 @@ public class Stressor : MonoBehaviour
         //Invoke this shit after the coolDown time, basicaly after the coolDown
         Debug.Log("xxx---xxx");
         Invoke("StartMoving", coolDown);
-
     }
 
     /// <summary>
-    /// Starts the moving.
+    /// Starts the moving. 
     /// </summary>
-    void StartMoving ()
+    private void StartMoving ()
     {
         switchState(yellowSphereStates.moving);
     }
 
     /// <summary>
-    /// Ends the stressor.
+    /// Ends the stressor. 
     /// </summary>
     public void EndStressor ()
     {
@@ -342,21 +385,19 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the stressor.
+    /// Starts the stressor. 
     /// </summary>
     public void StartStressor ()
     {
         switchState(yellowSphereStates.start);
-
     }
 
-    // this is the function that respawns the yellow sphere
+    // this is the function that respawns the yellow sphere 
     /// <summary>
-    /// Moves the and show.
+    /// Moves the and show. 
     /// </summary>
-    void MoveAndShow ()
+    private void MoveAndShow ()
     {
-
         //position yellow sphere
         random = urand.Range(-10, 10, UnityRandom.Normalization.STDNORMAL, 0.1f);
         rayDirection = cameraTransform.TransformDirection(Vector3.forward);
@@ -366,30 +407,28 @@ public class Stressor : MonoBehaviour
         transform.position = pos;
 
         renderer.enabled = true;
-//        recordData.recordDataSmallspread("S", "");
+        // recordData.recordDataSmallspread("S", ""); 
         Pause.ChangeNumberOfYellowSpaw();
         SpawnTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
     }
 
-    // this jidders the onset between 0.8 and 2.5 seconds
+    // this jidders the onset between 0.8 and 2.5 seconds 
     /// <summary>
-    /// Generates the time onset of defeat time.
+    /// Generates the time onset of defeat time. 
     /// </summary>
-    void GenerateTimeOnsetOfDefeatTime ()
+    private void GenerateTimeOnsetOfDefeatTime ()
     {
         onsetOfDefeatAtTime = urand.Range(8, 25, UnityRandom.Normalization.STDNORMAL, 1.0f);
         onsetOfDefeatAtTime = onsetOfDefeatAtTime / 10;
     }
 
     /// <summary>
-    /// Generates the time window for responce.
+    /// Generates the time window for responce. 
     /// </summary>
-    void GenerateTimeWindowForResponce ()
+    private void GenerateTimeWindowForResponce ()
     {
-
         if (catchedEasyBalls > 10 && EasyDelay > 0.400f)
         {
-
             EasyDelay = EasyDelay - 0.030f;
         }
 
@@ -412,10 +451,10 @@ public class Stressor : MonoBehaviour
 
         if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False")
         {
-
             durationOfResponsePeriod = EasyDelay + (Random.Range(1f, 200)) / 1000;
             rotationSpeed = rotationSpeedEasy;
-        } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False")
+        }
+        else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False")
         {
             durationOfResponsePeriod = HardDealy + (Random.Range(1f, 100)) / 1000;
             rotationSpeed = rotationSpeedHard;
@@ -423,39 +462,35 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Datas the saving after explosion.
+    /// Datas the saving after explosion. 
     /// </summary>
-    void DataSavingAfterExplosion ()
+    private void DataSavingAfterExplosion ()
     {
-//        recordData.recordDataSmallspread("M", "");
+        // recordData.recordDataSmallspread("M", ""); 
         ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
-
 
         //'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime')
         ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateStressor("NULL", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "NULL", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer.ToString(), DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime.ToString());
-
-
     }
 
     /// <summary>
-    /// Datas the saving after defeate.
+    /// Datas the saving after defeate. 
     /// </summary>
-    void DataSavingAfterDefeate ()
+    private void DataSavingAfterDefeate ()
     {
-//        recordData.recordDataSmallspread("D", "");
+        // recordData.recordDataSmallspread("D", ""); 
         DefeatedAtTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
         TimeOfDefeat = Time.time;
         ReactionTime = StartDefeatTimeFloat - TimeOfDefeat;
-
 
         //'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime')
         ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateStressor("NULL", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), DefeatedAtTime.ToString(), "1", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer.ToString(), DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "NULL");
     }
 
     /// <summary>
-    /// Starts the exp.
+    /// Starts the exp. 
     /// </summary>
-    void startExp ()
+    private void startExp ()
     {
         DataSavingAfterExplosion();
         StartCoroutine(stunForSeconds(2));
@@ -465,10 +500,10 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Vibrates the controller.
+    /// Vibrates the controller. 
     /// </summary>
-    /// <returns>IEnumerator.</returns>
-    IEnumerator vibrateController ()
+    /// <returns> IEnumerator. </returns>
+    private IEnumerator vibrateController ()
     {
         Debug.Log("vibrate controller");
         if (!playerIndexSet || !prevState.IsConnected)
@@ -504,13 +539,12 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Stuns for seconds.
+    /// Stuns for seconds. 
     /// </summary>
-    /// <param name="sec">The sec.</param>
-    /// <returns>IEnumerator.</returns>
-    IEnumerator stunForSeconds (int sec)
+    /// <param name="sec"> The sec. </param>
+    /// <returns> IEnumerator. </returns>
+    private IEnumerator stunForSeconds ( int sec )
     {
-
         xcontroller.SetMoveScaleMultiplier(0.0f);
         yield return new WaitForSeconds(sec);
         moveScale = moveScale * 0.7f;
@@ -520,7 +554,7 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// News the trial.
+    /// News the trial. 
     /// </summary>
     public void NewTrial ()
     {
@@ -528,9 +562,9 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Moves this instance.
+    /// Moves this instance. 
     /// </summary>
-    void move ()
+    private void move ()
     {
         v = cameraTransform.position;
         rayDirection = cameraTransform.TransformDirection(Vector3.forward);
@@ -542,10 +576,10 @@ public class Stressor : MonoBehaviour
     }
 
     /// <summary>
-    /// Switches the state.
+    /// Switches the state. 
     /// </summary>
-    /// <param name="newState">The new state.</param>
-    public  void switchState (yellowSphereStates newState)
+    /// <param name="newState"> The new state. </param>
+    public void switchState ( yellowSphereStates newState )
     {
         displaytext.GetComponent<TextMesh>().text = "";
         Debug.Log(newState);
@@ -554,25 +588,28 @@ public class Stressor : MonoBehaviour
             case yellowSphereStates.defeatable:
                 displaytext.GetComponent<TextMesh>().text = "SHOOT";
                 s = yellowSphereStates.defeatable;
-//                recordData.recordDataSmallspread("Onset", durationOfResponsePeriod.ToString());
+                // recordData.recordDataSmallspread("Onset", durationOfResponsePeriod.ToString()); 
                 Invoke("NotDefeatedInTime", durationOfResponsePeriod);
                 break;
+
             case yellowSphereStates.hidden:
 
                 s = yellowSphereStates.hidden;
-                CancelInvoke("NotDefeatedInTime"); // if 
-                GenerateTimeWindowForResponce(); // we randomize the ball parapeters lol 
+                CancelInvoke("NotDefeatedInTime"); // if
+                GenerateTimeWindowForResponce(); // we randomize the ball parapeters lol
                 reset();
                 break;
+
             case yellowSphereStates.moving:
 
-                // here we get a rondom value for the jidder of the onset
+                // here we get a rondom value for the jidder of the onset 
                 GenerateTimeOnsetOfDefeatTime();
                 MoveAndShow();
                 s = yellowSphereStates.moving;
                 Invoke("StressorDefeatable", onsetOfDefeatAtTime); // after some time we can defeat the stressor
 
                 break;
+
             case yellowSphereStates.notDefeatedInTime:
                 Pause.ChangeNumberOfYellowMissed();
                 Invoke("startExp", timeTillExp); // this activates the data saving
@@ -580,20 +617,22 @@ public class Stressor : MonoBehaviour
                 if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                 {
                     missedEasyBalls++;
-                } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                }
+                else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
                 {
                     missedHardBalls++;
                 }
 
-
                 break;
+
             case yellowSphereStates.defeatedInTime:
                 s = yellowSphereStates.defeatedInTime;
 
                 if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                 {
                     catchedEasyBalls++;
-                } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                }
+                else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
                 {
                     catchedHardBalls++;
                 }
@@ -612,9 +651,10 @@ public class Stressor : MonoBehaviour
                 xcontroller.SetMoveScaleMultiplier(moveScale);
                 switchState(yellowSphereStates.hidden);
                 break;
+
             case yellowSphereStates.end: // if we want the stressor to stop, we set it to the end state
                 s = yellowSphereStates.end;
-                CancelInvoke("startExp"); // if 
+                CancelInvoke("startExp"); // if
                 CancelInvoke("StartMoving");
                 CancelInvoke("NotDefeatedInTime");
                 CancelInvoke("StressorDefeatable");
@@ -624,9 +664,9 @@ public class Stressor : MonoBehaviour
         }
     }
 
-    // this schould happen every time we switch the blocks
+    // this schould happen every time we switch the blocks 
     /// <summary>
-    /// Resets the balls counter for dynamic difficulty.
+    /// Resets the balls counter for dynamic difficulty. 
     /// </summary>
     public void ResetBallsCounterForDynamicDifficulty ()
     {
@@ -634,46 +674,42 @@ public class Stressor : MonoBehaviour
         missedEasyBalls = 0;
         catchedHardBalls = 0;
         catchedEasyBalls = 0;
-
     }
 
     /// <summary>
-    /// Gets the speed move scale.
+    /// Gets the speed move scale. 
     /// </summary>
-    /// <returns>System.Single.</returns>
+    /// <returns> System.Single. </returns>
     public static float GetSpeedMoveScale ()
     {
         return moveScale;
     }
 
     /// <summary>
-    /// Gets the state of the yellow.
+    /// Gets the state of the yellow. 
     /// </summary>
-    /// <returns>yellowSphereStates.</returns>
+    /// <returns> yellowSphereStates. </returns>
     public yellowSphereStates GetYellowState ()
     {
         return s;
     }
 
-
     /// <summary>
-    /// Gets or sets the defeatable time window.
+    /// Gets or sets the defeatable time window. 
     /// </summary>
-    /// <value>The defeatable time window.</value>
+    /// <value> The defeatable time window. </value>
     public float DefeatableTimeWindow { get; set; }
 
-
-    // this function is executed by the testofsql stuff, in case we need to revive the old stats from the previos session of the sama player
+    // this function is executed by the testofsql stuff, in case we need to revive the old stats
+    // from the previos session of the sama player
     /// <summary>
-    /// Sets the dinamic difficulty from last session.
+    /// Sets the dinamic difficulty from last session. 
     /// </summary>
-    /// <param name="EasyDifficultyLevel">The easy difficulty level.</param>
-    /// <param name="HardDifficultyLevel">The hard difficulty level.</param>
-    internal static void SetDinamicDifficultyFromLastSession (float EasyDifficultyLevel, float HardDifficultyLevel)
+    /// <param name="EasyDifficultyLevel"> The easy difficulty level. </param>
+    /// <param name="HardDifficultyLevel"> The hard difficulty level. </param>
+    internal static void SetDinamicDifficultyFromLastSession ( float EasyDifficultyLevel, float HardDifficultyLevel )
     {
         HardDealy = HardDifficultyLevel;
         EasyDelay = EasyDifficultyLevel;
     }
 }
-
-

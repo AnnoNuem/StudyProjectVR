@@ -1,162 +1,177 @@
-﻿// ***********************************************************************
-// Assembly         : Assembly-CSharp
-// Author           : razial
-// Created          : 01-07-2015
-//
-// Last Modified By : razial
-// Last Modified On : 01-08-2015
-// ***********************************************************************
+﻿// *********************************************************************** Assembly :
+// Assembly-CSharp Author : razial Created : 01-07-2015 Created : 01-07-2015
+// 
+// Last Modified By : razial Last Modified On : 01-08-2015
+// Last Modified On : 01-08-2015 
 // <copyright file="testofsql.cs" company="INLUSIO">
-//     Copyright (c) INLUSIO. All rights reserved.
+//     Copyright (c) INLUSIO. All rights reserved. 
 // </copyright>
-// <summary> this class handles everything related to saving and retrieving data to the data base </summary>
-// ***********************************************************************
+// <summary>
+// this class handles everything related to saving and retrieving data to the data base 
+// </summary>
+// *********************************************************************** 
 using Mono.Data.SqliteClient;
-using System.Data;
-using System.Threading;
-using UnityEngine;
 using System.Collections.Generic;
-
+using System.Data;
+using UnityEngine;
 
 /// <summary>
-/// this class handles everything related to saving and retrieving data to the data base
+/// this class handles everything related to saving and retrieving data to the data base 
 /// </summary>
 public class testofsql : MonoBehaviour
 {
     /// <summary>
-    /// The instance
+    /// The instance 
     /// </summary>
     public static testofsql Instance = null;
+
     /// <summary>
-    /// The mConnection is the IDbConnection Object we will use to connect to the Database
+    /// The mConnection is the IDbConnection Object we will use to connect to the Database 
     /// </summary>
     private static IDbConnection mConnection = null;
+
     /// <summary>
-    /// The mCommand is the IDbCommand Object, we will assign querry`s we want to run in the DB, without returning values
+    /// The mCommand is the IDbCommand Object, we will assign querry`s we want to run in the DB,
+    /// without returning values
     /// </summary>
     private static IDbCommand mCommand = null;
+
     /// <summary>
-    /// The mReader is the IDataReader Object, we will assign querry`s we want to run in the DB, with returning values
+    /// The mReader is the IDataReader Object, we will assign querry`s we want to run in the DB,
+    /// with returning values
     /// </summary>
     private static IDataReader mReader = null;
+
     /// <summary>
-    /// The mSQL string is a string we use frequently to put remporaly the querries to be execuded
+    /// The mSQL string is a string we use frequently to put remporaly the querries to be execuded 
     /// </summary>
     public static string mSQLString;
+
     /// <summary>
-    /// The m create new table
+    /// The m create new table 
     /// </summary>
     public bool mCreateNewTable = false;
-    // the id of the currentTriallistEnty is the Last_Triallist_id_Putted_In - current TrialNumber lol
+
+    // the id of the currentTriallistEnty is the Last_Triallist_id_Putted_In - current TrialNumber lol 
     /// <summary>
-    /// The last_ triallist_id_ putted_ in
+    /// The last_ triallist_id_ putted_ in 
     /// </summary>
     public static int Last_Triallist_id_Putted_In;
+
     /// <summary>
-    /// The subjec t_ identifier
+    /// The subjec t_ identifier 
     /// </summary>
     public static int SUBJECT_ID;
+
     /// <summary>
-    /// The sessio n_ identifier
+    /// The sessio n_ identifier 
     /// </summary>
     public static int SESSION_ID;
+
     /// <summary>
-    /// The las t_ inserte d_ triallist_ identifier
+    /// The las t_ inserte d_ triallist_ identifier 
     /// </summary>
     public static int LAST_INSERTED_Triallist_ID;
+
     /// <summary>
-    /// The firs t_ inserte d_ triallist_ identifier
+    /// The firs t_ inserte d_ triallist_ identifier 
     /// </summary>
     public static int FIRST_INSERTED_Triallist_ID;
+
     /// <summary>
-    /// The current_ triallist_ identifier
+    /// The current_ triallist_ identifier 
     /// </summary>
-    public static int Current_Triallist_ID; // this needs 
+    public static int Current_Triallist_ID; // this needs
+
     /// <summary>
-    /// The curren t_ tria l_ identifier
+    /// The curren t_ tria l_ identifier 
     /// </summary>
     public static int CURRENT_TRIAL_ID;
+
     /// <summary>
-    /// The comand sum to be execuded in the end of each trial
+    /// The comand sum to be execuded in the end of each trial 
     /// </summary>
     public static string comandSumToBeExecudedInTheEndOfEachTrial;
+
     /// <summary>
-    /// The easy difficulty level
+    /// The easy difficulty level 
     /// </summary>
     public static float EasyDifficultyLevel;
+
     /// <summary>
-    /// The hard difficulty level
+    /// The hard difficulty level 
     /// </summary>
     public static float HardDifficultyLevel;
+
     /// <summary>
-    /// The current_ statistics in game_ identifier
+    /// The current_ statistics in game_ identifier 
     /// </summary>
     private static int Current_StatisticsInGame_ID;
+
     /// <summary>
-    /// The after block number
+    /// The after block number 
     /// </summary>
     private static int AfterBlockNumber = 0;
 
-
-
     /// <summary>
-    /// Basic initialization of SQLite
-    /// This will be activated by the manager script
+    /// Basic initialization of SQLite This will be activated by the manager script 
     /// </summary>
     public static void SQLiteInit ()
     {
-        // the data base is here
+        // the data base is here 
         string SQL_DB_LOCATION = @"URI=file:C:\temp\inlusio_data\InlusioDB.sqlite";
-        // we connect to the data base
+        // we connect to the data base 
         mConnection = new SqliteConnection(SQL_DB_LOCATION);
         mCommand = mConnection.CreateCommand();
         mConnection.Open();
     }
 
     /// <summary>
-    /// Initials the savings to database. All the nessery enteties, like Subject, Session and  Triallist  are instantiated here
-    /// In case they exist, their values are retrieved.
-    /// When the Experiment will crush at any arbitrary time and is restarted, this function will make sure, the experiment
-    /// starts from exactly the moment it crashed
+    /// Initials the savings to database. All the nessery enteties, like Subject, Session and
+    /// Triallist are instantiated here In case they exist, their values are retrieved. When the
+    /// Experiment will crush at any arbitrary time and is restarted, this function will make sure,
+    /// the experiment starts from exactly the moment it crashed
     /// </summary>
-    /// <param name="chiffre">The chiffre.</param>
-    /// <param name="EasyDelay">The easy delay.</param>
-    /// <param name="HardDealy">The hard dealy.</param>
-    /// <param name="session">The session.</param>
-    /// <param name="trialList">The trial list.</param>
+    /// <param name="chiffre">   The chiffre. </param>
+    /// <param name="EasyDelay"> The easy delay. </param>
+    /// <param name="HardDealy"> The hard dealy. </param>
+    /// <param name="session">   The session. </param>
+    /// <param name="trialList"> The trial list. </param>
     public static void InitialSavingsToDB ( string chiffre, string EasyDelay, string HardDealy, string session, List<trialContainer> trialList )
     {
-        /// Subject entety code
-        // Check if Subject_Number exists, if no, we create him
+        /// Subject entety code 
+        // Check if Subject_Number exists, if no, we create him 
         #region
 
-        // if the Subject does not exist
+        // if the Subject does not exist 
         if (QueryInt("SELECT EXISTS(SELECT * FROM Subject WHERE Subject_Number='" + chiffre + "' LIMIT 1);") == 0)
         {
             ExecuteQuerry("INSERT INTO 'Subject'('Subject_id','Subject_Number','EasyDifficultyLevel','HardDifficultyLevel') VALUES (NULL,'" + ManagerScript.chiffre + "','" + EasyDelay + "','" + HardDealy + "');");
-            // geting the fresh created Subject_id
+            // geting the fresh created Subject_id 
             SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE SUbject_Number = '" + chiffre + "'");
         }
-        // If he exists, lets grab his Number and update the dynamic difficulty to the level from his previos session
+        // If he exists, lets grab his Number and update the dynamic difficulty to the level from
+        // his previos session
         else
         {
             SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE SUbject_Number = '" + chiffre + "'");
-            // when he exists, we need to update the dynamic difficulty to the level from his previos session
+            // when he exists, we need to update the dynamic difficulty to the level from his
+            // previos session
             EasyDifficultyLevel = QueryFloat("SELECT EasyDifficultyLevel FROM Subject WHERE SUbject_Number = '" + chiffre + "'");
             HardDifficultyLevel = QueryFloat("SELECT HardDifficultyLevel FROM Subject WHERE SUbject_Number = '" + chiffre + "'");
             Stressor.SetDinamicDifficultyFromLastSession(EasyDifficultyLevel, HardDifficultyLevel);
-
         }
         #endregion
 
-        /// Session and Trial list enteties code
-        // Check if session exists allready, if no initialize the session and the trial list. Else retrieve the old unfinished trials from Triallist
+        /// Session and Trial list enteties code 
+        // Check if session exists allready, if no initialize the session and the trial list. Else
+        // retrieve the old unfinished trials from Triallist
         #region
 
-        // check if session exists, if not we will create it
+        // check if session exists, if not we will create it 
         if (QueryInt("SELECT EXISTS(SELECT * FROM Session WHERE Subject_id='" + SUBJECT_ID + "' AND SessionNumber='" + session + "'  LIMIT 1);") == 0)
         {
-            // Session creation
+            // Session creation 
 
             ExecuteQuerry(" INSERT INTO Session (Subject_ID, Timestamp, SessionNumber) VALUES ("
                 + "'" + SUBJECT_ID + "','"
@@ -164,7 +179,7 @@ public class testofsql : MonoBehaviour
                 + session + "'" + ");");
             SESSION_ID = QueryInt("SELECT last_insert_rowid()");
 
-            // trial list creation
+            // trial list creation 
             string SqlComands = "";
 
             for (int i=0; i < trialList.Count - 1; i++)
@@ -176,38 +191,31 @@ public class testofsql : MonoBehaviour
             ExecuteBigQuerry(SqlComands);
             LAST_INSERTED_Triallist_ID = QueryInt("SELECT last_insert_rowid()");
             FIRST_INSERTED_Triallist_ID = LAST_INSERTED_Triallist_ID - trialList.Count;
-
-
         }
         else
         {
-
             SESSION_ID = QueryInt("SELECT Session_id FROM Session WHERE Subject_id = '" + SUBJECT_ID + "' AND SessionNumber = '" + session + "'");
 
-            // if it exists, check if it is finished
-
-
+            // if it exists, check if it is finished 
 
             //if exists and not finished, hmmm ... in theory, count the remaining trials and start the generation of a new
             //trial list
-            // currentlly lets just start over , also this is not a niec sollution, we need to redo it ... 
+            // currentlly lets just start over , also this is not a niec sollution, we need to redo it ...
 
             // best case, the session is created, lets get the 
-
         }
 
         #endregion
-
     }
 
-
     /// <summary>
-    /// here we will have a function for creating trials. each time we create a trial we get its trial id and set the triallist id
+    /// here we will have a function for creating trials. each time we create a trial we get its
+    /// trial id and set the triallist id
     /// </summary>
-    /// <param name="StartTimeTrial">The start time trial.</param>
-    /// <param name="TrialNumber">The trial number.</param>
-    /// <param name="RealTrialNumber">The real trial number.</param>
-    /// <param name="Type">The type.</param>
+    /// <param name="StartTimeTrial">  The start time trial. </param>
+    /// <param name="TrialNumber">     The trial number. </param>
+    /// <param name="RealTrialNumber"> The real trial number. </param>
+    /// <param name="Type">            The type. </param>
     public static void CreateTrial ( string StartTimeTrial, string TrialNumber, string RealTrialNumber, string Type )
     {
         Current_Triallist_ID = FIRST_INSERTED_Triallist_ID + ManagerScript.realTrialNumber;
@@ -219,70 +227,67 @@ public class testofsql : MonoBehaviour
             + RealTrialNumber + "','"
             + Type + "');");
 
-        // after we create a trial, we need to knew about it
+        // after we create a trial, we need to knew about it 
         CURRENT_TRIAL_ID = QueryInt("SELECT last_insert_rowid()");
     }
 
     /// <summary>
-    /// Updates the trial.
+    /// Updates the trial. 
     /// </summary>
-    /// <param name="argument">The argument can be either "abort" or "success", so we decide what to save to DB.</param>
-    /// <param name="AbsoluteErrorAngle">The absolute error angle.</param>
-    /// <param name="ErrorAngle">The error angle.</param>
-    /// <param name="OverShoot">The over shoot.</param>
-    /// <param name="StartTimePointing">The start time pointing.</param>
-    /// <param name="EndTimePoining">The end time poining.</param>
-    /// <param name="DurationOfPointing">The duration of pointing.</param>
-    /// <param name="DurationOfWalking">The duration of walking.</param>
-    /// <param name="EndTimeTrial">The end time trial.</param>
+    /// <param name="argument">          
+    /// The argument can be either "abort" or "success", so we decide what to save to DB.
+    /// </param>
+    /// <param name="AbsoluteErrorAngle"> The absolute error angle. </param>
+    /// <param name="ErrorAngle">         The error angle. </param>
+    /// <param name="OverShoot">          The over shoot. </param>
+    /// <param name="StartTimePointing">  The start time pointing. </param>
+    /// <param name="EndTimePoining">     The end time poining. </param>
+    /// <param name="DurationOfPointing"> The duration of pointing. </param>
+    /// <param name="DurationOfWalking">  The duration of walking. </param>
+    /// <param name="EndTimeTrial">       The end time trial. </param>
     public void UpdateTrial ( string argument, string AbsoluteErrorAngle, string ErrorAngle, string OverShoot, string StartTimePointing, string EndTimePoining, string DurationOfPointing, string DurationOfWalking, string EndTimeTrial )
     {
         if (argument == "abort")
         {
-
-            // What we have so far is Session_id,StartTimeTrial,Triallist_id,TrialNumber,RealTrialNumber,Successfull,Type :  What is missing
+            // What we have so far is
+            // Session_id,StartTimeTrial,Triallist_id,TrialNumber,RealTrialNumber,Successfull,Type :
+            // What is missing
             mSQLString = " UPDATE 'Trial' SET 'Successfull'=0 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + " 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'= " + StartTimePointing + ", 'DurationOfPointing' " + DurationOfPointing + ", 'DurationOfWalking'= " + DurationOfPointing + ", 'EndTimeTrial'= " + EndTimeTrial + "  WHERE _rowid_=" + CURRENT_TRIAL_ID.ToString() + ";";
-
-
         }
 
         if (argument == "success")
         {
-
             mSQLString = " UPDATE 'Trial' SET 'Successfull'=1 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + " 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'= " + StartTimePointing + ", 'DurationOfPointing' " + DurationOfPointing + ", 'DurationOfWalking'= " + DurationOfPointing + ", 'EndTimeTrial'= " + EndTimeTrial + "  WHERE _rowid_=" + CURRENT_TRIAL_ID.ToString() + ";";
 
             UpdateTriallist(CURRENT_TRIAL_ID.ToString());
-
         }
 
         mCommand.CommandText = mSQLString;
-        //        mConnection.Open();
+        // mConnection.Open(); 
 
         mCommand.ExecuteNonQuery();
         //mConnection.Close();
-
-
     }
 
     /// <summary>
-    /// Creates the stressor.
+    /// Creates the stressor. 
     /// </summary>
-    /// <param name="Stressors_id">The stressors_id.</param>
-    /// <param name="SpawnTime">The spawn time.</param>
-    /// <param name="StartDefeatTime">The start defeat time.</param>
-    /// <param name="HowLongDefeatable">The how long defeatable.</param>
-    /// <param name="DefeatedAtTime">The defeated at time.</param>
-    /// <param name="Defeated">The defeated.</param>
-    /// <param name="RotationSpeed">The rotation speed.</param>
-    /// <param name="ButtonToEarlyPushed">The button to early pushed.</param>
-    /// <param name="Type">The type.</param>
-    /// <param name="DefeatableTimeWindow">The defeatable time window.</param>
-    /// <param name="ReactionTime">The reaction time.</param>
-    /// <param name="Trial_id">The trial_id.</param>
-    /// <param name="ExplosionTime">The explosion time.</param>
+    /// <param name="Stressors_id">         The stressors_id. </param>
+    /// <param name="SpawnTime">            The spawn time. </param>
+    /// <param name="StartDefeatTime">      The start defeat time. </param>
+    /// <param name="HowLongDefeatable">    The how long defeatable. </param>
+    /// <param name="DefeatedAtTime">       The defeated at time. </param>
+    /// <param name="Defeated">             The defeated. </param>
+    /// <param name="RotationSpeed">        The rotation speed. </param>
+    /// <param name="ButtonToEarlyPushed">  The button to early pushed. </param>
+    /// <param name="Type">                 The type. </param>
+    /// <param name="DefeatableTimeWindow"> The defeatable time window. </param>
+    /// <param name="ReactionTime">         The reaction time. </param>
+    /// <param name="Trial_id">             The trial_id. </param>
+    /// <param name="ExplosionTime">        The explosion time. </param>
     public void CreateStressor ( string Stressors_id, string SpawnTime, string StartDefeatTime, string HowLongDefeatable, string DefeatedAtTime, string Defeated, string RotationSpeed, string ButtonToEarlyPushed, string Type, string DefeatableTimeWindow, string ReactionTime, string Trial_id, string ExplosionTime )
     {
-        string CreateStressor = 
+        string CreateStressor =
                    " INSERT INTO 'Stressors' ('Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime') VALUES"
             + "(" + "NULL" + ","
             + "'" + SpawnTime + "',"
@@ -299,21 +304,21 @@ public class testofsql : MonoBehaviour
             + "'" + ExplosionTime + "');";
         ExecuteQuerry(CreateStressor);
     }
+
     /// <summary>
-    /// Creates the waypoint.
+    /// Creates the waypoint. 
     /// </summary>
-    /// <param name="Waypoints_id">The waypoints_id.</param>
-    /// <param name="DegreeOfRespawn">The degree of respawn.</param>
-    /// <param name="TimeWhenRespawned">The time when respawned.</param>
-    /// <param name="GlobalCoordinats">The global coordinats.</param>
-    /// <param name="TransformRotation">The transform rotation.</param>
-    /// <param name="NumberInTrial">The number in trial.</param>
-    /// <param name="Trial_id">The trial_id.</param>
-    /// <param name="reached">The reached.</param>
-    /// <param name="TimeWhenReached">The time when reached.</param>
+    /// <param name="Waypoints_id">      The waypoints_id. </param>
+    /// <param name="DegreeOfRespawn">   The degree of respawn. </param>
+    /// <param name="TimeWhenRespawned"> The time when respawned. </param>
+    /// <param name="GlobalCoordinats">  The global coordinats. </param>
+    /// <param name="TransformRotation"> The transform rotation. </param>
+    /// <param name="NumberInTrial">     The number in trial. </param>
+    /// <param name="Trial_id">          The trial_id. </param>
+    /// <param name="reached">           The reached. </param>
+    /// <param name="TimeWhenReached">   The time when reached. </param>
     public void CreateWaypoint ( string Waypoints_id, string DegreeOfRespawn, string TimeWhenRespawned, string GlobalCoordinats, string TransformRotation, string NumberInTrial, string Trial_id, string reached, string TimeWhenReached )
     {
-
         string CreateWaypoint = "INSERT INTO 'Waypoints'('Waypoints_id','DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached','TimeWhenReached') VALUES"
             + "(" + Waypoints_id + ",'"
             + DegreeOfRespawn + "','"
@@ -325,31 +330,28 @@ public class testofsql : MonoBehaviour
             + reached + "','"
             + TimeWhenReached + "');";
         ExecuteQuerry(CreateWaypoint);
-
     }
 
     /// <summary>
-    /// Updates the session to successfull state after all trials are done in the trial list and the manager script changes to the end state.
+    /// Updates the session to successfull state after all trials are done in the trial list and the
+    /// manager script changes to the end state.
     /// </summary>
     public void UpdateSession ()
     {
-       ExecuteQuerry( " UPDATE 'Session' SET 'finished'= 1 WHERE Session_id = " + SESSION_ID.ToString() + ";");
+        ExecuteQuerry(" UPDATE 'Session' SET 'finished'= 1 WHERE Session_id = " + SESSION_ID.ToString() + ";");
     }
 
-
     /// <summary>
-    /// Saves the statisics to data base.
+    /// Saves the statisics to data base. 
     /// </summary>
-    /// <param name="NumberOfYellowSpawn">The number of yellow spawn.</param>
-    /// <param name="NumberOfYellowDefeted">The number of yellow defeted.</param>
-    /// <param name="NumberOfYellowMissed">The number of yellow missed.</param>
-    /// <param name="abortedTrials">The aborted trials.</param>
-    /// <param name="avarageError">The avarage error.</param>
+    /// <param name="NumberOfYellowSpawn">   The number of yellow spawn. </param>
+    /// <param name="NumberOfYellowDefeted"> The number of yellow defeted. </param>
+    /// <param name="NumberOfYellowMissed">  The number of yellow missed. </param>
+    /// <param name="abortedTrials">         The aborted trials. </param>
+    /// <param name="avarageError">          The avarage error. </param>
     public static void SaveStatisicsToDataBase ( string NumberOfYellowSpawn, string NumberOfYellowDefeted, string NumberOfYellowMissed, string abortedTrials, string avarageError )
     {
-
         AfterBlockNumber++;
-
 
         string  CreateStatisticsInGameEntryAfterBlock = "INSERT INTO 'StaticsInGame'('Session','NumberOfYellowSpawn','NumberOfYellowDefeted','abortedTrials','avarageError','AfterBlockNumber') VALUES ('" + SESSION_ID.ToString() + "','"
             + NumberOfYellowSpawn + "','"
@@ -360,12 +362,12 @@ public class testofsql : MonoBehaviour
             + AfterBlockNumber + "');";
 
         ExecuteQuerry(CreateStatisticsInGameEntryAfterBlock);
-
     }
 
     /// <summary>
-    /// Updates the triallist.
+    /// Updates the triallist. 
     /// </summary>
+    /// <param name="CURRENT_TRIAL_ID"> The curren t_ tria l_ identifier. </param>
     public void UpdateTriallist ( string CURRENT_TRIAL_ID )
     {
         mSQLString = " UPDATE 'Triallist' SET 'Done'=1  WHERE _rowid_=" + CURRENT_TRIAL_ID.ToString() + ";";
@@ -373,13 +375,12 @@ public class testofsql : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates the pause.
+    /// Creates the pause. 
     /// </summary>
-    /// <param name="StartTimePause">The start time pause.</param>
-    /// <param name="EndTimePause">The end time pause.</param>
+    /// <param name="StartTimePause"> The start time pause. </param>
+    /// <param name="EndTimePause">   The end time pause. </param>
     public static void CreatePause ( string StartTimePause, string EndTimePause )
     {
-
         string mSQLString1 = "INSERT INTO 'Pause'('trial','StartTimePause','EndTimePause') VALUES" +
             "('" + CURRENT_TRIAL_ID.ToString() + "','"
             + StartTimePause + "','"
@@ -388,97 +389,90 @@ public class testofsql : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the dynamic difficulty.
+    /// Sets the dynamic difficulty. 
     /// </summary>
-    /// <param name="EasyDelay">The easy delay.</param>
-    /// <param name="HardDealy">The hard dealy.</param>
+    /// <param name="EasyDelay"> The easy delay. </param>
+    /// <param name="HardDealy"> The hard dealy. </param>
     public static void SetDynamicDifficulty ( string EasyDelay, string HardDealy ) // each block we should update the difficulty of the subject in the data base lol
     {
-        string mSQLString1 = 
+        string mSQLString1 =
             " UPDATE 'Subject' SET 'EasyDifficultyLevel'=" + EasyDelay + " WHERE Subject_Number = '" + ManagerScript.chiffre + "';";
-        string mSQLString2 = 
+        string mSQLString2 =
             " UPDATE 'Subject' SET 'HardDifficultyLevel'=" + HardDealy + " WHERE Subject_Number = '" + ManagerScript.chiffre + "';";
         ExecuteQuerry(mSQLString1);
         ExecuteQuerry(mSQLString2);
-
     }
 
     /// <summary>
-    /// Dynamics the difficulty event.
+    /// Dynamics the difficulty event. 
     /// </summary>
     public void DynamicDifficultyEvent ()
     {
-
     }
 
     /// <summary>
-    /// Executes the big querry.
+    /// Executes the big querry. 
     /// </summary>
-    /// <param name="sqlcomands">The sqlcomands.</param>
+    /// <param name="sqlcomands"> The sqlcomands. </param>
     public static void ExecuteBigQuerry ( string sqlcomands )
     {
         string mSQLString2 = "BEGIN; " + sqlcomands + " COMMIT;";
         mCommand.CommandText = mSQLString2;
-        //       mConnection.Open();
-        //   Debug.Log(mSQLString2);
+        // mConnection.Open(); Debug.Log(mSQLString2); 
         mCommand.ExecuteNonQuery();
     }
 
     /// <summary>
-    /// Executes the querry.
+    /// Executes the querry. 
     /// </summary>
-    /// <param name="sqlcomand">The sqlcomand.</param>
+    /// <param name="sqlcomand"> The sqlcomand. </param>
     public static void ExecuteQuerry ( string sqlcomand )
     {
         string mSQLString2 = sqlcomand;
         mCommand.CommandText = mSQLString2;
-        //        mConnection.Open();
-        //        Debug.Log(mSQLString2);
+        // mConnection.Open(); Debug.Log(mSQLString2); 
         mCommand.ExecuteNonQuery();
     }
 
-    // yellow spheres and blue spheres do call this function to add the proper querry
+    // yellow spheres and blue spheres do call this function to add the proper querry 
     /// <summary>
-    /// Sums the incoming querries up.
+    /// Sums the incoming querries up. 
     /// </summary>
-    /// <param name="incomingString">The incoming string.</param>
+    /// <param name="incomingString"> The incoming string. </param>
     public void SumTheIncomingQuerriesUp ( string incomingString )
     {
-
         comandSumToBeExecudedInTheEndOfEachTrial = comandSumToBeExecudedInTheEndOfEachTrial + incomingString;
     }
 
-    // at the end of the trial we will write the SumQurry of blue and yellow spheres 
-    // still not sure how to update but maybe i can use last insert as an argument ???
-    // CHECK IF YOU CAN DO THIS
+    // at the end of the trial we will write the SumQurry of blue and yellow spheres still not sure
+    // how to update but maybe i can use last insert as an argument ??? CHECK IF YOU CAN DO THIS
     /// <summary>
-    /// Executes the sum querry.
+    /// Executes the sum querry. 
     /// </summary>
-    /// <param name="SumQuerry">The sum querry.</param>
+    /// <param name="SumQuerry"> The sum querry. </param>
     public void ExecuteSumQuerry ( string SumQuerry )
     {
         string mSQLString2 = "BEGIN; " + SumQuerry + " COMMIT;"; // build our new command
 
         mCommand.CommandText = mSQLString2;// assing the comand
-        //        mConnection.Open();
+        // mConnection.Open(); 
         mCommand.ExecuteNonQuery();
         //mConnection.Close();
         comandSumToBeExecudedInTheEndOfEachTrial = ""; // reset the sum of commands
-
     }
 
     /// <summary>
-    /// Queries the int.
+    /// Queries the int. 
     /// </summary>
-    /// <param name="command">The command.</param>
-    /// <returns>System.Int32.</returns>
+    /// <param name="command"> The command. </param>
+    /// <returns> System.Int32. </returns>
     public static int QueryInt ( string command )
     {
         int number = 0;
 
         mCommand.CommandText = command;
         Debug.Log(command);
-        //       mConnection.Open();
+        // mConnection.Open(); 
         mReader = mCommand.ExecuteReader();
         if (mReader.Read())
             number = mReader.GetInt32(0);
@@ -489,46 +483,45 @@ public class testofsql : MonoBehaviour
     }
 
     /// <summary>
-    /// Queries the float.
+    /// Queries the float. 
     /// </summary>
-    /// <param name="command">The command.</param>
-    /// <returns>System.Single.</returns>
+    /// <param name="command"> The command. </param>
+    /// <returns> System.Single. </returns>
     public static float QueryFloat ( string command )
     {
         float number = 0;
 
         mCommand.CommandText = command;
-        //       mConnection.Open();
+        // mConnection.Open(); 
         mReader = mCommand.ExecuteReader();
         if (mReader.Read())
             number = mReader.GetFloat(0);
         else
             Debug.Log("QueryInt - nothing to read...");
         mReader.Close();
-        //  mConnection.Close();
+        // mConnection.Close(); 
         return number;
     }
 
-
     /// <summary>
-    /// Called when [destroy].
+    /// Called when [destroy]. 
     /// </summary>
-    void OnDestroy ()
+    private void OnDestroy ()
     {
         SQLiteClose();
     }
 
     /// <summary>
-    /// Called when [application quit].
+    /// Called when [application quit]. 
     /// </summary>
-    void OnApplicationQuit ()
+    private void OnApplicationQuit ()
     {
         mConnection.Close();
         SQLiteClose();
     }
 
     /// <summary>
-    /// Clean up everything for SQLite
+    /// Clean up everything for SQLite 
     /// </summary>
     private void SQLiteClose ()
     {
@@ -544,14 +537,4 @@ public class testofsql : MonoBehaviour
             mConnection.Close();
         mConnection = null;
     }
-
-
-
-
 }
-
-
-
-
-
-

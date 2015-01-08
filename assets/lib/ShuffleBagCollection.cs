@@ -62,7 +62,7 @@ namespace URandom
         private T m_current = default(T);
 
         /// <summary>
-        /// Constructs an empty bag with an initial capacity of 10 and the default source of randomness.
+        /// Constructs an empty bag with an initial capacity of 10 and the default source of randomness. 
         /// </summary>
         public ShuffleBagCollection ()
             : this(10, new MersenneTwister())
@@ -70,19 +70,19 @@ namespace URandom
         }
 
         /// <summary>
-        /// Constructs an empty bag with an initial capacity of 10 and the specified source of randomness.
+        /// Constructs an empty bag with an initial capacity of 10 and the specified source of randomness. 
         /// </summary>
-        /// <param name="generator">The random number generator to use</param>
+        /// <param name="generator"> The random number generator to use </param>
         public ShuffleBagCollection ( MersenneTwister generator )
             : this(10, generator)
         {
         }
 
         /// <summary>
-        /// Constructs an empty bag with the specified initial capacity and the default source of randomness.
+        /// Constructs an empty bag with the specified initial capacity and the default source of randomness. 
         /// </summary>
-        /// <param name="initialCapacity">The initial capacity to use</param>
-        /// <exception cref="System.ArgumentException">Thrown if initialCapacity &lt; 0</exception>
+        /// <param name="initialCapacity"> The initial capacity to use </param>
+        /// <exception cref="System.ArgumentException"> Thrown if initialCapacity &lt; 0 </exception>
         public ShuffleBagCollection ( int initialCapacity )
             : this(initialCapacity, new MersenneTwister())
         {
@@ -91,9 +91,9 @@ namespace URandom
         /// <summary>
         /// Creates an empty bag with the specified initial capacity and the specified random number generator.
         /// </summary>
-        /// <param name="initialCapacity">The initial capacity to use</param>
-        /// <param name="generator">The random number generator to use</param>
-        /// <exception cref="System.ArgumentException">Thrown if initialCapacity &lt; 0</exception>
+        /// <param name="initialCapacity"> The initial capacity to use </param>
+        /// <param name="generator">       The random number generator to use </param>
+        /// <exception cref="System.ArgumentException"> Thrown if initialCapacity &lt; 0 </exception>
         public ShuffleBagCollection ( int initialCapacity, MersenneTwister generator )
         {
             if (initialCapacity < 0)
@@ -104,18 +104,18 @@ namespace URandom
         }
 
         /// <summary>
-        /// Add an item to the bag once.
+        /// Add an item to the bag once. 
         /// </summary>
-        /// <param name="item">The item to throw into the bag.</param>
+        /// <param name="item"> The item to throw into the bag. </param>
         public void Add ( T item )
         { Add(item, 1); }
 
         /// <summary>
-        /// Adds an item to the bag multiple times.
+        /// Adds an item to the bag multiple times. 
         /// </summary>
-        /// <param name="item">The item to throw into the bag.</param>
-        /// <param name="quantity">The number of times it should come back out.</param>
-        /// <exception cref="System.ArgumentException">Thrown if quantity is not &gt; 0</exception>
+        /// <param name="item">     The item to throw into the bag. </param>
+        /// <param name="quantity"> The number of times it should come back out. </param>
+        /// <exception cref="System.ArgumentException"> Thrown if quantity is not &gt; 0 </exception>
         public void Add ( T item, int quantity )
         {
             if (quantity <= 0)
@@ -126,15 +126,15 @@ namespace URandom
                 m_data.Add(item);
             }
 
-            // Reseting the cursor to the end makes it possible to get freshly added values right away,
-            // otherwise it would have to finish this run first.
+            // Reseting the cursor to the end makes it possible to get freshly added values right
+            // away, otherwise it would have to finish this run first.
             m_cursor = m_data.Count - 1;
         }
 
         /// <summary>
-        /// Pulls an item out of the bag.
+        /// Pulls an item out of the bag. 
         /// </summary>
-        /// <returns>The next item in the sequence.</returns>
+        /// <returns> The next item in the sequence. </returns>
         public T Next ()
         {
             if (m_cursor < 1)
@@ -153,8 +153,8 @@ namespace URandom
         }
 
         /// <summary>
-        /// The last element that was returned from Next(). Can be null, if Next() has not been called
-        /// yet.
+        /// The last element that was returned from Next(). Can be null, if Next() has not been
+        /// called yet.
         /// </summary>
         public T Current
         {
@@ -162,7 +162,7 @@ namespace URandom
         }
 
         /// <summary>
-        /// The current capacity of the underlying storage.
+        /// The current capacity of the underlying storage. 
         /// </summary>
         public int Capacity
         {
@@ -170,7 +170,7 @@ namespace URandom
         }
 
         /// <summary>
-        /// Reduces the capacity as much as possible to save memory.
+        /// Reduces the capacity as much as possible to save memory. 
         /// </summary>
         public void TrimExcess ()
         {
@@ -178,7 +178,7 @@ namespace URandom
         }
 
         /// <summary>
-        /// The number of elements in this bag.
+        /// The number of elements in this bag. 
         /// </summary>
         public int Size
         {
@@ -189,7 +189,7 @@ namespace URandom
 
         /// <summary>
         /// </summary>
-        /// <returns>A sequence of random elements from the bag.</returns>
+        /// <returns> A sequence of random elements from the bag. </returns>
         IEnumerator<T> IEnumerable<T>.GetEnumerator ()
         {
             for (int i = 0; i <= Size; i++)
@@ -204,7 +204,7 @@ namespace URandom
 
         /// <summary>
         /// </summary>
-        /// <returns>A sequence of random elements from the bag.</returns>
+        /// <returns> A sequence of random elements from the bag. </returns>
         IEnumerator IEnumerable.GetEnumerator ()
         {
             return ((IEnumerable<T>)this).GetEnumerator();

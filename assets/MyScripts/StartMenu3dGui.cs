@@ -4,7 +4,7 @@ public class StartMenu3dGui : VRGUI
 {
     public GUISkin skin;
 
-    //		int count = 0;
+    // int count = 0; 
     public string SessionId;
 
     public string SessionNumber;
@@ -31,8 +31,6 @@ public class StartMenu3dGui : VRGUI
             debuggField = GUILayout.TextField(debuggField, 25);
             int.TryParse(debuggField, out debugg);
 
-
-			
             ManagerScript.debugg = debugg;
 
             if (GUILayout.Button("ok", GUILayout.ExpandHeight(true)))

@@ -5,7 +5,7 @@ namespace URandom
 {
     public static class RandomDisk
     {
-        // CIRCLE with R=1
+        // CIRCLE with R=1 
         public static Vector2 Circle ( ref NPack.MersenneTwister _rand )
         {
             float t = (float)_rand.Next();
@@ -38,9 +38,9 @@ namespace URandom
 
         public static Vector2 Disk ( ref NPack.MersenneTwister _rand )
         {
-            // t [0,1] , Theta [0,2pi)
+            // t [0,1] , Theta [0,2pi) 
             double t = _rand.NextSingle(true);
-            // in range [0,1) then multiply this number by k to get a random number in the range [0,k)
+            // in range [0,1) then multiply this number by k to get a random number in the range [0,k) 
             double theta = _rand.NextSingle(false) * 2 * Math.PI;
             return new Vector2((float)(Math.Sqrt(t) * Math.Cos(theta)), (float)(Math.Sqrt(t) * Math.Sin(theta)));
         }

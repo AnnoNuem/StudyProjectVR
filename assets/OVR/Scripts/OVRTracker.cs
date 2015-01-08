@@ -23,33 +23,33 @@ using Ovr;
 using UnityEngine;
 
 /// <summary>
-/// An infrared camera that tracks the position of a head-mounted display.
+/// An infrared camera that tracks the position of a head-mounted display. 
 /// </summary>
 public class OVRTracker
 {
     /// <summary>
-    /// The (symmetric) visible area in front of the tracker.
+    /// The (symmetric) visible area in front of the tracker. 
     /// </summary>
     public struct Frustum
     {
         /// <summary>
-        /// The tracker cannot track the HMD unless it is at least this far away.
+        /// The tracker cannot track the HMD unless it is at least this far away. 
         /// </summary>
         public float nearZ;
 
         /// <summary>
-        /// The tracker cannot track the HMD unless it is at least this close.
+        /// The tracker cannot track the HMD unless it is at least this close. 
         /// </summary>
         public float farZ;
 
         /// <summary>
-        /// The tracker's horizontal and vertical fields of view in degrees.
+        /// The tracker's horizontal and vertical fields of view in degrees. 
         /// </summary>
         public Vector2 fov;
     }
 
     /// <summary>
-    /// If true, a tracker is attached to the system.
+    /// If true, a tracker is attached to the system. 
     /// </summary>
     public bool isPresent
     {
@@ -64,7 +64,8 @@ public class OVRTracker
     }
 
     /// <summary>
-    /// If true, the tracker can see and track the HMD. Otherwise the HMD may be occluded or the system may be malfunctioning.
+    /// If true, the tracker can see and track the HMD. Otherwise the HMD may be occluded or the
+    /// system may be malfunctioning.
     /// </summary>
     public bool isPositionTracked
     {
@@ -79,7 +80,8 @@ public class OVRTracker
     }
 
     /// <summary>
-    /// If this is true and a tracker is available, the system will use position tracking when isPositionTracked is also true.
+    /// If this is true and a tracker is available, the system will use position tracking when
+    /// isPositionTracked is also true.
     /// </summary>
     public bool isEnabled
     {
@@ -107,7 +109,7 @@ public class OVRTracker
     }
 
     /// <summary>
-    /// Gets the tracker's viewing frustum.
+    /// Gets the tracker's viewing frustum. 
     /// </summary>
     public Frustum frustum
     {
@@ -134,7 +136,7 @@ public class OVRTracker
     }
 
     /// <summary>
-    /// Gets the tracker's pose, relative to the head's pose at the time of the last pose recentering.
+    /// Gets the tracker's pose, relative to the head's pose at the time of the last pose recentering. 
     /// </summary>
     public OVRPose GetPose ( double predictionTime = 0d )
     {
