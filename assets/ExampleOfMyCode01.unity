@@ -517,10 +517,10 @@ GameObject:
   - 135: {fileID: 505860567}
   - 23: {fileID: 505860566}
   - 54: {fileID: 505860565}
-  - 114: {fileID: 505860570}
   - 135: {fileID: 505860564}
+  - 114: {fileID: 505860570}
   m_Layer: 0
-  m_Name: BlueBallGLow
+  m_Name: WaypointBlue
   m_TagString: blueball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -616,7 +616,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 505860563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38987f929a194c1488158ad558218b8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 83738c3971be159419e816efdff29d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &564865210
@@ -630,11 +630,11 @@ GameObject:
   - 33: {fileID: 564865213}
   - 135: {fileID: 564865212}
   - 23: {fileID: 564865211}
-  - 114: {fileID: 564865215}
   - 114: {fileID: 564865216}
   - 114: {fileID: 564865217}
+  - 114: {fileID: 564865215}
   m_Layer: 0
-  m_Name: RedBallGlow
+  m_Name: StressorYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -702,7 +702,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 564865210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fb063b81770fac4e8deff6ae66b96a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a214a0e32352647a5a971d57518f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FakePress: 0
@@ -1247,6 +1247,7 @@ MonoBehaviour:
   m_LightmapIndex: -1
   m_LightmapSize: 1024
   m_DrawTreesAndFoliage: 1
+  m_CollectDetailPatches: 1
   m_MaterialTemplate: {fileID: 0}
 --- !u!4 &1139026901
 Transform:
@@ -3835,6 +3836,10 @@ Prefab:
     - target: {fileID: 13500000, guid: 34204668b1400c34abe2e7335c479d86, type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 34204668b1400c34abe2e7335c479d86, type: 2}
+      propertyPath: m_Name
+      value: StressorYellow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34204668b1400c34abe2e7335c479d86, type: 2}

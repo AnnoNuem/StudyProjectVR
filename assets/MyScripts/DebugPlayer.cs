@@ -78,7 +78,6 @@ using UnityEngine;
         {
 
 
-
             if (ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.end)
             {
 
@@ -86,20 +85,19 @@ using UnityEngine;
                 // We need to unpause the game
                 if (ManagerScript.getState() == ManagerScript.states.pause || ManagerScript.getState() == ManagerScript.states.blockover)
                 {
-                    Invoke("Unpause", 0.5f);
+                    Invoke("Unpause", 8.5f);
 
                 }
-                else
-                {
+
 
 
                     // move player forward
-                    if (ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() == ManagerScript.states.walking)
+                    if (ManagerScript.getState() == ManagerScript.states.walking)
                     {
 
-                        BlueBallPosition = GameObject.Find("BlueBallGLow").transform;
+                        BlueBallPosition = GameObject.Find("WaypointBlue").transform;
 
-                        temp1 = SpawnLookRed.GetSpeedMoveScale();
+                        temp1 = Stressor.GetSpeedMoveScale();
 
                         transform.position = Vector3.MoveTowards(transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 1f));
                         transform.LookAt(BlueBallPosition); // lets allways face the blue ball 
@@ -107,29 +105,25 @@ using UnityEngine;
 
                     }
 
-                    if (((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).GetYellowState() == SpawnLookRed.yellowSphereStates.defeatable && defetablemassage)
+                // is we are in the stressor defeatable mode than we ca defeat it
+
+                    if (((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).GetYellowState() == Stressor.yellowSphereStates.defeatable && defetablemassage)
                     {
                         defetablemassage = false;
                         GenrataTimeForDebugPlayerResponceDeley();
 
                     }
 
-                    if (((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).GetYellowState() != SpawnLookRed.yellowSphereStates.defeatable)
+                // to prevent it from defetting it multiple times, this is needed 
+
+                    if (((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).GetYellowState() != Stressor.yellowSphereStates.defeatable)
                     {
                         defetablemassage = true;
                     }
 
 
                     // if a sphere is in the defeatable mode, generate a random time with a function (due to some fucked up shit, the yellow spehre will do it ...)
-                    if (counter && Time.time > reactAfter)
-                    {
 
-                        counter = false;
-
-                        ((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).FakePress = true;
-                        Invoke("unpush", 0.3f);
-                        // this will "push " the button
-                    }
 
                     // lets point 
                     if (ManagerScript.getState() == ManagerScript.states.pointing)
@@ -165,7 +159,7 @@ using UnityEngine;
                     }
 
 
-                }
+                
 
 
 
@@ -187,7 +181,7 @@ using UnityEngine;
         {
 
             ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).PointFakeButton = false;
-            ((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).FakePress = false;
+            ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).FakePress = false;
 
 
 
@@ -203,13 +197,20 @@ using UnityEngine;
             responceTime = (float)urand.Range(10, 60, UnityRandom.Normalization.STDNORMAL, 10.0f);
 
             responceTime = responceTime / 100;
-            counter = true;
-            reactAfter = Time.time + responceTime;
+
+            Invoke("PushAndUnpushButton", responceTime);
+            
             Debug.Log(responceTime);
 
         }
 
+        public void PushAndUnpushButton ()
+        {
+            ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).FakePress = true;
+            Invoke("unpush", 0.3f);
+            // this will "push " the button
 
+        }
 
     }
 

@@ -176,7 +176,7 @@ public class ManagerScript : MonoBehaviour
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
         testofsql.SQLiteInit(); // initialisation of the Data Base
-        GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor(); // dissable the stressor in the beginning
+        GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); // dissable the stressor in the beginning
         Debug.Log("lol");
         ManagerScript.switchState(states.startScreen);
         Debug.Log("lol2");
@@ -277,17 +277,18 @@ public class ManagerScript : MonoBehaviour
                 Time.timeScale = 1;
                 ManagerScript.state = states.walking;
 
-                ((PlayerLookingAt)(GameObject.Find("BlueBallGLow").GetComponent("PlayerLookingAt"))).newTrial();
+                ((Waypoint)(GameObject.Find("WaypointBlue").GetComponent("Waypoint"))).switchState(Waypoint.WayPointStates.NewTrial);
+
 
                 //Activate or deactivate the Stressor according to the current CondtionTypeVariableInContainer
                 if (ManagerScript.CondtionTypeVariableInContainer != "Explain"
                     && ManagerScript.CondtionTypeVariableInContainer != "Dummy"
                     && ManagerScript.CondtionTypeVariableInContainer != "Training")
                 {
-                    GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().StartStressor();
+                    GameObject.Find("StressorYellow").GetComponent<Stressor>().StartStressor();
                 } else
                 {
-                    GameObject.Find("RedBallGlow").GetComponent<SpawnLookRed>().EndStressor();
+                    GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor();
                 }
                 break;
 
@@ -344,7 +345,7 @@ public class ManagerScript : MonoBehaviour
                 Pause.SaveValues(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 testofsql.SetDynamicDifficulty();
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
-                ((SpawnLookRed)(GameObject.Find("RedBallGlow").GetComponent("SpawnLookRed"))).ResetBallsCounterForDynamicDifficulty();
+                ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).ResetBallsCounterForDynamicDifficulty();
 
                 break;
 
@@ -359,7 +360,7 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets the position roration player waypoint.
+    /// Resets the position and roration of player and the waypoint.
     /// </summary>
     private static void ResetPositionRorationPlayerWaypoint ()
     {
@@ -367,7 +368,7 @@ public class ManagerScript : MonoBehaviour
         GameObject.Find("OVRPlayerController").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
         GameObject.FindWithTag("OVRcam").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
         GameObject.Find("OVRPlayerController").transform.position = GameObject.Find("StartPoint").transform.position;
-        GameObject.Find("BlueBallGLow").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
+        GameObject.Find("WaypointBlue").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
     }
 
     /// <summary>

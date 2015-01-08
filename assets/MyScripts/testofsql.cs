@@ -116,7 +116,7 @@ public class testofsql : MonoBehaviour
 
             // initialize the Subject
            
-            ExecuteQuerry("INSERT INTO 'Subject'('Subject_id','Subject_Number','EasyDifficultyLevel','HardDifficultyLevel') VALUES (NULL,'" + ManagerScript.chiffre + "','" + SpawnLookRed.EasyDelay.ToString() + "','" + SpawnLookRed.HardDealy.ToString() + "');");
+            ExecuteQuerry("INSERT INTO 'Subject'('Subject_id','Subject_Number','EasyDifficultyLevel','HardDifficultyLevel') VALUES (NULL,'" + ManagerScript.chiffre + "','" + Stressor.EasyDelay.ToString() + "','" + Stressor.HardDealy.ToString() + "');");
             // Here we get his number
             // alternative code would be
             SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE SUbject_Number = '" + ManagerScript.chiffre + "'");
@@ -130,7 +130,7 @@ public class testofsql : MonoBehaviour
             SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE SUbject_Number = '" + ManagerScript.chiffre + "'");
             EasyDifficultyLevel = QueryFloat("SELECT EasyDifficultyLevel FROM Subject WHERE SUbject_Number = '" + ManagerScript.chiffre + "'");
             HardDifficultyLevel = QueryFloat("SELECT HardDifficultyLevel FROM Subject WHERE SUbject_Number = '" + ManagerScript.chiffre + "'");
-            SpawnLookRed.SetDinamicDifficultyFromLastSession(EasyDifficultyLevel, HardDifficultyLevel);
+            Stressor.SetDinamicDifficultyFromLastSession(EasyDifficultyLevel, HardDifficultyLevel);
 
         }
 
@@ -453,9 +453,9 @@ public class testofsql : MonoBehaviour
     public static void SetDynamicDifficulty () // each block we should update the difficulty of the subject in the data base lol
     {
         string mSQLString1 = 
-            " UPDATE 'Subject' SET 'EasyDifficultyLevel'=" + SpawnLookRed.EasyDelay.ToString() + " WHERE SUbject_Number = '" + ManagerScript.chiffre + "';";
+            " UPDATE 'Subject' SET 'EasyDifficultyLevel'=" + Stressor.EasyDelay.ToString() + " WHERE SUbject_Number = '" + ManagerScript.chiffre + "';";
         string mSQLString2 = 
-            " UPDATE 'Subject' SET 'HardDifficultyLevel'=" + SpawnLookRed.HardDealy.ToString() + " WHERE SUbject_Number = '" + ManagerScript.chiffre + "';";
+            " UPDATE 'Subject' SET 'HardDifficultyLevel'=" + Stressor.HardDealy.ToString() + " WHERE SUbject_Number = '" + ManagerScript.chiffre + "';";
         ExecuteQuerry(mSQLString1);
         ExecuteQuerry(mSQLString2);
 

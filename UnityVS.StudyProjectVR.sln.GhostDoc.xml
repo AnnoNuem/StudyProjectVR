@@ -9,6 +9,7 @@
     <IgnoreExtensions>
     </IgnoreExtensions>
     <IgnoreFiles>
+      <IgnoreFile>.\assets\MyScripts\PlayerLookingAt.cs</IgnoreFile>
     </IgnoreFiles>
   </SpellChecker>
 <HelpConfigurations selected="HelpFile">
