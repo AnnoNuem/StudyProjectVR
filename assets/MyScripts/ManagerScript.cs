@@ -20,6 +20,7 @@
  */
 
 
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -30,6 +31,8 @@ using UnityEngine;
 /// </summary>
 public class ManagerScript : MonoBehaviour
 {
+
+
     /// <summary>
     /// The condtion type variable in container
     /// </summary>
@@ -163,23 +166,28 @@ public class ManagerScript : MonoBehaviour
     /// </summary>
     public static int NumberofTrialsStartet = 0;// this increase with every start of a trial. so this number will represent the current database number of the trial
 
+    public static int debugg ;
+
+    //public PauseCoroutine pClass;
+
     /// <summary>
     /// Starts this instance.
     /// </summary>
     void Start ()
     {
+        //pClass = new PauseCoroutine();
         // first we do grab the controller and assign the moveScale in a tricky way
         GameObject pController = GameObject.Find("OVRPlayerController");
         OVRPlayerController controller = pController.GetComponent<OVRPlayerController>();
         controller.GetMoveScaleMultiplier(ref moveScale);
-        Debug.Log("Value--->" + moveScale);
+        //Debug.Log("Value--->" + moveScale);
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
         testofsql.SQLiteInit(); // initialisation of the Data Base
         GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); // dissable the stressor in the beginning
-        Debug.Log("lol");
+        //Debug.Log("lol");
         ManagerScript.switchState(states.startScreen);
-        Debug.Log("lol2");
+        //Debug.Log("lol2");
 
     }
 
@@ -250,31 +258,37 @@ public class ManagerScript : MonoBehaviour
                     Directory.CreateDirectory(trialFolder);
                 }
 
-                recordData.recordDataParametersInit();
+//                recordData.recordDataParametersInit();
                 generateTrials();
 
-                // lets activate debugging here, bad style but i am unedr time pressure
-                if (StartMenu3dGui.debugg == 1)
+                if (debugg == 1)
                 {
-                    // the rotation needs to be shut down
                     GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = false;
-                    // we need to enable the debugger
-                    GameObject.Find("OVRCameraController").GetComponent<DebugPlayer>().enabled = true;
-                    
+
+                    GameObject.Find("OVRCameraRig").GetComponent<DebugPlayer>().enabled = true;
+
+                } else
+                {
+                    GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = true;
+                    GameObject.Find("OVRCameraRig").GetComponent<DebugPlayer>().enabled = false;
+
+
                 }
+
+
                  // lets create the initial savings
                 testofsql.InitialSavingsToDB(chiffre.ToString(), Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString(), trialList);
-
+                
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 switchState(states.pause);
 
                 break;
             case states.walking:
-                Debug.Log("in switch state new walking");
 
-                recordData.recordDataSmallspread("PF", "");
+//                recordData.recordDataSmallspread("PF", "");
                 
                 ResetPositionRorationPlayerWaypoint();
+                unStun();
                 
                 Time.timeScale = 1;
                 ManagerScript.state = states.walking;
@@ -296,21 +310,27 @@ public class ManagerScript : MonoBehaviour
 
             case states.pause:
 
-                recordData.recordDataSmallspread("P", "");
+//                recordData.recordDataSmallspread("P", "");
                 Time.timeScale = 0;
                 ManagerScript.state = states.pause;
                 break;
 
             case states.pointing:
                 Time.timeScale = 1;
+                ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
                 ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).NewPointing();
                 stun();
                 ManagerScript.state = states.pointing;
                 break;
 
+               
             case states.NewTrial:
-                ManagerScript.state = states.NewTrial;
 
+               
+                //pClass.DoCoroutine();
+
+                ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
+                ManagerScript.state = states.NewTrial;
 
                 NumberofTrialsStartet++;
 
@@ -341,12 +361,16 @@ public class ManagerScript : MonoBehaviour
                 else
                     switchState(states.walking);
 
+                Debug.Log("trial type" + ManagerScript.CondtionTypeVariableInContainer);
                 break;
+
             case states.blockover:
+                realTrialNumber++;
                 ManagerScript.state = states.blockover;
-                Pause.SaveValues(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
+
                 testofsql.SetDynamicDifficulty(Stressor.EasyDelay.ToString(),Stressor.HardDealy.ToString());
                 
+                //Pause.SaveValues(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).ResetBallsCounterForDynamicDifficulty();
 
@@ -361,6 +385,8 @@ public class ManagerScript : MonoBehaviour
         }
 
     }
+
+
 
     /// <summary>
     /// Resets the position and roration of player and the waypoint.
@@ -391,7 +417,7 @@ public class ManagerScript : MonoBehaviour
     {
         GameObject pController = GameObject.Find("OVRPlayerController");
         OVRPlayerController controller = pController.GetComponent<OVRPlayerController>();
-        controller.SetMoveScaleMultiplier(3.0f);
+        controller.SetMoveScaleMultiplier(1.5f);
     }
 
     /// <summary>
@@ -542,8 +568,8 @@ public class ManagerScript : MonoBehaviour
         } else if (session == 2)
         {
 
-
-            for (int i=0; i < 40; i++)
+            //CHANGE!!!
+            for (int i=0; i < 2; i++)
             {
                 trialContainer tempTrial = new trialContainer("Training");
                 trialList.Add(tempTrial);

@@ -18,15 +18,18 @@ using UnityEngine;
 /// </summary>
 public class DebugPlayer : MonoBehaviour
 {
+
+
     /// <summary>
     /// The start point coordinates
     /// </summary>
-    private Transform StartPointCoordinates;
+    Transform StartPointCoordinates;
 
     /// <summary>
     /// The urand
     /// </summary>
     private UnityRandom urand;
+
 
     /// <summary>
     /// The responce time
@@ -58,7 +61,7 @@ public class DebugPlayer : MonoBehaviour
     /// </summary>
     private bool defetablemassage = true;
 
-    // Use this for initialization
+
 
     // real rinnning or just quick jumst to end
     /// <summary>
@@ -70,33 +73,49 @@ public class DebugPlayer : MonoBehaviour
     /// Starts this instance.
     /// </summary>
     private void Start ()
+
     {
+
         StartPointCoordinates = GameObject.Find("StartPoint").transform;
         urand = new UnityRandom((int)System.DateTime.Now.Ticks);
+      
     }
 
     /// <summary>
     /// Updates this instance.
     /// </summary>
-    private void Update ()
+    void Update ()
     {
+
+        // We need to unpause the game
+        if (ManagerScript.getState() == ManagerScript.states.pause || ManagerScript.getState() == ManagerScript.states.blockover)
+        {
+            Invoke("Unpause", 8.5f);
+            
+        }
+
+
         if (ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.end)
         {
-            // We need to unpause the game
-            if (ManagerScript.getState() == ManagerScript.states.pause || ManagerScript.getState() == ManagerScript.states.blockover)
-            {
-                Invoke("Unpause", 8.5f);
-            }
+
+
+
+
+
 
             // move player forward
             if (ManagerScript.getState() == ManagerScript.states.walking)
             {
+
+
                 BlueBallPosition = GameObject.Find("WaypointBlue").transform;
 
                 temp1 = Stressor.GetSpeedMoveScale();
 
-                transform.position = Vector3.MoveTowards(transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 1f));
-                transform.LookAt(BlueBallPosition); // lets allways face the blue ball
+                transform.position = Vector3.MoveTowards(transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 5f));
+                transform.LookAt(BlueBallPosition); // lets allways face the blue ball 
+
+
             }
 
             // is we are in the stressor defeatable mode than we ca defeat it
@@ -105,18 +124,21 @@ public class DebugPlayer : MonoBehaviour
             {
                 defetablemassage = false;
                 GenrataTimeForDebugPlayerResponceDeley();
+
             }
 
-            // to prevent it from defetting it multiple times, this is needed
+            // to prevent it from defetting it multiple times, this is needed 
 
             if (((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).GetYellowState() != Stressor.yellowSphereStates.defeatable)
             {
                 defetablemassage = true;
             }
 
+
+
             // if a sphere is in the defeatable mode, generate a random time with a function (due to some fucked up shit, the yellow spehre will do it ...)
 
-            // lets point
+            // lets point 
             if (ManagerScript.getState() == ManagerScript.states.pointing)
             {
                 transform.LookAt(StartPointCoordinates);
@@ -125,13 +147,12 @@ public class DebugPlayer : MonoBehaviour
 
                 switch (temp2)
                 {
-                    // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
-                    // lets try it with 10 degree in total
+                // the jidder should be around 5 to 15 degree in total, so we dont have so many conditions
+                // lets try it with 10 degree in total
                     case 1:
 
                         transform.Rotate(0, 90, 0, Space.Self);
                         break;
-
                     case 2:
 
                         transform.Rotate(0, 270, 0, Space.Self);
@@ -157,11 +178,7 @@ public class DebugPlayer : MonoBehaviour
     /// <summary>
     /// Unpushes this instance.
     /// </summary>
-    private void unpush ()
-    {
-        ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).PointFakeButton = false;
-        ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).FakePress = false;
-    }
+   
 
     /// <summary>
     /// Genratas the time for debug player responce deley.
@@ -175,13 +192,35 @@ public class DebugPlayer : MonoBehaviour
 
         Invoke("PushAndUnpushButton", responceTime);
 
-        Debug.Log(responceTime);
+
     }
+    
+
+
+
+    /// <summary>
+    /// Unpushes this instance.
+    /// </summary>
+    void unpush ()
+    {
+        ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).PointFakeButton = false;
+        ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).FakePress = false;
+
+    }
+
+
 
     public void PushAndUnpushButton ()
     {
         ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).FakePress = true;
         Invoke("unpush", 0.3f);
         // this will "push " the button
+
+        Debug.Log(responceTime);
     }
+
+
 }
+
+
+

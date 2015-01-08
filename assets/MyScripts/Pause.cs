@@ -106,6 +106,7 @@ public class Pause : VRGUI
             if (paused)
             { 
                 ManagerScript.TrialMissed = true; // the trial is not saved as succeded. later you can see wich trial got paused lol
+                Debug.Log("1New trial should run now -->");
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
                 EndTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
                 displayText = "";
@@ -119,6 +120,7 @@ public class Pause : VRGUI
 
             } else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
             {
+                Debug.Log("2New trial should run now -->");
                 paused = true;
                 ManagerScript.switchState(ManagerScript.states.pause);
                 StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
@@ -239,7 +241,8 @@ public class Pause : VRGUI
     /// Saves the values.
     /// </summary>
     /// <param name="NextBlockType123">The next block type123.</param>
-    /// 
+
+
 
     public static void SaveValues (string NextBlockType123)
     {
@@ -247,4 +250,5 @@ public class Pause : VRGUI
         testofsql.SaveStatisicsToDataBase(NumberOfYellowSpaw.ToString(), NumberOfYellowDefeted.ToString(), NumberOfYellowMissed.ToString(), ManagerScript.abortedTrials.ToString(), PointingScript.avarageError.ToString());
 
     }
+    
 }
