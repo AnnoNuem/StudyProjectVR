@@ -38,7 +38,7 @@ public class PointingScript : MonoBehaviour
     /// <summary>
     /// The angle between 
     /// </summary>
-    public float angleBetween = 0;
+    public static float angleBetween = 0;
 
     /// <summary>
     /// The number of pointings 
@@ -59,6 +59,9 @@ public class PointingScript : MonoBehaviour
     /// The target 
     /// </summary>
     public Transform target;
+
+    public static  float AbsoluteErrorAngle;
+    public static  string EndTimePoining;
 
     /// <summary>
     /// Starts this instance. 
@@ -86,12 +89,18 @@ public class PointingScript : MonoBehaviour
                 angleBetween = Vector3.Angle(targetDir, forwardVector);
                 Vector3 cross = Vector3.Cross(targetDir, forwardVector);
 
-                if (cross.z < 0)
-                    angleBetween = -angleBetween;
+                if (cross.z < 0) angleBetween = -angleBetween;
+
+                AbsoluteErrorAngle = Mathf.Abs(angleBetween);
+                //angleBetween
+                //    ManagerScript.CurrentOrientation
+                // Starttimepointing
 
                 SaveAngleBetweenOldWay();
                 UpdateErrorAngleStatistics();
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
+                EndTimePoining = (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
+
                 CancelInvoke("toLongPoint");
                 PointFakeButton = false;
             }

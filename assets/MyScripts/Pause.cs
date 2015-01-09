@@ -40,15 +40,6 @@ public class Pause : VRGUI
     /// </summary>
     private static int NumberOfYellowMissed = 0;
 
-    /// <summary>
-    /// The condtion type variable in container 
-    /// </summary>
-    private static string CondtionTypeVariableInContainer;
-
-    /// <summary>
-    /// The temporary variable for condition 
-    /// </summary>
-    private static string tempVarForCondition;
 
     /// <summary>
     /// The paused 

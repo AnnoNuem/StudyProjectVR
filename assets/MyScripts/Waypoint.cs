@@ -26,10 +26,6 @@ public class Waypoint : MonoBehaviour
     /// </summary>
     private Vector3 pos_blue;
 
-    /// <summary>
-    /// The pos_new 
-    /// </summary>
-    private Vector3 pos_new;
 
     /// <summary>
     /// The ray direction 
@@ -52,11 +48,6 @@ public class Waypoint : MonoBehaviour
     /// </summary>
     private int timeToGetToBlueSphere = 8; // was 20, fixed it =(
 
-    // for looking at check 
-    /// <summary>
-    /// The center rect 
-    /// </summary>
-    private Rect centerRect;
 
     // lets force playber to look 1 second at the blue light 
     /// <summary>
@@ -119,10 +110,6 @@ public class Waypoint : MonoBehaviour
     /// </summary>
     private int	CounterForMissedTrials = 0;
 
-    /// <summary>
-    /// The ovr cam d 
-    /// </summary>
-    private Transform OVRCamD;
 
     // Single-dimensional array 
     /// <summary>
@@ -216,9 +203,9 @@ public class Waypoint : MonoBehaviour
         {
             if (Physics.Raycast(rayStart, rayDirection, out hit, length) && hit.collider.tag == "blueball")
             {
-
                 HowLongLookedAtTimer += Time.deltaTime;
-            } else
+            }
+            else
             {
                 HowLongLookedAtTimer = 0.0f;
             }
@@ -234,7 +221,7 @@ public class Waypoint : MonoBehaviour
     /// Switches the states. 
     /// </summary>
     /// <param name="newState"> The new state. </param>
-    public void switchState (WayPointStates newState)
+    public void switchState ( WayPointStates newState )
     {
         switch (newState)
         {
@@ -255,7 +242,7 @@ public class Waypoint : MonoBehaviour
                 {
                     myInt++;
                     randvalue = thebag.Next();
-                    numbers [myInt] = (int)(randvalue);
+                    numbers[myInt] = (int)(randvalue);
                 }
 
                 break;
@@ -297,7 +284,8 @@ public class Waypoint : MonoBehaviour
                 if (numberOfSpheresReached == numberOfSpheresToReach)
                 {
                     switchState(WayPointStates.pointing);
-                } else
+                }
+                else
                 {
                     // we generate the degree of respawn 
                     DegreeOfSpawn = GenerateDegreeOfSpawn();
@@ -312,7 +300,7 @@ public class Waypoint : MonoBehaviour
 
                     ManagerScript.generatedAngle = DegreeOfSpawn;
                     TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
-                    ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "1", TimeWhenReached);
+                    ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "1", TimeWhenReached);
 
                     TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"); // after we save the old value, we need to reset it to the current time, so next time we switch in respawn, we have the correct time.
 
@@ -355,7 +343,8 @@ public class Waypoint : MonoBehaviour
             displaytext.GetComponent<TextMesh>().text = "<--";
             Invoke("clearGUItext", 0.5f);
             HowOftenTurnedLeft++;
-        } else //right
+        }
+        else //right
         {
             ManagerScript.CurrentOrientation = 1;
             transform.Rotate(0, DegreeOfSpawn, 0, Space.Self);
@@ -368,10 +357,7 @@ public class Waypoint : MonoBehaviour
 
     public void SaveWaypointWhenTrialMissed ()
     {
-
-        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0", "NULL");
-
-
+        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0", "");
     }
 
     /// <summary>
@@ -381,10 +367,10 @@ public class Waypoint : MonoBehaviour
     private float GenerateDegreeOfSpawn ()
     {
         // spanning random at 30 60 90 degrees left or right 
-        switch ((numbers [ManagerScript.realTrialNumber]))
+        switch ((numbers[ManagerScript.realTrialNumber]))
         {
-        // the jidder should be around 5 to 15 degree in total, so we dont have so many
-        // conditions lets try it with 10 degree in total
+            // the jidder should be around 5 to 15 degree in total, so we dont have so many
+            // conditions lets try it with 10 degree in total
             case 1:
                 left = false;
                 //DegreeOfSpawn = 90;
@@ -436,7 +422,7 @@ public class Waypoint : MonoBehaviour
         // count how often we miss 
         CounterForMissedTrials++;
 
-        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("NULL", "999", "0", transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0", "NULL");
+        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("", "999", "0", transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0", "");
 
         switchState(WayPointStates.end);
         ManagerScript.abortTrial();

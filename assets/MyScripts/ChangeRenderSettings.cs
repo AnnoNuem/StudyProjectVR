@@ -1,67 +1,63 @@
-﻿// ***********************************************************************
-// Assembly         : Assembly-CSharp
-// Author           : razial
-// Created          : 12-29-2014
-//
-// Last Modified By : razial
-// Last Modified On : 01-02-2015
-// ***********************************************************************
+﻿// *********************************************************************** Assembly :
+// Assembly-CSharp Author : razial Created : 12-29-2014
+// 
+// Last Modified By : razial Last Modified On : 01-02-2015 ***********************************************************************
 // <copyright file="ChangeRenderSettings.cs" company="INLUSIO">
-//     Copyright (c) INLUSIO. All rights reserved.
+//     Copyright (c) INLUSIO. All rights reserved. 
 // </copyright>
-// <summary></summary>
-// ***********************************************************************
+// <summary>
+// </summary>
+// *********************************************************************** 
 using UnityEngine;
 
 /// <summary>
-/// Class ChangeRenderSettings.
+/// Class ChangeRenderSettings. 
 /// </summary>
 public class ChangeRenderSettings : MonoBehaviour
 {
     /// <summary>
-    /// The fog color normal
+    /// The fog color normal 
     /// </summary>
     private Color fogColorNormal = Color.black;
 
     /// <summary>
-    /// The fog color easy
+    /// The fog color easy 
     /// </summary>
     private Color fogColorEasy = new Color(0.0F / 255, 13F / 255, 2F / 255);
 
     /// <summary>
-    /// The fog color hard
+    /// The fog color hard 
     /// </summary>
     private Color fogColorHard = new Color(15F / 255, 0.0F / 255, 0.0F / 255);
 
     /// <summary>
-    /// The ambient light color normal
+    /// The ambient light color normal 
     /// </summary>
     private Color ambientLightColorNormal = new Color(82F / 255, 82F / 255, 82F / 255);
 
-
     /// <summary>
-    /// The ambient light color easy
+    /// The ambient light color easy 
     /// </summary>
     private Color ambientLightColorEasy = new Color(61F / 255, 145F / 255, 81F / 255);
 
     /// <summary>
-    /// The ambient light color hard
+    /// The ambient light color hard 
     /// </summary>
     private Color ambientLightColorHard = new Color(145F / 255, 61F / 255, 61F / 255);
 
     /// <summary>
-    /// The cam1
+    /// The cam1 
     /// </summary>
     private Camera cam1;
 
     /// <summary>
-    /// The cam2
+    /// The cam2 
     /// </summary>
     private Camera cam2;
 
-    // Use this for initialization
+    // Use this for initialization 
     /// <summary>
-    /// Starts this instance.
+    /// Starts this instance. 
     /// </summary>
     private void Start ()
     {
@@ -69,16 +65,16 @@ public class ChangeRenderSettings : MonoBehaviour
         cam2 = GameObject.Find("LeftEyeAnchor").camera;
     }
 
-    // Update is called once per frame
+    // Update is called once per frame 
     /// <summary>
-    /// Updates this instance.
+    /// Updates this instance. 
     /// </summary>
     private void Update ()
     {
     }
 
     /// <summary>
-    /// Switches the easy.
+    /// Switches the easy. 
     /// </summary>
     public void switchEasy ()
     {
@@ -92,7 +88,7 @@ public class ChangeRenderSettings : MonoBehaviour
     }
 
     /// <summary>
-    /// Switches the hard.
+    /// Switches the hard. 
     /// </summary>
     public void switchHard ()
     {
@@ -106,7 +102,7 @@ public class ChangeRenderSettings : MonoBehaviour
     }
 
     /// <summary>
-    /// Switches the normal.
+    /// Switches the normal. 
     /// </summary>
     public void switchNormal ()
     {
@@ -119,7 +115,7 @@ public class ChangeRenderSettings : MonoBehaviour
         cam2.backgroundColor = fogColorNormal;
     }
 
-    public void switchBlackForSeconds (float sec)
+    public void switchBlackForSeconds ( float sec )
     {
         Debug.Log("BlackScreen");
     }

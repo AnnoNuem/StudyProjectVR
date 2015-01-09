@@ -1,42 +1,44 @@
-// *********************************************************************** Assembly :
-// Assembly-CSharp Author : razial Created : 01-07-2015
-// 
-// Last Modified By : razial Last Modified On : 01-07-2015 ***********************************************************************
+// ***********************************************************************
+// Assembly         : Assembly-CSharp
+// Author           : razial
+// Created          : 01-09-2015
+//
+// Last Modified By : razial
+// Last Modified On : 01-09-2015
+// ***********************************************************************
 // <copyright file="ManagerScript.cs" company="INLUSIO">
-//     Copyright (c) INLUSIO. All rights reserved. 
+//     Copyright (c) INLUSIO. All rights reserved.
 // </copyright>
 // <summary>
-// </summary>
-// *********************************************************************** 
-
 /*
  * This script manages and keeps global values and other scripts
  * relie on this for different variables and functions.
  * Also has a state machine defining the state of the trial
  */
+// </summary>
+// ***********************************************************************
 
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Ovr;
 
 /// <summary>
-/// Class ManagerScript. 
+/// Class ManagerScript.
 /// </summary>
 public class ManagerScript : MonoBehaviour
 {
     /// <summary>
-    /// The condtion type variable in container 
+    /// The condtion type variable in container
     /// </summary>
     public static string CondtionTypeVariableInContainer;
 
     /// <summary>
-    /// The move scale 
+    /// The move scale
     /// </summary>
     private static float moveScale;
 
     /// <summary>
-    /// The instance 
+    /// The instance
     /// </summary>
     public static ManagerScript Instance = null;
 
@@ -48,65 +50,65 @@ public class ManagerScript : MonoBehaviour
 
     // states for state machine to describe in which experiment state we are 
     /// <summary>
-    /// Enum states 
+    /// Enum states
     /// </summary>
     public enum states
     {
         /// <summary>
-        /// The start screen 
+        /// The start screen
         /// </summary>
         startScreen,
 
         /// <summary>
-        /// The walking 
+        /// The walking
         /// </summary>
         walking,
 
         /// <summary>
-        /// The pointing 
+        /// The pointing
         /// </summary>
         pointing,
 
         /// <summary>
-        /// The blockover 
+        /// The blockover
         /// </summary>
         blockover,
 
         /// <summary>
-        /// The pause 
+        /// The pause
         /// </summary>
         pause,
 
         /// <summary>
-        /// The end 
+        /// The end
         /// </summary>
         end,
 
         /// <summary>
-        /// The start 
+        /// The start
         /// </summary>
         start,
 
         /// <summary>
-        /// The new trial 
+        /// The new trial
         /// </summary>
         NewTrial
     }
 
     // chiffre for identification, can be changed in start screen 
     /// <summary>
-    /// The chiffre 
+    /// The chiffre
     /// </summary>
     public static string chiffre = "";
 
     /// <summary>
-    /// The state 
+    /// The state
     /// </summary>
     private static states state;
 
     // session identifier, tree different sessions 
     /// <summary>
-    /// The session 
+    /// The session
     /// </summary>
     public static int session;
 
@@ -123,71 +125,84 @@ public class ManagerScript : MonoBehaviour
     public static string trialFolder;
 
     /// <summary>
-    /// The parameter file 
+    /// The parameter file
     /// </summary>
     public static string parameterFile = "";
 
     /// <summary>
-    /// The trial i nprocess 
+    /// The trial i nprocess
     /// </summary>
     public static bool trialINprocess = false;
 
     /// <summary>
-    /// The point task i nprocess 
+    /// The point task i nprocess
     /// </summary>
     public static bool pointTaskINprocess = false;
 
     /// <summary>
-    /// The timeto pointing stage 
+    /// The timeto pointing stage
     /// </summary>
     public static float timetoPointingStage = 0.0f;
 
     /// <summary>
-    /// The pointing time 
+    /// The pointing time
     /// </summary>
     public static float pointingTime = 0.0f;
 
     /// <summary>
-    /// The duplicate present 
+    /// The duplicate present
     /// </summary>
     private static bool duplicatePresent = true;
 
     /// <summary>
-    /// The aborted trials 
+    /// The aborted trials
     /// </summary>
     public static int abortedTrials = 0;
 
     /// <summary>
-    /// The current orientation 
+    /// The current orientation
     /// </summary>
     public static int CurrentOrientation; // 0 is for left , 1 is for right
 
     /// <summary>
-    /// The trial missed 
+    /// The trial missed
     /// </summary>
     public static bool  TrialMissed = false;
 
     /// <summary>
-    /// The temp123 
+    /// The temp123
     /// </summary>
     public static bool temp123 = false;
 
     /// <summary>
-    /// The real trial number 
+    /// The real trial number
+    /// can repeat !!! (increeases with every succesfull trial ... )
     /// </summary>
-    public static int realTrialNumber = 1;// can repeat !!! (increeases with every succesfull trial ... )
+    public static int realTrialNumber = 1;
 
     /// <summary>
-    /// The numberof trials startet 
+    /// The numberof trials startet
+    /// this increase with every start of a trial. so this number will represent the current database number of the trial
     /// </summary>
-    public static int NumberofTrialsStartet = 0;// this increase with every start of a trial. so this number will represent the current database number of the trial
+    public static int NumberofTrialsStartet = 0;// 
 
+    /// <summary>
+    /// The debugg
+    /// </summary>
     public static int debugg;
+    /// <summary>
+    /// The start time pointing
+    /// </summary>
+    private static string StartTimePointing;
+    /// <summary>
+    /// The end time trial
+    /// </summary>
+    private static string EndTimeTrial;
 
     //public PauseCoroutine pClass;
 
     /// <summary>
-    /// Starts this instance. 
+    /// Starts this instance.
     /// </summary>
     private void Start ()
     {
@@ -196,18 +211,18 @@ public class ManagerScript : MonoBehaviour
         GameObject pController = GameObject.Find("OVRPlayerController");
         OVRPlayerController controller = pController.GetComponent<OVRPlayerController>();
         controller.GetMoveScaleMultiplier(ref moveScale);
-        //Debug.Log("Value--->" + moveScale);
+        
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
         testofsql.SQLiteInit(); // initialisation of the Data Base
         GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); // dissable the stressor in the beginning
-        //Debug.Log("lol");
+        
         ManagerScript.switchState(states.startScreen);
-        //Debug.Log("lol2");
+        
     }
 
     /// <summary>
-    /// Updates this instance. 
+    /// Updates this instance.
     /// </summary>
     private void Update ()
     {
@@ -222,7 +237,7 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Aborts the trial. 
+    /// Aborts the trial.
     /// </summary>
     public static void abortTrial ()
     {
@@ -242,15 +257,13 @@ public class ManagerScript : MonoBehaviour
         unStun();
     }
 
-    // the state machine 
-    /// <summary>
-    /// Switches the state. 
-    /// </summary>
-    /// <param name="newState"> The new state. </param>
-    public static void switchState (states newState)
-    {
-        Debug.Log(newState);
 
+    /// <summary>
+    /// Switches the state.
+    /// </summary>
+    /// <param name="newState">The new state.</param>
+    public static void switchState ( states newState )
+    {
         switch (newState)
         {
             case states.startScreen:
@@ -270,7 +283,6 @@ public class ManagerScript : MonoBehaviour
                     Directory.CreateDirectory(trialFolder);
                 }
 
-                // recordData.recordDataParametersInit(); 
                 generateTrials();
 
                 if (debugg == 1)
@@ -278,7 +290,8 @@ public class ManagerScript : MonoBehaviour
                     GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = false;
 
                     GameObject.Find("OVRPlayerController").GetComponent<DebugPlayer>().enabled = true;
-                } else
+                }
+                else
                 {
                     GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = true;
                     GameObject.Find("OVRPlayerController").GetComponent<DebugPlayer>().enabled = false;
@@ -287,7 +300,7 @@ public class ManagerScript : MonoBehaviour
                 // lets create the initial savings 
                 testofsql.InitialSavingsToDB(chiffre.ToString(), Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString(), trialList);
 
-                Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
+                Pause.PauseBetweenBlocks(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
                 switchState(states.pause);
 
                 break;
@@ -299,8 +312,6 @@ public class ManagerScript : MonoBehaviour
                 ((OVRScreenFade)(GameObject.Find("RightEyeAnchor").GetComponent("OVRScreenFade"))).fadeTime = 0.25f;
                 ((OVRScreenFade)(GameObject.Find("LeftEyeAnchor").GetComponent("OVRScreenFade"))).OnEnable();
                 ((OVRScreenFade)(GameObject.Find("RightEyeAnchor").GetComponent("OVRScreenFade"))).OnEnable();
-
-                // recordData.recordDataSmallspread("PF", ""); 
 
                 ResetPositionRorationPlayerWaypoint();
                 unStun();
@@ -316,7 +327,8 @@ public class ManagerScript : MonoBehaviour
                     && ManagerScript.CondtionTypeVariableInContainer != "Training")
                 {
                     GameObject.Find("StressorYellow").GetComponent<Stressor>().StartStressor();
-                } else
+                }
+                else
                 {
                     GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor();
                 }
@@ -326,16 +338,13 @@ public class ManagerScript : MonoBehaviour
 
                 ManagerScript.state = states.pause;
 
-
                 Time.timeScale = 0;
-                
 
                 if (debugg == 1)
                 {
-
                     UnPause();
-                } 
-                    
+                }
+
                 break;
 
             case states.pointing:
@@ -344,6 +353,7 @@ public class ManagerScript : MonoBehaviour
                 ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).NewPointing();
                 stun();
                 ManagerScript.state = states.pointing;
+                StartTimePointing = (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
                 break;
 
             case states.NewTrial:
@@ -351,39 +361,45 @@ public class ManagerScript : MonoBehaviour
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
                 ManagerScript.state = states.NewTrial;
 
+                EndTimeTrial = (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
+
                 NumberofTrialsStartet++;
+                string argument;
+                if (!TrialMissed)
+                    argument = "success";
+                else argument = "abort";
+
+                testofsql.UpdateTrial(argument, PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
 
                 if (!TrialMissed)
                 {
                     realTrialNumber++;
                     testofsql.UpdateTriallist(testofsql.CURRENT_TRIAL_ID.ToString());
-                } else
-                    TrialMissed = false;
-
-                // Time.timeScale = 1; 
-
+                    testofsql.UpdateAndIncrease_Current_Triallist_ID();
+                }
+                else
+ 
+                TrialMissed = false;
                 timetoPointingStage = 0.0f;
                 pointingTime = 0.0f;
-                // new WaitForSeconds(2) 
 
                 ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).PointFakeButton = false;
-                CondtionTypeVariableInContainer = trialList [realTrialNumber].CondtionTypeVariableInContainer;
+                CondtionTypeVariableInContainer = trialList[realTrialNumber].CondtionTypeVariableInContainer;
 
                 trialINprocess = true;
                 Time.timeScale = 0;
 
                 testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
 
-                if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER")
+                if (trialList[realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER")
                     switchState(states.blockover);
-                else if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL")
+                else if (trialList[realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL")
                 {
                     testofsql.UpdateSession(); // this session is over
                     switchState(states.end);
-                } else 
+                }
+                else
                     switchState(states.walking);
-
-                Debug.Log("trial type" + ManagerScript.CondtionTypeVariableInContainer);
                 break;
 
             case states.blockover:
@@ -391,17 +407,15 @@ public class ManagerScript : MonoBehaviour
                 ManagerScript.state = states.blockover;
 
                 testofsql.SetDynamicDifficulty(Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString());
-                testofsql.SaveDynamicDifficultyEvent(); 
+                testofsql.SaveDynamicDifficultyEvent();
 
-                //Pause.SaveValues(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
-                Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
+                Pause.PauseBetweenBlocks(trialList[realTrialNumber + 1].CondtionTypeVariableInContainer);
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).ResetBallsCounterForDynamicDifficulty();
 
                 if (debugg == 1)
                 {
-                    
                     UnPause();
-                } 
+                }
 
                 break;
 
@@ -415,12 +429,10 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets the position and roration of player and the waypoint. 
+    /// Resets the position and roration of player and the waypoint.
     /// </summary>
     private static void ResetPositionRorationPlayerWaypoint ()
     {
-
-        Debug.Log("reseting the position and rotation of the OVRPlayerController");
         GameObject.Find("OVRPlayerController").transform.position = GameObject.Find("StartPoint").transform.position;
         GameObject.Find("OVRPlayerController").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
         GameObject.FindWithTag("OVRcam").transform.rotation = GameObject.Find("StartPoint").transform.rotation;
@@ -429,7 +441,7 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Stuns this instance. 
+    /// Stuns this instance.
     /// </summary>
     private static void stun ()
     {
@@ -439,7 +451,7 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Uns the stun. 
+    /// Uns the stun.
     /// </summary>
     private static void unStun ()
     {
@@ -449,16 +461,16 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets the state. 
+    /// Gets the state.
     /// </summary>
-    /// <returns> states. </returns>
+    /// <returns>states.</returns>
     public static states getState ()
     {
         return state;
     }
 
     /// <summary>
-    /// Generates the trials. 
+    /// Generates the trials.
     /// </summary>
     public static void generateTrials ()
     {
@@ -532,7 +544,7 @@ public class ManagerScript : MonoBehaviour
                 easyBlock1.Shuffle();
                 for (int i=0; i < easyBlock1.Count - 1; i++)
                 {
-                    if (easyBlock1 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                    if (easyBlock1[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1[i + 1].CondtionTypeVariableInContainer == "Easy-False")
                     {
                         duplicatePresent = true;
                         break;
@@ -564,7 +576,7 @@ public class ManagerScript : MonoBehaviour
                 hardBlock1.Shuffle();
                 for (int i=0; i < easyBlock1.Count - 1; i++)
                 {
-                    if (hardBlock1 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                    if (hardBlock1[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1[i + 1].CondtionTypeVariableInContainer == "Hard-False")
                     {
                         duplicatePresent = true;
                         break;
@@ -585,7 +597,8 @@ public class ManagerScript : MonoBehaviour
             trialList.Add(blockTrial);
 
             trialList.Add(endTrial);
-        } else if (session == 2)
+        }
+        else if (session == 2)
         {
             //CHANGE!!!
             for (int i=0; i < 2; i++)
@@ -599,7 +612,7 @@ public class ManagerScript : MonoBehaviour
             List<int> orderNumbers = new List<int> { 1, 2 };
             orderNumbers.Shuffle();
 
-            switch (orderNumbers [1])
+            switch (orderNumbers[1])
             {
                 case 1:
 
@@ -622,7 +635,7 @@ public class ManagerScript : MonoBehaviour
                         easyBlock1.Shuffle();
                         for (int i=0; i < easyBlock1.Count - 1; i++)
                         {
-                            if (easyBlock1 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                            if (easyBlock1[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock1[i + 1].CondtionTypeVariableInContainer == "Easy-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -654,7 +667,7 @@ public class ManagerScript : MonoBehaviour
                         hardBlock1.Shuffle();
                         for (int i=0; i < hardBlock1.Count - 1; i++)
                         {
-                            if (hardBlock1 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                            if (hardBlock1[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock1[i + 1].CondtionTypeVariableInContainer == "Hard-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -686,7 +699,7 @@ public class ManagerScript : MonoBehaviour
                         easyBlock2.Shuffle();
                         for (int i=0; i < easyBlock2.Count - 1; i++)
                         {
-                            if (easyBlock2 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock2 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                            if (easyBlock2[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock2[i + 1].CondtionTypeVariableInContainer == "Easy-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -718,7 +731,7 @@ public class ManagerScript : MonoBehaviour
                         hardBlock2.Shuffle();
                         for (int i=0; i < hardBlock2.Count - 1; i++)
                         {
-                            if (hardBlock2 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock2 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                            if (hardBlock2[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock2[i + 1].CondtionTypeVariableInContainer == "Hard-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -753,7 +766,7 @@ public class ManagerScript : MonoBehaviour
                         hardBlock3.Shuffle();
                         for (int i=0; i < hardBlock3.Count - 1; i++)
                         {
-                            if (hardBlock3 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock3 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                            if (hardBlock3[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock3[i + 1].CondtionTypeVariableInContainer == "Hard-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -785,7 +798,7 @@ public class ManagerScript : MonoBehaviour
                         easyBlock3.Shuffle();
                         for (int i=0; i < easyBlock3.Count - 1; i++)
                         {
-                            if (easyBlock3 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock3 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                            if (easyBlock3[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock3[i + 1].CondtionTypeVariableInContainer == "Easy-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -817,7 +830,7 @@ public class ManagerScript : MonoBehaviour
                         hardBlock4.Shuffle();
                         for (int i=0; i < hardBlock4.Count - 1; i++)
                         {
-                            if (hardBlock4 [i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock4 [i + 1].CondtionTypeVariableInContainer == "Hard-False")
+                            if (hardBlock4[i].CondtionTypeVariableInContainer == "Hard-False" && hardBlock4[i + 1].CondtionTypeVariableInContainer == "Hard-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -849,7 +862,7 @@ public class ManagerScript : MonoBehaviour
                         easyBlock4.Shuffle();
                         for (int i=0; i < easyBlock4.Count - 1; i++)
                         {
-                            if (easyBlock4 [i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock4 [i + 1].CondtionTypeVariableInContainer == "Easy-False")
+                            if (easyBlock4[i].CondtionTypeVariableInContainer == "Easy-False" && easyBlock4[i + 1].CondtionTypeVariableInContainer == "Easy-False")
                             {
                                 duplicatePresent = true;
                                 break;
@@ -874,7 +887,8 @@ public class ManagerScript : MonoBehaviour
             trialList.Add(blockTrial);
 
             trialList.Add(endTrial);
-        } else if (session == 666)
+        }
+        else if (session == 666)
         {
             for (int i=0; i < 2; i++)
             {
@@ -893,14 +907,16 @@ public class ManagerScript : MonoBehaviour
             trialList.Add(blockTrial);
 
             trialList.Add(endTrial);
-        } else
+        }
+        else
             Application.Quit();
     }
 
-    static void UnPause ()
+    /// <summary>
+    /// Uns the pause.
+    /// </summary>
+    private static void UnPause ()
     {
-
         ((Pause)(GameObject.Find("CenterEyeAnchor").GetComponent("Pause"))).FakePauseButton = true;
-
     }
 }

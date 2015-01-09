@@ -1311,7 +1311,7 @@ namespace Ovr
 
     /// <summary>
     /// Provides an interface to a CAPI HMD object. The ovrHmd instance is normally created by
-    /// ovrHmd::Create, after which its other methods can be called. The typical process would
+    /// ovrHmd: :Create, after which its other methods can be called. The typical process would
     /// involve calling:
     /// 
     /// Setup:
