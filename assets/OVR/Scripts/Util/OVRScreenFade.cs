@@ -57,7 +57,7 @@ public class OVRScreenFade : MonoBehaviour
     /// <summary>
     /// Starts the fade in 
     /// </summary>
-    private void OnEnable ()
+    public void OnEnable ()
     {
         StartCoroutine(FadeIn());
     }
@@ -65,7 +65,7 @@ public class OVRScreenFade : MonoBehaviour
     /// <summary>
     /// Starts a fade in when a new level is loaded 
     /// </summary>
-    private void OnLevelWasLoaded ( int level )
+    private void OnLevelWasLoaded (int level)
     {
         StartCoroutine(FadeIn());
     }

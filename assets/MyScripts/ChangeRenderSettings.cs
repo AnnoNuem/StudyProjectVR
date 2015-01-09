@@ -38,6 +38,7 @@ public class ChangeRenderSettings : MonoBehaviour
     /// </summary>
     private Color ambientLightColorNormal = new Color(82F / 255, 82F / 255, 82F / 255);
 
+
     /// <summary>
     /// The ambient light color easy
     /// </summary>
@@ -116,5 +117,10 @@ public class ChangeRenderSettings : MonoBehaviour
         RenderSettings.fogMode = FogMode.ExponentialSquared;
         cam1.backgroundColor = fogColorNormal;
         cam2.backgroundColor = fogColorNormal;
+    }
+
+    public void switchBlackForSeconds (float sec)
+    {
+        Debug.Log("BlackScreen");
     }
 }

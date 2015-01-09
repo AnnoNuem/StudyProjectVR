@@ -46,10 +46,6 @@ public class DebugPlayer : MonoBehaviour
     /// </summary>
     private float temp1;
 
-    /// <summary>
-    /// The counter
-    /// </summary>
-    private bool counter = false;
 
     /// <summary>
     /// The blue ball position
@@ -73,7 +69,6 @@ public class DebugPlayer : MonoBehaviour
     /// Starts this instance.
     /// </summary>
     private void Start ()
-
     {
 
         StartPointCoordinates = GameObject.Find("StartPoint").transform;
@@ -87,12 +82,6 @@ public class DebugPlayer : MonoBehaviour
     void Update ()
     {
 
-        // We need to unpause the game
-        if (ManagerScript.getState() == ManagerScript.states.pause || ManagerScript.getState() == ManagerScript.states.blockover)
-        {
-            Invoke("Unpause", 8.5f);
-            
-        }
 
 
         if (ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.end)
@@ -170,10 +159,6 @@ public class DebugPlayer : MonoBehaviour
     /// <summary>
     /// Unpauses this instance.
     /// </summary>
-    private static void Unpause ()
-    {
-        ((Pause)(GameObject.Find("OVRCameraController").GetComponent("Pause"))).FakePauseButton = true;
-    }
 
     /// <summary>
     /// Unpushes this instance.

@@ -271,7 +271,6 @@ GameObject:
   - 114: {fileID: 232248654}
   - 114: {fileID: 232248651}
   - 114: {fileID: 232248653}
-  - 114: {fileID: 232248650}
   m_Layer: 0
   m_Name: OVRCameraRig
   m_TagString: Untagged
@@ -321,18 +320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9f338034892c44ebb62d97894772f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &232248650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 232248645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11d99b9204b54594285e72a1a0a7bd34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RealPlayerOrNot: 0
 --- !u!114 &232248651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,6 +648,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FakePress: 0
+  StunStartTime: 
+  StunStopTime: 
+  OldSpeed: 
+  NewSpeed: 
 --- !u!114 &564865216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2399,6 +2390,7 @@ GameObject:
   - 114: {fileID: 1500412471}
   - 114: {fileID: 1500412475}
   - 114: {fileID: 1500412474}
+  - 114: {fileID: 1500412470}
   m_Layer: 0
   m_Name: OVRPlayerController
   m_TagString: Untagged
@@ -2421,6 +2413,18 @@ Transform:
   - {fileID: 157215720}
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &1500412470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1500412468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11d99b9204b54594285e72a1a0a7bd34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RealPlayerOrNot: 0
 --- !u!114 &1500412471
 MonoBehaviour:
   m_ObjectHideFlags: 0
