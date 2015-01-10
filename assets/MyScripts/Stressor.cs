@@ -650,7 +650,7 @@ public class Stressor : MonoBehaviour
 
             case yellowSphereStates.start: // if the stressor should spawn, we set it to the start state
                 s = yellowSphereStates.start;
-                moveScale = 1.3f;
+                moveScale = 1.7f;
                 xcontroller.SetMoveScaleMultiplier(moveScale);
                 switchState(yellowSphereStates.hidden);
                 break;

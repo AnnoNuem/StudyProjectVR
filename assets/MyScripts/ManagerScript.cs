@@ -221,7 +221,7 @@ public class ManagerScript : MonoBehaviour
         GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); // dissable the stressor in the beginning
         
         ManagerScript.switchState(states.startScreen);
-        controller.SetMoveScaleMultiplier(1.3f);
+        controller.SetMoveScaleMultiplier(1.7f);
 
         
     }
