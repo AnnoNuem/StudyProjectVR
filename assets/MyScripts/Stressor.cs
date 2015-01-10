@@ -473,7 +473,7 @@ public class Stressor : MonoBehaviour
         ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
         TimeSpan bla = (ReactionTime - StartDefeatTimeee);
         string ReactionTimeString = bla.TotalMilliseconds.ToString();
-        testofsql.CreateStressor("Missed", ReactionTimeString, SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime);
+        //testofsql.CreateStressor("Missed", ReactionTimeString, SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, //testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime);
     }
 
     /// <summary>
@@ -486,7 +486,7 @@ public class Stressor : MonoBehaviour
         TimeSpan bla = (ReactionTime - StartDefeatTimeee);
         string ReactionTimeString = bla.TotalMilliseconds.ToString();
 
-        testofsql.CreateStressor("Defeated", ReactionTimeString, SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), DefeatedAtTime, "1", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, testofsql.CURRENT_TRIAL_ID.ToString(), "");
+        //testofsql.CreateStressor("Defeated", ReactionTimeString, SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), DefeatedAtTime, "1", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, //testofsql.CURRENT_TRIAL_ID.ToString(), "");
     }
 
     /// <summary>
@@ -557,7 +557,7 @@ public class Stressor : MonoBehaviour
         xcontroller.SetMoveScaleMultiplier(moveScale);
         float temp = 0.0f;
         xcontroller.GetMoveScaleMultiplier(ref temp);
-        testofsql.SaveDynamicDifficultyEvent(StunStartTime, StunStopTime, OldSpeed, NewSpeed);
+        //testofsql.SaveDynamicDifficultyEvent(StunStartTime, StunStopTime, OldSpeed, NewSpeed);
     }
 
     /// <summary>
@@ -699,7 +699,7 @@ public class Stressor : MonoBehaviour
 
 
 
-    // this function is executed by the testofsql stuff, in case we need to revive the old stats
+    // this function is executed by the //testofsql stuff, in case we need to revive the old stats
     // from the previos session of the sama player
     /// <summary>
     /// Sets the dinamic difficulty from last session. 

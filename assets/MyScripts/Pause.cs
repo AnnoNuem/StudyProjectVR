@@ -104,7 +104,7 @@ public class Pause : VRGUI
 
                 if (ManagerScript.NumberofTrialsStartet > 0)
                 {
-                    testofsql.CreatePause(StartTimePaused, EndTimePaused);
+                    //testofsql.CreatePause(StartTimePaused, EndTimePaused);
                 }
             } else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
             {
@@ -217,6 +217,6 @@ public class Pause : VRGUI
 
     public static void SaveValues ()
     {
-        testofsql.SaveStatisicsToDataBase(NumberOfYellowSpaw.ToString(), NumberOfYellowDefeted.ToString(), NumberOfYellowMissed.ToString(), ManagerScript.abortedTrials.ToString(), PointingScript.avarageError.ToString());
+        //testofsql.SaveStatisicsToDataBase(NumberOfYellowSpaw.ToString(), NumberOfYellowDefeted.ToString(), NumberOfYellowMissed.ToString(), ManagerScript.abortedTrials.ToString(), PointingScript.avarageError.ToString());
     }
 }

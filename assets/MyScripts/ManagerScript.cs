@@ -217,7 +217,7 @@ public class ManagerScript : MonoBehaviour
         
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
-        testofsql.SQLiteInit(); // initialisation of the Data Base
+        //testofsql.SQLiteInit(); // initialisation of the Data Base
         GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); // dissable the stressor in the beginning
         
         ManagerScript.switchState(states.startScreen);
@@ -305,7 +305,7 @@ public class ManagerScript : MonoBehaviour
                 }
 
                 // lets create the initial savings 
-                testofsql.InitialSavingsToDB(chiffre, Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString(), trialList);
+                //testofsql.InitialSavingsToDB(chiffre, Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString(), trialList);
 
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 switchState(states.pause);
@@ -373,7 +373,7 @@ public class ManagerScript : MonoBehaviour
                 {
                     argument = "abort";
                 }
-                testofsql.UpdateTrial(argument, PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
+                //testofsql.UpdateTrial(argument, PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
 
 
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
@@ -398,7 +398,7 @@ public class ManagerScript : MonoBehaviour
                 trialINprocess = true;
                 Time.timeScale = 0;
 
-                testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
+                //testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
 
                 if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER")
                 {
@@ -406,7 +406,7 @@ public class ManagerScript : MonoBehaviour
                     Pause.SaveValues();
                 } else if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL")
                 {
-                    testofsql.UpdateSession(); // this session is over
+                    //testofsql.UpdateSession(); // this session is over
                     Pause.SaveValues();
                     switchState(states.end);
                 } else
@@ -417,8 +417,8 @@ public class ManagerScript : MonoBehaviour
                 realTrialNumber++;
                 ManagerScript.state = states.blockover;
 
-                testofsql.SetDynamicDifficulty(Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString());
-                testofsql.SaveDynamicDifficultyEvent();
+                //testofsql.SetDynamicDifficulty(Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString());
+                //testofsql.SaveDynamicDifficultyEvent();
 
                 // if we have not reached the end trial
                 // alternativly one could check if 

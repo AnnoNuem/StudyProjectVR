@@ -2,7 +2,7 @@
 // Assembly-CSharp Author : razial Created : 01-07-2015 Created : 01-07-2015
 // 
 // Last Modified By : razial Last Modified On : 01-08-2015 Last Modified On : 01-08-2015
-// <copyright file="testofsql.cs" company="INLUSIO">
+// <copyright file="//testofsql.cs" company="INLUSIO">
 //     Copyright (c) INLUSIO. All rights reserved. 
 // </copyright>
 // <summary>

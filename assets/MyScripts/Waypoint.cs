@@ -307,7 +307,7 @@ public class Waypoint : MonoBehaviour
                     renderer.enabled = true;
 
                     ManagerScript.generatedAngle = DegreeOfSpawn;
-                    testofsql.CreateWaypoint(DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString());
+                    //testofsql.CreateWaypoint(DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString());
                     TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"); // after we save the old value, we need to reset it to the current time, so next time we switch in respawn, we have the correct time.
 
                     switchState(WayPointStates.walking);
@@ -332,11 +332,11 @@ public class Waypoint : MonoBehaviour
                 if (numberOfSpheresReached == numberOfSpheresToReach)
                 {
 
-                    testofsql.UpdateWaypoint("1", TimeWhenReached);
+                    //testofsql.UpdateWaypoint("1", TimeWhenReached);
                 
                 } else
                 {
-                    testofsql.UpdateWaypoint("0", "");
+                    //testofsql.UpdateWaypoint("0", "");
         
                 }
 
