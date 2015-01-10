@@ -108,8 +108,8 @@ public class DebugPlayer : MonoBehaviour
 
                 switch (temp2)
                 {
-                    // the jidder should be around 5 to 15 degree in total, so we dont have so many
-                    // conditions lets try it with 10 degree in total
+                // the jidder should be around 5 to 15 degree in total, so we dont have so many
+                // conditions lets try it with 10 degree in total
                     case 1:
 
                         transform.Rotate(0, 90, 0, Space.Self);
@@ -122,7 +122,7 @@ public class DebugPlayer : MonoBehaviour
                         break;
                 }
 
-                ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).PointFakeButton = true;
+                ((PointingScript)(GameObject.Find("OVRPlayerController").GetComponent("PointingScript"))).PointFakeButton = true;
 
                 Invoke("unpush", 0.2f);
             }
@@ -147,7 +147,7 @@ public class DebugPlayer : MonoBehaviour
     /// </summary>
     private void unpush ()
     {
-        ((PointingScript)(GameObject.Find("helperObject").GetComponent("PointingScript"))).PointFakeButton = false;
+        ((PointingScript)(GameObject.Find("OVRPlayerController").GetComponent("PointingScript"))).PointFakeButton = false;
         ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).FakePress = false;
     }
 

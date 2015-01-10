@@ -107,6 +107,8 @@ public class testofsql : MonoBehaviour
     /// </summary>
     static int AfterBlockNumber = 0;
 
+    public static int CurentWaypointId;
+
     public static string SaveDynamicDifficultyEventString = "";
 
     /// <summary>
@@ -181,7 +183,7 @@ public class testofsql : MonoBehaviour
             // trial list creation 
             string SqlComands = "";
 
-            for (int i=0; i < trialList.Count - 1; i++)
+            for (int i=0; i < trialList.Count; i++)
             {
                 SqlComands = SqlComands + "INSERT INTO Trialist (Session_id,Type) VALUES ("
                     + "'" + SESSION_ID + "','"
@@ -252,7 +254,9 @@ public class testofsql : MonoBehaviour
 
         if (argument == "success")
         {
-            mSQLString = " UPDATE 'Trial' SET 'Success'=1 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + ", 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'=' " + StartTimePointing + ",  'EndTimePoining'=' " + EndTimePoining + "', 'EndTimeTrial'=' " + EndTimeTrial + "'  WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
+            Debug.Log("success");
+            mSQLString = " UPDATE 'Trial' SET 'Success'=1 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + ", 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'=' " + StartTimePointing + "',  'EndTimePoining'=' " + EndTimePoining + "', 'EndTimeTrial'=' " + EndTimeTrial + "'  WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
+            Debug.Log(mSQLString);
 
             UpdateTriallist(CURRENT_TRIAL_ID.ToString());
         }
@@ -276,24 +280,54 @@ public class testofsql : MonoBehaviour
     /// <param name="ReactionTime">         The reaction time. </param>
     /// <param name="Trial_id">             The trial_id. </param>
     /// <param name="ExplosionTime">        The explosion time. </param>
-    public static void CreateStressor (string Stressors_id, string SpawnTime, string StartDefeatTime, string HowLongDefeatable, string DefeatedAtTime, string Defeated, string RotationSpeed, string ButtonToEarlyPushed, string Type, string DefeatableTimeWindow, string ReactionTime, string Trial_id, string ExplosionTime)
+    public static void CreateStressor (string command, string ReactionTime, string SpawnTime, string StartDefeatTime, string HowLongDefeatable, string DefeatedAtTime, string Defeated, string RotationSpeed, string ButtonToEarlyPushed, string Type, string Trial_id, string ExplosionTime)
     {
-        string CreateStressor =
-                   " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime') VALUES"
-            + "(" 
-            + "'" + SpawnTime + "',"
-            + "'" + StartDefeatTime + "',"
-            + "'" + HowLongDefeatable + "',"
-            + "'" + DefeatedAtTime + "',"
-            + "'" + Defeated + "',"
-            + "'" + RotationSpeed + "',"
-            + "'" + ButtonToEarlyPushed + "',"
-            + "'" + Type + "',"
-            + "'" + DefeatableTimeWindow + "',"
-            + "'" + ReactionTime + "',"
-            + "'" + Trial_id + "',"
-            + "'" + ExplosionTime + "');";
-        ExecuteQuerry(CreateStressor);
+
+        if (command == "Missed")
+        {
+
+
+            string CreateStressor =
+                " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','ReactionTime','Trial_id','ExplosionTime') VALUES"
+                + "(" 
+                + "'" + SpawnTime + "',"
+                + "'" + StartDefeatTime + "',"
+                + "'" + HowLongDefeatable + "',"
+                + "'" + DefeatedAtTime + "',"
+                + "'" + 0 + "',"
+                + "'" + RotationSpeed + "',"
+                + "'" + ButtonToEarlyPushed + "',"
+                + "'" + Type + "',"
+                + "'" + "NULL" + "',"
+                + "'" + Trial_id + "',"
+                + "'" + ExplosionTime + "');";
+            ExecuteQuerry(CreateStressor);
+
+
+        } else if (command == "Defeated")
+        {
+
+            string CreateStressor =
+                " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','DefeatedAtTime','HowLongDefeatable','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','ReactionTime','Trial_id') VALUES"
+                + "(" 
+                + "'" + SpawnTime + "',"
+                + "'" + StartDefeatTime + "',"
+                + "'" + DefeatedAtTime + "',"
+
+                + "'" + HowLongDefeatable + "',"
+                + "'" + 1 + "',"
+                + "'" + RotationSpeed + "',"
+                + "'" + ButtonToEarlyPushed + "',"
+                + "'" + Type + "',"
+                + "'" + "NULL" + "',"
+                + "'" + Trial_id 
+                + "');";
+            ExecuteQuerry(CreateStressor);
+
+
+        }
+
+
     }
 
     /// <summary>
@@ -308,18 +342,25 @@ public class testofsql : MonoBehaviour
     /// <param name="Trial_id">          The trial_id. </param>
     /// <param name="reached">           The reached. </param>
     /// <param name="TimeWhenReached">   The time when reached. </param>
-    public void CreateWaypoint (string Waypoints_id, string DegreeOfRespawn, string TimeWhenRespawned, string GlobalCoordinats, string TransformRotation, string NumberInTrial, string Trial_id, string reached, string TimeWhenReached)
+    public static void CreateWaypoint (string DegreeOfRespawn, string TimeWhenRespawned, string GlobalCoordinats, string TransformRotation, string NumberInTrial)
     {
-        string CreateWaypoint = "INSERT INTO 'Waypoints'('DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id','reached','TimeWhenReached') VALUES"
+        string CreateWaypoint = "INSERT INTO 'Waypoints'('DegreeOfRespawn','TimeWhenRespawned','GlobalCoordinats','TransformRotation','NumberInTrial','Trial_id') VALUES"
             + "('" + DegreeOfRespawn + "','"
             + TimeWhenRespawned + "','"
             + GlobalCoordinats + "','"
             + TransformRotation + "','"
             + NumberInTrial + "','"
-            + Trial_id + "','"
-            + reached + "','"
-            + TimeWhenReached + "');";
+            + CURRENT_TRIAL_ID.ToString() + "');";
         ExecuteQuerry(CreateWaypoint);
+
+        CurentWaypointId = QueryInt(("SELECT last_insert_rowid()"));
+    }
+
+    public static void UpdateWaypoint (string reached, string TimeWhenReached)
+    {
+
+        mSQLString = " UPDATE 'Waypoints' SET 'reached'= '" + reached + "','TimeWhenReached'= '" + TimeWhenReached + "'  WHERE _rowid_=" + CurentWaypointId.ToString() + ";";
+        ExecuteQuerry(mSQLString);
     }
 
     /// <summary>
@@ -392,6 +433,7 @@ public class testofsql : MonoBehaviour
             " UPDATE 'Subject' SET 'HardDifficultyLevel'=" + HardDealy + " WHERE Subject_Number = '" + ManagerScript.chiffre + "';";
         ExecuteQuerry(mSQLString1);
         ExecuteQuerry(mSQLString2);
+        Debug.Log(mSQLString1 + "and" + mSQLString2);
     }
 
     /// <summary>
@@ -417,9 +459,9 @@ public class testofsql : MonoBehaviour
         string mSQLString1 = "INSERT INTO 'Stun'('trial','StunTime','UnstunTime','OldSpeed','NewSpeed') VALUES" +
             "('" + CURRENT_TRIAL_ID + "','"
             + StunTime + "','"
+            + UnstunTime + "','"
             + OldSpeed + "','"
-            + NewSpeed + "','"
-            + UnstunTime + "');";
+            + NewSpeed + "');";
 
         SaveDynamicDifficultyEvent(mSQLString1);
     }
@@ -490,7 +532,6 @@ public class testofsql : MonoBehaviour
         int number = 0;
 
         mCommand.CommandText = command;
-        Debug.Log(command);
         // mConnection.Open(); 
         mReader = mCommand.ExecuteReader();
         if (mReader.Read())

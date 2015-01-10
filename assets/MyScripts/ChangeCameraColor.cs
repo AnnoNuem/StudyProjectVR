@@ -36,24 +36,21 @@ public class ChangeCameraColor : MonoBehaviour
             cam1.SetActive(true);
             cam2.SetActive(true);
             cr.switchEasy();
-        }
-        else if (CondtionTypeVariableInContainer == "Hard" || CondtionTypeVariableInContainer == "Hard-False")
+        } else if (CondtionTypeVariableInContainer == "Hard" || CondtionTypeVariableInContainer == "Hard-False")
         {
             //Debug.Log("hard camera");
             cam1.SetActive(true);
             cam2.SetActive(true);
 
             cr.switchHard();
-        }
-        else if (CondtionTypeVariableInContainer == "Training" || CondtionTypeVariableInContainer == "Explain")
+        } else if (CondtionTypeVariableInContainer == "Training" || CondtionTypeVariableInContainer == "Explain" || CondtionTypeVariableInContainer == "PostBaseline" || CondtionTypeVariableInContainer == "PreBaseline")
         {
             // Debug.Log("no cond camera"); 
             cam1.SetActive(true);
             cam2.SetActive(true);
 
             cr.switchNormal();
-        }
-        else if (CondtionTypeVariableInContainer == "ENDTRIAL")
+        } else if (CondtionTypeVariableInContainer == "ENDTRIAL")
         {
             // we need to show something in he end, so lets not disable the camera Debug.Log("no camera"); 
             cam1.SetActive(true);

@@ -1,0 +1,192 @@
+Initialize engine version: 4.5.1f3 (73cd57f80e3e)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [aticfx32.dll 8.17.10.1315]
+    Renderer: AMD Radeon HD 6900 Series
+    Vendor:   ATI
+    VRAM:     2035 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 INTZ=1 RAWZ=0 NULL=1 RESZ=1 SlowINTZ=1
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\Mono.Data.SqliteClient.dll (this message is harmless)
+Loading C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\Mono.Data.SqliteClient.dll into Unity Child Domain
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\System.Data.dll (this message is harmless)
+Loading C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\System.Data.dll into Unity Child Domain
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\XInputDotNetPure.dll (this message is harmless)
+Loading C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
+- Completed reload, in  0.140 seconds
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1440x900 60Hz; virtual: 1440x900 at 0,0
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\System.Core.dll (this message is harmless)
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/Runtime/Mono/MonoBehaviour.cpp Line: 1783)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/Runtime/Mono/MonoBehaviour.cpp Line: 1783)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/Runtime/Mono/MonoBehaviour.cpp Line: 1783)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/Runtime/Mono/MonoBehaviour.cpp Line: 1783)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/Runtime/Mono/MonoBehaviour.cpp Line: 1783)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/Runtime/Mono/MonoBehaviour.cpp Line: 1783)
+
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\System.dll (this message is harmless)
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Material:Internal_CreateWithShader (UnityEngine.Material,UnityEngine.Shader)
+  at UnityEngine.Material..ctor (UnityEngine.Shader shader) [0x00006] in C:\BuildAgent\work\d63dfc6385190b60\artifacts\StandalonePlayerGenerated\ShaderBindings.cs:149 
+  at Detonator.DefaultFireballAMaterial () [0x00016] in C:\Users\lab-admin\StudyProjectVR\assets\Detonator Explosion Framework\System\Detonator.cs:294 
+  at Detonator.FillDefaultMaterials () [0x00010] in C:\Users\lab-admin\StudyProjectVR\assets\Detonator Explosion Framework\System\Detonator.cs:185 
+  at Detonator.Awake () [0x00000] in C:\Users\lab-admin\StudyProjectVR\assets\Detonator Explosion Framework\System\Detonator.cs:93 
+ 
+(Filename: C Line: 0)
+
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\System.Transactions.dll (this message is harmless)
+Platform assembly: C:\Users\lab-admin\StudyProjectVR\test2222_Data\Managed\System.Xml.dll (this message is harmless)
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+DllNotFoundException: sqlite3
+  at (wrapper managed-to-native) Mono.Data.SqliteClient.Sqlite:sqlite3_open16 (string,intptr&)
+  at Mono.Data.SqliteClient.SqliteConnection.Open () [0x00000] in <filename unknown>:0 
+  at testofsql.SQLiteInit () [0x00020] in C:\Users\lab-admin\StudyProjectVR\assets\MyScripts\testofsql.cs:124 
+  at ManagerScript.Start () [0x00043] in C:\Users\lab-admin\StudyProjectVR\assets\MyScripts\ManagerScript.cs:220 
+ 
+(Filename: C Line: 0)
+
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+DllNotFoundException: sqlite3
+  at (wrapper managed-to-native) Mono.Data.SqliteClient.Sqlite:sqlite3_prepare16 (intptr,intptr,int,intptr&,intptr&)
+  at Mono.Data.SqliteClient.SqliteCommand.GetNextStatement (IntPtr pzStart, System.IntPtr& pzTail, System.IntPtr& pStmt) [0x00000] in <filename unknown>:0 
+  at Mono.Data.SqliteClient.SqliteCommand.ExecuteReader (CommandBehavior behavior, Boolean want_results, System.Int32& rows_affected) [0x00000] in <filename unknown>:0 
+  at Mono.Data.SqliteClient.SqliteCommand.ExecuteReader (CommandBehavior behavior) [0x00000] in <filename unknown>:0 
+  at Mono.Data.SqliteClient.SqliteCommand.ExecuteDbDataReader (CommandBehavior behavior) [0x00000] in <filename unknown>:0 
+  at System.Data.Common.DbCommand.ExecuteReader () [0x00000] in <filename unknown>:0 
+  at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader () [0x00000] in <filename unknown>:0 
+  at testofsql.QueryInt (System.String command) [0x0000d] in C:\Users\lab-admin\StudyProjectVR\assets\MyScripts\testofsql.cs:536 
+  at testofsql.InitialSavingsToDB (System.String chiffre, System.String EasyDelay, System.String HardDealy, System.String session, System.Collections.Generic.List`1 trialList) [0x00000] in C:\Users\lab-admin\StudyProjectVR\assets\MyScripts\testofsql.cs:148 
+  at ManagerScript.switchState (states newState) [0x000b7] in C:\Users\lab-admin\StudyProjectVR\assets\MyScripts\ManagerScript.cs:308 
+  at StartMenu3dGui.OnVRGUI () [0x0011a] in C:\Users\lab-admin\StudyProjectVR\assets\MyScripts\StartMenu3dGui.cs:38 
+  at VRGUI.OnGUI () [0x000bf] in C:\Users\lab-admin\StudyProjectVR\assets\VRGUI\Scripts\VRGUI.cs:119 
+ 
+(Filename: C Line: 0)
+
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/sqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/.\libsqlite3
+Fallback handler could not load library C:/Users/lab-admin/StudyProjectVR/test2222_Data/Mono/libsqlite3
+DllNotFoundException: sqlite3
+  at (wrapper managed-to-native) Mono.Data.SqliteClient.Sqlite:sqlite3_close (intptr)
+  at Mono.Data.SqliteClient.SqliteConnection.Close () [0x00000] in <filename unknown>:0 
+  at testofsql.OnApplicationQuit () [0x00000] in C:\Users\lab-admin\StudyProjectVR\assets\MyScripts\testofsql.cs:579 
+ 
+(Filename: C Line: 0)
+
+Waiting for finish

@@ -89,7 +89,8 @@ public class PointingScript : MonoBehaviour
                 angleBetween = Vector3.Angle(targetDir, forwardVector);
                 Vector3 cross = Vector3.Cross(targetDir, forwardVector);
 
-                if (cross.z < 0) angleBetween = -angleBetween;
+                if (cross.z < 0)
+                    angleBetween = -angleBetween;
 
                 AbsoluteErrorAngle = Mathf.Abs(angleBetween);
                 //angleBetween
@@ -98,6 +99,10 @@ public class PointingScript : MonoBehaviour
 
                 SaveAngleBetweenOldWay();
                 UpdateErrorAngleStatistics();
+
+                testofsql.UpdateTriallist(testofsql.CURRENT_TRIAL_ID.ToString());
+                testofsql.UpdateAndIncrease_Current_Triallist_ID();
+
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
                 EndTimePoining = (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
 
@@ -152,8 +157,7 @@ public class PointingScript : MonoBehaviour
         if (!ManagerScript.TrialMissed)
         {
             // recordData.recordDataParameters(1, (angleBetween).ToString()); 
-        }
-        else
+        } else
         {
             // recordData.recordDataParameters(2, (angleBetween).ToString()); 
         }

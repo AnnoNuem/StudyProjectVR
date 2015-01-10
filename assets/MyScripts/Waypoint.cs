@@ -40,7 +40,7 @@ public class Waypoint : MonoBehaviour
     /// <summary>
     /// The number of spheres reached 
     /// </summary>
-    private int numberOfSpheresReached = 0;
+    public static int numberOfSpheresReached = 0;
 
     // time a user has to reach the next blue sphere 
     /// <summary>
@@ -63,7 +63,7 @@ public class Waypoint : MonoBehaviour
     /// <summary>
     /// The spawn distance 
     /// </summary>
-    private float spawnDistance = 40.0f; // How far away to spawn
+    private float spawnDistance = 36.0f; // How far away to spawn
 
     /// <summary>
     /// The move distance 
@@ -212,15 +212,25 @@ public class Waypoint : MonoBehaviour
             if (!hiding && Vector3.Distance(cameraTransform.position, transform.position) < moveDistance && HowLongLookedAtTimer > 0.5)
             {
                 switchState(WayPointStates.respawn);
+                TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+
             }
         }
+    }
+
+
+    public static void SwitchStateToEnd ()
+    {
+
+        ((Waypoint)(GameObject.Find("WaypointBlue").GetComponent("Waypoint"))).switchState(Waypoint.WayPointStates.end);
+
     }
 
     /// <summary>
     /// Switches the states. 
     /// </summary>
     /// <param name="newState"> The new state. </param>
-    public void switchState (WayPointStates newState)
+    public  void switchState (WayPointStates newState)
     {
         switch (newState)
         {
@@ -273,7 +283,6 @@ public class Waypoint : MonoBehaviour
 
             case WayPointStates.respawn:
                 Waypoint.WayPointState = WayPointStates.respawn;
-
                 CancelInvoke("toLong");
                 hiding = true;
                 renderer.enabled = false;
@@ -283,6 +292,7 @@ public class Waypoint : MonoBehaviour
                 if (numberOfSpheresReached == numberOfSpheresToReach)
                 {
                     switchState(WayPointStates.pointing);
+
                 } else
                 {
                     // we generate the degree of respawn 
@@ -297,9 +307,7 @@ public class Waypoint : MonoBehaviour
                     renderer.enabled = true;
 
                     ManagerScript.generatedAngle = DegreeOfSpawn;
-                    TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
-                    ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "1", TimeWhenReached);
-
+                    testofsql.CreateWaypoint(DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString());
                     TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"); // after we save the old value, we need to reset it to the current time, so next time we switch in respawn, we have the correct time.
 
                     switchState(WayPointStates.walking);
@@ -309,7 +317,6 @@ public class Waypoint : MonoBehaviour
 
             case WayPointStates.walking:
                 Waypoint.WayPointState = WayPointStates.walking;
-
                 break;
 
             case WayPointStates.pointing:
@@ -321,6 +328,18 @@ public class Waypoint : MonoBehaviour
 
             case WayPointStates.end:
                 Waypoint.WayPointState = WayPointStates.end;
+
+                if (numberOfSpheresReached == numberOfSpheresToReach)
+                {
+
+                    testofsql.UpdateWaypoint("1", TimeWhenReached);
+                
+                } else
+                {
+                    testofsql.UpdateWaypoint("0", "");
+        
+                }
+
 
                 renderer.enabled = false;
                 hiding = true;
@@ -352,10 +371,6 @@ public class Waypoint : MonoBehaviour
         }
     }
 
-    public void SaveWaypointWhenTrialMissed ()
-    {
-        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("", DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0", "");
-    }
 
     /// <summary>
     /// Generates the degree of spawn. 
@@ -412,6 +427,8 @@ public class Waypoint : MonoBehaviour
     /// </summary>
     private void toLong ()
     {
+        switchState(WayPointStates.end);
+
         //Add parameters
         //        recordData.recordDataParameters(0, "999");
         displaytext.GetComponent<TextMesh>().text = "Time's up for this trial!\nNew Trial";
@@ -419,9 +436,6 @@ public class Waypoint : MonoBehaviour
         // count how often we miss 
         CounterForMissedTrials++;
 
-        ((testofsql)(GameObject.Find("OVRPlayerController").GetComponent("testofsql"))).CreateWaypoint("", "999", "0", transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "0", "");
-
-        switchState(WayPointStates.end);
         ManagerScript.abortTrial();
     }
 

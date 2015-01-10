@@ -11,6 +11,8 @@
 using System.Collections;
 using UnityEngine;
 using XInputDotNetPure;
+using System;
+
 
 /// <summary>
 /// Class Stressor. 
@@ -80,7 +82,7 @@ public class Stressor : MonoBehaviour
     /// <summary>
     /// The cool down 
     /// </summary>
-    private float coolDown = 2.0f;       // How long to hide
+    private float coolDown = 1.5f;       // How long to hide
 
     /// <summary>
     /// The spawn time 
@@ -91,6 +93,7 @@ public class Stressor : MonoBehaviour
     /// The start defeat time 
     /// </summary>
     private string StartDefeatTime;
+    System.DateTime StartDefeatTimeee ;
 
     /// <summary>
     /// The defeated at time 
@@ -250,20 +253,16 @@ public class Stressor : MonoBehaviour
     /// </summary>
     private static yellowSphereStates s;
 
-    /// <summary>
-    /// The start defeat time float 
-    /// </summary>
-    private  float StartDefeatTimeFloat;
+    public System.DateTime ReactionTime ;
+
+
 
     /// <summary>
     /// The time of defeat 
     /// </summary>
     private  float TimeOfDefeat;
 
-    /// <summary>
-    /// The reaction time 
-    /// </summary>
-    private  float ReactionTime;
+
 
     public string StunStartTime;
     public string StunStopTime;
@@ -322,7 +321,7 @@ public class Stressor : MonoBehaviour
                 case yellowSphereStates.notDefeatedInTime:
                     if (FakePress || (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("360controllerButtonB")) && !keyPressedToEarly)
                     {
-                        ReactionTime = Time.time;
+                        ReactionTime = System.DateTime.Now;
                     }
 
                     move();
@@ -343,8 +342,7 @@ public class Stressor : MonoBehaviour
     {
         switchState(yellowSphereStates.defeatable);
         StartDefeatTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
-        StartDefeatTimeFloat = Time.time;
-        DefeatableTimeWindow = Time.time + durationOfResponsePeriod;
+        StartDefeatTimeee = System.DateTime.Now;
     }
 
     /// <summary>
@@ -429,24 +427,31 @@ public class Stressor : MonoBehaviour
         if (catchedEasyBalls > 10 && EasyDelay > 0.400f)
         {
             EasyDelay = EasyDelay - 0.030f;
+            ResetBallsCounterForDynamicDifficulty();
+
         }
 
         if (catchedHardBalls > 5 && HardDealy > 0.179f)
         {
             HardDealy = HardDealy - 0.030f;
+            ResetBallsCounterForDynamicDifficulty();
+
         }
 
         if (missedEasyBalls > 5)
         {
             EasyDelay = EasyDelay + 0.030f;
+            ResetBallsCounterForDynamicDifficulty();
+
         }
 
         if (missedHardBalls > 5)
         {
             HardDealy = HardDealy + 0.030f;
+            ResetBallsCounterForDynamicDifficulty();
+
         }
 
-        ResetBallsCounterForDynamicDifficulty();
 
         if (ManagerScript.CondtionTypeVariableInContainer == "Easy" || ManagerScript.CondtionTypeVariableInContainer == "Hard-False")
         {
@@ -466,9 +471,9 @@ public class Stressor : MonoBehaviour
     {
         // recordData.recordDataSmallspread("M", ""); 
         ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
-
-        //'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime')
-        testofsql.CreateStressor("", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime);
+        TimeSpan bla = (ReactionTime - StartDefeatTimeee);
+        string ReactionTimeString = bla.TotalMilliseconds.ToString();
+        testofsql.CreateStressor("Missed", ReactionTimeString, SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime);
     }
 
     /// <summary>
@@ -478,11 +483,10 @@ public class Stressor : MonoBehaviour
     {
         // recordData.recordDataSmallspread("D", ""); 
         DefeatedAtTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
-        TimeOfDefeat = Time.time;
-        ReactionTime = StartDefeatTimeFloat - TimeOfDefeat;
+        TimeSpan bla = (ReactionTime - StartDefeatTimeee);
+        string ReactionTimeString = bla.TotalMilliseconds.ToString();
 
-        //'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime')
-        testofsql.CreateStressor("", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), DefeatedAtTime, "1", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "");
+        testofsql.CreateStressor("Defeated", ReactionTimeString, SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), DefeatedAtTime, "1", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, testofsql.CURRENT_TRIAL_ID.ToString(), "");
     }
 
     /// <summary>
@@ -646,7 +650,7 @@ public class Stressor : MonoBehaviour
 
             case yellowSphereStates.start: // if the stressor should spawn, we set it to the start state
                 s = yellowSphereStates.start;
-                moveScale = 1.8f;
+                moveScale = 1.3f;
                 xcontroller.SetMoveScaleMultiplier(moveScale);
                 switchState(yellowSphereStates.hidden);
                 break;
@@ -693,11 +697,7 @@ public class Stressor : MonoBehaviour
         return s;
     }
 
-    /// <summary>
-    /// Gets or sets the defeatable time window. 
-    /// </summary>
-    /// <value> The defeatable time window. </value>
-    public float DefeatableTimeWindow { get; set; }
+
 
     // this function is executed by the testofsql stuff, in case we need to revive the old stats
     // from the previos session of the sama player
@@ -711,4 +711,6 @@ public class Stressor : MonoBehaviour
         HardDealy = HardDifficultyLevel;
         EasyDelay = EasyDifficultyLevel;
     }
+
+
 }
