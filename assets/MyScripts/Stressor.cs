@@ -328,8 +328,7 @@ public class Stressor : MonoBehaviour
                     move();
                     break;
             }
-        }
-        else
+        } else
         {
             renderer.enabled = false;
             displaytext.GetComponent<TextMesh>().text = "";
@@ -453,8 +452,7 @@ public class Stressor : MonoBehaviour
         {
             durationOfResponsePeriod = EasyDelay + (UnityEngine.Random.Range(1f, 200)) / 1000;
             rotationSpeed = rotationSpeedEasy;
-        }
-        else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False")
+        } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard" || ManagerScript.CondtionTypeVariableInContainer == "Easy-False")
         {
             durationOfResponsePeriod = HardDealy + (UnityEngine.Random.Range(1f, 100)) / 1000;
             rotationSpeed = rotationSpeedHard;
@@ -470,7 +468,7 @@ public class Stressor : MonoBehaviour
         ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
         //'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime')
-        testofsql.CreateStressor("", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer.ToString(), DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime.ToString());
+        testofsql.CreateStressor("", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime);
     }
 
     /// <summary>
@@ -484,7 +482,7 @@ public class Stressor : MonoBehaviour
         ReactionTime = StartDefeatTimeFloat - TimeOfDefeat;
 
         //'Stressors_id','SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','DefeatableTimeWindow','ReactionTime','Trial_id','ExplosionTime')
-        testofsql.CreateStressor("", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), DefeatedAtTime.ToString(), "1", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer.ToString(), DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "");
+        testofsql.CreateStressor("", SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), DefeatedAtTime, "1", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, DefeatableTimeWindow.ToString(), ReactionTime.ToString(), testofsql.CURRENT_TRIAL_ID.ToString(), "");
     }
 
     /// <summary>
@@ -544,7 +542,7 @@ public class Stressor : MonoBehaviour
     /// </summary>
     /// <param name="sec"> The sec. </param>
     /// <returns> IEnumerator. </returns>
-    private IEnumerator stunForSeconds ( int sec )
+    private IEnumerator stunForSeconds (int sec)
     {
         xcontroller.SetMoveScaleMultiplier(0.0f);
         yield return new WaitForSeconds(sec);
@@ -584,7 +582,7 @@ public class Stressor : MonoBehaviour
     /// Switches the state. 
     /// </summary>
     /// <param name="newState"> The new state. </param>
-    public void switchState ( yellowSphereStates newState )
+    public void switchState (yellowSphereStates newState)
     {
         displaytext.GetComponent<TextMesh>().text = "";
         switch (newState)
@@ -621,8 +619,7 @@ public class Stressor : MonoBehaviour
                 if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                 {
                     missedEasyBalls++;
-                }
-                else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
                 {
                     missedHardBalls++;
                 }
@@ -635,8 +632,7 @@ public class Stressor : MonoBehaviour
                 if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                 {
                     catchedEasyBalls++;
-                }
-                else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
+                } else if (ManagerScript.CondtionTypeVariableInContainer == "Hard")
                 {
                     catchedHardBalls++;
                 }
@@ -710,7 +706,7 @@ public class Stressor : MonoBehaviour
     /// </summary>
     /// <param name="EasyDifficultyLevel"> The easy difficulty level. </param>
     /// <param name="HardDifficultyLevel"> The hard difficulty level. </param>
-    internal static void SetDinamicDifficultyFromLastSession ( float EasyDifficultyLevel, float HardDifficultyLevel )
+    internal static void SetDinamicDifficultyFromLastSession (float EasyDifficultyLevel, float HardDifficultyLevel)
     {
         HardDealy = HardDifficultyLevel;
         EasyDelay = EasyDifficultyLevel;

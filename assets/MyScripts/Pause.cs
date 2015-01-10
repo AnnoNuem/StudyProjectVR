@@ -82,6 +82,7 @@ public class Pause : VRGUI
     private void Start ()
     {
         GUI.enabled = false;
+        StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
     }
 
     /// <summary>
@@ -95,7 +96,7 @@ public class Pause : VRGUI
             if (paused)
             {
                 ManagerScript.TrialMissed = true; // the trial is not saved as succeded. later you can see wich trial got paused lol
-                Debug.Log("1New trial should run now -->");
+//                Debug.Log("1New trial should run now -->");
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
                 EndTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
                 displayText = "";
@@ -105,8 +106,7 @@ public class Pause : VRGUI
                 {
                     testofsql.CreatePause(StartTimePaused, EndTimePaused);
                 }
-            }
-            else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
+            } else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
             {
                 Debug.Log("2New trial should run now -->");
                 paused = true;
@@ -143,8 +143,7 @@ public class Pause : VRGUI
             GUILayout.Label(PointingScript.avarageError + " " + "your avarage error angle ");
             GUILayout.EndVertical();
             GUILayout.EndArea();
-        }
-        else
+        } else
         {
             GUI.enabled = false;
         }
@@ -178,7 +177,7 @@ public class Pause : VRGUI
     /// Pauses the between blocks. 
     /// </summary>
     /// <param name="NextBlockType"> Type of the next block. </param>
-    public static void PauseBetweenBlocks ( string NextBlockType )
+    public static void PauseBetweenBlocks (string NextBlockType)
     {
         paused = true;
         if (NextBlockType.Contains("Easy") || NextBlockType.Contains("Easy-False"))
@@ -216,7 +215,7 @@ public class Pause : VRGUI
     /// </summary>
     /// <param name="NextBlockType123"> The next block type123. </param>
 
-    public static void SaveValues ( string NextBlockType123 )
+    public static void SaveValues ()
     {
         testofsql.SaveStatisicsToDataBase(NumberOfYellowSpaw.ToString(), NumberOfYellowDefeted.ToString(), NumberOfYellowMissed.ToString(), ManagerScript.abortedTrials.ToString(), PointingScript.avarageError.ToString());
     }
