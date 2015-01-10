@@ -110,7 +110,7 @@ public class ManagerScript : MonoBehaviour
     /// <summary>
     /// The session
     /// </summary>
-    public static int session;
+    public static int session = 1 ;
 
     //public list of trials
     /// <summary>

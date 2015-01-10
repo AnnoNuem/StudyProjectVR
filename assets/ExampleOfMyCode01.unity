@@ -269,8 +269,6 @@ GameObject:
   - 4: {fileID: 232248646}
   - 114: {fileID: 232248648}
   - 114: {fileID: 232248654}
-  - 114: {fileID: 232248651}
-  - 114: {fileID: 232248653}
   m_Layer: 0
   m_Name: OVRCameraRig
   m_TagString: Untagged
@@ -318,28 +316,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df9f338034892c44ebb62d97894772f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &232248651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 232248645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c0ec7b656e74384d8bac1ea9d832213, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &232248653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 232248645}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058a4f1ab187a2b4ea1429cca0d6eb41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &232248654
@@ -646,7 +622,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 564865210}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b4007f1233a9b74fa9be42583fafba6, type: 3}
   m_Name: 
@@ -867,8 +843,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 845199639}
   - 114: {fileID: 845199638}
-  - 114: {fileID: 845199641}
-  - 114: {fileID: 845199642}
   - 114: {fileID: 845199640}
   - 114: {fileID: 845199644}
   m_Layer: 0
@@ -910,28 +884,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b70c1af876734154f9fe4721564a2496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &845199641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 845199637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1eb89c2bcb88d8418ec4202bb21cb9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &845199642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 845199637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd4a48e0278f3cc4f9495ff50afb2688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &845199644
@@ -1265,6 +1217,7 @@ MonoBehaviour:
   m_LightmapIndex: -1
   m_LightmapSize: 1024
   m_DrawTreesAndFoliage: 1
+  m_CollectDetailPatches: 1
   m_MaterialTemplate: {fileID: 0}
 --- !u!4 &1139026901
 Transform:
@@ -2361,11 +2314,9 @@ GameObject:
   - 143: {fileID: 1500412473}
   - 114: {fileID: 1500412472}
   - 114: {fileID: 1500412471}
-  - 114: {fileID: 1500412475}
   - 114: {fileID: 1500412474}
   - 114: {fileID: 1500412470}
   - 114: {fileID: 1500412476}
-  - 114: {fileID: 1500412477}
   m_Layer: 0
   m_Name: OVRPlayerController
   m_TagString: Untagged
@@ -2461,17 +2412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCreateNewTable: 0
---- !u!114 &1500412475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1500412468}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b70c1af876734154f9fe4721564a2496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1500412476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2485,17 +2425,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PointFakeButton: 0
   target: {fileID: 0}
---- !u!114 &1500412477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1500412468}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092973226d4e3ed449d1d6f7ce328318, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1724248659
 GameObject:
   m_ObjectHideFlags: 0
