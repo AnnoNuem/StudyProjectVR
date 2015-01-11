@@ -114,6 +114,12 @@ public class testofsql : MonoBehaviour
     /// <summary>
     /// Basic initialization of SQLite This will be activated by the manager script 
     /// </summary>
+    /// 
+    void Awake ()
+    {
+        Instance = this;
+    }
+
     public static void SQLiteInit ()
     {
         // the data base is here 
@@ -124,6 +130,7 @@ public class testofsql : MonoBehaviour
         mConnection.Open();
         ExecuteQuerry("PRAGMA page_size = " + "4096" + ";");
         ExecuteQuerry("PRAGMA synchronous = " + "1" + ";");
+        mConnection.Close();
 
     }
 
@@ -140,6 +147,9 @@ public class testofsql : MonoBehaviour
     /// <param name="trialList"> The trial list. </param>
     public static void InitialSavingsToDB (string chiffre, string EasyDelay, string HardDealy, string session, List<trialContainer> trialList)
     {
+        mConnection.Open();
+
+        
         /// Subject entety code 
         // Check if Subject_Number exists, if no, we create him 
         #region
@@ -250,6 +260,8 @@ public class testofsql : MonoBehaviour
         if (argument == "abort")
         {
             mSQLString = " UPDATE 'Trial' SET 'Success'=0 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + ", 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'= '" + StartTimePointing + "',  'EndTimePoining'=' " + EndTimePoining + "', 'EndTimeTrial'= '" + EndTimeTrial + " ' WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
+            ExecuteQuerry(mSQLString);
+
         }
 
         if (argument == "success")
@@ -257,11 +269,11 @@ public class testofsql : MonoBehaviour
             Debug.Log("success");
             mSQLString = " UPDATE 'Trial' SET 'Success'=1 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + ", 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'=' " + StartTimePointing + "',  'EndTimePoining'=' " + EndTimePoining + "', 'EndTimeTrial'=' " + EndTimeTrial + "'  WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
             Debug.Log(mSQLString);
+            ExecuteQuerry(mSQLString);
 
             UpdateTriallist(CURRENT_TRIAL_ID.ToString());
         }
-
-        ExecuteQuerry(mSQLString);
+        
     }
 
     /// <summary>

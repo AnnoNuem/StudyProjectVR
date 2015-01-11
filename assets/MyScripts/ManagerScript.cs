@@ -361,34 +361,40 @@ public class ManagerScript : MonoBehaviour
                 ((PointingScript)(GameObject.Find("OVRPlayerController").GetComponent("PointingScript"))).NewPointing();
                 stun();
                 ManagerScript.state = states.pointing;
-                StartTimePointing = (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
+                StartTimePointing = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
                 break;
 
             case states.NewTrial:
-
-                if (!TrialMissed)
-                {
-                    argument = "success";
-                } else
-                {
-                    argument = "abort";
-                }
-                testofsql.UpdateTrial(argument, PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
+                    
+               
 
 
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
                 ManagerScript.state = states.NewTrial;
 
-                EndTimeTrial = (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
+                EndTimeTrial = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
 
                 NumberofTrialsStartet++;
-               
+
                 if (!TrialMissed)
                 {
                     realTrialNumber++;
-                } else
- 
+                    Debug.Log("We increase the realTrialNumber");
+                    argument = "success";
+
+                }
+                else
+                {
+
                     TrialMissed = false;
+                    argument = "abort";
+
+                }
+
+
+                testofsql.UpdateTrial(argument, PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
+
+
                 timetoPointingStage = 0.0f;
                 pointingTime = 0.0f;
 
@@ -424,7 +430,7 @@ public class ManagerScript : MonoBehaviour
                 // alternativly one could check if 
                 if (trialList.Count != (realTrialNumber))
                 {
-                    Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
+//                    Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 } else
                 { 
                 

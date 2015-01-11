@@ -341,7 +341,7 @@ public class Stressor : MonoBehaviour
     private void StressorDefeatable ()
     {
         switchState(yellowSphereStates.defeatable);
-        StartDefeatTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        StartDefeatTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
         StartDefeatTimeee = System.DateTime.Now;
     }
 
@@ -406,7 +406,7 @@ public class Stressor : MonoBehaviour
         renderer.enabled = true;
         // recordData.recordDataSmallspread("S", ""); 
         Pause.ChangeNumberOfYellowSpaw();
-        SpawnTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        SpawnTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
     }
 
     // this jidders the onset between 0.8 and 2.5 seconds 
@@ -470,7 +470,7 @@ public class Stressor : MonoBehaviour
     private void DataSavingAfterExplosion ()
     {
         // recordData.recordDataSmallspread("M", ""); 
-        ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        ExplosionTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
         TimeSpan bla = (ReactionTime - StartDefeatTimeee);
         string ReactionTimeString = bla.TotalMilliseconds.ToString();
         testofsql.CreateStressor("Missed", ReactionTimeString, SpawnTime, StartDefeatTime, durationOfResponsePeriod.ToString(), "", "0", rotationSpeed.ToString(), keyPressedToEarly.ToString(), ManagerScript.CondtionTypeVariableInContainer, testofsql.CURRENT_TRIAL_ID.ToString(), ExplosionTime);
@@ -482,7 +482,7 @@ public class Stressor : MonoBehaviour
     private void DataSavingAfterDefeate ()
     {
         // recordData.recordDataSmallspread("D", ""); 
-        DefeatedAtTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        DefeatedAtTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
         TimeSpan bla = (ReactionTime - StartDefeatTimeee);
         string ReactionTimeString = bla.TotalMilliseconds.ToString();
 
@@ -495,7 +495,7 @@ public class Stressor : MonoBehaviour
     private void startExp ()
     {
         DataSavingAfterExplosion();
-        StunStartTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        StunStartTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
         StartCoroutine(stunForSeconds(2));
         StartCoroutine(vibrateController());
         ((Detonator)(GetComponent("Detonator"))).Explode();
@@ -550,7 +550,8 @@ public class Stressor : MonoBehaviour
     {
         xcontroller.SetMoveScaleMultiplier(0.0f);
         yield return new WaitForSeconds(sec);
-        StunStopTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        StunStopTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
+
         OldSpeed = moveScale.ToString();
         moveScale = moveScale * 0.7f;
         NewSpeed = moveScale.ToString();

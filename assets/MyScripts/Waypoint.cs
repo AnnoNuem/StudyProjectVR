@@ -212,7 +212,7 @@ public class Waypoint : MonoBehaviour
             if (!hiding && Vector3.Distance(cameraTransform.position, transform.position) < moveDistance && HowLongLookedAtTimer > 0.5)
             {
                 switchState(WayPointStates.respawn);
-                TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                TimeWhenReached = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
 
             }
         }
@@ -270,7 +270,7 @@ public class Waypoint : MonoBehaviour
                 pos_blue.z = cameraTransform.position.z + spawnDistance * rayDirection.z;
                 transform.position = pos_blue;
 
-                TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
                 numberOfSpheresReached = 0;
                 renderer.enabled = true;
                 hiding = false;
@@ -308,7 +308,7 @@ public class Waypoint : MonoBehaviour
 
                     ManagerScript.generatedAngle = DegreeOfSpawn;
                     testofsql.CreateWaypoint(DegreeOfSpawn.ToString(), TimeWhenRespawned, transform.position.ToString(), transform.rotation.ToString(), numberOfSpheresReached.ToString());
-                    TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"); // after we save the old value, we need to reset it to the current time, so next time we switch in respawn, we have the correct time.
+                    TimeWhenRespawned = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"); // after we save the old value, we need to reset it to the current time, so next time we switch in respawn, we have the correct time.
 
                     switchState(WayPointStates.walking);
                 }
