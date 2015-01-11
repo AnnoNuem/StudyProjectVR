@@ -217,7 +217,7 @@ public class ManagerScript : MonoBehaviour
         
         // here the trialFolder path is genrated, not clear why
         trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
-        //testofsql.SQLiteInit(); // initialisation of the Data Base
+        testofsql.SQLiteInit(); // initialisation of the Data Base
         GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); // dissable the stressor in the beginning
         
         ManagerScript.switchState(states.startScreen);
@@ -305,7 +305,7 @@ public class ManagerScript : MonoBehaviour
                 }
 
                 // lets create the initial savings 
-                //testofsql.InitialSavingsToDB(chiffre, Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString(), trialList);
+                testofsql.InitialSavingsToDB(chiffre, Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString());
 
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 switchState(states.pause);

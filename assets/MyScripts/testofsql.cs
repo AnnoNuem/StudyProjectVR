@@ -121,9 +121,11 @@ public class testofsql : MonoBehaviour
         // we connect to the data base 
         mConnection = new SqliteConnection(SQL_DB_LOCATION);
         mCommand = mConnection.CreateCommand();
-        mConnection.Open();
-        ExecuteQuerry("PRAGMA page_size = " + "4096" + ";");
-        ExecuteQuerry("PRAGMA synchronous = " + "1" + ";");
+//        mConnection.Open();
+//        ExecuteQuerry("PRAGMA page_size = " + "4096" + ";");
+//        ExecuteQuerry("PRAGMA synchronous = " + "1" + ";");
+//        mConnection.Close();
+
 
     }
 
@@ -138,74 +140,84 @@ public class testofsql : MonoBehaviour
     /// <param name="HardDealy"> The hard dealy. </param>
     /// <param name="session">   The session. </param>
     /// <param name="trialList"> The trial list. </param>
-    public static void InitialSavingsToDB (string chiffre, string EasyDelay, string HardDealy, string session, List<trialContainer> trialList)
+    public static void InitialSavingsToDB (string chiffre, string EasyDelay, string HardDealy, string session)
     {
         /// Subject entety code 
         // Check if Subject_Number exists, if no, we create him 
-        #region
+        //     #region
 
         // if the Subject does not exist 
-        if (QueryInt("SELECT EXISTS(SELECT * FROM Subject WHERE Subject_Number='" + chiffre + "' LIMIT 1);") == 0)
-        {
-            ExecuteQuerry("INSERT INTO 'Subject'('Subject_Number','EasyDifficultyLevel','HardDifficultyLevel') VALUES ('" + chiffre + "','" + EasyDelay + "','" + HardDealy + "');");
-            // geting the fresh created Subject_id 
-            SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE Subject_Number = '" + chiffre + "'");
-        }
+        //     if (QueryInt("SELECT EXISTS(SELECT * FROM Subject WHERE Subject_Number='" + chiffre + "' LIMIT 1);") == 0)
+        //     {
+        testofsql.mConnection.Open();
+        Debug.Log("lol1");
+
+        //testofsql.ExecuteQuerry("INSERT INTO 'Subject'('Subject_Number','EasyDifficultyLevel','HardDifficultyLevel') VALUES ('" + chiffre + "','" + EasyDelay + "','" + HardDealy + "');");
+
+        mCommand.CommandText = "INSERT INTO 'Subject'('Subject_Number','EasyDifficultyLevel','HardDifficultyLevel') VALUES ('" + chiffre + "','" + EasyDelay + "','" + HardDealy + "');";
+        mCommand.ExecuteNonQuery();
+
+              
+        testofsql.mConnection.Close();
+
+        // geting the fresh created Subject_id 
+        // SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE Subject_Number = '" + chiffre + "'");
+        //     }
         // If he exists, lets grab his Number and update the dynamic difficulty to the level from
         // his previos session
-        else
-        {
-            SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE Subject_Number = '" + chiffre + "'");
-            // when he exists, we need to update the dynamic difficulty to the level from his
-            // previos session
-            EasyDifficultyLevel = QueryFloat("SELECT EasyDifficultyLevel FROM Subject WHERE SUbject_Number = '" + chiffre + "'");
-            HardDifficultyLevel = QueryFloat("SELECT HardDifficultyLevel FROM Subject WHERE SUbject_Number = '" + chiffre + "'");
-            Stressor.SetDinamicDifficultyFromLastSession(EasyDifficultyLevel, HardDifficultyLevel);
-        }
-        #endregion
+//        else
+//        {
+//            SUBJECT_ID = QueryInt("SELECT Subject_id FROM Subject WHERE Subject_Number = '" + chiffre + "'");
+//            // when he exists, we need to update the dynamic difficulty to the level from his
+//            // previos session
+//            EasyDifficultyLevel = QueryFloat("SELECT EasyDifficultyLevel FROM Subject WHERE SUbject_Number = '" + chiffre + "'");
+//            HardDifficultyLevel = QueryFloat("SELECT HardDifficultyLevel FROM Subject WHERE SUbject_Number = '" + chiffre + "'");
+//            Stressor.SetDinamicDifficultyFromLastSession(EasyDifficultyLevel, HardDifficultyLevel);
+//        }
+//        #endregion
 
-        /// Session and Trial list enteties code 
-        // Check if session exists allready, if no initialize the session and the trial list. Else
-        // retrieve the old unfinished trials from Triallist
-        #region
-
-        // check if session exists, if not we will create it 
-        if (QueryInt("SELECT EXISTS(SELECT * FROM Session WHERE Subject_id='" + SUBJECT_ID + "' AND SessionNumber='" + session + "'  LIMIT 1);") == 0)
-        {
-            // Session creation 
-
-            ExecuteQuerry(" INSERT INTO Session (Subject_ID, Timestamp, SessionNumber) VALUES ("
-                + "'" + SUBJECT_ID + "','"
-                + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;") + "','"
-                + session + "'" + ");");
-            SESSION_ID = QueryInt("SELECT last_insert_rowid()");
-
-            // trial list creation 
-            string SqlComands = "";
-
-            for (int i=0; i < trialList.Count; i++)
-            {
-                SqlComands = SqlComands + "INSERT INTO Trialist (Session_id,Type) VALUES ("
-                    + "'" + SESSION_ID + "','"
-                    + trialList [i].CondtionTypeVariableInContainer + "');";
-            }
-            ExecuteBigQuerry(SqlComands);
-            LAST_INSERTED_Triallist_ID = QueryInt("SELECT last_insert_rowid()");
-            FIRST_INSERTED_Triallist_ID = LAST_INSERTED_Triallist_ID - trialList.Count;
-        } else
-        {
-            SESSION_ID = QueryInt("SELECT Session_id FROM Session WHERE Subject_id = '" + SUBJECT_ID + "' AND SessionNumber = '" + session + "'");
-
-            // if it exists, check if it is finished 
-
-            //if exists and not finished, hmmm ... in theory, count the remaining trials and start the generation of a new
-            //trial list
-            // currentlly lets just start over , also this is not a niec sollution, we need to redo it ...
-
-            // best case, the session is created, lets get the 
-        }
-
-        #endregion
+//        /// Session and Trial list enteties code 
+//        // Check if session exists allready, if no initialize the session and the trial list. Else
+//        // retrieve the old unfinished trials from Triallist
+//        #region
+//
+//        // check if session exists, if not we will create it 
+//        if (QueryInt("SELECT EXISTS(SELECT * FROM Session WHERE Subject_id='" + SUBJECT_ID + "' AND SessionNumber='" + session + "'  LIMIT 1);") == 0)
+//        {
+//            // Session creation 
+//
+//            ExecuteQuerry(" INSERT INTO Session (Subject_ID, Timestamp, SessionNumber) VALUES ("
+//                + "'" + SUBJECT_ID + "','"
+//                + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;") + "','"
+//                + session + "'" + ");");
+//            SESSION_ID = QueryInt("SELECT last_insert_rowid()");
+//
+//            // trial list creation 
+//            string SqlComands = "";
+//
+//            for (int i=0; i < trialList.Count; i++)
+//            {
+//                SqlComands = SqlComands + "INSERT INTO Trialist (Session_id,Type) VALUES ("
+//                    + "'" + SESSION_ID + "','"
+//                    + trialList [i].CondtionTypeVariableInContainer + "');";
+//            }
+//            ExecuteBigQuerry(SqlComands);
+//            LAST_INSERTED_Triallist_ID = QueryInt("SELECT last_insert_rowid()");
+//            FIRST_INSERTED_Triallist_ID = LAST_INSERTED_Triallist_ID - trialList.Count;
+//        } else
+//        {
+//            SESSION_ID = QueryInt("SELECT Session_id FROM Session WHERE Subject_id = '" + SUBJECT_ID + "' AND SessionNumber = '" + session + "'");
+//
+//            // if it exists, check if it is finished 
+//
+//            //if exists and not finished, hmmm ... in theory, count the remaining trials and start the generation of a new
+//            //trial list
+//            // currentlly lets just start over , also this is not a niec sollution, we need to redo it ...
+//
+//            // best case, the session is created, lets get the 
+//        }
+//
+//        #endregion
     }
 
     /// <summary>
