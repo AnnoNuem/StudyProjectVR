@@ -612,6 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FakePress: 0
+  durationOfResponsePeriod: 0
   StunStartTime: 
   StunStopTime: 
   OldSpeed: 
@@ -1086,7 +1087,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: InitialModule.startSize.scalar
-      value: .5
+      value: .699999988
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].value
@@ -1142,7 +1143,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: InitialModule.startSize.minCurve.m_Curve.Array.data[0].value
-      value: .200000003
+      value: .571428597
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 0e5ad882cb12a3141904e6acd0d47bbf, type: 2}
       propertyPath: InitialModule.startSize.maxCurve.m_Curve.Array.data[0].value
@@ -1440,7 +1441,7 @@ ParticleSystem:
         rgba: 2614689791
       minMaxState: 2
     startSize:
-      scalar: .5
+      scalar: .699999988
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1455,7 +1456,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .200000003
+          value: .571428597
           inSlope: 0
           outSlope: 0
           tangentMode: 0

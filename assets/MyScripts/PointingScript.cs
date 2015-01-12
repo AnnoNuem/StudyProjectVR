@@ -93,18 +93,15 @@ public class PointingScript : MonoBehaviour
                     angleBetween = -angleBetween;
 
                 AbsoluteErrorAngle = Mathf.Abs(angleBetween);
-                //angleBetween
-                //    ManagerScript.CurrentOrientation
-                // Starttimepointing
 
                 SaveAngleBetweenOldWay();
                 UpdateErrorAngleStatistics();
+                EndTimePoining = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
 
                 testofsql.UpdateTriallist(testofsql.CURRENT_TRIAL_ID.ToString());
                 testofsql.UpdateAndIncrease_Current_Triallist_ID();
 
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
-                EndTimePoining = (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
 
                 CancelInvoke("toLongPoint");
                 PointFakeButton = false;

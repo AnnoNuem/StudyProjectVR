@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class TouchToMouse : MonoBehaviour
 {
     //Transform beingMoved;
 
-    private void Update ()
+    private void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         foreach (Touch touch in Input.touches)

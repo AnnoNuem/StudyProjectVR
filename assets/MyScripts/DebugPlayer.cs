@@ -77,7 +77,7 @@ public class DebugPlayer : MonoBehaviour
 
                 temp1 = Stressor.GetSpeedMoveScale();
 
-                transform.position = Vector3.MoveTowards(transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 5f));
+                transform.position = Vector3.MoveTowards(transform.position, BlueBallPosition.position, (float)(temp1 * Time.deltaTime * 2.3f));
                 transform.LookAt(BlueBallPosition); // lets allways face the blue ball
             }
 

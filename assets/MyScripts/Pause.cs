@@ -82,7 +82,7 @@ public class Pause : VRGUI
     private void Start ()
     {
         GUI.enabled = false;
-        StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+        StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
     }
 
     /// <summary>
@@ -98,25 +98,40 @@ public class Pause : VRGUI
                 ManagerScript.TrialMissed = true; // the trial is not saved as succeded. later you can see wich trial got paused lol
 //                Debug.Log("1New trial should run now -->");
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
-                EndTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                EndTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
                 displayText = "";
                 paused = false;
-
+                Debug.Log("Paused");
                 if (ManagerScript.NumberofTrialsStartet > 0)
                 {
                     testofsql.CreatePause(StartTimePaused, EndTimePaused);
                 }
             } else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
             {
-                Debug.Log("2New trial should run now -->");
+                Debug.Log("New trial should run now -->");
                 paused = true;
                 ManagerScript.switchState(ManagerScript.states.pause);
-                StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
             }
 
             FakePauseButton = false;
         }
+    
+    
+        if (paused && ManagerScript.debugg == 1)
+        {
+
+            ManagerScript.switchState(ManagerScript.states.NewTrial);
+            EndTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
+            displayText = "";
+            paused = false;
+
+        }
+    
     }
+
+
+
 
     /// <summary>
     /// Called when [vrgui]. 

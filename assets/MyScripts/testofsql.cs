@@ -102,6 +102,7 @@ public class testofsql : MonoBehaviour
     /// </summary>
     public static float HardDifficultyLevel;
 
+    public static string StringForAccomulatingDynamicDifficultyEvents ;
     /// <summary>
     /// The after block number 
     /// </summary>
@@ -114,6 +115,12 @@ public class testofsql : MonoBehaviour
     /// <summary>
     /// Basic initialization of SQLite This will be activated by the manager script 
     /// </summary>
+    /// 
+    void Awake ()
+    {
+        Instance = this;
+    }
+
     public static void SQLiteInit ()
     {
         // the data base is here 
@@ -124,6 +131,7 @@ public class testofsql : MonoBehaviour
         mConnection.Open();
         ExecuteQuerry("PRAGMA page_size = " + "4096" + ";");
         ExecuteQuerry("PRAGMA synchronous = " + "1" + ";");
+        mConnection.Close();
 
     }
 
@@ -140,6 +148,9 @@ public class testofsql : MonoBehaviour
     /// <param name="trialList"> The trial list. </param>
     public static void InitialSavingsToDB (string chiffre, string EasyDelay, string HardDealy, string session, List<trialContainer> trialList)
     {
+        mConnection.Open();
+
+        
         /// Subject entety code 
         // Check if Subject_Number exists, if no, we create him 
         #region
@@ -250,6 +261,8 @@ public class testofsql : MonoBehaviour
         if (argument == "abort")
         {
             mSQLString = " UPDATE 'Trial' SET 'Success'=0 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + ", 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'= '" + StartTimePointing + "',  'EndTimePoining'=' " + EndTimePoining + "', 'EndTimeTrial'= '" + EndTimeTrial + " ' WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
+            ExecuteQuerry(mSQLString);
+
         }
 
         if (argument == "success")
@@ -257,11 +270,11 @@ public class testofsql : MonoBehaviour
             Debug.Log("success");
             mSQLString = " UPDATE 'Trial' SET 'Success'=1 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + ", 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'=' " + StartTimePointing + "',  'EndTimePoining'=' " + EndTimePoining + "', 'EndTimeTrial'=' " + EndTimeTrial + "'  WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
             Debug.Log(mSQLString);
+            ExecuteQuerry(mSQLString);
 
             UpdateTriallist(CURRENT_TRIAL_ID.ToString());
         }
-
-        ExecuteQuerry(mSQLString);
+        
     }
 
     /// <summary>
@@ -280,7 +293,7 @@ public class testofsql : MonoBehaviour
     /// <param name="ReactionTime">         The reaction time. </param>
     /// <param name="Trial_id">             The trial_id. </param>
     /// <param name="ExplosionTime">        The explosion time. </param>
-    public static void CreateStressor (string command, string ReactionTime, string SpawnTime, string StartDefeatTime, string HowLongDefeatable, string DefeatedAtTime, string Defeated, string RotationSpeed, string ButtonToEarlyPushed, string Type, string Trial_id, string ExplosionTime)
+    public static void CreateStressor (string command, string DistanceToPlayerBeforeGone, string SpawnTime, string StartDefeatTime, string HowLongDefeatable, string DefeatedAtTime, string RotationSpeed, string ButtonToEarlyPushed, string Type, string Trial_id, string ExplosionTime)
     {
 
         if (command == "Missed")
@@ -288,7 +301,7 @@ public class testofsql : MonoBehaviour
 
 
             string CreateStressor =
-                " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','HowLongDefeatable','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','ReactionTime','Trial_id','ExplosionTime') VALUES"
+                " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','DefeatableTimeWindow','DefeatedAtTime','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','ReactionTime','Trial_id','ExplosionTime','DistanceToPlayerBeforeGone') VALUES"
                 + "(" 
                 + "'" + SpawnTime + "',"
                 + "'" + StartDefeatTime + "',"
@@ -300,7 +313,8 @@ public class testofsql : MonoBehaviour
                 + "'" + Type + "',"
                 + "'" + "NULL" + "',"
                 + "'" + Trial_id + "',"
-                + "'" + ExplosionTime + "');";
+                + "'" + ExplosionTime + "',"
+                + "'" + DistanceToPlayerBeforeGone + "');";
             ExecuteQuerry(CreateStressor);
 
 
@@ -308,7 +322,7 @@ public class testofsql : MonoBehaviour
         {
 
             string CreateStressor =
-                " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','DefeatedAtTime','HowLongDefeatable','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','ReactionTime','Trial_id') VALUES"
+                " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','DefeatedAtTime','DefeatableTimeWindow','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','ReactionTime','Trial_id' , 'DistanceToPlayerBeforeGone') VALUES"
                 + "(" 
                 + "'" + SpawnTime + "',"
                 + "'" + StartDefeatTime + "',"
@@ -320,8 +334,9 @@ public class testofsql : MonoBehaviour
                 + "'" + ButtonToEarlyPushed + "',"
                 + "'" + Type + "',"
                 + "'" + "NULL" + "',"
-                + "'" + Trial_id 
-                + "');";
+                + "'" + Trial_id + "',"
+                + "'" + DistanceToPlayerBeforeGone + "');";
+
             ExecuteQuerry(CreateStressor);
 
 
@@ -402,7 +417,7 @@ public class testofsql : MonoBehaviour
     public static void UpdateTriallist (string CURRENT_TRIAL_ID)
     {
 //        Debug.Log(CURRENT_TRIAL_ID);
-        mSQLString = " UPDATE 'Trialist' SET 'Done'=1  WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
+        mSQLString = " UPDATE 'Trialist' SET 'Done'=1  WHERE _rowid_=" + Current_Triallist_ID + ";";
         ExecuteQuerry(mSQLString);
     }
 
@@ -436,6 +451,29 @@ public class testofsql : MonoBehaviour
         Debug.Log(mSQLString1 + "and" + mSQLString2);
     }
 
+    public static void SaveDynamicDifficultyEvent2 ()
+    {
+
+        ExecuteBigQuerry(StringForAccomulatingDynamicDifficultyEvents);
+        StringForAccomulatingDynamicDifficultyEvents = "";
+
+
+
+    }
+
+    public static void CreateDynamicDifficultyEvent (string TypeOfChange, string TimeofChange)
+    {
+
+        string EventString = "INSERT INTO `DynamicDifficulty`(`TypeOfChange`,`Session_id`,`TimeOfChange`) VALUES ('" + TypeOfChange + "','" + SESSION_ID + "','" + TimeofChange + "');";
+
+
+
+
+        StringForAccomulatingDynamicDifficultyEvents = StringForAccomulatingDynamicDifficultyEvents + EventString;
+
+    }
+
+
     /// <summary>
     /// Saves Dynamic difficulty events , by getting them together, and in the end of the trial they
     /// should be saved
@@ -464,6 +502,7 @@ public class testofsql : MonoBehaviour
             + NewSpeed + "');";
 
         SaveDynamicDifficultyEvent(mSQLString1);
+        SaveDynamicDifficultyEventString = "";
     }
 
     public static void UpdateAndIncrease_Current_Triallist_ID ()
@@ -492,6 +531,7 @@ public class testofsql : MonoBehaviour
     {
 //        Debug.Log(sqlcomand);
         mCommand.CommandText = sqlcomand;
+        Debug.Log(sqlcomand);
         mCommand.ExecuteNonQuery();
     }
 

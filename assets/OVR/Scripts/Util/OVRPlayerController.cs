@@ -109,7 +109,7 @@ public class OVRPlayerController : MonoBehaviour
         else if (CameraControllers.Length > 1)
             Debug.LogWarning("OVRPlayerController: More then 1 OVRCameraRig attached.");
         else
-            CameraController = CameraControllers[0];
+            CameraController = CameraControllers [0];
 
         YRotation = transform.rotation.eulerAngles.y;
 
@@ -135,8 +135,7 @@ public class OVRPlayerController : MonoBehaviour
             p.y = OVRManager.profile.eyeHeight - 0.5f * Controller.height;
             p.z = OVRManager.profile.eyeDepth;
             CameraController.transform.localPosition = p;
-        }
-        else if (InitialPose != null)
+        } else if (InitialPose != null)
         {
             CameraController.transform.localPosition = InitialPose.Value.position;
             CameraController.transform.localRotation = InitialPose.Value.orientation;
@@ -209,7 +208,7 @@ public class OVRPlayerController : MonoBehaviour
         MoveScale = 1.0f;
 
         if ((moveForward && moveLeft) || (moveForward && moveRight) ||
-             (moveBack && moveLeft) || (moveBack && moveRight))
+            (moveBack && moveLeft) || (moveBack && moveRight))
             MoveScale = 0.70710678f;
 
         // No positional movement if we are in the air 
@@ -222,8 +221,8 @@ public class OVRPlayerController : MonoBehaviour
         float moveInfluence = Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
 
         // Run! 
-        if (dpad_move || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-            moveInfluence *= 2.0f;
+        // if (dpad_move || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        //     moveInfluence *= 2.0f;
 
         Quaternion ort = (HmdRotatesY) ? CameraController.centerEyeAnchor.rotation : transform.rotation;
         Vector3 ortEuler = ort.eulerAngles;
@@ -243,15 +242,15 @@ public class OVRPlayerController : MonoBehaviour
 
         Vector3 euler = transform.rotation.eulerAngles;
 
-        if (curHatLeft && !prevHatLeft)
-            euler.y -= RotationRatchet;
+        //      if (curHatLeft && !prevHatLeft)
+        //          euler.y -= RotationRatchet;
 
         prevHatLeft = curHatLeft;
 
         bool curHatRight = OVRGamepadController.GPC_GetButton(OVRGamepadController.Button.RightShoulder);
 
-        if (curHatRight && !prevHatRight)
-            euler.y += RotationRatchet;
+        //      if (curHatRight && !prevHatRight)
+        //           euler.y += RotationRatchet;
 
         prevHatRight = curHatRight;
 
@@ -322,7 +321,7 @@ public class OVRPlayerController : MonoBehaviour
     /// Gets the move scale multiplier. 
     /// </summary>
     /// <param name="moveScaleMultiplier"> Move scale multiplier. </param>
-    public void GetMoveScaleMultiplier ( ref float moveScaleMultiplier )
+    public void GetMoveScaleMultiplier (ref float moveScaleMultiplier)
     {
         moveScaleMultiplier = MoveScaleMultiplier;
     }
@@ -331,7 +330,7 @@ public class OVRPlayerController : MonoBehaviour
     /// Sets the move scale multiplier. 
     /// </summary>
     /// <param name="moveScaleMultiplier"> Move scale multiplier. </param>
-    public void SetMoveScaleMultiplier ( float moveScaleMultiplier )
+    public void SetMoveScaleMultiplier (float moveScaleMultiplier)
     {
         MoveScaleMultiplier = moveScaleMultiplier;
     }
@@ -340,7 +339,7 @@ public class OVRPlayerController : MonoBehaviour
     /// Gets the rotation scale multiplier. 
     /// </summary>
     /// <param name="rotationScaleMultiplier"> Rotation scale multiplier. </param>
-    public void GetRotationScaleMultiplier ( ref float rotationScaleMultiplier )
+    public void GetRotationScaleMultiplier (ref float rotationScaleMultiplier)
     {
         rotationScaleMultiplier = RotationScaleMultiplier;
     }
@@ -349,7 +348,7 @@ public class OVRPlayerController : MonoBehaviour
     /// Sets the rotation scale multiplier. 
     /// </summary>
     /// <param name="rotationScaleMultiplier"> Rotation scale multiplier. </param>
-    public void SetRotationScaleMultiplier ( float rotationScaleMultiplier )
+    public void SetRotationScaleMultiplier (float rotationScaleMultiplier)
     {
         RotationScaleMultiplier = rotationScaleMultiplier;
     }
@@ -358,7 +357,7 @@ public class OVRPlayerController : MonoBehaviour
     /// Gets the allow mouse rotation. 
     /// </summary>
     /// <param name="skipMouseRotation"> Allow mouse rotation. </param>
-    public void GetSkipMouseRotation ( ref bool skipMouseRotation )
+    public void GetSkipMouseRotation (ref bool skipMouseRotation)
     {
         skipMouseRotation = SkipMouseRotation;
     }
@@ -367,7 +366,7 @@ public class OVRPlayerController : MonoBehaviour
     /// Sets the allow mouse rotation. 
     /// </summary>
     /// <param name="skipMouseRotation"> If set to <c> true </c> allow mouse rotation. </param>
-    public void SetSkipMouseRotation ( bool skipMouseRotation )
+    public void SetSkipMouseRotation (bool skipMouseRotation)
     {
         SkipMouseRotation = skipMouseRotation;
     }
@@ -376,7 +375,7 @@ public class OVRPlayerController : MonoBehaviour
     /// Gets the halt update movement. 
     /// </summary>
     /// <param name="haltUpdateMovement"> Halt update movement. </param>
-    public void GetHaltUpdateMovement ( ref bool haltUpdateMovement )
+    public void GetHaltUpdateMovement (ref bool haltUpdateMovement)
     {
         haltUpdateMovement = HaltUpdateMovement;
     }
@@ -385,7 +384,7 @@ public class OVRPlayerController : MonoBehaviour
     /// Sets the halt update movement. 
     /// </summary>
     /// <param name="haltUpdateMovement"> If set to <c> true </c> halt update movement. </param>
-    public void SetHaltUpdateMovement ( bool haltUpdateMovement )
+    public void SetHaltUpdateMovement (bool haltUpdateMovement)
     {
         HaltUpdateMovement = haltUpdateMovement;
     }

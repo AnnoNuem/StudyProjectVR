@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class DetonatorTest : MonoBehaviour
 {
@@ -14,14 +15,14 @@ public class DetonatorTest : MonoBehaviour
     private float _spawnWallTime = -1000;
     private Rect _guiRect;
 
-    private void Start ()
+    private void Start()
     {
         SpawnWall();
         if (!currentDetonator) NextExplosion();
         else _currentExpIdx = 0;
     }
 
-    private void OnGUI ()
+    private void OnGUI()
     {
         _guiRect = new Rect(7, Screen.height - 180, 250, 200);
         GUILayout.BeginArea(_guiRect);
@@ -57,17 +58,17 @@ public class DetonatorTest : MonoBehaviour
         GUILayout.EndArea();
     }
 
-    private void NextExplosion ()
+    private void NextExplosion()
     {
         if (_currentExpIdx >= detonatorPrefabs.Length - 1) _currentExpIdx = 0;
         else _currentExpIdx++;
         currentDetonator = detonatorPrefabs[_currentExpIdx];
     }
 
-    private void SpawnWall ()
+    private void SpawnWall()
     {
         if (_currentWall) Destroy(_currentWall);
-        _currentWall = (GameObject)Instantiate(wall, new Vector3(-7, -12, 48), Quaternion.identity);
+        _currentWall = (GameObject) Instantiate(wall, new Vector3(-7, -12, 48), Quaternion.identity);
 
         _spawnWallTime = Time.time;
     }
@@ -75,9 +76,9 @@ public class DetonatorTest : MonoBehaviour
     //is this a bug? We can't use the same rect for placing the GUI as for checking if the mouse contains it...
     private Rect checkRect = new Rect(0, 0, 260, 180);
 
-    private void Update ()
+    private void Update()
     {
-        //keeps the UI in the corner in case of resize...
+        //keeps the UI in the corner in case of resize... 
         _guiRect = new Rect(7, Screen.height - 150, 250, 200);
 
         //keeps the play button from making an explosion
@@ -95,7 +96,7 @@ public class DetonatorTest : MonoBehaviour
         }
     }
 
-    private void SpawnExplosion ()
+    private void SpawnExplosion()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -103,14 +104,16 @@ public class DetonatorTest : MonoBehaviour
         {
             Detonator dTemp = (Detonator)currentDetonator.GetComponent("Detonator");
 
-            float offsetSize = dTemp.size / 3;
+            float offsetSize = dTemp.size/3;
             Vector3 hitPoint = hit.point +
                                       ((Vector3.Scale(hit.normal, new Vector3(offsetSize, offsetSize, offsetSize))));
-            GameObject exp = (GameObject)Instantiate(currentDetonator, hitPoint, Quaternion.identity);
+            GameObject exp = (GameObject) Instantiate(currentDetonator, hitPoint, Quaternion.identity);
             dTemp = (Detonator)exp.GetComponent("Detonator");
             dTemp.detail = detailLevel;
 
             Destroy(exp, explosionLife);
         }
+
+
     }
 }
