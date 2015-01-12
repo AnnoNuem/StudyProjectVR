@@ -510,7 +510,7 @@ public class Stressor : MonoBehaviour
         DataSavingAfterExplosion();
         StunStartTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
         StartCoroutine(stunForSeconds(1));
-        // ((Detonator)(GetComponent("Detonator"))).Explode();
+        ((Detonator)(GetComponent("Detonator"))).Explode();
         // ((Detonator)(GameObject.Find("WaypointBlue").GetComponent("Detonator"))).Explode();
         switchState(yellowSphereStates.hidden);
         StartCoroutine(vibrateController());
