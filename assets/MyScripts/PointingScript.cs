@@ -153,9 +153,12 @@ public class PointingScript : MonoBehaviour
     /// </summary>
     private void UpdateErrorAngleStatistics ()
     {
-        sumOfErrors = sumOfErrors + Mathf.Abs(angleBetween);
-        numberOfPointings++;
-        avarageError = sumOfErrors / numberOfPointings;
+        if (ManagerScript.useTrialForIngameStatistics)
+        {
+            sumOfErrors = sumOfErrors + Mathf.Abs(angleBetween);
+            numberOfPointings++;
+            avarageError = sumOfErrors / numberOfPointings;
+        }
     }
 
     /// <summary>

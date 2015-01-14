@@ -189,7 +189,7 @@ public class testofsql : MonoBehaviour
 
             ExecuteQuerry(" INSERT INTO Session (Subject_ID, Timestamp, SessionNumber) VALUES ("
                 + "'" + SUBJECT_ID + "','"
-                + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;") + "','"
+                + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "','"
                 + session + "'" + ");");
             SESSION_ID = QueryInt("SELECT last_insert_rowid()");
 

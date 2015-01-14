@@ -48,6 +48,8 @@ public class ManagerScript : MonoBehaviour
     /// </summary>
     public static float generatedAngle;
 
+    public static bool useTrialForIngameStatistics = false;
+
     // states for state machine to describe in which experiment state we are 
     /// <summary>
     /// Enum states
@@ -261,8 +263,10 @@ public class ManagerScript : MonoBehaviour
         Time.timeScale = 1;
         TrialMissed = true;
         ManagerScript.switchState(states.NewTrial);
-
-        abortedTrials++;
+        if (useTrialForIngameStatistics)
+        {
+            abortedTrials++;
+        }
     }
 
 
@@ -341,9 +345,11 @@ public class ManagerScript : MonoBehaviour
                     && ManagerScript.CondtionTypeVariableInContainer != "PreBaseline")
                 {
                     GameObject.Find("StressorYellow").GetComponent<Stressor>().StartStressor();
+                   
                 } else
                 {
                     GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor();
+
                 }
                 unStun();
 
@@ -372,7 +378,7 @@ public class ManagerScript : MonoBehaviour
                 ((PointingScript)(GameObject.Find("OVRPlayerController").GetComponent("PointingScript"))).NewPointing();
                 stun();
                 ManagerScript.state = states.pointing;
-                StartTimePointing = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                StartTimePointing = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
                 break;
 
             case states.NewTrial:
@@ -383,7 +389,7 @@ public class ManagerScript : MonoBehaviour
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
                 ManagerScript.state = states.NewTrial;
 
-                EndTimeTrial = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;");
+                EndTimeTrial = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
 
                 NumberofTrialsStartet++;
 
@@ -421,8 +427,14 @@ public class ManagerScript : MonoBehaviour
                 trialINprocess = true;
                 Time.timeScale = 0;
 
-                testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff;"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
-
+                testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
+                if (trialList [realTrialNumber].isTraining)
+                {
+                    useTrialForIngameStatistics = false;
+                } else
+                {
+                    useTrialForIngameStatistics = true;
+                }
                 if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER")
                 {
                     switchState(states.blockover);
@@ -533,12 +545,14 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 10; i++)
             {
                 trialContainer tempTrial = new trialContainer("Explain");
+                tempTrial.isTraining = true;
                 trialList.Add(tempTrial);
             }
             trialList.Add(blockTrial);
             for (int i=0; i < 40; i++)
             {
                 trialContainer tempTrial = new trialContainer("PreBaseline");
+                tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
 
@@ -547,6 +561,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 5; i++)
             {
                 trialContainer tempTrial = new trialContainer("Easy");
+                tempTrial.isTraining = true;
                 trialList.Add(tempTrial);
             }
 
@@ -555,6 +570,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 5; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Hard");
+                tempTrial.isTraining = true;
                 trialList.Add(tempTrial);
             }
 
@@ -563,6 +579,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 45; i++)
             {
                 trialContainer tempTrial = new trialContainer("Easy");
+                tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
 
@@ -571,6 +588,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 45; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Hard");
+                tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
 
@@ -583,6 +601,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 2; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Easy");
+                tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
 
@@ -590,12 +609,14 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 34; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Easy");
+                tempTrial.isTraining = false;
                 easyBlock1.Add(tempTrial);
             }
 
             for (int i=0; i < 9; i++)
             {
                 trialContainer tempTrial = new trialContainer("Easy-False");
+                tempTrial.isTraining = false;
                 easyBlock1.Add(tempTrial);
             }
 
@@ -622,6 +643,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 2; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Hard");
+                tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
 
@@ -629,12 +651,14 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 34; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Hard");
+                tempTrial.isTraining = false;
                 hardBlock1.Add(tempTrial);
             }
 
             for (int i=0; i < 9; i++)
             {
                 trialContainer tempTrial = new trialContainer("Hard-False");
+                tempTrial.isTraining = false;
                 hardBlock1.Add(tempTrial);
             }
 
@@ -659,6 +683,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 40; i++)
             {
                 trialContainer tempTrial = new trialContainer("PostBaseline");
+                tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
             trialList.Add(blockTrial);
@@ -676,6 +701,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 40; i++)
             {
                 trialContainer tempTrial = new trialContainer("PreBaseline");
+                tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
 
@@ -693,18 +719,21 @@ public class ManagerScript : MonoBehaviour
                     for (int i=0; i < 2; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
+                        tempTrial.isTraining = false;
                         trialList.Add(tempTrial);
                     }
 
                     for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
+                        tempTrial.isTraining = false;
                         easyBlock1.Add(tempTrial);
                     }
 
                     for (int i=0; i < 9; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy-False");
+                        tempTrial.isTraining = false;
                         easyBlock1.Add(tempTrial);
                     }
 
@@ -732,18 +761,21 @@ public class ManagerScript : MonoBehaviour
                     for (int i=0; i < 2; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
+                        tempTrial.isTraining = false;
                         trialList.Add(tempTrial);
                     }
 
                     for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
+                        tempTrial.isTraining = false;
                         hardBlock1.Add(tempTrial);
                     }
 
                     for (int i=0; i < 9; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard-False");
+                        tempTrial.isTraining = false;
                         hardBlock1.Add(tempTrial);
                     }
 
@@ -771,18 +803,21 @@ public class ManagerScript : MonoBehaviour
                     for (int i=0; i < 2; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
+                        tempTrial.isTraining = false;
                         trialList.Add(tempTrial);
                     }
 
                     for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
+                        tempTrial.isTraining = false;
                         easyBlock2.Add(tempTrial);
                     }
 
                     for (int i=0; i < 9; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy-False");
+                        tempTrial.isTraining = false;
                         easyBlock2.Add(tempTrial);
                     }
 
@@ -809,18 +844,21 @@ public class ManagerScript : MonoBehaviour
                     for (int i=0; i < 2; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
+                        tempTrial.isTraining = false;
                         trialList.Add(tempTrial);
                     }
 
                     for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
+                        tempTrial.isTraining = false;
                         hardBlock2.Add(tempTrial);
                     }
 
                     for (int i=0; i < 9; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard-False");
+                        tempTrial.isTraining = false;
                         hardBlock2.Add(tempTrial);
                     }
 
@@ -851,18 +889,21 @@ public class ManagerScript : MonoBehaviour
                     for (int i=0; i < 2; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
+                        tempTrial.isTraining = false;
                         trialList.Add(tempTrial);
                     }
 
                     for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
+                        tempTrial.isTraining = false;
                         hardBlock3.Add(tempTrial);
                     }
 
                     for (int i=0; i < 9; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard-False");
+                        tempTrial.isTraining = false;
                         hardBlock3.Add(tempTrial);
                     }
 
@@ -889,18 +930,21 @@ public class ManagerScript : MonoBehaviour
                     for (int i=0; i < 2; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
+                        tempTrial.isTraining = false;
                         trialList.Add(tempTrial);
                     }
 
                     for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
+                        tempTrial.isTraining = false;
                         easyBlock3.Add(tempTrial);
                     }
 
                     for (int i=0; i < 9; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy-False");
+                        tempTrial.isTraining = false;
                         easyBlock3.Add(tempTrial);
                     }
 
@@ -927,18 +971,21 @@ public class ManagerScript : MonoBehaviour
                     for (int i=0; i < 2; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
+                        tempTrial.isTraining = false;
                         trialList.Add(tempTrial);
                     }
 
                     for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
+                        tempTrial.isTraining = false;
                         hardBlock4.Add(tempTrial);
                     }
 
                     for (int i=0; i < 9; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard-False");
+                        tempTrial.isTraining = false;
                         hardBlock4.Add(tempTrial);
                     }
 
@@ -965,18 +1012,21 @@ public class ManagerScript : MonoBehaviour
                     for (int i=0; i < 2; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
+                        tempTrial.isTraining = false;
                         trialList.Add(tempTrial);
                     }
 
                     for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
+                        tempTrial.isTraining = false;
                         easyBlock4.Add(tempTrial);
                     }
 
                     for (int i=0; i < 9; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy-False");
+                        tempTrial.isTraining = false;
                         easyBlock4.Add(tempTrial);
                     }
 
@@ -1004,6 +1054,7 @@ public class ManagerScript : MonoBehaviour
             for (int i=0; i < 40; i++)
             {
                 trialContainer tempTrial = new trialContainer("PostBaseline");
+                tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
 

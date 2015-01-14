@@ -149,12 +149,12 @@ public class Pause : VRGUI
             GUILayout.Label("<color=lime> PAUSE </color>");
             GUILayout.Label("Press Start to resume.\n");
             GUILayout.Label(displayText);
-            GUILayout.Label(NumberOfYellowSpaw + " " + "Number of Yellow Spawn");
-            GUILayout.Label(NumberOfYellowDefeted + " " + "Number of Yellow defeated ");
-            GUILayout.Label(NumberOfYellowMissed + " " + "Number of Yellow missed ");
-            GUILayout.Label(ManagerScript.realTrialNumber + " " + "you have done so many trials ");
-            GUILayout.Label(ManagerScript.abortedTrials + " " + "you have missed trials ");
-            GUILayout.Label(PointingScript.avarageError + " " + "your avarage error angle ");
+            GUILayout.Label(NumberOfYellowSpaw + " balls spawned.");
+            GUILayout.Label("You defeated " + NumberOfYellowDefeted + " balls.");
+            GUILayout.Label("You missed " + NumberOfYellowMissed + " balls.");
+            GUILayout.Label("You did " + ManagerScript.realTrialNumber + " trials.");
+            GUILayout.Label("You failed " + ManagerScript.abortedTrials + " trials.");
+            GUILayout.Label("Your avarage error angle is " + PointingScript.avarageError + " degree.");
             GUILayout.EndVertical();
             GUILayout.EndArea();
         } else
@@ -168,7 +168,10 @@ public class Pause : VRGUI
     /// </summary>
     public static void ChangeNumberOfYellowSpaw ()
     {
-        NumberOfYellowSpaw++;
+        if (ManagerScript.useTrialForIngameStatistics)
+        {
+            NumberOfYellowSpaw++;
+        }
     }
 
     /// <summary>
@@ -176,7 +179,10 @@ public class Pause : VRGUI
     /// </summary>
     public static void ChangeNumberOfYellowDefeted ()
     {
-        NumberOfYellowDefeted++;
+        if (ManagerScript.useTrialForIngameStatistics)
+        {
+            NumberOfYellowDefeted++;
+        }
     }
 
     /// <summary>
@@ -184,7 +190,10 @@ public class Pause : VRGUI
     /// </summary>
     public static void ChangeNumberOfYellowMissed ()
     {
-        NumberOfYellowMissed++;
+        if (ManagerScript.useTrialForIngameStatistics)
+        {
+            NumberOfYellowMissed++;
+        }
     }
 
     /// <summary>
@@ -220,7 +229,7 @@ public class Pause : VRGUI
 
         if (NextBlockType.Contains("EXPOVER"))
         {
-            displayText = "Experiment is over, please take of the oculus rift and report to the exoerimenter.\n";
+            displayText = "Experiment is over, please take of the oculus rift and report to the experimenter.\n";
         }
     }
 
