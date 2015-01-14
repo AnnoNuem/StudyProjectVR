@@ -74,7 +74,7 @@ public class Pause : VRGUI
     /// <summary>
     /// The start time paused 
     /// </summary>
-    private  string StartTimePaused;
+    public static  string StartTimePaused;
 
     /// <summary>
     /// Starts this instance. 
@@ -82,7 +82,7 @@ public class Pause : VRGUI
     private void Start ()
     {
         GUI.enabled = false;
-        StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
+        //StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
     }
 
     /// <summary>
@@ -111,7 +111,6 @@ public class Pause : VRGUI
                 Debug.Log("New trial should run now -->");
                 paused = true;
                 ManagerScript.switchState(ManagerScript.states.pause);
-                StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
             }
 
             FakePauseButton = false;

@@ -438,6 +438,12 @@ public class Stressor : MonoBehaviour
             EasyDelay = EasyDelay - 0.030f;
             ResetBallsCounterForDynamicDifficulty();
             testofsql.CreateDynamicDifficultyEvent("EasyDelay reduced", System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"));
+            if (EasyDelay < 0.400f)
+            {
+
+                EasyDelay = 0.400f;
+
+            }
 
         }
 
@@ -568,7 +574,7 @@ public class Stressor : MonoBehaviour
         StunStopTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
 
         OldSpeed = moveScale.ToString();
-        moveScale = moveScale * 0.7f;
+        moveScale = moveScale * 0.6f;
         NewSpeed = moveScale.ToString();
         xcontroller.SetMoveScaleMultiplier(moveScale);
         float temp = 0.0f;

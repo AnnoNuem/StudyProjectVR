@@ -251,7 +251,7 @@ public class ManagerScript : MonoBehaviour
         // Without stun and unstun, the aboutTrial was repeating itself in the case, the move button
         // was presssed. It is fixes like this
         Waypoint.numberOfSpheresReached = 0;
-        Waypoint.SwitchStateToEnd();
+        //Waypoint.SwitchStateToEnd();
         stun();
         trialINprocess = false;
         Time.timeScale = 0;
@@ -297,11 +297,14 @@ public class ManagerScript : MonoBehaviour
 
                 generateTrials();
 
+
                 if (debugg == 1)
                 {
                     GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = false;
 
                     GameObject.Find("OVRPlayerController").GetComponent<DebugPlayer>().enabled = true;
+
+                    PointingScript.ChangeTheObjectForDebugger();
                 } else
                 {
                     GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().HmdRotatesY = true;
@@ -310,7 +313,7 @@ public class ManagerScript : MonoBehaviour
 
                 // lets create the initial savings 
                 testofsql.InitialSavingsToDB(chiffre, Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString(), trialList);
-
+                Debug.Log(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 switchState(states.pause);
 
@@ -350,6 +353,9 @@ public class ManagerScript : MonoBehaviour
 
                 ManagerScript.state = states.pause;
                 ((Waypoint)(GameObject.Find("WaypointBlue").GetComponent("Waypoint"))).STOPFUCKINGINVOKE();
+
+                Pause.StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
+
 
                 Debug.Log("state pause manager script");
                 if (debugg == 1)
@@ -572,7 +578,16 @@ public class ManagerScript : MonoBehaviour
 
             List<trialContainer> easyBlock1 = new List<trialContainer>();
 
-            for (int i=0; i < 36; i++)
+
+
+            for (int i=0; i < 2; i++)
+            { //20
+                trialContainer tempTrial = new trialContainer("Easy");
+                trialList.Add(tempTrial);
+            }
+
+
+            for (int i=0; i < 34; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Easy");
                 easyBlock1.Add(tempTrial);
@@ -604,7 +619,14 @@ public class ManagerScript : MonoBehaviour
 
             List<trialContainer> hardBlock1 = new List<trialContainer>();
 
-            for (int i=0; i < 36; i++)
+            for (int i=0; i < 2; i++)
+            { //20
+                trialContainer tempTrial = new trialContainer("Hard");
+                trialList.Add(tempTrial);
+            }
+
+
+            for (int i=0; i < 34; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Hard");
                 hardBlock1.Add(tempTrial);
@@ -668,7 +690,13 @@ public class ManagerScript : MonoBehaviour
 
                     List<trialContainer> easyBlock1 = new List<trialContainer>();
 
-                    for (int i=0; i < 36; i++)
+                    for (int i=0; i < 2; i++)
+                    {
+                        trialContainer tempTrial = new trialContainer("Easy");
+                        trialList.Add(tempTrial);
+                    }
+
+                    for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
                         easyBlock1.Add(tempTrial);
@@ -700,7 +728,14 @@ public class ManagerScript : MonoBehaviour
 
                     List<trialContainer> hardBlock1 = new List<trialContainer>();
 
-                    for (int i=0; i < 36; i++)
+
+                    for (int i=0; i < 2; i++)
+                    {
+                        trialContainer tempTrial = new trialContainer("Hard");
+                        trialList.Add(tempTrial);
+                    }
+
+                    for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
                         hardBlock1.Add(tempTrial);
@@ -732,7 +767,14 @@ public class ManagerScript : MonoBehaviour
 
                     List<trialContainer> easyBlock2 = new List<trialContainer>();
 
-                    for (int i=0; i < 36; i++)
+                   
+                    for (int i=0; i < 2; i++)
+                    {
+                        trialContainer tempTrial = new trialContainer("Easy");
+                        trialList.Add(tempTrial);
+                    }
+
+                    for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
                         easyBlock2.Add(tempTrial);
@@ -764,7 +806,13 @@ public class ManagerScript : MonoBehaviour
 
                     List<trialContainer> hardBlock2 = new List<trialContainer>();
 
-                    for (int i=0; i < 36; i++)
+                    for (int i=0; i < 2; i++)
+                    {
+                        trialContainer tempTrial = new trialContainer("Hard");
+                        trialList.Add(tempTrial);
+                    }
+
+                    for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
                         hardBlock2.Add(tempTrial);
@@ -800,7 +848,13 @@ public class ManagerScript : MonoBehaviour
 
                     List<trialContainer> hardBlock3 = new List<trialContainer>();
 
-                    for (int i=0; i < 36; i++)
+                    for (int i=0; i < 2; i++)
+                    {
+                        trialContainer tempTrial = new trialContainer("Hard");
+                        trialList.Add(tempTrial);
+                    }
+
+                    for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
                         hardBlock3.Add(tempTrial);
@@ -832,7 +886,13 @@ public class ManagerScript : MonoBehaviour
 
                     List<trialContainer> easyBlock3 = new List<trialContainer>();
 
-                    for (int i=0; i < 36; i++)
+                    for (int i=0; i < 2; i++)
+                    {
+                        trialContainer tempTrial = new trialContainer("Easy");
+                        trialList.Add(tempTrial);
+                    }
+
+                    for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
                         easyBlock3.Add(tempTrial);
@@ -864,7 +924,13 @@ public class ManagerScript : MonoBehaviour
 
                     List<trialContainer> hardBlock4 = new List<trialContainer>();
 
-                    for (int i=0; i < 36; i++)
+                    for (int i=0; i < 2; i++)
+                    {
+                        trialContainer tempTrial = new trialContainer("Hard");
+                        trialList.Add(tempTrial);
+                    }
+
+                    for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Hard");
                         hardBlock4.Add(tempTrial);
@@ -896,7 +962,13 @@ public class ManagerScript : MonoBehaviour
 
                     List<trialContainer> easyBlock4 = new List<trialContainer>();
 
-                    for (int i=0; i < 36; i++)
+                    for (int i=0; i < 2; i++)
+                    {
+                        trialContainer tempTrial = new trialContainer("Easy");
+                        trialList.Add(tempTrial);
+                    }
+
+                    for (int i=0; i < 34; i++)
                     {
                         trialContainer tempTrial = new trialContainer("Easy");
                         easyBlock4.Add(tempTrial);
@@ -1000,6 +1072,15 @@ public class ManagerScript : MonoBehaviour
 
         } else
             Application.Quit();
+    }
+
+
+    public static void RestoreTrialListFromPreviosSessionOfSubject (List<trialContainer> trialList2)
+    {
+        trialList.Clear();
+
+        ManagerScript.trialList = trialList2;
+
     }
 
     /// <summary>

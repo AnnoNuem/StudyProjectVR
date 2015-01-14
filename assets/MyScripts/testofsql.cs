@@ -112,6 +112,8 @@ public class testofsql : MonoBehaviour
 
     public static string SaveDynamicDifficultyEventString = "";
 
+    public static List<trialContainer> trialList2 = new List<trialContainer>();
+
     /// <summary>
     /// Basic initialization of SQLite This will be activated by the manager script 
     /// </summary>
@@ -207,6 +209,45 @@ public class testofsql : MonoBehaviour
         {
             SESSION_ID = QueryInt("SELECT Session_id FROM Session WHERE Subject_id = '" + SUBJECT_ID + "' AND SessionNumber = '" + session + "'");
 
+            mSQLString = "SELECT Type FROM Trialist WHERE Session_id = ( " +
+                "SELECT Session_id FROM Session WHERE Subject_id = ( " +
+                "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
+                ") AND SessionNumber =" + session +
+                ")  AND Done < 1; ";
+            Debug.Log("bla");
+            mCommand.CommandText = mSQLString;
+            mReader = mCommand.ExecuteReader();
+            while (mReader.Read())
+            {
+                trialContainer tempTrial = new trialContainer(mReader.GetString(0));
+                trialList2.Add(tempTrial);
+
+            }
+            mReader.Close();
+            ManagerScript.RestoreTrialListFromPreviosSessionOfSubject(trialList2);
+
+
+            mSQLString = "SELECT Triallist_id FROM Trialist WHERE Session_id = ( " +
+                "SELECT Session_id FROM Session WHERE Subject_id = ( " +
+                "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
+                ") AND SessionNumber =" + session +
+                ")  AND Done < 1 order  by rowid desc limit 1 ; ";
+
+            LAST_INSERTED_Triallist_ID = QueryInt(mSQLString);
+
+            mSQLString = "SELECT Triallist_id FROM Trialist WHERE Session_id = ( " +
+                "SELECT Session_id FROM Session WHERE Subject_id = ( " +
+                "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
+                ") AND SessionNumber =" + session +
+                ")  AND Done < 1 order  by rowid  limit 1 ; ";
+            
+            
+            
+            FIRST_INSERTED_Triallist_ID = QueryInt(mSQLString);
+
+
+
+            
             // if it exists, check if it is finished 
 
             //if exists and not finished, hmmm ... in theory, count the remaining trials and start the generation of a new
@@ -267,7 +308,6 @@ public class testofsql : MonoBehaviour
 
         if (argument == "success")
         {
-            Debug.Log("success");
             mSQLString = " UPDATE 'Trial' SET 'Success'=1 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + ", 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'=' " + StartTimePointing + "',  'EndTimePoining'=' " + EndTimePoining + "', 'EndTimeTrial'=' " + EndTimeTrial + "'  WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
             Debug.Log(mSQLString);
             ExecuteQuerry(mSQLString);
@@ -484,7 +524,10 @@ public class testofsql : MonoBehaviour
         if (!string.IsNullOrEmpty(SaveDynamicDifficultyEventString))
         {
             ExecuteBigQuerry(SaveDynamicDifficultyEventString);
+            SaveDynamicDifficultyEventString = "";
+
         }
+
     }
 
     public static void SaveDynamicDifficultyEvent (string DynamicDifficultyEventString)
@@ -502,7 +545,6 @@ public class testofsql : MonoBehaviour
             + NewSpeed + "');";
 
         SaveDynamicDifficultyEvent(mSQLString1);
-        SaveDynamicDifficultyEventString = "";
     }
 
     public static void UpdateAndIncrease_Current_Triallist_ID ()

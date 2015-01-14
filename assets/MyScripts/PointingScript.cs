@@ -59,6 +59,7 @@ public class PointingScript : MonoBehaviour
     /// The target 
     /// </summary>
     public Transform target;
+    public static GameObject  start;
 
     public static  float AbsoluteErrorAngle;
     public static  string EndTimePoining;
@@ -70,12 +71,23 @@ public class PointingScript : MonoBehaviour
     {
         displaytext = GameObject.Find("Displaytext");
         target = GameObject.Find("StartPoint").transform;
+
+
+        start = GameObject.Find("CenterEyeAnchor");
+
+    }
+
+    public static void ChangeTheObjectForDebugger ()
+    {
+        start = GameObject.Find("OVRPlayerController");
+
+        
     }
 
     /// <summary>
     /// Updates this instance. 
     /// </summary>
-    private void Update ()
+    void Update ()
     {
         if (ManagerScript.getState() == ManagerScript.states.pointing)
         {
@@ -83,8 +95,8 @@ public class PointingScript : MonoBehaviour
             {
                 //2d vector definations for angle calculation (we only take x and z coordinates)
                 Vector2 targetVector = new Vector2(target.position.x, target.position.z);
-                Vector2 transformVector = new Vector2(transform.position.x, transform.position.z);
-                Vector2 forwardVector = new Vector2(transform.forward.x, transform.forward.z);
+                Vector2 transformVector = new Vector2(start.transform.position.x, start.transform.position.z);
+                Vector2 forwardVector = new Vector2(start.transform.forward.x, start.transform.forward.z);
                 Vector2 targetDir = targetVector - transformVector;
                 angleBetween = Vector3.Angle(targetDir, forwardVector);
                 Vector3 cross = Vector3.Cross(targetDir, forwardVector);
@@ -100,10 +112,10 @@ public class PointingScript : MonoBehaviour
 
                 testofsql.UpdateTriallist(testofsql.CURRENT_TRIAL_ID.ToString());
                 testofsql.UpdateAndIncrease_Current_Triallist_ID();
+                CancelInvoke("toLongPoint");
 
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
 
-                CancelInvoke("toLongPoint");
                 PointFakeButton = false;
             }
         }

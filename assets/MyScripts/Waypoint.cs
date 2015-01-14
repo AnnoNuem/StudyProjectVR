@@ -63,7 +63,7 @@ public class Waypoint : MonoBehaviour
     /// <summary>
     /// The spawn distance 
     /// </summary>
-    private float spawnDistance = 36.0f; // How far away to spawn
+    private float spawnDistance = 30.0f; // How far away to spawn
 
     /// <summary>
     /// The move distance 
