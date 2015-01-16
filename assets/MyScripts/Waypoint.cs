@@ -363,6 +363,9 @@ public class Waypoint : MonoBehaviour
             displaytext.GetComponent<TextMesh>().text = "<--";
             Invoke("clearGUItext", 0.5f);
             HowOftenTurnedLeft++;
+
+            DegreeOfSpawn = - DegreeOfSpawn;
+
         } else //right
         {
             ManagerScript.CurrentOrientation = 1;
@@ -371,7 +374,12 @@ public class Waypoint : MonoBehaviour
             displaytext.GetComponent<TextMesh>().text = "-->";
             Invoke("clearGUItext", 0.5f);
             HowOftenTurnedRight++;
+
+
         }
+
+
+
     }
 
 
