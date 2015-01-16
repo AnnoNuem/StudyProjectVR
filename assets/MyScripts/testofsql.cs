@@ -13,6 +13,8 @@ using Mono.Data.SqliteClient;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using System;
+using System.IO;
 
 /// <summary>
 /// this class handles everything related to saving and retrieving data to the data base 
@@ -114,6 +116,11 @@ public class testofsql : MonoBehaviour
 
     public static List<trialContainer> trialList2 = new List<trialContainer>();
 
+    static string SQL_DB_LOCATION = @"URI=file:C:\temp\inlusio_data\InlusioDB.sqlite";
+    static string PathWhereToCopy = @"C:\Dropbox\inlusio_data\InlusioDB" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".sqlite";
+    static  string PathWhereToCopyBackup = @"C:\temp\inlusio_data\InlusioDB" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".sqlite";
+    static string SQLiteDbLocationFile = @"C:\temp\inlusio_data\InlusioDB.sqlite";
+
     /// <summary>
     /// Basic initialization of SQLite This will be activated by the manager script 
     /// </summary>
@@ -126,13 +133,13 @@ public class testofsql : MonoBehaviour
     public static void SQLiteInit ()
     {
         // the data base is here 
-        string SQL_DB_LOCATION = @"URI=file:C:\temp\inlusio_data\InlusioDB.sqlite";
+
         // we connect to the data base 
         mConnection = new SqliteConnection(SQL_DB_LOCATION);
         mCommand = mConnection.CreateCommand();
         mConnection.Open();
         ExecuteQuerry("PRAGMA page_size = " + "4096" + ";");
-        ExecuteQuerry("PRAGMA synchronous = " + "1" + ";");
+        ExecuteQuerry("PRAGMA synchronous = " + "0" + ";");
         mConnection.Close();
 
     }
@@ -362,7 +369,7 @@ public class testofsql : MonoBehaviour
         {
 
             string CreateStressor =
-                " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','DefeatedAtTime','DefeatableTimeWindow','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','ReactionTime','Trial_id' , 'DistanceToPlayerBeforeGone') VALUES"
+                " INSERT INTO 'Stressors' ('SpawnTime','StartDefeatTime','DefeatedAtTime','DefeatableTimeWindow','Defeated','RotationSpeed','ButtonToEarlyPushed','Type','Trial_id' , 'DistanceToPlayerBeforeGone', 'ReactionTime') VALUES"
                 + "(" 
                 + "'" + SpawnTime + "',"
                 + "'" + StartDefeatTime + "',"
@@ -373,9 +380,10 @@ public class testofsql : MonoBehaviour
                 + "'" + RotationSpeed + "',"
                 + "'" + ButtonToEarlyPushed + "',"
                 + "'" + Type + "',"
-                + "'" + "NULL" + "',"
                 + "'" + Trial_id + "',"
-                + "'" + DistanceToPlayerBeforeGone + "');";
+                + "'" + DistanceToPlayerBeforeGone + "',"
+                + "JULIANDAY(datetime(" + "'" + DefeatedAtTime + "'" + ")) - JULIANDAY(" + "'" + StartDefeatTime + "'" + ") *24*3600" +
+                ");";
 
             ExecuteQuerry(CreateStressor);
 
@@ -648,10 +656,7 @@ public class testofsql : MonoBehaviour
     /// <summary>
     /// Called when [destroy]. 
     /// </summary>
-    private void OnDestroy ()
-    {
-        SQLiteClose();
-    }
+  
 
     /// <summary>
     /// Called when [application quit]. 
@@ -678,5 +683,28 @@ public class testofsql : MonoBehaviour
         if (mConnection != null && mConnection.State != ConnectionState.Closed)
             mConnection.Close();
         mConnection = null;
+
+
+        try
+        {
+            
+            System.IO.File.Copy(SQLiteDbLocationFile, PathWhereToCopy);
+
+        } catch (Exception e)
+        { 
+            Debug.Log(e.ToString());
+
+
+            try
+            {
+                System.IO.File.Copy(SQLiteDbLocationFile, PathWhereToCopyBackup);
+            } catch (Exception e2)
+            {
+                Debug.Log(e2.ToString());
+            }
+        }
+
+
+
     }
 }
