@@ -33,7 +33,7 @@ public class ManagerScript : MonoBehaviour
     public static string CondtionTypeVariableInContainer;
 
     /// <summary>
-    /// The move scale
+    /// Multiplikator for player moving speed
     /// </summary>
     private static float moveScale;
 
@@ -57,87 +57,73 @@ public class ManagerScript : MonoBehaviour
     public enum states
     {
         /// <summary>
-        /// The start screen
+        /// The start screen 2D GUI the game begins with. Subject enters id and session number
         /// </summary>
         startScreen,
 
         /// <summary>
-        /// The walking
+        /// walking part for each trial. walking to first and second waypoint
         /// </summary>
         walking,
 
         /// <summary>
-        /// The pointing
+        /// State after reaching last waypoint. subject has to point back to origin
         /// </summary>
         pointing,
 
         /// <summary>
-        /// The blockover
+        /// State between two blocks of trials
         /// </summary>
         blockover,
 
         /// <summary>
-        /// The pause
+        /// Pause state whith pause 2D Gui displayed
         /// </summary>
         pause,
 
         /// <summary>
-        /// The end
+        /// State after all trials are finished
         /// </summary>
         end,
 
         /// <summary>
-        /// The start
+        /// state after stateScreen state. All trials and trialblocks are created. initialisation of game
         /// </summary>
         start,
 
         /// <summary>
-        /// The new trial
+        /// initialises a new trial 
         /// </summary>
         NewTrial
     }
 
-    // chiffre for identification, can be changed in start screen 
     /// <summary>
-    /// The chiffre
+	/// chiffre for identification, can be changed in start screen 
     /// </summary>
     public static string chiffre = "";
 
     /// <summary>
-    /// The state
+    /// Actual state for the main state machiene
     /// </summary>
     private static states state;
-
-    // session identifier, tree different sessions 
+	
     /// <summary>
-    /// The session
+	/// session identifier, two different sessions for tow ddifferent days with distinct trial order
     /// </summary>
     public static int session = 1 ;
 
-    //public list of trials
     /// <summary>
-    /// The trial list
+    /// List of the trials. are created in the start state and is used in new trial state to get a new trial
     /// </summary>
     public static List<trialContainer> trialList = new List<trialContainer>();
-
-    //static variable tracks what trial is in process
+	
     /// <summary>
-    /// The trial folder
+    /// true if trial is in process i.e. walking or pointint state
     /// </summary>
-    public static string trialFolder;
+    public static bool trialInProcess = false;
 
     /// <summary>
-    /// The parameter file
-    /// </summary>
-    public static string parameterFile = "";
-
-    /// <summary>
-    /// The trial i nprocess
-    /// </summary>
-    public static bool trialINprocess = false;
-
-    /// <summary>
-    /// The point task i nprocess
+    /// true if currently pointing
     /// </summary>
     public static bool pointTaskINprocess = false;
 
@@ -152,12 +138,12 @@ public class ManagerScript : MonoBehaviour
     public static float pointingTime = 0.0f;
 
     /// <summary>
-    /// The duplicate present
+    /// true if duplicate trials are in list
     /// </summary>
     private static bool duplicatePresent = true;
 
     /// <summary>
-    /// The aborted trials
+    /// number of aborted trials
     /// </summary>
     public static int abortedTrials = 0;
 
@@ -166,18 +152,15 @@ public class ManagerScript : MonoBehaviour
     /// </summary>
     public static int CurrentOrientation; // 0 is for left , 1 is for right
 
+	/// <summary>
+	/// can be "success" or "abort". saved in statistics to indicate if trial is successful or not
+	/// </summary>
     static string argument;
 
-
     /// <summary>
-    /// The trial missed
+    /// Truei if a trial is missed
     /// </summary>
     public static bool  TrialMissed = false;
-
-    /// <summary>
-    /// The temp123
-    /// </summary>
-    public static bool temp123 = false;
 
     /// <summary>
     /// The real trial number
@@ -192,42 +175,40 @@ public class ManagerScript : MonoBehaviour
     public static int NumberofTrialsStartet = 0;// 
 
     /// <summary>
-    /// The debugg
+    /// used to debuG the SQLite Database
     /// </summary>
     public static int debugg;
+
     /// <summary>
     /// The start time pointing
     /// </summary>
     private static string StartTimePointing;
+
     /// <summary>
     /// The end time trial
     /// </summary>
     private static string EndTimeTrial;
-
-    //public PauseCoroutine pClass;
-
+	
     /// <summary>
     /// Starts this instance.
     /// </summary>
     private void Start ()
     {
-        //pClass = new PauseCoroutine();
-        // first we do grab the controller and assign the moveScale in a tricky way
+        // first grab the controller and assign the moveScale
         GameObject pController = GameObject.Find("OVRPlayerController");
         OVRPlayerController controller = pController.GetComponent<OVRPlayerController>();
         controller.GetMoveScaleMultiplier(ref moveScale);
+		//TODO why this here?
+		controller.SetMoveScaleMultiplier(3.5f);
         
-        // here the trialFolder path is genrated, not clear why
-        trialFolder = Application.dataPath + @"\Trial" + (System.DateTime.Now).ToString("MMM-ddd-d-HH-mm-ss-yyyy");
-        testofsql.SQLiteInit(); // initialisation of the Data Base
-        GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); // dissable the stressor in the beginning
+		// initialisation of the Data Base
+        testofsql.SQLiteInit(); 
+
+		// dissable the stressor in the beginning
+        GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); 
         
-        ManagerScript.switchState(states.startScreen);
-        controller.SetMoveScaleMultiplier(3.5f);
-
-
-
-        
+		// show start screen and wait for user input by going to startScreen state
+        ManagerScript.switchState(states.startScreen);        
     }
 
     /// <summary>
@@ -253,9 +234,9 @@ public class ManagerScript : MonoBehaviour
         // Without stun and unstun, the aboutTrial was repeating itself in the case, the move button
         // was presssed. It is fixes like this
         Waypoint.numberOfSpheresReached = 0;
-        //Waypoint.SwitchStateToEnd();
+
         stun();
-        trialINprocess = false;
+        trialInProcess = false;
         Time.timeScale = 0;
 
         CameraFade.StartAlphaFade(Color.black, false, 2f, 0f); // why we need this again ?
@@ -289,15 +270,9 @@ public class ManagerScript : MonoBehaviour
                 ManagerScript.state = states.start;
 
                 // TODO why do we need it ?
-                ManagerScript.trialINprocess = true;
+                ManagerScript.trialInProcess = true;
 
                 //Not needed any more
-//                trialFolder = @"C:/temp/inlusio_data/subject_" + ManagerScript.chiffre;
-//
-//                if (!Directory.Exists(trialFolder))
-//                {
-//                    Directory.CreateDirectory(trialFolder);
-//                }
 
                 generateTrials();
 
@@ -410,12 +385,6 @@ public class ManagerScript : MonoBehaviour
                 if (trialList [realTrialNumber - 1].CondtionTypeVariableInContainer != "BLOCKOVER")
                 {
                     testofsql.UpdateTrial(argument, PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
-//                    ResetTrialValues();
-//
-//                    PointingScript.AbsoluteErrorAngle = -9999;
-//                    PointingScript.angleBetween = -9999;
-
-
                 }
 
                 timetoPointingStage = 0.0f;
@@ -430,7 +399,7 @@ public class ManagerScript : MonoBehaviour
                     CondtionTypeVariableInContainer = trialList [realTrialNumber].CondtionTypeVariableInContainer;
                 }
 
-                trialINprocess = true;
+                trialInProcess = true;
                 Time.timeScale = 0;
 
                 testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
