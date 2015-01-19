@@ -308,7 +308,7 @@ public class testofsql : MonoBehaviour
     {
         if (argument == "abort")
         {
-            mSQLString = " UPDATE 'Trial' SET 'Success'=0 , 'AbsoluteErrorAngle'=" + AbsoluteErrorAngle + ", 'OverShoot'= " + OverShoot + ", 'ErrorAngle'= " + ErrorAngle + ", 'StartTimePointing'= '" + StartTimePointing + "',  'EndTimePoining'=' " + EndTimePoining + "', 'EndTimeTrial'= '" + EndTimeTrial + " ' WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
+            mSQLString = " UPDATE 'Trial' SET 'Success'=0,  'EndTimeTrial'= '" + EndTimeTrial + " ' WHERE _rowid_=" + CURRENT_TRIAL_ID + ";";
             ExecuteQuerry(mSQLString);
 
         }

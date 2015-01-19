@@ -410,6 +410,12 @@ public class ManagerScript : MonoBehaviour
                 if (trialList [realTrialNumber - 1].CondtionTypeVariableInContainer != "BLOCKOVER")
                 {
                     testofsql.UpdateTrial(argument, PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
+//                    ResetTrialValues();
+//
+//                    PointingScript.AbsoluteErrorAngle = -9999;
+//                    PointingScript.angleBetween = -9999;
+
+
                 }
 
                 timetoPointingStage = 0.0f;

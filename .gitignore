@@ -16,8 +16,7 @@
 
 # No trial data
 *.csv
-*.csv.meta
-Trial*
+*.meta
 
 *.exe
 
