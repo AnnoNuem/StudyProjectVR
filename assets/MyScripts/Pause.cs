@@ -152,7 +152,7 @@ public class Pause : VRGUI
             GUILayout.Label(NumberOfYellowSpaw + " balls spawned.");
             GUILayout.Label("You defeated " + NumberOfYellowDefeted + " balls.");
             GUILayout.Label("You missed " + NumberOfYellowMissed + " balls.");
-            GUILayout.Label("You did " + ManagerScript.realTrialNumber + " trials.");
+            GUILayout.Label("You did " + (ManagerScript.realTrialNumber - 1) + " trials.");
             GUILayout.Label("You failed " + ManagerScript.abortedTrials + " trials.");
             GUILayout.Label("Your avarage error angle is " + PointingScript.avarageError + " degree.");
             GUILayout.EndVertical();

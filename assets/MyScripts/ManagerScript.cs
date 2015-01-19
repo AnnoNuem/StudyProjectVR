@@ -48,6 +48,9 @@ public class ManagerScript : MonoBehaviour
     /// </summary>
     public static float generatedAngle;
 
+    /// <summary>
+    /// The use trial for ingame statistics.
+    /// </summary>
     public static bool useTrialForIngameStatistics = false;
 
     // states for state machine to describe in which experiment state we are 
@@ -98,7 +101,7 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-	/// chiffre for identification, can be changed in start screen 
+    /// chiffre for identification, can be changed in start screen 
     /// </summary>
     public static string chiffre = "";
 
@@ -108,7 +111,7 @@ public class ManagerScript : MonoBehaviour
     private static states state;
 	
     /// <summary>
-	/// session identifier, two different sessions for tow ddifferent days with distinct trial order
+    /// session identifier, two different sessions for tow ddifferent days with distinct trial order
     /// </summary>
     public static int session = 1 ;
 
@@ -152,9 +155,9 @@ public class ManagerScript : MonoBehaviour
     /// </summary>
     public static int CurrentOrientation; // 0 is for left , 1 is for right
 
-	/// <summary>
-	/// can be "success" or "abort". saved in statistics to indicate if trial is successful or not
-	/// </summary>
+    /// <summary>
+    /// can be "success" or "abort". saved in statistics to indicate if trial is successful or not
+    /// </summary>
     static string argument;
 
     /// <summary>
@@ -198,16 +201,16 @@ public class ManagerScript : MonoBehaviour
         GameObject pController = GameObject.Find("OVRPlayerController");
         OVRPlayerController controller = pController.GetComponent<OVRPlayerController>();
         controller.GetMoveScaleMultiplier(ref moveScale);
-		//TODO why this here?
-		controller.SetMoveScaleMultiplier(3.5f);
+        //TODO why this here?
+        controller.SetMoveScaleMultiplier(3.5f);
         
-		// initialisation of the Data Base
+        // initialisation of the Data Base
         testofsql.SQLiteInit(); 
 
-		// dissable the stressor in the beginning
+        // dissable the stressor in the beginning
         GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); 
         
-		// show start screen and wait for user input by going to startScreen state
+        // show start screen and wait for user input by going to startScreen state
         ManagerScript.switchState(states.startScreen);        
     }
 
@@ -261,19 +264,20 @@ public class ManagerScript : MonoBehaviour
 
         switch (newState)
         {
+        //show start screen
             case states.startScreen:
                 Time.timeScale = 1;
                 ManagerScript.state = states.startScreen;
                 break;
 
+        // init game and generat trailList
             case states.start:
                 ManagerScript.state = states.start;
 
                 // TODO why do we need it ?
                 ManagerScript.trialInProcess = true;
 
-                //Not needed any more
-
+                //generate the trialList
                 generateTrials();
 
 
@@ -290,6 +294,8 @@ public class ManagerScript : MonoBehaviour
                     GameObject.Find("OVRPlayerController").GetComponent<DebugPlayer>().enabled = false;
                 }
 
+
+                // init sql databank
                 // lets create the initial savings 
                 testofsql.InitialSavingsToDB(chiffre, Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString(), session.ToString(), trialList);
                 Debug.Log(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
@@ -298,6 +304,7 @@ public class ManagerScript : MonoBehaviour
 
                 break;
 
+        // switch to walking from start to waypoint to waypoint state
             case states.walking:
 
                 //fades Screen
@@ -306,10 +313,15 @@ public class ManagerScript : MonoBehaviour
                 ((OVRScreenFade)(GameObject.Find("LeftEyeAnchor").GetComponent("OVRScreenFade"))).OnEnable();
                 ((OVRScreenFade)(GameObject.Find("RightEyeAnchor").GetComponent("OVRScreenFade"))).OnEnable();
 
+                //reset player position and rotation
                 ResetPositionRorationPlayerWaypoint();
 
+                //set timescale to normal timescale
                 Time.timeScale = 1;
+
                 ManagerScript.state = states.walking;
+
+                // set waypoints for new trial
                 ((Waypoint)(GameObject.Find("WaypointBlue").GetComponent("Waypoint"))).switchState(Waypoint.WayPointStates.NewTrial);
 
                 //Activate or deactivate the Stressor according to the current CondtionTypeVariableInContainer
@@ -326,17 +338,22 @@ public class ManagerScript : MonoBehaviour
                     GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor();
 
                 }
+
+                //unstun the player. i.e. player can move 
                 unStun();
 
                 break;
-
+            
+        //switch to pause
             case states.pause:
 
                 ManagerScript.state = states.pause;
+
+                //TODO @petr rename your functions properly! 
                 ((Waypoint)(GameObject.Find("WaypointBlue").GetComponent("Waypoint"))).STOPFUCKINGINVOKE();
 
+                // get start time of pause
                 Pause.StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
-
 
                 Debug.Log("state pause manager script");
                 if (debugg == 1)
@@ -347,27 +364,31 @@ public class ManagerScript : MonoBehaviour
 
                 break;
 
+        // switch to pointing
             case states.pointing:
+                // normal timescale
                 Time.timeScale = 1;
+                // stop stressors
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
+                // notify pointing script which handles pointing of the swith to pointing state
                 ((PointingScript)(GameObject.Find("OVRPlayerController").GetComponent("PointingScript"))).NewPointing();
+                // player shall not move
                 stun();
                 ManagerScript.state = states.pointing;
+                // get time
                 StartTimePointing = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
                 break;
 
-            case states.NewTrial:
-                    
-               
-
-
+        // start a new trial
+            case states.NewTrial:         
+                // stop stressors
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).switchState(Stressor.yellowSphereStates.end);
                 ManagerScript.state = states.NewTrial;
-
+                //get time
                 EndTimeTrial = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
-
+                // increment number of trials
                 NumberofTrialsStartet++;
-
+                //check if trial was successful
                 if (!TrialMissed)
                 {
                     realTrialNumber++;
@@ -376,33 +397,37 @@ public class ManagerScript : MonoBehaviour
 
                 } else
                 {
-
                     TrialMissed = false;
                     argument = "abort";
 
                 }
 
+                // if it was a real trial save statistics to sql database
                 if (trialList [realTrialNumber - 1].CondtionTypeVariableInContainer != "BLOCKOVER")
                 {
                     testofsql.UpdateTrial(argument, PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
                 }
 
+                // reset timers
                 timetoPointingStage = 0.0f;
                 pointingTime = 0.0f;
-
+            
+                //TODO for what do we need fakebuton
                 ((PointingScript)(GameObject.Find("OVRPlayerController").GetComponent("PointingScript"))).PointFakeButton = false;
                 Debug.Log(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
 
                 if (trialList [realTrialNumber + 1].CondtionTypeVariableInContainer != "ENDTRIAL")
                 {
-
                     CondtionTypeVariableInContainer = trialList [realTrialNumber].CondtionTypeVariableInContainer;
                 }
 
+                //start new trial
                 trialInProcess = true;
                 Time.timeScale = 0;
-
+                //create databank entry for new trial
                 testofsql.CreateTrial(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), NumberofTrialsStartet.ToString(), realTrialNumber.ToString(), CondtionTypeVariableInContainer);
+
+                // check if trial should be used for statisitcs. this is the case if it is no training trial
                 if (trialList [realTrialNumber].isTraining)
                 {
                     useTrialForIngameStatistics = false;
@@ -410,41 +435,50 @@ public class ManagerScript : MonoBehaviour
                 {
                     useTrialForIngameStatistics = true;
                 }
+
+                // if the new trial is blockover switch state to blockover
                 if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER")
                 {
                     switchState(states.blockover);
                     Pause.SaveValues();
+                    // if new trial is endtrial swith state to endtrial
                 } else if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL")
                 {
                     testofsql.UpdateSession(); // this session is over
                     Pause.SaveValues();
                     switchState(states.end);
+                    // if new state is a real trial switch to walking state
                 } else
                     switchState(states.walking);
                 break;
 
+        // switch to blockover state
             case states.blockover:
+                // increase trial number since blockover is also trial in triallist
                 realTrialNumber++;
                 ManagerScript.state = states.blockover;
 
+                // save dynamic difficulty propertoes to database
                 testofsql.SetDynamicDifficulty(Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString());
                 testofsql.SaveDynamicDifficultyEvent();
                 testofsql.SaveDynamicDifficultyEvent2();
-                // if we have not reached the end trial
-                // alternativly one could check if 
+   
+                // if the next trial is the end trial swith state to new state
                 if (trialList.Count == (realTrialNumber + 1))
                 {
                     switchState(states.NewTrial);
                     // there it will go to the end state
                 } else
                 {
+                    // else show the pause menu from where a new trial is started afte unpause
                     Debug.Log(trialList.Count);
                     Debug.Log(realTrialNumber);
-
                     Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 }
+                // save statistics of last trial to database
                 testofsql.UpdateTrial("success", PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
 
+                // reset dynamic difficulty
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).ResetBallsCounterForDynamicDifficulty();
 
                 if (debugg == 1)
@@ -454,6 +488,7 @@ public class ManagerScript : MonoBehaviour
 
                 break;
 
+        //switch to end state
             case states.end:
                 ManagerScript.state = states.end;
                 Pause.PauseBetweenBlocks("EXPOVER");
@@ -464,7 +499,7 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets the position and roration of player and the waypoint.
+    /// Resets the position and rotation of player and the waypoint.
     /// </summary>
     private static void ResetPositionRorationPlayerWaypoint ()
     {
@@ -476,7 +511,7 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Stuns this instance.
+    /// stuns the player. i.e. he can not move
     /// </summary>
     private static void stun ()
     {
@@ -486,7 +521,7 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Uns the stun.
+    /// Unstuns the player. i.e. he can move
     /// </summary>
     private static void unStun ()
     {
@@ -505,18 +540,24 @@ public class ManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Generates the trials.
+    /// This method creates a list of the trials for the experiment depending on the session number
+    /// TrialContainers are created containing a certain type of trial and are concatenated into the list "trialList".
     /// </summary>
     public static void generateTrials ()
     {
+        // create trail container with a blockover trial which is inserted after a block of trials is over
         trialContainer blockTrial = new trialContainer("BLOCKOVER");
+        // create trial container for end trial which is added at the end of the trial list and is the endstate of the experiment
         trialContainer endTrial = new trialContainer("ENDTRIAL");
 
+        // for the first session there are 10 Explain trial, 40 PreBaseLine Trials, 5 Easy training trails, 5 hard training trails
+        // 45 hard trials, 45 easy trials, and a shuffeled block of 2 easy, 34 easy and 9 easy false trails. then the same for hard and\
+        // false-hard trials. at the end 40 post baseline trials are added
         if (session == 1)
         {
             trialList.Add(blockTrial);
 
-
+            // 10 explaining trials
             for (int i=0; i < 10; i++)
             {
                 trialContainer tempTrial = new trialContainer("Explain");
@@ -524,65 +565,65 @@ public class ManagerScript : MonoBehaviour
                 trialList.Add(tempTrial);
             }
             trialList.Add(blockTrial);
+
+            //40 prebaseline trials
             for (int i=0; i < 40; i++)
             {
                 trialContainer tempTrial = new trialContainer("PreBaseline");
                 tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
-
             trialList.Add(blockTrial);
 
+            // 5 easy training trials
             for (int i=0; i < 5; i++)
             {
                 trialContainer tempTrial = new trialContainer("Easy");
                 tempTrial.isTraining = true;
                 trialList.Add(tempTrial);
             }
-
             trialList.Add(blockTrial);
 
+            // 5 hard training trials
             for (int i=0; i < 5; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Hard");
                 tempTrial.isTraining = true;
                 trialList.Add(tempTrial);
             }
-
             trialList.Add(blockTrial);
 
+            // 45 easy trials
             for (int i=0; i < 45; i++)
             {
                 trialContainer tempTrial = new trialContainer("Easy");
                 tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
-
             trialList.Add(blockTrial);
 
+            // 45 hard trials
             for (int i=0; i < 45; i++)
             { //20
                 trialContainer tempTrial = new trialContainer("Hard");
                 tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
-
             trialList.Add(blockTrial);
 
+            // first block of easy/easyfalse trials
             List<trialContainer> easyBlock1 = new List<trialContainer>();
 
-
-
+            //TODO why do we have to and 34 easy trials and not 36 easy trials
             for (int i=0; i < 2; i++)
-            { //20
+            {
                 trialContainer tempTrial = new trialContainer("Easy");
                 tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
 
-
             for (int i=0; i < 34; i++)
-            { //20
+            {
                 trialContainer tempTrial = new trialContainer("Easy");
                 tempTrial.isTraining = false;
                 easyBlock1.Add(tempTrial);
@@ -595,6 +636,7 @@ public class ManagerScript : MonoBehaviour
                 easyBlock1.Add(tempTrial);
             }
 
+            // unefficient way to make shure that no false trail is followed by another false trail
             while (duplicatePresent)
             {
                 easyBlock1.Shuffle();
@@ -613,6 +655,8 @@ public class ManagerScript : MonoBehaviour
             trialList.Add(blockTrial);
             duplicatePresent = true;
 
+
+            // first block of hard/falsehard trials
             List<trialContainer> hardBlock1 = new List<trialContainer>();
 
             for (int i=0; i < 2; i++)
@@ -637,6 +681,7 @@ public class ManagerScript : MonoBehaviour
                 hardBlock1.Add(tempTrial);
             }
 
+            // unefficient way to make shure that no false trail is followed by another false trail
             while (duplicatePresent)
             {
                 hardBlock1.Shuffle();
@@ -661,30 +706,31 @@ public class ManagerScript : MonoBehaviour
                 tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
+           
             trialList.Add(blockTrial);
+            // add end trial
+            trialList.Add(endTrial);
+            //TODO why is this here two times
             trialList.Add(endTrial);
 
-            trialList.Add(endTrial);
-
+            // session 2 starts with 40 prebaseline trials followed by an easy/easyfalse block with 45 trials and an  equal hard/hardfalse block
+            // followed by 40 postBaseline trials
         } else if (session == 2)
         {
-
-
             trialList.Add(blockTrial);
 
-
+            // 40 prebaseline trials
             for (int i=0; i < 40; i++)
             {
                 trialContainer tempTrial = new trialContainer("PreBaseline");
                 tempTrial.isTraining = false;
                 trialList.Add(tempTrial);
             }
-
             trialList.Add(blockTrial);
 
+            // randomly generate order of hard/hardfalse and easy/easyfalse trails (very efficient and short, NOT)
             List<int> orderNumbers = new List<int> { 1, 2 };
             orderNumbers.Shuffle();
-
             switch (orderNumbers [1])
             {
                 case 1:
@@ -1038,24 +1084,12 @@ public class ManagerScript : MonoBehaviour
             trialList.Add(endTrial);
             trialList.Add(endTrial);
 
+            // session for debuging with onlye few trials 
         } else if (session == 666)
         {
 
             trialList.Add(blockTrial);
 
-//            for (int i=0; i < 5; i++)
-//            {
-//                trialContainer tempTrial = new trialContainer("Explain");
-//                trialList.Add(tempTrial);
-//            }
-//            trialList.Add(blockTrial);
-//            for (int i=0; i < 5; i++)
-//            {
-//                trialContainer tempTrial = new trialContainer("PreBaseline");
-//                trialList.Add(tempTrial);
-//            }
-//            trialList.Add(blockTrial);
-//            for (int i=0; i < 5; i++)
             {
                 trialContainer tempTrial = new trialContainer("Easy");
                 trialList.Add(tempTrial);
@@ -1096,19 +1130,25 @@ public class ManagerScript : MonoBehaviour
             trialList.Add(endTrial);
             trialList.Add(endTrial);
 
+            // quit if no session number is entered
         } else
             Application.Quit();
     }
 
 
+    /// <summary>
+    /// Restores the trial list from previos session of subject.
+    /// </summary>
+    /// <param name="trialList2">Trial list2.</param>
     public static void RestoreTrialListFromPreviosSessionOfSubject (List<trialContainer> trialList2)
     {
         trialList.Clear();
-
         ManagerScript.trialList = trialList2;
 
     }
 
+
+    //TODO for what is this needed
     /// <summary>
     /// Uns the pause.
     /// </summary>

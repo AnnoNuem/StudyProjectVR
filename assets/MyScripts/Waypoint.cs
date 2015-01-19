@@ -460,9 +460,6 @@ public class Waypoint : MonoBehaviour
 
     public void STOPFUCKINGINVOKE ()
     {
-
         CancelInvoke("toLong");
-
-
     }
 }
