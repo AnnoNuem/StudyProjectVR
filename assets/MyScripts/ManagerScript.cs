@@ -103,7 +103,7 @@ public class ManagerScript : MonoBehaviour
     /// <summary>
     /// chiffre for identification, can be changed in start screen 
     /// </summary>
-    public static string chiffre = "";
+    public static string chiffre;
 
     /// <summary>
     /// Actual state for the main state machiene
@@ -209,7 +209,7 @@ public class ManagerScript : MonoBehaviour
 
         // dissable the stressor in the beginning
         GameObject.Find("StressorYellow").GetComponent<Stressor>().EndStressor(); 
-        
+
         // show start screen and wait for user input by going to startScreen state
         ManagerScript.switchState(states.startScreen);        
     }
@@ -352,7 +352,7 @@ public class ManagerScript : MonoBehaviour
                 //TODO @petr rename your functions properly! 
                 ((Waypoint)(GameObject.Find("WaypointBlue").GetComponent("Waypoint"))).STOPFUCKINGINVOKE();
 
-                // get start time of pause
+                // save the start time of pause
                 Pause.StartTimePaused = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
 
                 Debug.Log("state pause manager script");

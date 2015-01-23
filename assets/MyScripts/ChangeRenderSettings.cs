@@ -16,32 +16,32 @@ using UnityEngine;
 public class ChangeRenderSettings : MonoBehaviour
 {
     /// <summary>
-    /// The fog color normal 
+    /// The fog color for standard ambient light conditions
     /// </summary>
     private Color fogColorNormal = Color.black;
 
     /// <summary>
-    /// The fog color easy 
+    /// The fog color easy ambient light conditions
     /// </summary>
     private Color fogColorEasy = new Color(0.0F / 255, 13F / 255, 2F / 255);
 
     /// <summary>
-    /// The fog color hard 
+    /// The fog color hard ambient light conditions
     /// </summary>
     private Color fogColorHard = new Color(15F / 255, 0.0F / 255, 0.0F / 255);
 
     /// <summary>
-    /// The ambient light color normal 
+    /// The standard ambient light color 
     /// </summary>
     private Color ambientLightColorNormal = new Color(82F / 255, 82F / 255, 82F / 255);
 
     /// <summary>
-    /// The ambient light color easy 
+    /// The ambient light color for easy, false easy ... trials 
     /// </summary>
     private Color ambientLightColorEasy = new Color(61F / 255, 145F / 255, 81F / 255);
 
     /// <summary>
-    /// The ambient light color hard 
+    /// The ambient light color for hard, false hard ... trials 
     /// </summary>
     private Color ambientLightColorHard = new Color(145F / 255, 61F / 255, 61F / 255);
 
@@ -61,20 +61,13 @@ public class ChangeRenderSettings : MonoBehaviour
     /// </summary>
     private void Start ()
     {
+        //find the two oculus cameras on startup
         cam1 = GameObject.Find("RightEyeAnchor").camera;
         cam2 = GameObject.Find("LeftEyeAnchor").camera;
     }
 
-    // Update is called once per frame 
     /// <summary>
-    /// Updates this instance. 
-    /// </summary>
-    private void Update ()
-    {
-    }
-
-    /// <summary>
-    /// Switches the easy. 
+    /// Switches the easy ambient light conditions
     /// </summary>
     public void switchEasy ()
     {
@@ -83,12 +76,13 @@ public class ChangeRenderSettings : MonoBehaviour
         RenderSettings.fogDensity = 0.02f;
         RenderSettings.fog = true;
         RenderSettings.fogMode = FogMode.ExponentialSquared;
+        // the backgorund color is also set to the fog colour else the background would be visible in the "sky" where no fog is present
         cam1.backgroundColor = fogColorEasy;
         cam2.backgroundColor = fogColorEasy;
     }
 
     /// <summary>
-    /// Switches the hard. 
+    /// Switches the hard ambient light conditions
     /// </summary>
     public void switchHard ()
     {
@@ -97,12 +91,13 @@ public class ChangeRenderSettings : MonoBehaviour
         RenderSettings.fogDensity = 0.02f;
         RenderSettings.fog = true;
         RenderSettings.fogMode = FogMode.ExponentialSquared;
+        // the backgorund color is also set to the fog colour else the background would be visible in the "sky" where no fog is present
         cam1.backgroundColor = fogColorHard;
         cam2.backgroundColor = fogColorHard;
     }
 
     /// <summary>
-    /// Switches the normal. 
+    /// Switches the normal ambient light conditions
     /// </summary>
     public void switchNormal ()
     {
@@ -111,12 +106,8 @@ public class ChangeRenderSettings : MonoBehaviour
         RenderSettings.fogDensity = 0.02f;
         RenderSettings.fog = true;
         RenderSettings.fogMode = FogMode.ExponentialSquared;
+        // the backgorund color is also set to the fog colour else the background would be visible in the "sky" where no fog is present
         cam1.backgroundColor = fogColorNormal;
         cam2.backgroundColor = fogColorNormal;
-    }
-
-    public void switchBlackForSeconds ( float sec )
-    {
-        Debug.Log("BlackScreen");
     }
 }
