@@ -53,9 +53,9 @@ public class testofsql : MonoBehaviour
     /// </summary>
     public bool mCreateNewTable = false;
 
-    // the id of the currentTriallistEnty is the Last_Triallist_id_Putted_In - current TrialNumber lol 
     /// <summary>
     /// The last_ triallist_id_ putted_ in 
+    /// the id of the currentTriallistEnty is the Last_Triallist_id_Putted_In - current TrialNumber lol 
     /// </summary>
     public static int Last_Triallist_id_Putted_In;
 
@@ -117,9 +117,12 @@ public class testofsql : MonoBehaviour
     public static List<trialContainer> trialList2 = new List<trialContainer>();
 
     static string SQL_DB_LOCATION = @"URI=file:C:\temp\inlusio_data\InlusioDB.sqlite";
-    static string PathWhereToCopy = @"C:\Dropbox\inlusio_data\InlusioDB" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".sqlite";
-    static  string PathWhereToCopyBackup = @"C:\temp\inlusio_data\InlusioDB" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".sqlite";
+    static string PathWhereToCopy = @"C:\Dropbox\inlusio_data\InlusioDB" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".sqlite";
+    static  string PathWhereToCopyBackup = @"C:\temp\inlusio_data\InlusioDB" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".sqlite";
     static string SQLiteDbLocationFile = @"C:\temp\inlusio_data\InlusioDB.sqlite";
+
+    static int LAST_INSERTED_Block_ID;
+    static int FIRST_INSERTED_Block_ID;
 
     /// <summary>
     /// Basic initialization of SQLite This will be activated by the manager script 
@@ -196,7 +199,7 @@ public class testofsql : MonoBehaviour
 
             ExecuteQuerry(" INSERT INTO Session (Subject_ID, Timestamp, SessionNumber) VALUES ("
                 + "'" + SUBJECT_ID + "','"
-                + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "','"
+                + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "','"
                 + session + "'" + ");");
             SESSION_ID = QueryInt("SELECT last_insert_rowid()");
 
@@ -212,18 +215,41 @@ public class testofsql : MonoBehaviour
             ExecuteBigQuerry(SqlComands);
             LAST_INSERTED_Triallist_ID = QueryInt("SELECT last_insert_rowid()");
             FIRST_INSERTED_Triallist_ID = LAST_INSERTED_Triallist_ID - trialList.Count;
+
+            SqlComands = "";
+
+            for (int i=0; i < ManagerScript.Blocks.Count; i++)
+            {
+
+                SqlComands = SqlComands + "INSERT INTO Block (Type,session_id,BlockNumber) VALUES ("
+                    + "'" + ManagerScript.Blocks [i] + "','"
+                    + "'" + SESSION_ID + "','"
+                    + i++ + "');";
+            }
+
+            LAST_INSERTED_Block_ID = QueryInt("SELECT last_insert_rowid()");
+            FIRST_INSERTED_Block_ID = LAST_INSERTED_Block_ID - ManagerScript.Blocks.Count;
+
+
+
         } else
         {
+            // check if session exists, if yes 
+
+
+            // lets get the the session_id that allready exists
             SESSION_ID = QueryInt("SELECT Session_id FROM Session WHERE Subject_id = '" + SUBJECT_ID + "' AND SessionNumber = '" + session + "'");
 
+            // get the sting list
             mSQLString = "SELECT Type FROM Trialist WHERE Session_id = ( " +
                 "SELECT Session_id FROM Session WHERE Subject_id = ( " +
                 "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
                 ") AND SessionNumber =" + session +
                 ")  AND Done < 1; ";
-            Debug.Log("bla");
+
             mCommand.CommandText = mSQLString;
             mReader = mCommand.ExecuteReader();
+            // as long as it is not empty get the current type of trial and create a new triaContainer entry, than add it to the trialList2 list
             while (mReader.Read())
             {
                 trialContainer tempTrial = new trialContainer(mReader.GetString(0));
@@ -231,10 +257,11 @@ public class testofsql : MonoBehaviour
 
             }
             mReader.Close();
-            ManagerScript.RestoreTrialListFromPreviosSessionOfSubject(trialList2);
+            // restore the lost trials
+            ManagerScript.RestoreTrialListFromPreviosSessionOfSubject(trialList2); 
 
 
-            mSQLString = "SELECT Triallist_id FROM Trialist WHERE Session_id = ( " +
+            mSQLString = "SELECT Trialist_id FROM Trialist WHERE Session_id = ( " +
                 "SELECT Session_id FROM Session WHERE Subject_id = ( " +
                 "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
                 ") AND SessionNumber =" + session +
@@ -242,26 +269,34 @@ public class testofsql : MonoBehaviour
 
             LAST_INSERTED_Triallist_ID = QueryInt(mSQLString);
 
-            mSQLString = "SELECT Triallist_id FROM Trialist WHERE Session_id = ( " +
+            mSQLString = "SELECT Trialist_id FROM Trialist WHERE Session_id = ( " +
                 "SELECT Session_id FROM Session WHERE Subject_id = ( " +
                 "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
                 ") AND SessionNumber =" + session +
                 ")  AND Done < 1 order  by rowid  limit 1 ; ";
             
-            
-            
+                        
             FIRST_INSERTED_Triallist_ID = QueryInt(mSQLString);
 
-
-
+            mSQLString = "SELECT block_id FROM Block WHERE session_id = ( " +
+                "SELECT Session_id FROM Session WHERE Subject_id = ( " +
+                "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
+                ") AND SessionNumber =" + session +
+                ")  AND done < 1 order  by rowid desc limit 1 ; ";
             
-            // if it exists, check if it is finished 
+            LAST_INSERTED_Block_ID = QueryInt(mSQLString);
+            
+            mSQLString = "SELECT block_id FROM Block WHERE session_id = ( " +
+                "SELECT Session_id FROM Session WHERE Subject_id = ( " +
+                "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
+                ") AND SessionNumber =" + session +
+                ")  AND done < 1 order  by rowid  limit 1 ; ";
+            
+            
+            FIRST_INSERTED_Block_ID = QueryInt(mSQLString);
 
-            //if exists and not finished, hmmm ... in theory, count the remaining trials and start the generation of a new
-            //trial list
-            // currentlly lets just start over , also this is not a niec sollution, we need to redo it ...
 
-            // best case, the session is created, lets get the 
+
         }
 
         #endregion
@@ -278,7 +313,7 @@ public class testofsql : MonoBehaviour
     public static void CreateTrial (string StartTimeTrial, string TrialNumber, string RealTrialNumber, string Type)
     {
         Current_Triallist_ID = FIRST_INSERTED_Triallist_ID + ManagerScript.realTrialNumber;
-        ExecuteQuerry(" INSERT INTO Trial (Session_id,StartTimeTrial,Triallist_id,TrialNumber,RealTrialNumber,Type) VALUES ( "
+        ExecuteQuerry(" INSERT INTO Trial (Session_id,StartTimeTrial,Trialist_id,TrialNumber,RealTrialNumber,Type) VALUES ( "
             + "'" + SESSION_ID + "','"
             + StartTimeTrial + "','"
             + Current_Triallist_ID + "','"
@@ -413,7 +448,7 @@ public class testofsql : MonoBehaviour
             + GlobalCoordinats + "','"
             + TransformRotation + "','"
             + NumberInTrial + "','"
-            + CURRENT_TRIAL_ID.ToString() + "');";
+            + CURRENT_TRIAL_ID + "');";
         ExecuteQuerry(CreateWaypoint);
 
         CurentWaypointId = QueryInt(("SELECT last_insert_rowid()"));
@@ -422,7 +457,7 @@ public class testofsql : MonoBehaviour
     public static void UpdateWaypoint (string reached, string TimeWhenReached)
     {
 
-        mSQLString = " UPDATE 'Waypoints' SET 'reached'= '" + reached + "','TimeWhenReached'= '" + TimeWhenReached + "'  WHERE _rowid_=" + CurentWaypointId.ToString() + ";";
+        mSQLString = " UPDATE 'Waypoints' SET 'reached'= '" + reached + "','TimeWhenReached'= '" + TimeWhenReached + "'  WHERE _rowid_=" + CurentWaypointId + ";";
         ExecuteQuerry(mSQLString);
     }
 
@@ -557,7 +592,7 @@ public class testofsql : MonoBehaviour
 
     public static void UpdateAndIncrease_Current_Triallist_ID ()
     {
-        string sqlquerry = " UPDATE 'Trialist' SET 'Done'= 1" + " WHERE Triallist_id = '" + Current_Triallist_ID + "';";
+        string sqlquerry = " UPDATE 'Trialist' SET 'Done'= 1" + " WHERE Trialist_id = '" + Current_Triallist_ID + "';";
         ExecuteQuerry(sqlquerry);
         Current_Triallist_ID++;
     }
@@ -585,9 +620,10 @@ public class testofsql : MonoBehaviour
         mCommand.ExecuteNonQuery();
     }
 
-    // yellow spheres and blue spheres do call this function to add the proper querry 
+     
     /// <summary>
     /// Sums the incoming querries up. 
+    /// yellow spheres and blue spheres do call this function to add the proper querry
     /// </summary>
     /// <param name="incomingString"> The incoming string. </param>
     public void SumTheIncomingQuerriesUp (string incomingString)
@@ -595,10 +631,11 @@ public class testofsql : MonoBehaviour
         comandSumToBeExecudedInTheEndOfEachTrial = comandSumToBeExecudedInTheEndOfEachTrial + incomingString;
     }
 
-    // at the end of the trial we will write the SumQurry of blue and yellow spheres still not sure
-    // how to update but maybe i can use last insert as an argument ??? CHECK IF YOU CAN DO THIS
+   
     /// <summary>
     /// Executes the sum querry. 
+    /// at the end of the trial we will write the SumQurry of blue and yellow spheres still not sure
+    //  how to update but maybe i can use last insert as an argument ??? CHECK IF YOU CAN DO THIS
     /// </summary>
     /// <param name="SumQuerry"> The sum querry. </param>
     public void ExecuteSumQuerry (string SumQuerry)
@@ -653,10 +690,7 @@ public class testofsql : MonoBehaviour
         return number;
     }
 
-    /// <summary>
-    /// Called when [destroy]. 
-    /// </summary>
-  
+
 
     /// <summary>
     /// Called when [application quit]. 
@@ -688,7 +722,7 @@ public class testofsql : MonoBehaviour
         try
         {
             
-            System.IO.File.Copy(SQLiteDbLocationFile, PathWhereToCopy);
+            File.Copy(SQLiteDbLocationFile, PathWhereToCopy);
 
         } catch (Exception e)
         { 
@@ -697,7 +731,7 @@ public class testofsql : MonoBehaviour
 
             try
             {
-                System.IO.File.Copy(SQLiteDbLocationFile, PathWhereToCopyBackup);
+                File.Copy(SQLiteDbLocationFile, PathWhereToCopyBackup);
             } catch (Exception e2)
             {
                 Debug.Log(e2.ToString());

@@ -458,7 +458,7 @@ public class Waypoint : MonoBehaviour
         displaytext.GetComponent<TextMesh>().text = "";
     }
 
-    public void STOPFUCKINGINVOKE ()
+    public void CancelInvokeToLong ()
     {
         CancelInvoke("toLong");
     }
