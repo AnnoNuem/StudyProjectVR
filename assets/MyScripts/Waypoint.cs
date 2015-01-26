@@ -9,6 +9,7 @@
 // </summary>
 // *********************************************************************** 
 using UnityEngine;
+using UnityEngine.UI;
 using URandom;
 
 /// <summary>
@@ -360,7 +361,10 @@ public class Waypoint : MonoBehaviour
             ManagerScript.CurrentOrientation = 0;
             transform.Rotate(0, 360 - DegreeOfSpawn, 0, Space.Self);
             transform.localPosition += transform.forward * spawnDistance;
-            displaytext.GetComponent<TextMesh>().text = "<--";
+            //TODO shal we keep this?
+            // show left arrow to tell subject that waypoint is to the left
+            ((RawImage)GameObject.Find("left_arrow").GetComponent("RawImage")).enabled = true;
+            //displaytext.GetComponent<TextMesh>().text = "<--";
             Invoke("clearGUItext", 0.5f);
             HowOftenTurnedLeft++;
 
@@ -371,7 +375,10 @@ public class Waypoint : MonoBehaviour
             ManagerScript.CurrentOrientation = 1;
             transform.Rotate(0, DegreeOfSpawn, 0, Space.Self);
             transform.localPosition += transform.forward * spawnDistance;
-            displaytext.GetComponent<TextMesh>().text = "-->";
+            //TODO shal we keep this?
+            // show right arrow to tell subject that waypoint is to the right
+            ((RawImage)GameObject.Find("right_arrow").GetComponent("RawImage")).enabled = true;
+            //displaytext.GetComponent<TextMesh>().text = "-->";
             Invoke("clearGUItext", 0.5f);
             HowOftenTurnedRight++;
 
@@ -455,6 +462,11 @@ public class Waypoint : MonoBehaviour
     /// </summary>
     private void clearGUItext ()
     {
+        // dont show arrows anymore
+        //TODO shal we keep this?
+        ((RawImage)GameObject.Find("left_arrow").GetComponent("RawImage")).enabled = false;
+        ((RawImage)GameObject.Find("right_arrow").GetComponent("RawImage")).enabled = false;
+        // empty text field
         displaytext.GetComponent<TextMesh>().text = "";
     }
 

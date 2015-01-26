@@ -43,3 +43,7 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
+  - name: 1
+    userID: 1
+    uniqueID: 1457854681
+    locked: 0
