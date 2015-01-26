@@ -11,7 +11,6 @@
 using System.Collections;
 using UnityEngine;
 using XInputDotNetPure;
-using System;
 
 
 /// <summary>
@@ -641,6 +640,7 @@ public class Stressor : MonoBehaviour
             case yellowSphereStates.notDefeatedInTime:
                 Pause.ChangeNumberOfYellowMissed();
                 Invoke("startExp", timeTillExp); // this activates the data saving
+
                 s = yellowSphereStates.notDefeatedInTime;
                 if (ManagerScript.CondtionTypeVariableInContainer == "Easy")
                 {
@@ -719,6 +719,12 @@ public class Stressor : MonoBehaviour
         return s;
     }
 
+    public static void CancelDetonator ()
+    {
+
+
+
+    }
 
 
     // this function is executed by the testofsql stuff, in case we need to revive the old stats

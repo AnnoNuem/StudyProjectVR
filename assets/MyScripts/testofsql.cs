@@ -123,7 +123,7 @@ public class testofsql : MonoBehaviour
 
     static int LAST_INSERTED_Block_ID;
     static int FIRST_INSERTED_Block_ID;
-
+    static int CURRENT_BLOCK_ID;
     /// <summary>
     /// Basic initialization of SQLite This will be activated by the manager script 
     /// </summary>
@@ -222,14 +222,18 @@ public class testofsql : MonoBehaviour
             {
 
                 SqlComands = SqlComands + "INSERT INTO Block (Type,session_id,BlockNumber) VALUES ("
-                    + "'" + ManagerScript.Blocks [i] + "','"
-                    + "'" + SESSION_ID + "','"
-                    + i++ + "');";
+                    + "'" + ManagerScript.Blocks [i] + "','" +
+                    + SESSION_ID + "','"
+                    + SUBJECT_ID + session + i + "');";
+                Debug.Log(SqlComands);
             }
+
+
+            ExecuteBigQuerry(SqlComands);
 
             LAST_INSERTED_Block_ID = QueryInt("SELECT last_insert_rowid()");
             FIRST_INSERTED_Block_ID = LAST_INSERTED_Block_ID - ManagerScript.Blocks.Count;
-
+            CURRENT_BLOCK_ID = FIRST_INSERTED_Block_ID - 1; // the minus one is, because in the beginning there is a blockover trial, so we dont miss stuff
 
 
         } else
@@ -261,7 +265,7 @@ public class testofsql : MonoBehaviour
             ManagerScript.RestoreTrialListFromPreviosSessionOfSubject(trialList2); 
 
 
-            mSQLString = "SELECT Trialist_id FROM Trialist WHERE Session_id = ( " +
+            mSQLString = "SELECT Triallist_id FROM Trialist WHERE Session_id = ( " +
                 "SELECT Session_id FROM Session WHERE Subject_id = ( " +
                 "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
                 ") AND SessionNumber =" + session +
@@ -269,7 +273,7 @@ public class testofsql : MonoBehaviour
 
             LAST_INSERTED_Triallist_ID = QueryInt(mSQLString);
 
-            mSQLString = "SELECT Trialist_id FROM Trialist WHERE Session_id = ( " +
+            mSQLString = "SELECT Triallist_id FROM Trialist WHERE Session_id = ( " +
                 "SELECT Session_id FROM Session WHERE Subject_id = ( " +
                 "SELECT Subject_id FROM Subject WHERE Subject_Number =" + chiffre +
                 ") AND SessionNumber =" + session +
@@ -294,7 +298,7 @@ public class testofsql : MonoBehaviour
             
             
             FIRST_INSERTED_Block_ID = QueryInt(mSQLString);
-
+            CURRENT_BLOCK_ID = FIRST_INSERTED_Block_ID; // here no -1 needed
 
 
         }
@@ -313,13 +317,14 @@ public class testofsql : MonoBehaviour
     public static void CreateTrial (string StartTimeTrial, string TrialNumber, string RealTrialNumber, string Type)
     {
         Current_Triallist_ID = FIRST_INSERTED_Triallist_ID + ManagerScript.realTrialNumber;
-        ExecuteQuerry(" INSERT INTO Trial (Session_id,StartTimeTrial,Trialist_id,TrialNumber,RealTrialNumber,Type) VALUES ( "
+        ExecuteQuerry(" INSERT INTO Trial (Session_id,StartTimeTrial,Triallist_id,TrialNumber,RealTrialNumber,Type,block_id) VALUES ( "
             + "'" + SESSION_ID + "','"
             + StartTimeTrial + "','"
             + Current_Triallist_ID + "','"
             + TrialNumber + "','"
             + RealTrialNumber + "','"
-            + Type + "');");
+            + Type + "','"
+            + CURRENT_BLOCK_ID + "');");
 
         // after we create a trial, we need to knew about it 
         CURRENT_TRIAL_ID = QueryInt("SELECT last_insert_rowid()");
@@ -482,15 +487,28 @@ public class testofsql : MonoBehaviour
     {
         AfterBlockNumber++;
 
-        string CreateStatisticsInGameEntryAfterBlock = "INSERT INTO 'StaticsInGame'('Session','NumberOfYellowSpawn','NumberOfYellowDefeted','NumberOfYellowMissed','abortedTrials','avarageError','AfterBlockNumber') VALUES ('" + SESSION_ID + "','"
+        string CreateStatisticsInGameEntryAfterBlock = "INSERT INTO 'StaticsInGame'('Session','NumberOfYellowSpawn','NumberOfYellowDefeted','NumberOfYellowMissed','abortedTrials','avarageError','block_id') VALUES ('" + SESSION_ID + "','"
             + NumberOfYellowSpawn + "','"
             + NumberOfYellowDefeted + "','"
             + NumberOfYellowMissed + "','"
             + abortedTrials + "','"
             + avarageError + "','"
-            + AfterBlockNumber + "');";
+            + CURRENT_BLOCK_ID + "');";
 
         ExecuteQuerry(CreateStatisticsInGameEntryAfterBlock);
+    }
+
+    public static void NextBlock ()
+    {
+
+        // lets set the previous block to success
+        mSQLString = " UPDATE 'Block' SET 'Done'=1  WHERE _rowid_=" + CURRENT_BLOCK_ID + ";";
+        ExecuteQuerry(mSQLString);
+
+
+        CURRENT_BLOCK_ID++;
+        Debug.Log(CURRENT_BLOCK_ID);
+
     }
 
     /// <summary>
@@ -592,7 +610,7 @@ public class testofsql : MonoBehaviour
 
     public static void UpdateAndIncrease_Current_Triallist_ID ()
     {
-        string sqlquerry = " UPDATE 'Trialist' SET 'Done'= 1" + " WHERE Trialist_id = '" + Current_Triallist_ID + "';";
+        string sqlquerry = " UPDATE 'Trialist' SET 'Done'= 1" + " WHERE Triallist_id = '" + Current_Triallist_ID + "';";
         ExecuteQuerry(sqlquerry);
         Current_Triallist_ID++;
     }

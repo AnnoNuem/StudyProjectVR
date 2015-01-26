@@ -438,8 +438,9 @@ public class ManagerScript : MonoBehaviour
                 // if the new trial is blockover switch state to blockover
                 if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "BLOCKOVER")
                 {
-                    switchState(states.blockover);
                     Pause.SaveValues();
+
+                    switchState(states.blockover);
                     // if new trial is endtrial swith state to endtrial
                 } else if (trialList [realTrialNumber].CondtionTypeVariableInContainer == "ENDTRIAL")
                 {
@@ -457,11 +458,17 @@ public class ManagerScript : MonoBehaviour
                 realTrialNumber++;
                 ManagerScript.state = states.blockover;
 
+
                 // save dynamic difficulty propertoes to database
                 testofsql.SetDynamicDifficulty(Stressor.EasyDelay.ToString(), Stressor.HardDealy.ToString());
                 testofsql.SaveDynamicDifficultyEvent();
                 testofsql.SaveDynamicDifficultyEvent2();
+
+                // save statistics of last trial to database
+                testofsql.UpdateTrial("success", PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
    
+                testofsql.NextBlock();
+
                 // if the next trial is the end trial swith state to new state
                 if (trialList.Count == (realTrialNumber + 1))
                 {
@@ -473,8 +480,7 @@ public class ManagerScript : MonoBehaviour
                 
                     Pause.PauseBetweenBlocks(trialList [realTrialNumber + 1].CondtionTypeVariableInContainer);
                 }
-                // save statistics of last trial to database
-                testofsql.UpdateTrial("success", PointingScript.AbsoluteErrorAngle.ToString(), PointingScript.angleBetween.ToString(), ManagerScript.CurrentOrientation.ToString(), StartTimePointing, PointingScript.EndTimePoining, EndTimeTrial);
+
 
                 // reset dynamic difficulty
                 ((Stressor)(GameObject.Find("StressorYellow").GetComponent("Stressor"))).ResetBallsCounterForDynamicDifficulty();
