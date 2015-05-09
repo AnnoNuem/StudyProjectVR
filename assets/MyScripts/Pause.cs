@@ -1,14 +1,4 @@
-﻿// *********************************************************************** Assembly :
-// Assembly-CSharp Author : razial Created : 12-29-2014
-// 
-// Last Modified By : razial Last Modified On : 01-07-2015 ***********************************************************************
-// <copyright file="Pause.cs" company="INLUSIO">
-//     Copyright (c) INLUSIO. All rights reserved. 
-// </copyright>
-// <summary>
-// </summary>
-// *********************************************************************** 
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Class Pause. 
@@ -98,7 +88,7 @@ public class Pause : VRGUI
             {
                 // set trial as missed in manager script. Paused trial could yield to different results thus they are not included into
                 // analysis of the experiment
-                ManagerScript.TrialMissed = true; 
+                ManagerScript.TrialMissed = true;
                 //therefore  a new trial is startet
                 ManagerScript.switchState(ManagerScript.states.NewTrial);
                 // save the timepoint when the pause is ended
@@ -111,7 +101,8 @@ public class Pause : VRGUI
                 {
                     testofsql.CreatePause(StartTimePaused, EndTimePaused);
                 }
-            } else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
+            }
+            else if (!paused && ManagerScript.getState() != ManagerScript.states.startScreen && ManagerScript.getState() != ManagerScript.states.pointing && ManagerScript.getState() != ManagerScript.states.end && ManagerScript.getState() != ManagerScript.states.start)
             {
                 // switch to pause
                 paused = true;
@@ -120,8 +111,8 @@ public class Pause : VRGUI
             //TODO why do we need this thing?
             FakePauseButton = false;
         }
-    
-    
+
+
         // block used only for debugging
         //TODO shall we delete this? it does nothing what is not done above
         if (paused && ManagerScript.debugg == 1)
@@ -166,7 +157,8 @@ public class Pause : VRGUI
 
             GUILayout.EndVertical();
             GUILayout.EndArea();
-        } else
+        }
+        else
         {
             GUI.enabled = false;
         }
@@ -209,7 +201,7 @@ public class Pause : VRGUI
     /// Pauses the experiment between trial blocks and at the end of the experiment and sets an appropriate pause message
     /// </summary>
     /// <param name="NextBlockType"> Type of the next block. </param>
-    public static void PauseBetweenBlocks (string NextBlockType)
+    public static void PauseBetweenBlocks ( string NextBlockType )
     {
         paused = true;
         if (NextBlockType.Contains("Easy") || NextBlockType.Contains("Easy-False"))
